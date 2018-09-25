@@ -236,6 +236,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1379266636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1150398410182144, guid: 67c0e62ccb82a480382e1e0b642d247a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1626585038}
+--- !u!114 &1379266637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1379266636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a0f43c4b1b44f4fbab8ea9138c8ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  thrustForce: 0
+  rb2D: {fileID: 0}
+  horizontal: 0
+  vertical: 0
+  renderers: []
+  isWrappingX: 0
+  isWrappingY: 0
+--- !u!114 &1379266638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1379266636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1ca8670596a42a2b323e649eb65851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  jumpForce: 300
+  isJumping: 0
 --- !u!1001 &1626585038
 Prefab:
   m_ObjectHideFlags: 0

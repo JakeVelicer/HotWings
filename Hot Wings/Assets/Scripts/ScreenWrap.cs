@@ -73,13 +73,13 @@ public class ScreenWrap : MonoBehaviour {
 
         if (newPostion.y > 1 || newPostion.y < 0)
         {
-            newPostion.y = -newPostion.y;
+            newPostion.y = +newPostion.y;
 
             isWrappingY = true;
 
 
-        }
-        transform.position = newPostion;
+        } 
+        transform.position=newPostion;
 
 
 
