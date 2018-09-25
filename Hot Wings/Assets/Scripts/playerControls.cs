@@ -18,7 +18,7 @@ public class playerControls : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
         {
             isJumping = true;
-            GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce);
+            GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpForce);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -29,7 +29,7 @@ public class playerControls : MonoBehaviour {
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         }
     }
-    void OnCollisionEnter(Collision collider)
+    void OnCollisionEnter2D (Collision2D collider)
     {
         if (collider.gameObject.tag == "Ground")
             isJumping = false;
