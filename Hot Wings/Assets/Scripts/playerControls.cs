@@ -15,16 +15,16 @@ public class playerControls : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             isJumping = true;
             GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpForce);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         }

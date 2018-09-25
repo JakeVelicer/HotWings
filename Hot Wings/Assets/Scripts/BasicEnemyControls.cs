@@ -30,7 +30,6 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		Movement();
 		ChaseTarget();
-		AttackPhase ();
 		
 	}
 
@@ -59,8 +58,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			CanChase = true;
 			ChaseDirection();
 		}
-		else CanChase = false;
+		else {
+			CanChase = false;
+			AttackPhase();
 
+		}
 	}
 
 	// Determines the direction the object faces when chasing

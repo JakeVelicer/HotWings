@@ -34,10 +34,10 @@ public class BasicBullet : MonoBehaviour {
 
 		//Rb.AddForce (Vector3.right * Speed);
 		if (ShootRight == true) {
-		transform.Translate(Vector3.right * Time.deltaTime * Speed);
+		transform.Translate (Vector3.right * Time.deltaTime * Speed);
 		}
 		else if (ShootRight == false) {
-		transform.Translate(Vector3.left * Time.deltaTime * Speed);
+		transform.Translate (Vector3.left * Time.deltaTime * Speed);
 		}
 		
 	}
