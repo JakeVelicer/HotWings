@@ -105,8 +105,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChaseRange: 10
+  FireRange: 3
   MovementSpeed: 10
   ToTheRight: 0
+  Projectile1: {fileID: 0}
 --- !u!212 &212719007059225900
 SpriteRenderer:
   m_ObjectHideFlags: 1
