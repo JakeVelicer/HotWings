@@ -8,14 +8,17 @@ public class BasicEnemyControls : MonoBehaviour {
 	private Transform Target;
 	private bool CanChase;
 	public float ChaseRange = 10;
+	public float FireRange = 3;
 	public float MovementSpeed = 0;
 	public bool ToTheRight;
+	public GameObject Projectile1;
 
 	// Use this for initialization
 	void Start () {
 
 		// Gets the Rigidbody of the game object this script is on
 		Rigidbody = GetComponent<Rigidbody2D> ();
+		//BasicAttack = GetComponent<BasicEnemyAttack> ();
 		
 	}
 	
@@ -27,10 +30,11 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		Movement();
 		ChaseTarget();
+		AttackPhase ();
 		
 	}
 
-	// Controls the actual moevment of the object
+	// Controls the actual movement of the object
 	void Movement () {
 
 		// Checks if it is allowed to chase the player
@@ -38,19 +42,20 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
-			Rigidbody.AddForce (MovementSpeed * new Vector2 (-1,0));
+			transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
 			}
 			else if (ToTheRight == true) {
-			Rigidbody.AddForce (MovementSpeed * new Vector2 (1,0));
+			transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
 			}
-
+			//Rigidbody.AddForce (MovementSpeed * new Vector2 (1,0));
 		}
 	}
 
 	// Determines if the range of the player is close enough to be chased
 	void ChaseTarget () {
 
-		if (Vector3.Distance(Target.position, transform.position) <= ChaseRange) {
+		if (Vector3.Distance(Target.position, transform.position) <= ChaseRange &&
+		Vector3.Distance(Target.position, transform.position) >= FireRange) {
 			CanChase = true;
 			ChaseDirection();
 		}
@@ -62,7 +67,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	void ChaseDirection () {
 
 		if (Target.position.x > transform.position.x + 1) {
-
 			transform.localScale = new Vector3(-1, 1, 1);
 			ToTheRight = true;
 		}
@@ -70,5 +74,16 @@ public class BasicEnemyControls : MonoBehaviour {
 			transform.localScale = new Vector3(1, 1, 1);
 			ToTheRight = false;
 		}
+	}
+
+	void AttackPhase () {
+
+		if (ToTheRight == true) {
+		Instantiate (Projectile1, transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+		}
+		else if (ToTheRight == false) {
+		Instantiate (Projectile1, transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+		}
+
 	}
 }
