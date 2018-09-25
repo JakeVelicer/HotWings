@@ -126,7 +126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.89
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
       propertyPath: m_LocalPosition.z
@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
@@ -168,7 +168,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4622810067361452, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.61
+      value: -2.98
       objectReference: {fileID: 0}
     - target: {fileID: 4622810067361452, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
       propertyPath: m_LocalPosition.z
@@ -192,25 +192,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4622810067361452, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114940188864123562, guid: d62788a7fb26e40db98802210c0ed941,
-        type: 2}
-      propertyPath: Projectile1
-      value: 
-      objectReference: {fileID: 1758883060856794, guid: 7b381063d79604686b6f9f6b88be5fa4,
-        type: 2}
-    - target: {fileID: 114940188864123562, guid: d62788a7fb26e40db98802210c0ed941,
-        type: 2}
-      propertyPath: MovementSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
-      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -289,7 +270,7 @@ Transform:
   m_LocalScale: {x: 0.22, y: 0.22, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1563541533
 GameObject:
@@ -405,7 +386,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4570626415208250, guid: a9f6da1981ee7410ea6d8ecd2a4df89e, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1334521897254648, guid: a9f6da1981ee7410ea6d8ecd2a4df89e, type: 2}
       propertyPath: m_TagString

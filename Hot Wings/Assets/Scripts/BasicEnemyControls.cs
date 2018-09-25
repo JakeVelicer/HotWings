@@ -7,9 +7,11 @@ public class BasicEnemyControls : MonoBehaviour {
 	private Rigidbody2D Rigidbody;
 	private Transform Target;
 	private bool CanChase;
-	public float ChaseRange = 10;
-	public float FireRange = 3;
-	public float MovementSpeed = 0;
+	public float MovementSpeed;
+	public float ChaseRange;
+	public float FireRange;
+	public float ProjectileSpeed;
+	private float CoolDownTimer = 0;
 	public bool ToTheRight;
 	public GameObject Projectile1;
 
@@ -50,18 +52,28 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 	}
 
-	// Determines if the range of the player is close enough to be chased
 	void ChaseTarget () {
 
+		// Determines if the range of the player is close enough to be chased
 		if (Vector3.Distance(Target.position, transform.position) <= ChaseRange &&
-		Vector3.Distance(Target.position, transform.position) >= FireRange) {
+		Vector3.Distance(Target.position, transform.position) > FireRange) {
 			CanChase = true;
 			ChaseDirection();
 		}
+		// Tells the player to attack if close enough
+		else if (Vector3.Distance(Target.position, transform.position) <= FireRange) {
+			CanChase = false;
+     		if (CoolDownTimer <= 0) {
+				AttackPhase();
+				CoolDownTimer = 1;
+			}
+			CoolDownTimer -= Time.deltaTime;
+			ChaseDirection();
+		}
+		// Does nothing if out of range of chasing and attacking, will roam eventually
 		else {
 			CanChase = false;
-			AttackPhase();
-
+			CoolDownTimer = 0;
 		}
 	}
 
@@ -78,14 +90,19 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 	}
 
+	// Instantiates a chosen projectile in the scene and propels it
 	void AttackPhase () {
 
 		if (ToTheRight == true) {
-		Instantiate (Projectile1, transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+			GameObject Projectile = Instantiate (Projectile1, transform.position, 
+			Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
 		else if (ToTheRight == false) {
-		Instantiate (Projectile1, transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+			GameObject Projectile = Instantiate (Projectile1, transform.position, 
+			Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
-
+	
 	}
 }
