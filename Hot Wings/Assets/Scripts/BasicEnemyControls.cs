@@ -7,19 +7,22 @@ public class BasicEnemyControls : MonoBehaviour {
 	private Rigidbody2D Rigidbody;
 	private Transform Target;
 	private bool CanChase;
+
 	public float MovementSpeed;
 	public float ChaseRange;
 	public float FireRange;
 	public float ProjectileSpeed;
 	private float CoolDownTimer = 0;
+	
 	public bool ToTheRight;
 	public GameObject Projectile1;
+	public int AlientType;
 
 	// Use this for initialization
 	void Start () {
 
 		// Gets the Rigidbody of the game object this script is on
-		Rigidbody = GetComponent<Rigidbody2D> ();
+		//Rigidbody = GetComponent<Rigidbody2D> ();
 		//BasicAttack = GetComponent<BasicEnemyAttack> ();
 		
 	}
@@ -63,12 +66,40 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Tells the player to attack if close enough
 		else if (Vector3.Distance(Target.position, transform.position) <= FireRange) {
 			CanChase = false;
-     		if (CoolDownTimer <= 0) {
-				AttackPhase();
-				CoolDownTimer = 1;
+			switch (AlientType) {
+				case 2: 
+     				if (CoolDownTimer <= 0) {
+						AttackPhase1();
+						CoolDownTimer = 1;
+					}
+					CoolDownTimer -= Time.deltaTime;
+					ChaseDirection();
+					break;
+				case 3:
+     				if (CoolDownTimer <= 0) {
+						AttackPhase1();
+						CoolDownTimer = 1;
+					}
+					CoolDownTimer -= Time.deltaTime;
+					ChaseDirection();
+					break;
+				case 4:
+     				if (CoolDownTimer <= 0) {
+						AttackPhase2();
+						CoolDownTimer = 1;
+					}
+					CoolDownTimer -= Time.deltaTime;
+					ChaseDirection();
+					break;
+				case 5:
+     				if (CoolDownTimer <= 0) {
+						AttackPhase1();
+						CoolDownTimer = 0.2f;
+					}
+					CoolDownTimer -= Time.deltaTime;
+					ChaseDirection();
+					break;
 			}
-			CoolDownTimer -= Time.deltaTime;
-			ChaseDirection();
 		}
 		// Does nothing if out of range of chasing and attacking, will roam eventually
 		else {
@@ -91,7 +122,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	// Instantiates a chosen projectile in the scene and propels it
-	void AttackPhase () {
+	void AttackPhase1 () {
 
 		if (ToTheRight == true) {
 			GameObject Projectile = Instantiate (Projectile1, transform.position, 
@@ -104,5 +135,22 @@ public class BasicEnemyControls : MonoBehaviour {
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
 	
+	}
+
+	void AttackPhase2 () {
+
+		if (ToTheRight == true) {
+			GameObject Projectile = Instantiate (Projectile1, transform.position + new Vector3(0.86f, 0.24f, 0), 
+			Quaternion.identity) as GameObject;
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
+		}
+		else if (ToTheRight == false) {
+			GameObject Projectile = Instantiate (Projectile1, transform.position + new Vector3(-0.86f, 0.24f, 0), 
+			Quaternion.identity) as GameObject;
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
+		}
+
 	}
 }
