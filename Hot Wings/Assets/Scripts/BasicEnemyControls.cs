@@ -12,10 +12,12 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float ChaseRange;
 	public float FireRange;
 	public float ProjectileSpeed;
+	public float ProjectileHeight;
 	private float CoolDownTimer = 0;
 	
 	public bool ToTheRight;
-	public GameObject Projectile1;
+	public GameObject BulletObject;
+	public GameObject BombObject;
 	public int AlientType;
 
 	// Use this for initialization
@@ -70,7 +72,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				case 2: 
      				if (CoolDownTimer <= 0) {
 						AttackPhase1();
-						CoolDownTimer = 1;
+						CoolDownTimer = 1.2f;
 					}
 					CoolDownTimer -= Time.deltaTime;
 					ChaseDirection();
@@ -78,7 +80,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				case 3:
      				if (CoolDownTimer <= 0) {
 						AttackPhase1();
-						CoolDownTimer = 1;
+						CoolDownTimer = 1.0f;
 					}
 					CoolDownTimer -= Time.deltaTime;
 					ChaseDirection();
@@ -86,7 +88,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				case 4:
      				if (CoolDownTimer <= 0) {
 						AttackPhase2();
-						CoolDownTimer = 1;
+						CoolDownTimer = 1.5f;
 					}
 					CoolDownTimer -= Time.deltaTime;
 					ChaseDirection();
@@ -125,12 +127,12 @@ public class BasicEnemyControls : MonoBehaviour {
 	void AttackPhase1 () {
 
 		if (ToTheRight == true) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position, 
+			GameObject Projectile = Instantiate (BulletObject, transform.position, 
 			Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
 		else if (ToTheRight == false) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position, 
+			GameObject Projectile = Instantiate (BulletObject, transform.position, 
 			Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
@@ -140,13 +142,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	void AttackPhase2 () {
 
 		if (ToTheRight == true) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position + new Vector3(0.86f, 0.24f, 0), 
+			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.86f, 0.24f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
 		else if (ToTheRight == false) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position + new Vector3(-0.86f, 0.24f, 0), 
+			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(-0.86f, 0.24f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
