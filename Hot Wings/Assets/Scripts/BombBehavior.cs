@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BombBehavior : MonoBehaviour {
 
-	Animator ExplodeAnim;
+	private Animator ExplodeAnim;
 	public float Timer;
 	private bool PlayAnim;
 
