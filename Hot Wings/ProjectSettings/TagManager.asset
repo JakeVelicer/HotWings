@@ -21,10 +21,10 @@ TagManager:
   - Wind
   - firePepper
   - waterPepper
-  - electricPepper
   - icePepper
   - earthPepper
   - windPepper
+  - shockPepper
   layers:
   - Default
   - TransparentFX

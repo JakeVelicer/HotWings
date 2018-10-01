@@ -198,6 +198,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 1;
                 pepperB = "firePepper";
             }
+            Destroy(collider);
         }
         if (collider.gameObject.tag == "waterPepper")
         {
@@ -211,6 +212,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 2;
                 pepperB = "waterPepper";
             }
+            Destroy(collider);
         }
         if (collider.gameObject.tag == "icePepper")
         {
@@ -224,6 +226,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 3;
                 pepperB = "icePepper";
             }
+            Destroy(collider);
         }
         if (collider.gameObject.tag == "shockPepper")
         {
@@ -237,6 +240,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 4;
                 pepperB = "shockPepper";
             }
+            Destroy(collider);
         }
         if (collider.gameObject.tag == "earthPepper")
         {
@@ -250,6 +254,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 5;
                 pepperB = "earthPepper";
             }
+            Destroy(collider);
         }
         if (collider.gameObject.tag == "windPepper")
         {
@@ -263,6 +268,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 6;
                 pepperB = "windPepper";
             }
+            Destroy(collider);
         }
         if (collider.gameObject.tag == "buffPepper")
         {
@@ -276,6 +282,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 7;
                 pepperB = "buffPepper";
             }
+            Destroy(collider);
         }
         if (collider.gameObject.tag == "enemyFist")
         {
