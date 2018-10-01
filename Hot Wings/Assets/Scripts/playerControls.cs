@@ -17,6 +17,8 @@ public class playerControls : MonoBehaviour {
     public int pepperIndexA = 1;
     public int pepperIndexB;
 
+    private int health = 500;
+    public bool isImmune = false;
 
     public bool facingRight = true;
     public GameObject playerFireShot;
@@ -167,6 +169,11 @@ public class playerControls : MonoBehaviour {
         yield return new WaitForSeconds(1.0f);
         canShoot = true;
     }
+    public IEnumerator iFrames()
+    {
+       yield return new WaitForSeconds(1.0f);
+        isImmune = false;
+    }
 
     void OnCollisionEnter2D(Collision2D collider)
     {
@@ -264,6 +271,61 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 7;
                 pepperB = "buffPepper";
             }
+        }
+        if (collider.gameObject.tag == "enemyFist")
+        {
+            if (!isImmune)
+            {
+                isImmune = true;
+                health -= 3;
+            }
+            StartCoroutine(iFrames());
+
+        }
+        if (collider.gameObject.tag == "enemyShotT1")
+        {
+            if (!isImmune)
+            {
+                isImmune = true;
+                health -= 5;
+            }
+            StartCoroutine(iFrames());
+        }
+        if (collider.gameObject.tag == "enemyShotT2")
+        {
+            if (!isImmune)
+            {
+                isImmune = true;
+                health -= 5;
+            }
+            StartCoroutine(iFrames());
+        }
+        if (collider.gameObject.tag == "enemyShotT3")
+        {
+            if (!isImmune)
+            {
+                isImmune = true;
+                health -= 20;
+            }
+            StartCoroutine(iFrames());
+        }
+        if (collider.gameObject.tag == "enemyExplosion")
+        {
+            if (!isImmune)
+            {
+                isImmune = true;
+                health -= 10;
+            }
+            StartCoroutine(iFrames());
+        }
+        if (collider.gameObject.tag == "enemyDeathRay")
+        {
+            if (!isImmune)
+            {
+                isImmune = true;
+                health -= 30;
+            }
+            StartCoroutine(iFrames());
         }
     }
 
