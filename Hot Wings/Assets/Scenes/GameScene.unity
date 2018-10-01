@@ -662,6 +662,11 @@ Prefab:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 184746483}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: scoreDisplay
+      value: 
+      objectReference: {fileID: 1315522728}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
@@ -1083,6 +1088,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 592334540}
+--- !u!114 &1315522728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114461949727734384, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1538901871}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1318200782
 GameObject:
   m_ObjectHideFlags: 0

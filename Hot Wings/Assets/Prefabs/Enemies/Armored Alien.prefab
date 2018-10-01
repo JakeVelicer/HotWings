@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainController: {fileID: 0}
   EnemyHealth: 40
+  enemyValue: 50
   MovementSpeed: 6
   ChaseRange: 12
   FireRange: 6

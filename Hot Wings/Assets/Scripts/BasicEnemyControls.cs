@@ -9,7 +9,8 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameController MainController;
 
 	public float EnemyHealth;
-	public float MovementSpeed;
+    public int enemyValue;
+    public float MovementSpeed;
 	public float ChaseRange;
 	public float FireRange;
 	public float ProjectileSpeed;
@@ -17,7 +18,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float CoolDown;
 	private float CoolDownTimer = 0;
 
-	private bool CanChase;
+    private bool CanChase;
 	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
 	public GameObject BulletObject;
@@ -43,6 +44,8 @@ public class BasicEnemyControls : MonoBehaviour {
 		ChaseTarget();
 
 		if (EnemyHealth <= 0) {
+
+            Target.GetComponent<playerControls>().score += enemyValue; 
 			MainController.EnemiesLeft--;
 			Destroy(gameObject);
 		}

@@ -10,7 +10,8 @@ public class GameController : MonoBehaviour {
 
 	public int EnemiesLeft = 0;
     public int EnemyCount;
-	private bool GoSpawn;
+	private bool GoSpawn; 
+   
 	
     //public float SpawnWait;
     //public float StartWait;
