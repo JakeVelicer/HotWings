@@ -29,7 +29,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		//Rigidbody = GetComponent<Rigidbody2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
-		MainController.WaveCount += 1;
+		MainController.EnemyCount += 1;
 		
 	}
 	

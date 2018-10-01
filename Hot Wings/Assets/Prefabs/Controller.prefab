@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1204508181842710}
+  m_IsPrefabAsset: 1
+--- !u!1 &1204508181842710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4800849916176994}
+  - component: {fileID: 114962278524806552}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4800849916176994
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204508181842710}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114962278524806552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204508181842710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d315bd91c42c4cb698009c28f697c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyType:
+  - {fileID: 1543632953322894, guid: 072758c31bfe44dba865b1f2f83a5b9f, type: 2}
+  - {fileID: 1962835810901110, guid: 421df4a7e7b6742f983a411b08b796f7, type: 2}
+  - {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
+  - {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
+  - {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
+  spawnValues: {x: -89, y: -2.1, z: 0}
+  EnemyCount: 0
+  HazardCount: 10
+  SpawnWait: 0.1
+  StartWait: 1
+  WaveWait: 3

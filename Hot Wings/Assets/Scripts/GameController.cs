@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-	public GameObject hazard;
+	public GameObject[] EnemyType;
+	private GameObject hazard;
     public Vector3 spawnValues;
-	public GameObject[] EnemyTypes;
 
-	public int WaveCount = 0;
-    public int hazardCount;
+	public int EnemyCount = 0;
+    public int HazardCount;
     public float SpawnWait;
     public float StartWait;
     public float WaveWait;
+	//public int WaveCount;
 	private bool GoSpawn;
 
     void Start () {
@@ -22,7 +23,7 @@ public class GameController : MonoBehaviour {
 
 	void Update() {
 
-		if (WaveCount <= 0) {
+		if (EnemyCount <= 0) {
 			GoSpawn = true;
 		}
 	}
@@ -31,12 +32,12 @@ public class GameController : MonoBehaviour {
 
         yield return new WaitForSeconds (StartWait);
 
-        while (GoSpawn == true) {
-            for (int i = 0; i < hazardCount; i++) {
+    	while (GoSpawn == true) {
+            for (int i = 0; i < HazardCount; i++) {
+				hazard = EnemyType[Random.Range (0, 5)];
                 Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate (hazard, spawnPosition, spawnRotation);
-				WaveCount += WaveCount;
                 yield return new WaitForSeconds (SpawnWait);
             }
             yield return GoSpawn = false;
