@@ -177,7 +177,7 @@ public class playerControls : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collider)
     {
-        if (collider.gameObject.tag == "Ground")
+        if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy")
         {
             isJumping = false;
         }
