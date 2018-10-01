@@ -6,6 +6,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	private Rigidbody2D Rigidbody;
 	private Transform Target;
+	public GameController MainController;
 
 	public float EnemyHealth;
 	public float MovementSpeed;
@@ -27,7 +28,8 @@ public class BasicEnemyControls : MonoBehaviour {
 	void Start () {
 
 		//Rigidbody = GetComponent<Rigidbody2D> ();
-		//BasicAttack = GetComponent<BasicEnemyAttack> ();
+		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
+		MainController.WaveCount += 1;
 		
 	}
 	
