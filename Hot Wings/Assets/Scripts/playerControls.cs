@@ -19,7 +19,13 @@ public class playerControls : MonoBehaviour {
 
 
     public bool facingRight;
-    public GameObject playerSingleShot;
+    public GameObject playerFireShot;
+    public GameObject playerWaterShot;
+    public GameObject playerIceShot;
+    public GameObject playerShockShot;
+    public GameObject playerEarthShot;
+    public GameObject playerWindShot;
+    public GameObject playerBuffShot;
 
     // Use this for initialization
     void Start () {
@@ -48,8 +54,42 @@ public class playerControls : MonoBehaviour {
             if (canShoot)
             {
                 canShoot = false;
-                GameObject shot = Instantiate(playerSingleShot, transform.position,
-                Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                GameObject shot = null;
+                if (pepperIndexA == 1)
+                {
+                    shot = Instantiate(playerFireShot, transform.position,
+                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                }
+                else if (pepperIndexA == 2)
+                {
+                    shot = Instantiate(playerWaterShot, transform.position,
+                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                }
+                else if (pepperIndexA == 3)
+                {
+                    shot = Instantiate(playerIceShot, transform.position,
+                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                }
+                else if (pepperIndexA == 4)
+                {
+                    shot = Instantiate(playerShockShot, transform.position,
+                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                }
+                else if (pepperIndexA == 5)
+                {
+                    shot = Instantiate(playerEarthShot, transform.position,
+                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                }
+                else if (pepperIndexA == 6)
+                {
+                    shot = Instantiate(playerWindShot, transform.position,
+                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                }
+                else if (pepperIndexA == 7)
+                {
+                    shot = Instantiate(playerBuffShot, transform.position,
+                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                }
                 if (facingRight)
                 {
                     shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
@@ -167,17 +207,17 @@ public class playerControls : MonoBehaviour {
                 pepperB = "windPepper";
             }
         }
-        if (collider.gameObject.tag == "otherPepper")
+        if (collider.gameObject.tag == "buffPepper")
         {
             if (pepperIndexA == 0)
             {
                 pepperIndexA = 7;
-                pepperA = "otherPepper";
+                pepperA = "buffPepper";
             }
             else
             {
                 pepperIndexB = 7;
-                pepperB = "otherPepper";
+                pepperB = "buffPepper";
             }
         }
     }
