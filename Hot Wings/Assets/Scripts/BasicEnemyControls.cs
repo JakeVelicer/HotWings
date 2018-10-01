@@ -41,6 +41,10 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		Movement();
 		ChaseTarget();
+
+		if (EnemyHealth <= 0) {
+			
+		}
 		
 	}
 
