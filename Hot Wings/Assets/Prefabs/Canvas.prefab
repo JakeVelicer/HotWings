@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222821175668131606}
   - component: {fileID: 114752198594158874}
   m_Layer: 5
-  m_Name: Waves
+  m_Name: Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Health:'
+  m_Text: 'Health: 000'
 --- !u!114 &114461949727734384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,7 +267,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Waves:'
+  m_Text: 'Wave: 0'
 --- !u!222 &222263541717685170
 CanvasRenderer:
   m_ObjectHideFlags: 1
