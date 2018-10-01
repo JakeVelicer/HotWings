@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class playerControls : MonoBehaviour {
 
@@ -16,7 +17,7 @@ public class playerControls : MonoBehaviour {
     public string pepperB = null;
     public int pepperIndexA = 1;
     public int pepperIndexB;
-
+    public Text healthDisplay; 
     public int health = 500;
     public bool isImmune = false;
     public bool facingRight = true;
@@ -31,6 +32,7 @@ public class playerControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        healthDisplay.text = "Health: " + health;
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
         playerWindShot.SetActive(false);
@@ -39,6 +41,8 @@ public class playerControls : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        healthDisplay.text = "Health: " + health;
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             isJumping = true;
@@ -180,6 +184,26 @@ public class playerControls : MonoBehaviour {
         if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy")
         {
             isJumping = false;
+        }
+
+        if (collider.gameObject.tag == "healthPepper")
+        {
+
+            health += 100;
+            if (health > 500){
+                health = 500;
+                healthDisplay.text = "Health: " + health;
+
+            }
+            if (health < 500){
+                healthDisplay.text = "Health: " + health;
+
+            }
+            
+            Destroy(collider.gameObject);
+
+
+
         }
     }
 
@@ -339,6 +363,12 @@ public class playerControls : MonoBehaviour {
             }
             StartCoroutine(iFrames());
         }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+       
     }
 
 
