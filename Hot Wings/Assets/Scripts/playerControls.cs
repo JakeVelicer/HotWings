@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 public class playerControls : MonoBehaviour {
 
@@ -83,7 +83,7 @@ public class playerControls : MonoBehaviour {
                 }
                 else if (pepperIndexA == 2)
                 {
-                    playerWaterShot.SetActive(true); ;
+                    playerWaterShot.SetActive(true);
                 }
                 else if (pepperIndexA == 3)
                 {
@@ -184,7 +184,7 @@ public class playerControls : MonoBehaviour {
         isImmune = false;
     }
 
-     void OnCollisionEnter2D(Collision2D collider)
+    void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy")
         {
