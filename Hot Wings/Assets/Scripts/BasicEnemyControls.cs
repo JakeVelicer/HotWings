@@ -177,6 +177,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	}
 
+	// Takes damage from stream attacks
 	void OnTriggerStay2D (Collider2D collision) {
 
 		if (collision.gameObject.tag == "Fire") {
@@ -190,9 +191,18 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 	}
 
+	// Takes damage from burst attacks
 	void OnTriggerEnter2D (Collider2D collision) {
 
-		
+		if (collision.gameObject.tag == "Electric") {
+			EnemyHealth -= 10;
+		}
+		else if (collision.gameObject.tag == "Ice") {
+			EnemyHealth -= 12;
+		}
+		else if (collision.gameObject.tag == "Earth") {
+			EnemyHealth -= 8;
+		}
 	}
 
 }

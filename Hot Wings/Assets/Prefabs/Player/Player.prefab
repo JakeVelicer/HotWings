@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4919182585920922}
   - component: {fileID: 212035922904277504}
+  - component: {fileID: 61679920622201574}
   m_Layer: 8
   m_Name: streamShotTest
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,6 +95,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &61679920622201574
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157261382178384}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 12.8, y: 2.93}
+    newSize: {x: 12.8, y: 2.93}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 12.8, y: 2.93}
+  m_EdgeRadius: 0
 --- !u!61 &61942807422805248
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -151,19 +177,21 @@ MonoBehaviour:
   isFiring: 0
   pepperA: 
   pepperB: 
-  pepperIndexA: 1
+  pepperIndexA: 3
   pepperIndexB: 0
+  health: 500
+  isImmune: 0
   facingRight: 0
   playerFireShot: {fileID: 1157261382178384}
   playerWaterShot: {fileID: 1157261382178384}
-  playerIceShot: {fileID: 1758883060856794, guid: 7b381063d79604686b6f9f6b88be5fa4,
+  playerIceShot: {fileID: 1250827892930008, guid: 37ca082d042964ff3bb2b0e9e297b35a,
     type: 2}
-  playerShockShot: {fileID: 1758883060856794, guid: 7b381063d79604686b6f9f6b88be5fa4,
+  playerShockShot: {fileID: 1858743289199614, guid: 90e7cf8ffb1ac4fc68717bbe3e80a2da,
     type: 2}
-  playerEarthShot: {fileID: 1758883060856794, guid: 7b381063d79604686b6f9f6b88be5fa4,
+  playerEarthShot: {fileID: 1686125914557816, guid: 1db213fc8b4b740af87d47803dc8e13a,
     type: 2}
   playerWindShot: {fileID: 1157261382178384}
-  playerBuffShot: {fileID: 1758883060856794, guid: 7b381063d79604686b6f9f6b88be5fa4,
+  playerBuffShot: {fileID: 1686125914557816, guid: 1db213fc8b4b740af87d47803dc8e13a,
     type: 2}
 --- !u!212 &212035922904277504
 SpriteRenderer:

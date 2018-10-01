@@ -13,6 +13,18 @@ TagManager:
   - enemyShotT3
   - enemyFist
   - enemyDeathRay
+  - Fire
+  - Water
+  - Electric
+  - Ice
+  - Earth
+  - Wind
+  - firePepper
+  - waterPepper
+  - electricPepper
+  - icePepper
+  - earthPepper
+  - windPepper
   layers:
   - Default
   - TransparentFX

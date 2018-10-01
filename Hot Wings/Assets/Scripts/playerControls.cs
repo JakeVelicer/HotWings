@@ -17,10 +17,10 @@ public class playerControls : MonoBehaviour {
     public int pepperIndexA = 1;
     public int pepperIndexB;
 
-    private int health = 500;
+    public int health = 500;
     public bool isImmune = false;
-
     public bool facingRight = true;
+
     public GameObject playerFireShot;
     public GameObject playerWaterShot;
     public GameObject playerIceShot;
@@ -123,7 +123,7 @@ public class playerControls : MonoBehaviour {
                 }
                 else if (pepperIndexA == 6)
                 {
-                    playerWindShot.SetActive(true); ;
+                    playerWindShot.SetActive(true);
                 }
                 else if (pepperIndexA == 7)
                 {
@@ -175,12 +175,17 @@ public class playerControls : MonoBehaviour {
         isImmune = false;
     }
 
-    void OnCollisionEnter2D(Collision2D collider)
+     void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy")
         {
             isJumping = false;
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+    
         if (collider.gameObject.tag == "firePepper")
         {
             if (pepperIndexA == 0)
