@@ -9,11 +9,14 @@ public class playerControls : MonoBehaviour {
     public bool isJumping;
     public float fireRate;
     public bool canShoot = true;
-    public int shotSpeed = 20;
+    public int shotSpeed = 1000;
     public bool isSingleShot = true;
     public bool isFiring = false;
-    public string pepperA = "";
-    public string pepperB = "";
+    public string pepperA = null;
+    public string pepperB = null;
+    public int pepperIndexA;
+    public int pepperIndexB;
+
 
     public bool facingRight;
     public GameObject playerSingleShot;
@@ -58,7 +61,20 @@ public class playerControls : MonoBehaviour {
                 StartCoroutine(shootWait());
             }
         }
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+        {
+            int tempIndex = pepperIndexA;
+            string tempPepper = pepperA;
 
+            pepperIndexA = pepperIndexB;
+            pepperIndexB = tempIndex;
+
+            pepperA = pepperB;
+            pepperB = tempPepper;
+
+            Debug.Log("Pepper A is now " + pepperA);
+            Debug.Log("Pepper B is now " + pepperB);
+        }  
     }
     public IEnumerator shootWait()
     {
@@ -72,6 +88,97 @@ public class playerControls : MonoBehaviour {
         if (collider.gameObject.tag == "Ground")
         {
             isJumping = false;
+        }
+        if (collider.gameObject.tag == "firePepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 1;
+                pepperA = "firePepper";
+            }
+            else
+            {
+                pepperIndexB = 1;
+                pepperB = "firePepper";
+            }
+        }
+        if (collider.gameObject.tag == "waterPepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 2;
+                pepperA = "waterPepper";
+            }
+            else
+            {
+                pepperIndexB = 2;
+                pepperB = "waterPepper";
+            }
+        }
+        if (collider.gameObject.tag == "icePepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 3;
+                pepperA = "icePepper";
+            }
+            else
+            {
+                pepperIndexB = 3;
+                pepperB = "icePepper";
+            }
+        }
+        if (collider.gameObject.tag == "shockPepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 4;
+                pepperA = "shockPepper";
+            }
+            else
+            {
+                pepperIndexB = 4;
+                pepperB = "shockPepper";
+            }
+        }
+        if (collider.gameObject.tag == "earthPepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 5;
+                pepperA = "earthPepper";
+            }
+            else
+            {
+                pepperIndexB = 5;
+                pepperB = "earthPepper";
+            }
+        }
+        if (collider.gameObject.tag == "windPepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 6;
+                pepperA = "windPepper";
+            }
+            else
+            {
+                pepperIndexB = 6;
+                pepperB = "windPepper";
+            }
+        }
+        if (collider.gameObject.tag == "otherPepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 7;
+                pepperA = "otherPepper";
+            }
+            else
+            {
+                pepperIndexB = 7;
+                pepperB = "otherPepper";
+            }
         }
     }
 
