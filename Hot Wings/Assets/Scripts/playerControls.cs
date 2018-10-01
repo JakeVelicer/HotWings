@@ -14,11 +14,11 @@ public class playerControls : MonoBehaviour {
     public bool isFiring = false;
     public string pepperA = null;
     public string pepperB = null;
-    public int pepperIndexA;
+    public int pepperIndexA = 1;
     public int pepperIndexB;
 
 
-    public bool facingRight;
+    public bool facingRight = true;
     public GameObject playerFireShot;
     public GameObject playerWaterShot;
     public GameObject playerIceShot;
@@ -29,7 +29,10 @@ public class playerControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	}
+        playerFireShot.SetActive(false);
+        playerWaterShot.SetActive(false);
+        playerWindShot.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -41,11 +44,19 @@ public class playerControls : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
+            if (!facingRight)
+            {
+                playerFireShot.transform.position = new Vector3(transform.position.x + 1.75f, transform.position.y, transform.position.z);
+            }
             facingRight = true;
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
+            if (facingRight)
+            {
+                playerFireShot.transform.position = new Vector3(transform.position.x - 1.75f, transform.position.y, transform.position.z);
+            }
             facingRight = false;
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         }
@@ -53,53 +64,87 @@ public class playerControls : MonoBehaviour {
         {
             if (canShoot)
             {
-                canShoot = false;
-                GameObject shot = null;
+                GameObject shot;
+
                 if (pepperIndexA == 1)
                 {
-                    shot = Instantiate(playerFireShot, transform.position,
-                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    playerFireShot.SetActive(true);
                 }
                 else if (pepperIndexA == 2)
                 {
-                    shot = Instantiate(playerWaterShot, transform.position,
-                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    playerWaterShot.SetActive(true); ;
                 }
                 else if (pepperIndexA == 3)
                 {
+                    canShoot = false;
                     shot = Instantiate(playerIceShot, transform.position,
                     Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+                    }
+                    else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+                    }
+                    StartCoroutine(shootWait());
                 }
                 else if (pepperIndexA == 4)
                 {
+                    canShoot = false;
                     shot = Instantiate(playerShockShot, transform.position,
                     Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+                    }
+                    else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+                    }
+                    StartCoroutine(shootWait());
                 }
                 else if (pepperIndexA == 5)
                 {
+                    canShoot = false;
                     shot = Instantiate(playerEarthShot, transform.position,
                     Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+                    }
+                    else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+                    }
+                    StartCoroutine(shootWait());
                 }
                 else if (pepperIndexA == 6)
                 {
-                    shot = Instantiate(playerWindShot, transform.position,
-                    Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    playerWindShot.SetActive(true); ;
                 }
                 else if (pepperIndexA == 7)
                 {
+                    canShoot = false;
                     shot = Instantiate(playerBuffShot, transform.position,
                     Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+                    }
+                    else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                    {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+                    }
+                    StartCoroutine(shootWait());
                 }
-                if (facingRight)
-                {
-                    shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                }
-                else
-                {
-                    shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-                }
-                StartCoroutine(shootWait());
             }
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            playerFireShot.SetActive(false);
+            playerWaterShot.SetActive(false);
+            playerWindShot.SetActive(false);
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
