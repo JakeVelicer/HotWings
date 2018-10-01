@@ -8,13 +8,14 @@ public class DeathMenu : MonoBehaviour {
 	public static bool Death = false; 
 
 public GameObject DeathMenuUI;
-	// Use this for initialization
 	
-	
-	// Update is called once per frame
-void Update () {
-		//PUT HEATH Here
-}
+	void start () {
+
+	}
+	void Update () {
+		
+
+	}
 
 	// Use this for initialization
 	public void LoadMenu()
@@ -28,15 +29,11 @@ void Update () {
 		Application.Quit();
 		Debug.Log("Gamequit");
 	}
- void Pause()
+	void Pause()
 	{
-DeathMenuUI.SetActive(true);
-Time.timeScale = 0f;
-Death = true;
-	
-	}
-
+		DeathMenuUI.SetActive(true);
+		Time.timeScale = 0f;
+		Death = true;	
 	}
 	
-
-
+}

@@ -172,12 +172,12 @@ MonoBehaviour:
   isJumping: 0
   fireRate: 0
   canShoot: 1
-  shotSpeed: 400
+  shotSpeed: 1000
   isSingleShot: 1
   isFiring: 0
-  pepperA: 
+  pepperA: firePepper
   pepperB: 
-  pepperIndexA: 3
+  pepperIndexA: 1
   pepperIndexB: 0
   health: 500
   isImmune: 0
