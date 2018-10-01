@@ -29,7 +29,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		//Rigidbody = GetComponent<Rigidbody2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
-		MainController.EnemyCount++;
+		MainController.EnemiesLeft++;
 		
 	}
 	
@@ -43,7 +43,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		ChaseTarget();
 
 		if (EnemyHealth <= 0) {
-			MainController.EnemyCount--;
+			MainController.EnemiesLeft--;
 			Destroy(gameObject);
 		}
 		

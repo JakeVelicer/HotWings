@@ -57,9 +57,6 @@ MonoBehaviour:
   - {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
   - {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
   - {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
-  spawnValues: {x: -89, y: -2.1, z: 0}
-  EnemyCount: 0
-  HazardCount: 10
-  SpawnWait: 0.1
-  StartWait: 1
-  WaveWait: 3
+  spawnValues: {x: -89, y: 5, z: 0}
+  EnemiesLeft: 0
+  EnemyCount: 10
