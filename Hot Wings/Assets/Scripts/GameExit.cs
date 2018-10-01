@@ -9,5 +9,6 @@ public class GameExit : MonoBehaviour {
 	{
 		
 		Application.Quit();
+		Debug.Log("Gamequit");
 	}
 }

@@ -2037,11 +2037,11 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1720510039}
+      objectReference: {fileID: 1720510040}
     - target: {fileID: 114791731062765186, guid: 7fb0c2bcec87543dd8f149a32b6cc28f,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: QuitGame
       objectReference: {fileID: 0}
     - target: {fileID: 114791731062765186, guid: 7fb0c2bcec87543dd8f149a32b6cc28f,
         type: 2}
