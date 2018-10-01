@@ -4,27 +4,20 @@ using UnityEngine;
 
 public class ScreenWrap : MonoBehaviour {
 
-    public float rotationSpeed;
-    public float thrustForce;
+    private float rotationSpeed;
+    private float thrustForce;
+    private Rigidbody2D rb2D; 
 
-    public Rigidbody2D rb2D; 
+    private float horizontal;
+    private float vertical;
+    private Renderer[] renderers;
 
-    public float horizontal;
-    public float vertical;
-
-    public Renderer[] renderers;
-
-    public bool isWrappingX = false; 
-
-    public bool isWrappingY = false;
-
-
-    
-
-
+    private bool isWrappingX = false;
+    private bool isWrappingY = false;
 
     // Use this for initialization
     void Start () {
+
         rb2D = GetComponent<Rigidbody2D>();
         renderers = GetComponentsInChildren<Renderer>(); 
 	}
@@ -40,68 +33,49 @@ public class ScreenWrap : MonoBehaviour {
 
         ScreenWrapping();
 
-
     } 
 
-    void ScreenWrapping(){
+    void ScreenWrapping() {
 
         bool isVisible = CheckRenderers(); 
 
-        if(isVisible){
+        if(isVisible) {
 
             isWrappingX = false;
             isWrappingY = false;
 
             return; 
-
         }
-        if(isWrappingX && isWrappingY){
-
-
-            return; 
-
+        if(isWrappingX && isWrappingY) {
+            return;
         }
+
         Vector3 newPostion = transform.position; 
 
-        if(newPostion.x>1 || newPostion.x <0){
+        if(newPostion.x>1 || newPostion.x <0) {
             newPostion.x = -newPostion.x;
-
-            isWrappingX = true; 
-
+            isWrappingX = true;
 
         }
-
-        if (newPostion.y > 1 || newPostion.y < 0)
-        {
+        if (newPostion.y > 1 || newPostion.y < 0) {
             newPostion.y = +newPostion.y;
-
             isWrappingY = true;
-
 
         } 
         transform.position=newPostion;
 
+    }
 
+    bool CheckRenderers() {
 
-    } 
+        foreach(Renderer renderer in renderers) {
 
-    bool CheckRenderers(){
-
-        foreach(Renderer renderer in renderers){
-
-            if (renderer.isVisible)
-            {
+            if (renderer.isVisible) {
 
                 return true;
             }
-
-
-
-            }
+        }
         return false; 
 
-        }
-
-
     }
-
+}
