@@ -7,6 +7,12 @@ TagManager:
   - Ground
   - Enemy
   - Wall
+  - Fire
+  - Water
+  - Electric
+  - Ice
+  - Earth
+  - Wind
   layers:
   - Default
   - TransparentFX

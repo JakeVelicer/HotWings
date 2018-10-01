@@ -177,4 +177,22 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	}
 
+	void OnTriggerStay2D (Collider2D collision) {
+
+		if (collision.gameObject.tag == "Fire") {
+			EnemyHealth -= 10 * Time.deltaTime;
+		}
+		else if (collision.gameObject.tag == "Water") {
+			EnemyHealth -= 8 * Time.deltaTime;
+		}
+		else if (collision.gameObject.tag == "Wind") {
+			EnemyHealth -= 5 * Time.deltaTime;
+		}
+	}
+
+	void OnTriggerEnter2D (Collider2D collision) {
+
+		
+	}
+
 }
