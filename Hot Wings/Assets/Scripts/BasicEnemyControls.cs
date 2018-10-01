@@ -6,22 +6,26 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	private Rigidbody2D Rigidbody;
 	private Transform Target;
-	private bool CanChase;
 
+	public float EnemyHealth;
 	public float MovementSpeed;
 	public float ChaseRange;
 	public float FireRange;
 	public float ProjectileSpeed;
+	public float ProjectileHeight;
+	public float CoolDown;
 	private float CoolDownTimer = 0;
-	
+
+	private bool CanChase;
+	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
-	public GameObject Projectile1;
+	public GameObject BulletObject;
+	public GameObject BombObject;
 	public int AlientType;
 
 	// Use this for initialization
 	void Start () {
 
-		// Gets the Rigidbody of the game object this script is on
 		//Rigidbody = GetComponent<Rigidbody2D> ();
 		//BasicAttack = GetComponent<BasicEnemyAttack> ();
 		
@@ -66,38 +70,49 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Tells the player to attack if close enough
 		else if (Vector3.Distance(Target.position, transform.position) <= FireRange) {
 			CanChase = false;
+			ChaseDirection();
+
+			/* The switch assigns the proper cooldown and attack phase for each enemy type.
+			The switch here should probably only have cases for the 3 different attack types, but 
+			I have not changed it yet in case a reason emerges to have them for each enemy type. */
 			switch (AlientType) {
+				case 1: 
+     				if (CoolDownTimer <= 0) {
+						Punch = true;
+						CoolDownTimer = CoolDown;
+					}
+					else {
+						//Punch = false;
+						CoolDownTimer -= Time.deltaTime;
+					}
+					break;
 				case 2: 
      				if (CoolDownTimer <= 0) {
 						AttackPhase1();
-						CoolDownTimer = 1;
+						CoolDownTimer = CoolDown;
 					}
 					CoolDownTimer -= Time.deltaTime;
-					ChaseDirection();
 					break;
 				case 3:
      				if (CoolDownTimer <= 0) {
 						AttackPhase1();
-						CoolDownTimer = 1;
+						CoolDownTimer = CoolDown;
 					}
 					CoolDownTimer -= Time.deltaTime;
-					ChaseDirection();
 					break;
 				case 4:
      				if (CoolDownTimer <= 0) {
 						AttackPhase2();
-						CoolDownTimer = 1;
+						CoolDownTimer = CoolDown;
 					}
 					CoolDownTimer -= Time.deltaTime;
-					ChaseDirection();
 					break;
 				case 5:
      				if (CoolDownTimer <= 0) {
 						AttackPhase1();
-						CoolDownTimer = 0.2f;
+						CoolDownTimer = CoolDown;
 					}
 					CoolDownTimer -= Time.deltaTime;
-					ChaseDirection();
 					break;
 			}
 		}
@@ -111,46 +126,48 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Determines the direction the object faces when chasing
 	void ChaseDirection () {
 
-		if (Target.position.x > transform.position.x + 1) {
+		if (Target.position.x > transform.position.x + 0.5) {
 			transform.localScale = new Vector3(-1, 1, 1);
 			ToTheRight = true;
 		}
-		else if (Target.position.x < transform.position.x + 1) {
+		else if (Target.position.x < transform.position.x + 0.5) {
 			transform.localScale = new Vector3(1, 1, 1);
 			ToTheRight = false;
 		}
 	}
 
-	// Instantiates a chosen projectile in the scene and propels it
+	// Instantiates a chosen projectile in the scene and propels it forward like a bullet
 	void AttackPhase1 () {
 
 		if (ToTheRight == true) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position, 
-			Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(0.86f, 0.24f, 0), 
+			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
 		else if (ToTheRight == false) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position, 
-			Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-0.86f, 0.24f, 0), 
+			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
 	
 	}
 
+	// Instantiates a chosen projectile in the scene and propels it forward and up like a thrown bomb
 	void AttackPhase2 () {
 
 		if (ToTheRight == true) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position + new Vector3(0.86f, 0.24f, 0), 
+			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.86f, 0.24f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
 		else if (ToTheRight == false) {
-			GameObject Projectile = Instantiate (Projectile1, transform.position + new Vector3(-0.86f, 0.24f, 0), 
+			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(-0.86f, 0.24f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
 
 	}
+
 }
