@@ -17,6 +17,11 @@ public class GameController : MonoBehaviour {
     //public float WaveWait;
 	//public int WaveCount;
 
+    void Awake() {
+        
+        Time.timeScale = 1;
+    }
+
     void Start () {
 
         //StartCoroutine (SpawnWaves ());

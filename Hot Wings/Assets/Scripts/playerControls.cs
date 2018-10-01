@@ -78,7 +78,7 @@ public class playerControls : MonoBehaviour {
                 }
                 else if (pepperIndexA == 2)
                 {
-                    playerWaterShot.SetActive(true); ;
+                    playerWaterShot.SetActive(true);
                 }
                 else if (pepperIndexA == 3)
                 {
@@ -179,7 +179,7 @@ public class playerControls : MonoBehaviour {
         isImmune = false;
     }
 
-     void OnCollisionEnter2D(Collision2D collider)
+    void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy")
         {

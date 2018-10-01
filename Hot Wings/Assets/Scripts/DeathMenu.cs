@@ -8,13 +8,21 @@ public class DeathMenu : MonoBehaviour {
 	public static bool Death = false; 
 
 public GameObject DeathMenuUI;
+
+	private playerControls PlayerHealth;
 	
-	void start () {
+	void Start () {
+
+		PlayerHealth = GameObject.FindWithTag ("Player").GetComponent<playerControls> ();
 
 	}
-	void Update () {
-		
 
+	void Update () {
+
+		if (PlayerHealth.health <= 0) {
+			Pause();
+		}
+		
 	}
 
 	// Use this for initialization
@@ -25,7 +33,6 @@ public GameObject DeathMenuUI;
 	}
 	public void QuitGame()
 	{
-		
 		Application.Quit();
 		Debug.Log("Gamequit");
 	}
@@ -33,7 +40,7 @@ public GameObject DeathMenuUI;
 	{
 		DeathMenuUI.SetActive(true);
 		Time.timeScale = 0f;
-		Death = true;	
+		Death = true;
 	}
 	
 }
