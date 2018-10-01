@@ -7,6 +7,12 @@ TagManager:
   - Ground
   - Enemy
   - Wall
+  - enemyExplosion
+  - enemyShotT1
+  - enemyShotT2
+  - enemyShotT3
+  - enemyFist
+  - enemyDeathRay
   layers:
   - Default
   - TransparentFX
