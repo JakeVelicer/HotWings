@@ -209,6 +209,11 @@ Prefab:
       propertyPath: EnemiesLeft
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: inventoryDisplay
+      value: 
+      objectReference: {fileID: 1863709581}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
   m_IsPrefabAsset: 0
@@ -773,3 +778,9 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65c0c304f93444f0ca8bbc034a72dfbb, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1863709581 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114621235964908310, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1702179020}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}

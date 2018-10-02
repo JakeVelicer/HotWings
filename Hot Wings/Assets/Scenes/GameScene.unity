@@ -349,8 +349,8 @@ MonoBehaviour:
   smoothTimeX: 0.1
   player: {fileID: 0}
   bounds: 1
-  minCameraPosition: {x: -86, y: 0, z: -10}
-  maxCameraPosition: {x: 86, y: 5, z: -10}
+  minCameraPosition: {x: -85, y: 0, z: -10}
+  maxCameraPosition: {x: 85, y: 5, z: -10}
 --- !u!1 &268608928
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +668,11 @@ Prefab:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 184746483}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: scoreDisplay
+      value: 
+      objectReference: {fileID: 1315522728}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
@@ -1089,6 +1094,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 592334540}
+--- !u!114 &1315522728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114461949727734384, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1538901871}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1318200782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1323,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39be1709bb3644ee8ad8eb544fd54ac8, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1538901872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114621235964908310, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1538901871}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1758791460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,6 +1872,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: scoreDisplay
+      value: 
+      objectReference: {fileID: 1315522728}
+    - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: inventoryDisplay
+      value: 
+      objectReference: {fileID: 1538901872}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
   m_IsPrefabAsset: 0

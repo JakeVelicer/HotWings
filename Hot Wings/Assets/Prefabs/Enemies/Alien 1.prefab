@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyHealth: 10
+  enemyValue: 10
   MovementSpeed: 5
   ChaseRange: 8
   FireRange: 1.1

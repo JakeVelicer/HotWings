@@ -6,11 +6,11 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	private Rigidbody2D Rigidbody;
 	private Transform Target;
-	private GameController MainController;
-	private EnemyDamageValues DamageValues;
-
+	public GameController MainController;
+    private GameObject gameController;
 	public float EnemyHealth;
-	public float MovementSpeed;
+    public int enemyValue;
+    public float MovementSpeed;
 	public float ChaseRange;
 	public float FireRange;
 	public float ProjectileSpeed;
@@ -18,18 +18,17 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float CoolDown;
 	private float CoolDownTimer = 0;
 
-	private bool CanChase;
+    private bool CanChase;
 	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
 	public GameObject BulletObject;
 	public GameObject BombObject;
-	public int AlienType;
+	public int AlientType;
 
 	// Use this for initialization
 	void Start () {
 
 		//Rigidbody = GetComponent<Rigidbody2D> ();
-		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		MainController.EnemiesLeft++;
 		
@@ -40,11 +39,14 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		// Finds the Player's transform and stores it in target
 		Target = GameObject.FindGameObjectWithTag ("Player").transform;
+        //gameController = GameObject.FindGameObjectWithTag("Controller");
 
-		Movement();
+        Movement();
 		ChaseTarget();
 
 		if (EnemyHealth <= 0) {
+
+            MainController.score += enemyValue;
 			MainController.EnemiesLeft--;
 			Destroy(gameObject);
 		}
@@ -84,7 +86,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			/* The switch assigns the proper cooldown and attack phase for each enemy type.
 			The switch here should probably only have cases for the 3 different attack types, but 
 			I have not changed it yet in case a reason emerges to have them for each enemy type. */
-			switch (AlienType) {
+			switch (AlientType) {
 				case 1: 
      				if (CoolDownTimer <= 0) {
 						Punch = true;
@@ -183,13 +185,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	void OnTriggerStay2D (Collider2D collision) {
 
 		if (collision.gameObject.tag == "Fire") {
-			EnemyHealth -= DamageValues.FireDamage * Time.deltaTime;
+			EnemyHealth -= 10 * Time.deltaTime;
 		}
 		else if (collision.gameObject.tag == "Water") {
-			EnemyHealth -= DamageValues.WaterDamage * Time.deltaTime;
+			EnemyHealth -= 8 * Time.deltaTime;
 		}
 		else if (collision.gameObject.tag == "Wind") {
-			EnemyHealth -= DamageValues.WindDamage * Time.deltaTime;
+			EnemyHealth -= 5 * Time.deltaTime;
 		}
 	}
 
@@ -197,13 +199,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D collision) {
 
 		if (collision.gameObject.tag == "Electric") {
-			EnemyHealth -= DamageValues.ElectricDamage;
+			EnemyHealth -= 10;
 		}
 		else if (collision.gameObject.tag == "Ice") {
-			EnemyHealth -= DamageValues.IceDamage;
+			EnemyHealth -= 12;
 		}
 		else if (collision.gameObject.tag == "Earth") {
-			EnemyHealth -= DamageValues.EarthDamage;
+			EnemyHealth -= 8;
 		}
 	}
 

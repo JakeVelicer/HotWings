@@ -9,15 +9,14 @@ public class GameController : MonoBehaviour {
 	private GameObject hazard;
     private Text WaveDisplay;
     public Vector3 spawnValues;
-
-	public int EnemiesLeft = 0;
+    public Text scoreDisplay;
+    public int EnemiesLeft = 0;
     public int EnemyCount;
 	private bool GoSpawn;
     private int WaveCount;
-	
-    //public float SpawnWait;
-    //public float StartWait;
-    //public float WaveWait;
+    public Text inventoryDisplay; 
+    public int score;
+    public GameObject player;
 
     void Awake() {
 
@@ -26,16 +25,22 @@ public class GameController : MonoBehaviour {
 
     void Start () {
 
+        player = GameObject.FindGameObjectWithTag("Player");
+      // player.GetComponent<playerControls>().pepperA = "Empty";
+       player.GetComponent<playerControls>().pepperB = " ";
+        inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
+        score = 0;
+        scoreDisplay.text = "Score: " + score;
         WaveCount = 0;
         WaveDisplay = GameObject.Find ("Wave").GetComponent<Text> ();
         //StartCoroutine (SpawnWaves ());
     }
 
 	void Update() {
-
+        inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
         WaveDisplay.text = "Wave: " + WaveCount;
-
-		if (EnemiesLeft <= 0) {
+        scoreDisplay.text = "Score: " + score;
+        if (EnemiesLeft <= 0) {
 			GoSpawn = true;
             StartCoroutine ("Count");
 		}
