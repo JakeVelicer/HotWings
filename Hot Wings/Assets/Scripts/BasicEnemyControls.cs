@@ -6,7 +6,8 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	private Rigidbody2D Rigidbody;
 	private Transform Target;
-	public GameController MainController;
+	private GameController MainController;
+	private EnemyDamageValues DamageValues;
 
 	public float EnemyHealth;
 	public float MovementSpeed;
@@ -22,12 +23,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	public bool ToTheRight;
 	public GameObject BulletObject;
 	public GameObject BombObject;
-	public int AlientType;
+	public int AlienType;
 
 	// Use this for initialization
 	void Start () {
 
 		//Rigidbody = GetComponent<Rigidbody2D> ();
+		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		MainController.EnemiesLeft++;
 		
@@ -82,7 +84,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			/* The switch assigns the proper cooldown and attack phase for each enemy type.
 			The switch here should probably only have cases for the 3 different attack types, but 
 			I have not changed it yet in case a reason emerges to have them for each enemy type. */
-			switch (AlientType) {
+			switch (AlienType) {
 				case 1: 
      				if (CoolDownTimer <= 0) {
 						Punch = true;
@@ -181,13 +183,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	void OnTriggerStay2D (Collider2D collision) {
 
 		if (collision.gameObject.tag == "Fire") {
-			EnemyHealth -= 10 * Time.deltaTime;
+			EnemyHealth -= DamageValues.FireDamage * Time.deltaTime;
 		}
 		else if (collision.gameObject.tag == "Water") {
-			EnemyHealth -= 8 * Time.deltaTime;
+			EnemyHealth -= DamageValues.WaterDamage * Time.deltaTime;
 		}
 		else if (collision.gameObject.tag == "Wind") {
-			EnemyHealth -= 5 * Time.deltaTime;
+			EnemyHealth -= DamageValues.WindDamage * Time.deltaTime;
 		}
 	}
 
@@ -195,13 +197,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D collision) {
 
 		if (collision.gameObject.tag == "Electric") {
-			EnemyHealth -= 10;
+			EnemyHealth -= DamageValues.ElectricDamage;
 		}
 		else if (collision.gameObject.tag == "Ice") {
-			EnemyHealth -= 12;
+			EnemyHealth -= DamageValues.IceDamage;
 		}
 		else if (collision.gameObject.tag == "Earth") {
-			EnemyHealth -= 8;
+			EnemyHealth -= DamageValues.EarthDamage;
 		}
 	}
 

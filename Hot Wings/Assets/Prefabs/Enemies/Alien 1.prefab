@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50841370667381208}
   - component: {fileID: 60345433314958732}
   - component: {fileID: 114724499976048838}
+  - component: {fileID: 114455122676272482}
   m_Layer: 0
   m_Name: Alien 1
   m_TagString: Enemy
@@ -180,6 +181,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487982a6595864c038bd6d72a8a08214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114455122676272482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1543632953322894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caba7a232d19341c9b0d9e407e2b3870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireDamage: 0
+  WaterDamage: 0
+  ElectricDamage: 0
+  IceDamage: 0
+  EarthDamage: 0
+  WindDamage: 0
 --- !u!114 &114724499976048838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -191,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5689354223d4cdca98879bd7b011ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainController: {fileID: 0}
   EnemyHealth: 10
   MovementSpeed: 5
   ChaseRange: 8
@@ -204,7 +221,7 @@ MonoBehaviour:
   BulletObject: {fileID: 1425322878777434, guid: d710a071fed314e81a0ea7643b3ce107,
     type: 2}
   BombObject: {fileID: 1236616020896136, guid: 16da38cee053b4bd48fae32185fa3d39, type: 2}
-  AlientType: 1
+  AlienType: 1
 --- !u!212 &212240546122250292
 SpriteRenderer:
   m_ObjectHideFlags: 1
