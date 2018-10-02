@@ -26,8 +26,8 @@ public class GameController : MonoBehaviour {
     void Start () {
 
         player = GameObject.FindGameObjectWithTag("Player");
-      // player.GetComponent<playerControls>().pepperA = "Empty";
-       player.GetComponent<playerControls>().pepperB = " ";
+        //player.GetComponent<playerControls>().pepperA = "Empty";
+        player.GetComponent<playerControls>().pepperB = " ";
         inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
         score = 0;
         scoreDisplay.text = "Score: " + score;
