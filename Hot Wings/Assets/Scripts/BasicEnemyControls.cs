@@ -7,7 +7,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private Rigidbody2D Rigidbody;
 	private Transform Target;
 	public GameController MainController;
-
+    private GameObject gameController;
 	public float EnemyHealth;
     public int enemyValue;
     public float MovementSpeed;
@@ -39,13 +39,14 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		// Finds the Player's transform and stores it in target
 		Target = GameObject.FindGameObjectWithTag ("Player").transform;
+        //gameController = GameObject.FindGameObjectWithTag("Controller");
 
-		Movement();
+        Movement();
 		ChaseTarget();
 
 		if (EnemyHealth <= 0) {
 
-            Target.GetComponent<playerControls>().score += enemyValue; 
+            MainController.score += enemyValue;
 			MainController.EnemiesLeft--;
 			Destroy(gameObject);
 		}

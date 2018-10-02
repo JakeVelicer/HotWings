@@ -18,9 +18,9 @@ public class playerControls : MonoBehaviour {
     public int pepperIndexA = 1;
     public int pepperIndexB;
     public Text healthDisplay;
-    public Text scoreDisplay;
+
     public int health = 500;
-    public int score;
+
     public bool isImmune = false;
     public bool facingRight = true;
 
@@ -35,7 +35,7 @@ public class playerControls : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        scoreDisplay.text = "Score: " + score;
+       
         healthDisplay.text = "Health: " + health;
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
@@ -46,7 +46,7 @@ public class playerControls : MonoBehaviour {
     void Update()
     {
         healthDisplay.text = "Health: " + health;
-        scoreDisplay.text = "Score: " + score;
+       
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
