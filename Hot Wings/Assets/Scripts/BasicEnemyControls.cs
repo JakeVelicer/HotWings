@@ -64,10 +64,10 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
-			transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
+				transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
 			}
 			else if (ToTheRight == true) {
-			transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
+				transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
 			}
 			//Rigidbody.AddForce (MovementSpeed * new Vector2 (1,0));
 		}

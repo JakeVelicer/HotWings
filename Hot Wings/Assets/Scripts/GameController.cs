@@ -29,8 +29,10 @@ public class GameController : MonoBehaviour {
         //player.GetComponent<playerControls>().pepperA = "Empty";
         player.GetComponent<playerControls>().pepperB = " ";
         inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
+        
         score = 0;
         scoreDisplay.text = "Score: " + score;
+        
         WaveCount = 0;
         WaveDisplay = GameObject.Find ("Wave").GetComponent<Text> ();
         //StartCoroutine (SpawnWaves ());
@@ -59,7 +61,7 @@ public class GameController : MonoBehaviour {
     void SpawnEnemies () {
         if (GoSpawn == true) {
             for (int i = 0; i < EnemyCount; i++) {
-				hazard = EnemyType[Random.Range (0, 5)];
+				hazard = EnemyType[Random.Range (0, 4)];
                 Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate (hazard, spawnPosition, spawnRotation);
