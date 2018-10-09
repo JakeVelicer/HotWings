@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class playerControls : MonoBehaviour {
+public class playerControls : MonoBehaviour
+{
+
+    private EnemyDamageValues DamageEffects;
 
     public int moveSpeed = 10;
     public int jumpForce = 300;
@@ -13,12 +16,15 @@ public class playerControls : MonoBehaviour {
     public int shotSpeed = 1000;
     public bool isSingleShot = true;
     public bool isFiring = false;
+    private float ChargeTime = 1;
+    private float DamageMultiplier;
+
     public string pepperA = null;
     public string pepperB = null;
     public int pepperIndexA = 1;
     public int pepperIndexB;
-    public Text healthDisplay;
 
+    public Text healthDisplay;
     public int health = 500;
 
     public bool isImmune = false;
@@ -27,25 +33,40 @@ public class playerControls : MonoBehaviour {
     public GameObject playerFireShot;
     public GameObject playerWaterShot;
     public GameObject playerIceShot;
-    public GameObject playerShockShot;
+    public GameObject playerShockShot1;
+    public GameObject playerShockShot2;
+    public GameObject playerShockShot3;
+    public GameObject playerShockShot4;
     public GameObject playerEarthShot;
     public GameObject playerWindShot;
     public GameObject playerBuffShot;
+    private GameObject ElectricShotToUse;
+
+    public GameObject eggFire;
+    public GameObject eggWater;
+    public GameObject eggIce;
+    public GameObject eggShock;
+    public GameObject eggEarth;
+    public GameObject eggWind;
+    public GameObject shitBrick;
 
     // Use this for initialization
-    void Start () {
-       
+    void Start()
+    {
+
         healthDisplay.text = "Health: " + health;
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
         playerWindShot.SetActive(false);
+
+        DamageEffects = GameObject.FindGameObjectWithTag("Player").GetComponent<EnemyDamageValues>();
     }
 
     // Update is called once per frame
     void Update()
     {
         healthDisplay.text = "Health: " + health;
-       
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             isJumping = true;
@@ -54,82 +75,124 @@ public class playerControls : MonoBehaviour {
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             transform.localScale = new Vector3(1, 1, 1);
-			facingRight = true;
+            facingRight = true;
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.localScale = new Vector3(-1, 1, 1);
-			facingRight = false;
+            facingRight = false;
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
         }
-        Attacks ();
+        PepAttacks();
+        EggBombs();
     }
 
-    void Attacks() {
-        if (Input.GetKey(KeyCode.Space))
+    void PepAttacks()
+    {
+        if (canShoot)
         {
-            if (canShoot)
-            {
-                GameObject shot;
+            GameObject shot;
 
-                switch (pepperIndexA) {
-                    case 1:
+            switch (pepperIndexA)
+            {
+                case 1:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
                         playerFireShot.SetActive(true);
-                        break;
-                    case 2:
+                    }
+                    break;
+                case 2:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
                         playerWaterShot.SetActive(true);
-                        break;
-                    case 3:
+                    }
+                    break;
+                case 3:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
                         canShoot = false;
                         shot = Instantiate(playerIceShot, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                        else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        else if (!facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
                         StartCoroutine(shootWait());
-                        break;
-                    case 4:
+                    }
+                    break;
+                case 4:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        ChargeTime = ChargeTime + Time.deltaTime;
+                        Debug.Log(ChargeTime);
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space))
+                    {
                         canShoot = false;
-                        shot = Instantiate(playerShockShot, transform.position,
+                        if (ChargeTime >= 3)
+                        {
+                            ElectricShotToUse = playerShockShot4;
+                        }
+                        else if (ChargeTime >= 2)
+                        {
+                            ElectricShotToUse = playerShockShot3;
+                        }
+                        else if (ChargeTime >= 1)
+                        {
+                            ElectricShotToUse = playerShockShot2;
+                        }
+                        else if (ChargeTime < 1)
+                        {
+                            ElectricShotToUse = playerShockShot1;
+                        }
+                        shot = Instantiate(ElectricShotToUse, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                        else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        else if (!facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
-                        StartCoroutine(shootWait());
-                        break;
-                    case 5:
+                        StartCoroutine(electricWait());
+                    }
+                    break;
+                case 5:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                        else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        else if (!facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
                         StartCoroutine(shootWait());
-                        break;
-                    case 6:
+                    }
+                    break;
+                case 6:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
                         playerWindShot.SetActive(true);
-                        break;
-                    case 7:
+                    }
+                    break;
+                case 7:
+                    if (Input.GetKey(KeyCode.Space))
+                    {
                         canShoot = false;
                         shot = Instantiate(playerBuffShot, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
@@ -138,10 +201,11 @@ public class playerControls : MonoBehaviour {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
                         StartCoroutine(shootWait());
-                        break;
-                }
+                    }
+                    break;
             }
         }
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             playerFireShot.SetActive(false);
@@ -164,16 +228,110 @@ public class playerControls : MonoBehaviour {
         }
     }
 
-    public IEnumerator shootWait()
+    void EggBombs()
+    {
+        GameObject shot;
+
+        switch (pepperIndexA)
+        {
+            case 1:
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    shot = Instantiate(eggFire, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    pepperA = pepperB;
+                    pepperIndexA = pepperIndexB;
+                    pepperB = null;
+                    pepperIndexB = 0;
+                }
+                break;
+            case 2:
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    shot = Instantiate(eggWater, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    pepperA = pepperB;
+                    pepperIndexA = pepperIndexB;
+                    pepperB = null;
+                    pepperIndexB = 0;
+                }
+                break;
+            case 3:
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    shot = Instantiate(eggIce, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    pepperA = pepperB;
+                    pepperIndexA = pepperIndexB;
+                    pepperB = null;
+                    pepperIndexB = 0;
+                }
+                break;
+            case 4:
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    shot = Instantiate(eggShock, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    pepperA = pepperB;
+                    pepperIndexA = pepperIndexB;
+                    pepperB = null;
+                    pepperIndexB = 0;
+                }
+                break;
+            case 5:
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    shot = Instantiate(eggEarth, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    pepperA = pepperB;
+                    pepperIndexA = pepperIndexB;
+                    pepperB = null;
+                    pepperIndexB = 0;
+                }
+                break;
+            case 6:
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    shot = Instantiate(eggWind, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    pepperA = pepperB;
+                    pepperIndexA = pepperIndexB;
+                    pepperB = null;
+                    pepperIndexB = 0;
+                }
+                break;
+            case 7:
+                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    shot = Instantiate(shitBrick, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    pepperA = pepperB;
+                    pepperIndexA = pepperIndexB;
+                    pepperB = null;
+                    pepperIndexB = 0;
+                }
+                break;
+        }
+    }
+
+    private IEnumerator shootWait()
     {
         Debug.Log("Counting down...");
         yield return new WaitForSeconds(1.0f);
         canShoot = true;
     }
 
-    public IEnumerator iFrames()
+    private IEnumerator electricWait()
     {
-       yield return new WaitForSeconds(1.0f);
+        Debug.Log("Counting down...");
+        ChargeTime = 0;
+        yield return new WaitForSeconds(0.4f);
+        canShoot = true;
+    }
+
+    private IEnumerator iFrames()
+    {
+        yield return new WaitForSeconds(1.0f);
         isImmune = false;
     }
 
@@ -183,7 +341,6 @@ public class playerControls : MonoBehaviour {
         {
             isJumping = false;
         }
-
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -191,12 +348,14 @@ public class playerControls : MonoBehaviour {
         if (collider.gameObject.tag == "healthPepper")
         {
             health += 100;
-            if (health > 500){
+            if (health > 500)
+            {
                 health = 500;
                 healthDisplay.text = "Health: " + health;
 
             }
-            if (health < 500){
+            if (health < 500)
+            {
                 healthDisplay.text = "Health: " + health;
 
             }
@@ -284,7 +443,7 @@ public class playerControls : MonoBehaviour {
                 pepperIndexB = 6;
                 pepperB = "windPepper";
             }
-           Destroy(collider.gameObject);
+            Destroy(collider.gameObject);
         }
         if (collider.gameObject.tag == "buffPepper")
         {

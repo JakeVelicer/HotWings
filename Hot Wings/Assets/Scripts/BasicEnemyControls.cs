@@ -201,8 +201,17 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Takes damage from burst attacks
 	void OnTriggerEnter2D (Collider2D collision) {
 
-		if (collision.gameObject.tag == "Electric") {
+		if (collision.gameObject.name == "LightningBullet(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage;
+		}
+		if (collision.gameObject.name == "LightningBullet2(Clone)") {
+			EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
+		}
+		if (collision.gameObject.name == "LightningBullet3(Clone)") {
+			EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
+		}
+		if (collision.gameObject.name == "LightningBullet4(Clone)") {
+			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
 		}
 		else if (collision.gameObject.tag == "Ice") {
 			EnemyHealth -= DamageValues.IceDamage;

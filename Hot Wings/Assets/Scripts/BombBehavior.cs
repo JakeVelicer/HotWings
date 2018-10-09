@@ -25,6 +25,5 @@ public class BombBehavior : MonoBehaviour {
 			PlayAnim = false;
 			Destroy(transform.parent.gameObject, 1.1f);
 		}
-		
 	}
 }
