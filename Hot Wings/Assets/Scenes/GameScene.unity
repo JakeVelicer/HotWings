@@ -157,6 +157,48 @@ Prefab:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 184746483}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: eggFire
+      value: 
+      objectReference: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29,
+        type: 2}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: eggWater
+      value: 
+      objectReference: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29,
+        type: 2}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: eggIce
+      value: 
+      objectReference: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29,
+        type: 2}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: eggShock
+      value: 
+      objectReference: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29,
+        type: 2}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: eggEarth
+      value: 
+      objectReference: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29,
+        type: 2}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: eggWind
+      value: 
+      objectReference: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29,
+        type: 2}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: shitBrick
+      value: 
+      objectReference: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
