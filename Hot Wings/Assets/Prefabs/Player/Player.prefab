@@ -89,7 +89,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853898952368290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.077743, z: 0}
+  m_LocalPosition: {x: 0, y: -3.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4693139771096478}
@@ -356,13 +356,26 @@ MonoBehaviour:
   playerWaterShot: {fileID: 1634015094940242}
   playerIceShot: {fileID: 1250827892930008, guid: 37ca082d042964ff3bb2b0e9e297b35a,
     type: 2}
-  playerShockShot: {fileID: 1950783655192980, guid: 970914a256a904743820bb58f938b4e7,
+  playerShockShot1: {fileID: 1950783655192980, guid: 970914a256a904743820bb58f938b4e7,
+    type: 2}
+  playerShockShot2: {fileID: 1269238164184848, guid: e8bb7d06040e14310b8d1ff893468faf,
+    type: 2}
+  playerShockShot3: {fileID: 1075878405740050, guid: b70328d34819a4087b32ec46e62435bf,
+    type: 2}
+  playerShockShot4: {fileID: 1002045632042286, guid: 699449ea63b9c4a77bdac4f9bac25bbd,
     type: 2}
   playerEarthShot: {fileID: 1686125914557816, guid: 1db213fc8b4b740af87d47803dc8e13a,
     type: 2}
   playerWindShot: {fileID: 1157261382178384}
   playerBuffShot: {fileID: 1686125914557816, guid: 1db213fc8b4b740af87d47803dc8e13a,
     type: 2}
+  eggFire: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29, type: 2}
+  eggWater: {fileID: 0}
+  eggIce: {fileID: 0}
+  eggShock: {fileID: 0}
+  eggEarth: {fileID: 0}
+  eggWind: {fileID: 0}
+  shitBrick: {fileID: 0}
 --- !u!212 &212021389264868386
 SpriteRenderer:
   m_ObjectHideFlags: 1

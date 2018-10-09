@@ -54,6 +54,7 @@ public class playerControls : MonoBehaviour
     void Start()
     {
 
+        healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
@@ -97,32 +98,19 @@ public class playerControls : MonoBehaviour
             switch (pepperIndexA)
             {
                 case 1:
-                    if (Input.GetKey(KeyCode.Space))
-                    {
+                    if (Input.GetKey(KeyCode.Space)) {
                         playerFireShot.SetActive(true);
                     }
                     break;
                 case 2:
-                    if (Input.GetKey(KeyCode.Space))
-                    {
+                    if (Input.GetKey(KeyCode.Space)) {
                         playerWaterShot.SetActive(true);
                     }
                     break;
                 case 3:
-                    if (Input.GetKey(KeyCode.Space))
-                    {
+                    if (Input.GetKey(KeyCode.Space)) {
                         canShoot = false;
-                        shot = Instantiate(playerIceShot, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        }
-                        else if (!facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-                        }
-                        StartCoroutine(shootWait());
+                        StartCoroutine(IceBurst());
                     }
                     break;
                 case 4:
@@ -134,20 +122,16 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyUp(KeyCode.Space))
                     {
                         canShoot = false;
-                        if (ChargeTime >= 3)
-                        {
+                        if (ChargeTime >= 3) {
                             ElectricShotToUse = playerShockShot4;
                         }
-                        else if (ChargeTime >= 2)
-                        {
+                        else if (ChargeTime >= 2) {
                             ElectricShotToUse = playerShockShot3;
                         }
-                        else if (ChargeTime >= 1)
-                        {
+                        else if (ChargeTime >= 1) {
                             ElectricShotToUse = playerShockShot2;
                         }
-                        else if (ChargeTime < 1)
-                        {
+                        else if (ChargeTime < 1) {
                             ElectricShotToUse = playerShockShot1;
                         }
                         shot = Instantiate(ElectricShotToUse, transform.position,
@@ -181,8 +165,7 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 6:
-                    if (Input.GetKey(KeyCode.Space))
-                    {
+                    if (Input.GetKey(KeyCode.Space)) {
                         playerWindShot.SetActive(true);
                     }
                     break;
@@ -205,7 +188,6 @@ public class playerControls : MonoBehaviour
                     break;
             }
         }
-
         if (Input.GetKeyUp(KeyCode.Space))
         {
             playerFireShot.SetActive(false);
@@ -312,6 +294,23 @@ public class playerControls : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private IEnumerator IceBurst()
+    {
+        for (int i = 0; i < 3; i++) {
+            
+            GameObject shot = Instantiate(playerIceShot, transform.position,
+            Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+            if (facingRight) {
+                shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+            }
+            else if (!facingRight) {
+                shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+            }
+            yield return new WaitForSeconds(0.3f);
+        }
+        StartCoroutine(shootWait());
     }
 
     private IEnumerator shootWait()

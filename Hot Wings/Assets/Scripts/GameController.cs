@@ -26,7 +26,10 @@ public class GameController : MonoBehaviour {
     void Start () {
 
         player = GameObject.FindGameObjectWithTag("Player");
-        //player.GetComponent<playerControls>().pepperA = "Empty";
+        scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
+        WaveDisplay = GameObject.Find("Wave").GetComponent<Text>();
+        inventoryDisplay = GameObject.Find("Inventory").GetComponent<Text>();
+        
         player.GetComponent<playerControls>().pepperB = " ";
         inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
         
@@ -34,7 +37,6 @@ public class GameController : MonoBehaviour {
         scoreDisplay.text = "Score: " + score;
         
         WaveCount = 0;
-        WaveDisplay = GameObject.Find ("Wave").GetComponent<Text> ();
         //StartCoroutine (SpawnWaves ());
     }
 
