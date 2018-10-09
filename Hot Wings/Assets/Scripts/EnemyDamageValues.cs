@@ -6,13 +6,13 @@ public class EnemyDamageValues : MonoBehaviour {
 
 	private BasicEnemyControls Enemy;
 
-	public float FireDamage;
-	public float WaterDamage;
-	public float ElectricDamage;
-	public float IceDamage;
-	public float EarthDamage;
-	public float WindDamage;
-	private int JackedDamage;
+	[HideInInspector] public float FireDamage;
+	[HideInInspector] public float WaterDamage;
+	[HideInInspector] public float ElectricDamage;
+	[HideInInspector] public float IceDamage;
+	[HideInInspector] public float EarthDamage;
+	[HideInInspector] public float WindDamage;
+	[HideInInspector] private int JackedDamage;
 
 	// Use this for initialization
 	void Start () {

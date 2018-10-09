@@ -105,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330926032680734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8, y: -0, z: 0}
+  m_LocalPosition: {x: 2.31, y: -0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 4508693116825596}
@@ -356,7 +356,7 @@ MonoBehaviour:
   playerWaterShot: {fileID: 1634015094940242}
   playerIceShot: {fileID: 1250827892930008, guid: 37ca082d042964ff3bb2b0e9e297b35a,
     type: 2}
-  playerShockShot: {fileID: 1858743289199614, guid: 90e7cf8ffb1ac4fc68717bbe3e80a2da,
+  playerShockShot: {fileID: 1950783655192980, guid: 970914a256a904743820bb58f938b4e7,
     type: 2}
   playerEarthShot: {fileID: 1686125914557816, guid: 1db213fc8b4b740af87d47803dc8e13a,
     type: 2}

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class playerControls : MonoBehaviour {
 
+    private EnemyDamageValues DamageEffects;
+
     public int moveSpeed = 10;
     public int jumpForce = 300;
     public bool isJumping;
@@ -13,12 +15,15 @@ public class playerControls : MonoBehaviour {
     public int shotSpeed = 1000;
     public bool isSingleShot = true;
     public bool isFiring = false;
+    private float ChargeTime = 1;
+    private float DamageMultiplier;
+
     public string pepperA = null;
     public string pepperB = null;
     public int pepperIndexA = 1;
     public int pepperIndexB;
-    public Text healthDisplay;
 
+    public Text healthDisplay;
     public int health = 500;
 
     public bool isImmune = false;
@@ -27,10 +32,14 @@ public class playerControls : MonoBehaviour {
     public GameObject playerFireShot;
     public GameObject playerWaterShot;
     public GameObject playerIceShot;
-    public GameObject playerShockShot;
+    public GameObject playerShockShot1;
+    public GameObject playerShockShot2;
+    public GameObject playerShockShot3;
+    public GameObject playerShockShot4;
     public GameObject playerEarthShot;
     public GameObject playerWindShot;
     public GameObject playerBuffShot;
+    private GameObject ElectricShotToUse;
 
     // Use this for initialization
     void Start () {
@@ -39,6 +48,8 @@ public class playerControls : MonoBehaviour {
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
         playerWindShot.SetActive(false);
+
+        DamageEffects = GameObject.FindGameObjectWithTag ("Player").GetComponent<EnemyDamageValues> ();
     }
 
     // Update is called once per frame
@@ -67,69 +78,96 @@ public class playerControls : MonoBehaviour {
     }
 
     void Attacks() {
-        if (Input.GetKey(KeyCode.Space))
+        if (canShoot)
         {
-            if (canShoot)
-            {
-                GameObject shot;
+            GameObject shot;
 
-                switch (pepperIndexA) {
-                    case 1:
+            switch (pepperIndexA) {
+                case 1:
+                    if (Input.GetKey(KeyCode.Space)) {
                         playerFireShot.SetActive(true);
-                        break;
-                    case 2:
+                    }
+                    break;
+                case 2:
+                    if (Input.GetKey(KeyCode.Space)) {
                         playerWaterShot.SetActive(true);
-                        break;
-                    case 3:
+                    }
+                    break;
+                case 3:
+                    if (Input.GetKey(KeyCode.Space)) {
                         canShoot = false;
                         shot = Instantiate(playerIceShot, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                        else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        else if (!facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
                         StartCoroutine(shootWait());
-                        break;
-                    case 4:
+                    }
+                    break;
+                case 4:
+                    if (Input.GetKey(KeyCode.Space)) {
+                        ChargeTime = ChargeTime + Time.deltaTime;
+                        Debug.Log (ChargeTime);
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space)) {
                         canShoot = false;
-                        shot = Instantiate(playerShockShot, transform.position,
+                        if (ChargeTime >= 3) {
+                            ElectricShotToUse = playerShockShot4;
+                        }
+                        else if (ChargeTime >= 2) {
+                            ElectricShotToUse = playerShockShot3;
+                        }
+                        else if (ChargeTime >= 1) {
+                            ElectricShotToUse = playerShockShot2;
+                        }
+                        else if (ChargeTime < 1) {
+                            ElectricShotToUse = playerShockShot1;
+                        }
+                        shot = Instantiate(ElectricShotToUse, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                        else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        else if (!facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
-                        StartCoroutine(shootWait());
-                        break;
-                    case 5:
+                        StartCoroutine(electricWait());
+                    }
+                    break;
+                case 5:
+                    if (Input.GetKey(KeyCode.Space)) {
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                        else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        else if (!facingRight)
                         {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
                         StartCoroutine(shootWait());
-                        break;
-                    case 6:
+                    }
+                    break;
+                case 6:
+                    if (Input.GetKey(KeyCode.Space)) {
                         playerWindShot.SetActive(true);
-                        break;
-                    case 7:
+                    }
+                    break;
+                case 7:
+                    if (Input.GetKey(KeyCode.Space)) {
                         canShoot = false;
                         shot = Instantiate(playerBuffShot, transform.position,
                         Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
@@ -138,10 +176,11 @@ public class playerControls : MonoBehaviour {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
                         StartCoroutine(shootWait());
-                        break;
+                    }
+                    break;
                 }
-            }
         }
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             playerFireShot.SetActive(false);
@@ -164,16 +203,24 @@ public class playerControls : MonoBehaviour {
         }
     }
 
-    public IEnumerator shootWait()
+    private IEnumerator shootWait()
     {
         Debug.Log("Counting down...");
         yield return new WaitForSeconds(1.0f);
         canShoot = true;
     }
 
-    public IEnumerator iFrames()
+    private IEnumerator electricWait()
     {
-       yield return new WaitForSeconds(1.0f);
+        Debug.Log("Counting down...");
+        ChargeTime = 0;
+        yield return new WaitForSeconds(0.4f);
+        canShoot = true;
+    }
+
+    private IEnumerator iFrames()
+    {
+        yield return new WaitForSeconds(1.0f);
         isImmune = false;
     }
 
@@ -183,7 +230,6 @@ public class playerControls : MonoBehaviour {
         {
             isJumping = false;
         }
-
     }
 
     void OnTriggerEnter2D(Collider2D collider)
