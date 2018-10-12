@@ -58,7 +58,7 @@ public class playerControls : MonoBehaviour
         healthDisplay.text = "Health: " + health;
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
-        playerWindShot.SetActive(false);
+        //playerWindShot.SetActive(false);
 
         DamageEffects = GameObject.FindGameObjectWithTag("Player").GetComponent<EnemyDamageValues>();
     }
@@ -97,23 +97,23 @@ public class playerControls : MonoBehaviour
 
             switch (pepperIndexA)
             {
-                case 1:
+                case 1: // Fire Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space)) {
                         playerFireShot.SetActive(true);
                     }
                     break;
-                case 2:
+                case 2: // Water Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space)) {
                         playerWaterShot.SetActive(true);
                     }
                     break;
-                case 3:
+                case 3: // CALLS Ice Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space)) {
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
                     break;
-                case 4:
+                case 4: // Electric Shock Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
                     {
                         ChargeTime = ChargeTime + Time.deltaTime;
@@ -147,7 +147,7 @@ public class playerControls : MonoBehaviour
                         StartCoroutine(electricWait());
                     }
                     break;
-                case 5:
+                case 5: // Earth Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
                     {
                         canShoot = false;
@@ -164,9 +164,23 @@ public class playerControls : MonoBehaviour
                         StartCoroutine(shootWait());
                     }
                     break;
-                case 6:
-                    if (Input.GetKey(KeyCode.Space)) {
-                        playerWindShot.SetActive(true);
+                case 6: // Wind Pepper Power Attack
+                    if (Input.GetKey(KeyCode.Space))
+                    {
+                        canShoot = false;
+                        shot = Instantiate(playerWindShot, transform.position,
+                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                        if (facingRight)
+                        {
+                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
+                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
+                        }
+                        else if (!facingRight)
+                        {
+                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
+                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
+                        }
+                        StartCoroutine(WindWait());
                     }
                     break;
                 case 7:
@@ -192,7 +206,7 @@ public class playerControls : MonoBehaviour
         {
             playerFireShot.SetActive(false);
             playerWaterShot.SetActive(false);
-            playerWindShot.SetActive(false);
+            //playerWindShot.SetActive(false);
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
@@ -317,6 +331,13 @@ public class playerControls : MonoBehaviour
     {
         Debug.Log("Counting down...");
         yield return new WaitForSeconds(1.0f);
+        canShoot = true;
+    }
+
+    private IEnumerator WindWait()
+    {
+        Debug.Log("Counting down...");
+        yield return new WaitForSeconds(2.0f);
         canShoot = true;
     }
 
