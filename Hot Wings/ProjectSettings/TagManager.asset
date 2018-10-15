@@ -26,6 +26,7 @@ TagManager:
   - windPepper
   - shockPepper
   - healthPepper
+  - speedPepper
   layers:
   - Default
   - TransparentFX

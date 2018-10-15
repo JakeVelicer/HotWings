@@ -7,6 +7,7 @@ public class playerControls : MonoBehaviour
 {
 
     private EnemyDamageValues DamageEffects;
+    private Rigidbody2D PlayerRigidbody;
 
     public int moveSpeed = 10;
     public int jumpForce = 300;
@@ -25,7 +26,10 @@ public class playerControls : MonoBehaviour
     public int pepperIndexB;
 
     public Text healthDisplay;
-    public int health = 500;
+    public int health;
+    private float DashTime;
+    private int DashCount;
+    private int DashDirection;
 
     public bool isImmune = false;
     public bool facingRight = true;
@@ -53,14 +57,13 @@ public class playerControls : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        PlayerRigidbody = GetComponent<Rigidbody2D>();
         healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
+
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
-        //playerWindShot.SetActive(false);
-
-        DamageEffects = GameObject.FindGameObjectWithTag("Player").GetComponent<EnemyDamageValues>();
+        
     }
 
     // Update is called once per frame
@@ -71,19 +74,19 @@ public class playerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             isJumping = true;
-            GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpForce);
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce);
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             transform.localScale = new Vector3(1, 1, 1);
             facingRight = true;
-            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+            transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.localScale = new Vector3(-1, 1, 1);
             facingRight = false;
-            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+            transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
         }
         PepAttacks();
         EggBombs();
@@ -144,7 +147,7 @@ public class playerControls : MonoBehaviour
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
-                        StartCoroutine(electricWait());
+                        StartCoroutine(shootWait());
                     }
                     break;
                 case 5: // Earth Pepper Power Attack
@@ -180,10 +183,10 @@ public class playerControls : MonoBehaviour
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }
-                        StartCoroutine(WindWait());
+                        StartCoroutine(shootWait());
                     }
                     break;
-                case 7:
+                case 7: // Buff Arms Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
                     {
                         canShoot = false;
@@ -193,12 +196,48 @@ public class playerControls : MonoBehaviour
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                        else if (!facingRight && pepperIndexA != 1 && pepperIndexA != 2 && pepperIndexA != 6)
+                        else if (!facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
                         StartCoroutine(shootWait());
                     }
+                    break;
+                case 8: // Speed Dash Pepper Power Attack
+                    if (DashDirection == 0) {
+                        if (Input.GetKey(KeyCode.Space)) {
+                            DashCount--;
+                            //canShoot = false;
+                            if (facingRight) {
+                                DashDirection = 1;
+                            }
+                            else if (!facingRight) {
+                                DashDirection = 2;
+                            }
+                            //StartCoroutine(shootWait());
+                        }
+                    }
+                    else {
+                        if (DashTime <= 0) {
+                            DashDirection = 0;
+                            DashTime = 0.1f;
+                            PlayerRigidbody.velocity = Vector2.zero;
+                            if (DashCount <= 0) {
+                                pepperIndexA = 0;
+                                pepperA = null;
+                            }
+                        }
+                        else {
+                            DashTime -= Time.deltaTime;
+                            if (DashDirection == 1) {
+                                PlayerRigidbody.velocity = Vector2.right * 60;
+                            }
+                            else if (DashDirection == 2) {
+                                PlayerRigidbody.velocity = Vector2.left * 60;
+                            }
+                        }
+                    }
+                    //Debug.Log(DashCount);
                     break;
             }
         }
@@ -206,7 +245,6 @@ public class playerControls : MonoBehaviour
         {
             playerFireShot.SetActive(false);
             playerWaterShot.SetActive(false);
-            //playerWindShot.SetActive(false);
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
@@ -330,22 +368,16 @@ public class playerControls : MonoBehaviour
     private IEnumerator shootWait()
     {
         Debug.Log("Counting down...");
-        yield return new WaitForSeconds(1.0f);
-        canShoot = true;
-    }
-
-    private IEnumerator WindWait()
-    {
-        Debug.Log("Counting down...");
-        yield return new WaitForSeconds(2.0f);
-        canShoot = true;
-    }
-
-    private IEnumerator electricWait()
-    {
-        Debug.Log("Counting down...");
-        ChargeTime = 0;
-        yield return new WaitForSeconds(0.4f);
+        if (pepperIndexA == 6) {
+            yield return new WaitForSeconds(2.0f);
+        }
+        else if (pepperIndexA == 4) {
+            ChargeTime = 0;
+            yield return new WaitForSeconds(0.4f);
+        }
+        else {
+            yield return new WaitForSeconds(1.0f);
+        }
         canShoot = true;
     }
 
@@ -477,6 +509,21 @@ public class playerControls : MonoBehaviour
                 pepperIndexB = 7;
                 pepperB = "buffPepper";
             }
+            Destroy(collider.gameObject);
+        }
+        if (collider.gameObject.tag == "speedPepper")
+        {
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 8;
+                pepperA = "speedPepper";
+            }
+            else
+            {
+                pepperIndexB = 8;
+                pepperB = "speedPepper";
+            }
+            DashCount = 6;
             Destroy(collider.gameObject);
         }
         if (collider.gameObject.tag == "enemyFist")
