@@ -324,7 +324,7 @@ public class playerControls : MonoBehaviour
             DashDirection = 2;
         }
         for (float i = 0; i < 1; i += 0.1f) {
-            if (i < 0.9) {
+            if (i < 0.9f) {
                 if (DashDirection == 1) {
                     PlayerRigidbody.velocity = Vector2.right * 60;
                 }
@@ -332,12 +332,12 @@ public class playerControls : MonoBehaviour
                     PlayerRigidbody.velocity = Vector2.left * 60;
                 }
             }
-            else if (i >= 0.9) {
+            else if (i >= 0.9f) {
                 yield return new WaitForSeconds(0.1f);
                 PlayerRigidbody.velocity = Vector2.zero;
             }
-            StartCoroutine(shootWait());
         }
+        StartCoroutine(shootWait());
     }
 
     private IEnumerator IceBurst()
@@ -360,7 +360,7 @@ public class playerControls : MonoBehaviour
     {
         //Debug.Log("Counting down...");
         if (pepperIndexA == 8) {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
             DashDirection = 0;
         }
         if (pepperIndexA == 6) {
