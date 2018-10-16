@@ -12,8 +12,8 @@ public class GameController : MonoBehaviour {
     public Text scoreDisplay;
     public int EnemiesLeft = 0;
     public int EnemyCount;
-	private bool GoSpawn;
-    private int WaveCount;
+	[HideInInspector] public bool GoSpawn;
+    public int WaveCount;
     public Text inventoryDisplay; 
     public int score;
     public GameObject player;
