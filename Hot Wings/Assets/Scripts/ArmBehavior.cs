@@ -12,16 +12,12 @@ public class ArmBehavior : MonoBehaviour {
 
 		PunchAnim = gameObject.GetComponent<Animator>();
 		EnemyControls = transform.parent.GetComponent<BasicEnemyControls>();
+		EnemyControls.OnPunch += OnPunch;
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		if (EnemyControls.Punch == true) {
-			PunchAnim.SetTrigger("GoPunch");
-			EnemyControls.Punch = false;
-		}
-		
+	void OnPunch () {
+		PunchAnim.SetTrigger("GoPunch");
 	}
 }

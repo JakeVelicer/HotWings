@@ -8,15 +8,13 @@ public class playerControls : MonoBehaviour
 
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
+    public System.Action OnPunch;
 
     public int moveSpeed = 10;
     public int jumpForce = 300;
     public bool isJumping;
-    public float fireRate;
     public bool canShoot = true;
     public int shotSpeed = 1000;
-    public bool isSingleShot = true;
-    public bool isFiring = false;
     private float ChargeTime = 1;
     private float DamageMultiplier;
 
@@ -27,8 +25,7 @@ public class playerControls : MonoBehaviour
 
     public Text healthDisplay;
     public int health;
-    private float DashTime;
-    //private int DashCount;
+    private float BuffTimer = 20;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -182,20 +179,19 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 7: // Buff Arms Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-                        canShoot = false;
-                        shot = Instantiate(playerBuffShot, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                        if (facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        }
-                        else if (!facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-                        }
-                        StartCoroutine(shootWait());
+                    playerBuffShot.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        //canShoot = false;
+                        if (OnPunch != null) {
+							OnPunch();
+						}
+                    }
+                    BuffTimer = BuffTimer - 1 * Time.deltaTime;
+                    if (BuffTimer <= 0) {
+                        playerBuffShot.SetActive(false);
+                        pepperA = null;
+                        BuffTimer = 20;
+                        pepperIndexA = 0;
                     }
                     break;
                 case 8: // CALLS Speed Dash Pepper Power Attack

@@ -26,6 +26,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject BulletObject;
 	public GameObject BombObject;
 	public int AlienType;
+	public System.Action OnPunch;
 
 	// Use this for initialization
 	void Start () {
@@ -93,6 +94,9 @@ public class BasicEnemyControls : MonoBehaviour {
 				case 1: 
      				if (CoolDownTimer <= 0) {
 						Punch = true;
+						if (OnPunch != null) {
+							OnPunch();
+						}
 						CoolDownTimer = CoolDown;
 					}
 					else {
@@ -195,6 +199,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 		else if (collision.gameObject.tag == "Wind") {
 			EnemyHealth -= DamageValues.WindDamage * Time.deltaTime;
+		}
+		else if (collision.gameObject.name == "AnchorArms") {
+			EnemyHealth -= DamageValues.JackedDamage * Time.deltaTime;
 		}
 	}
 
