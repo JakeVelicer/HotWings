@@ -22,13 +22,13 @@ public class playerControls : MonoBehaviour
 
     public string pepperA = null;
     public string pepperB = null;
-    public int pepperIndexA = 1;
+    public int pepperIndexA;
     public int pepperIndexB;
 
     public Text healthDisplay;
     public int health;
     private float DashTime;
-    private int DashCount;
+    //private int DashCount;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -101,17 +101,17 @@ public class playerControls : MonoBehaviour
             switch (pepperIndexA)
             {
                 case 1: // Fire Pepper Power Attack
-                    if (Input.GetKey(KeyCode.Space)) {
+                    if (Input.GetKeyDown(KeyCode.Space)) {
                         playerFireShot.SetActive(true);
                     }
                     break;
                 case 2: // Water Pepper Power Attack
-                    if (Input.GetKey(KeyCode.Space)) {
+                    if (Input.GetKeyDown(KeyCode.Space)) {
                         playerWaterShot.SetActive(true);
                     }
                     break;
                 case 3: // CALLS Ice Pepper Power Attack
-                    if (Input.GetKey(KeyCode.Space)) {
+                    if (Input.GetKeyDown(KeyCode.Space)) {
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
@@ -137,8 +137,8 @@ public class playerControls : MonoBehaviour
                         else if (ChargeTime < 1) {
                             ElectricShotToUse = playerShockShot1;
                         }
-                        shot = Instantiate(ElectricShotToUse, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                        shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                         if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
@@ -151,28 +151,23 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 5: // Earth Pepper Power Attack
-                    if (Input.GetKey(KeyCode.Space))
+                    if (Input.GetKeyDown(KeyCode.Space))
                     {
                         canShoot = false;
-                        shot = Instantiate(playerEarthShot, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                        if (facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        }
-                        else if (!facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-                        }
+                        shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
+			            Quaternion.identity) as GameObject;
+                        //shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+                        pepperIndexA = 0;
+                        pepperA = null;
                         StartCoroutine(shootWait());
                     }
                     break;
                 case 6: // Wind Pepper Power Attack
-                    if (Input.GetKey(KeyCode.Space))
+                    if (Input.GetKeyDown(KeyCode.Space))
                     {
                         canShoot = false;
-                        shot = Instantiate(playerWindShot, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                        shot = Instantiate(playerWindShot, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                         if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
@@ -187,11 +182,11 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 7: // Buff Arms Pepper Power Attack
-                    if (Input.GetKey(KeyCode.Space))
+                    if (Input.GetKeyDown(KeyCode.Space))
                     {
                         canShoot = false;
-                        shot = Instantiate(playerBuffShot, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                        shot = Instantiate(playerBuffShot, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                         if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
@@ -203,41 +198,13 @@ public class playerControls : MonoBehaviour
                         StartCoroutine(shootWait());
                     }
                     break;
-                case 8: // Speed Dash Pepper Power Attack
-                    if (DashDirection == 0) {
-                        if (Input.GetKey(KeyCode.Space)) {
-                            DashCount--;
-                            //canShoot = false;
-                            if (facingRight) {
-                                DashDirection = 1;
-                            }
-                            else if (!facingRight) {
-                                DashDirection = 2;
-                            }
-                            //StartCoroutine(shootWait());
+                case 8: // CALLS Speed Dash Pepper Power Attack
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        canShoot = false;
+                        if (DashDirection == 0) {
+                            StartCoroutine(SpeedDash());
                         }
                     }
-                    else {
-                        if (DashTime <= 0) {
-                            DashDirection = 0;
-                            DashTime = 0.1f;
-                            PlayerRigidbody.velocity = Vector2.zero;
-                            if (DashCount <= 0) {
-                                pepperIndexA = 0;
-                                pepperA = null;
-                            }
-                        }
-                        else {
-                            DashTime -= Time.deltaTime;
-                            if (DashDirection == 1) {
-                                PlayerRigidbody.velocity = Vector2.right * 60;
-                            }
-                            else if (DashDirection == 2) {
-                                PlayerRigidbody.velocity = Vector2.left * 60;
-                            }
-                        }
-                    }
-                    //Debug.Log(DashCount);
                     break;
             }
         }
@@ -348,12 +315,36 @@ public class playerControls : MonoBehaviour
         }
     }
 
+    private IEnumerator SpeedDash()
+    {
+        if (facingRight) {
+            DashDirection = 1;
+        }
+        else if (!facingRight) {
+            DashDirection = 2;
+        }
+        for (float i = 0; i < 1; i += 0.1f) {
+            if (i < 0.9) {
+                if (DashDirection == 1) {
+                    PlayerRigidbody.velocity = Vector2.right * 60;
+                }
+                else if (DashDirection == 2) {
+                    PlayerRigidbody.velocity = Vector2.left * 60;
+                }
+            }
+            else if (i >= 0.9) {
+                yield return new WaitForSeconds(0.1f);
+                PlayerRigidbody.velocity = Vector2.zero;
+            }
+            StartCoroutine(shootWait());
+        }
+    }
+
     private IEnumerator IceBurst()
     {
         for (int i = 0; i < 3; i++) {
-            
-            GameObject shot = Instantiate(playerIceShot, transform.position,
-            Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+            GameObject shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
+			Quaternion.identity) as GameObject;
             if (facingRight) {
                 shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
             }
@@ -367,7 +358,11 @@ public class playerControls : MonoBehaviour
 
     private IEnumerator shootWait()
     {
-        Debug.Log("Counting down...");
+        //Debug.Log("Counting down...");
+        if (pepperIndexA == 8) {
+            yield return new WaitForSeconds(0.3f);
+            DashDirection = 0;
+        }
         if (pepperIndexA == 6) {
             yield return new WaitForSeconds(2.0f);
         }
@@ -523,7 +518,7 @@ public class playerControls : MonoBehaviour
                 pepperIndexB = 8;
                 pepperB = "speedPepper";
             }
-            DashCount = 6;
+            //DashCount = 6;
             Destroy(collider.gameObject);
         }
         if (collider.gameObject.tag == "enemyFist")

@@ -308,11 +308,11 @@ MonoBehaviour:
     type: 2}
   playerShockShot4: {fileID: 1002045632042286, guid: 699449ea63b9c4a77bdac4f9bac25bbd,
     type: 2}
-  playerEarthShot: {fileID: 1686125914557816, guid: 1db213fc8b4b740af87d47803dc8e13a,
+  playerEarthShot: {fileID: 1788828230605124, guid: 68222e5af9cea42a68e8ec1af5fbeb8a,
     type: 2}
   playerWindShot: {fileID: 1686227120266522, guid: 9df9119ef73d848538254fdfff1a2178,
     type: 2}
-  playerBuffShot: {fileID: 1686125914557816, guid: 1db213fc8b4b740af87d47803dc8e13a,
+  playerBuffShot: {fileID: 1788828230605124, guid: 68222e5af9cea42a68e8ec1af5fbeb8a,
     type: 2}
   eggFire: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29, type: 2}
   eggWater: {fileID: 0}
