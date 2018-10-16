@@ -360,10 +360,10 @@ public class playerControls : MonoBehaviour
     {
         //Debug.Log("Counting down...");
         if (pepperIndexA == 8) {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
             DashDirection = 0;
         }
-        if (pepperIndexA == 6) {
+        else if (pepperIndexA == 6) {
             yield return new WaitForSeconds(2.0f);
         }
         else if (pepperIndexA == 4) {
