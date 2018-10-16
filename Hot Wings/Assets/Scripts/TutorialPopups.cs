@@ -3,57 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TutorialPopups : MonoBehaviour {
+public class TutorialPopups : MonoBehaviour
+{
+    private GameController Controller;
+    public GameObject TutorialCanvas;
 
+    public GameObject[] Waves;
 
+    void OnEnable()
+    {
+        GameController.OnWaveIncremented += OnWaveIncremented;
+    }
 
-private GameController Controller;
-public GameObject TutorialCanvas;
-public static bool GameIsPaused = false; 
+    void OnDisable()
+    {
+        GameController.OnWaveIncremented -= OnWaveIncremented;
+    }
 
-public GameObject Wave1;
-public GameObject Wave2;
-public GameObject Wave3;
-public GameObject Wave4;
-public GameObject Wave5;
+    private void OnWaveIncremented(int waveCount)
+    {
+        Debug.Log("Tutorial Popup knows that the wave was incremented to " + waveCount);
 
-void Start () {
-	Controller = gameObject.GetComponent<GameController>();
+        if (waveCount <= Waves.Length)
+        {
+            Waves[waveCount - 1].SetActive(true);
+            Pause();
+        }
+    }
 
-}
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+    }
 
-void Update (){
-
-
-	if (Controller.GoSpawn) {
-Debug.Log ("hello");
-		if (Controller.WaveCount == 1) {
-			Debug.Log ("true");
-			Wave1.SetActive(true);
-		}
-	}
-
-	if (GameIsPaused)
-			{
-				Resume();
-			} else
-			{
-				Pause();
-			}
-}
-		
-
-	void Resume()
-	{
-		Time.timeScale = 1f;
-		GameIsPaused = false;
-
-	}
-	void Pause()
-	{
-	Time.timeScale = 0f;
-	GameIsPaused = true;
-	}
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+    }
 
 }
 

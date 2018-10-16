@@ -215,10 +215,10 @@ RectTransform:
   m_Father: {fileID: 1945339842}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030518, y: -445}
-  m_SizeDelta: {x: 517.8, y: 97.1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -0.000030518, y: 80}
+  m_SizeDelta: {x: 517.8, y: 97.100006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &21417144
 MonoBehaviour:
@@ -268,7 +268,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -785,12 +785,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7b82e6102374cd29fddebd3dd1e692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TutorialCanvas: {fileID: 1945339841}
-  Wave1: {fileID: 0}
-  Wave2: {fileID: 0}
-  Wave3: {fileID: 0}
-  Wave4: {fileID: 0}
-  Wave5: {fileID: 0}
+  TutorialCanvas: {fileID: 1957796253}
+  Waves:
+  - {fileID: 1945339841}
+  - {fileID: 535234398}
+  - {fileID: 1213602809}
+  - {fileID: 1855447940}
+  - {fileID: 8583870}
 --- !u!114 &184746483 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114271206863768820, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
@@ -906,6 +907,7 @@ MonoBehaviour:
   bounds: 1
   minCameraPosition: {x: -36, y: 0, z: -10}
   maxCameraPosition: {x: 36, y: 5, z: -10}
+  m_speed: 3
 --- !u!1 &268608928
 GameObject:
   m_ObjectHideFlags: 0
