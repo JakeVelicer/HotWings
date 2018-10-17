@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853898952368290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.10017958}
+  m_LocalPosition: {x: 0, y: -3.57, z: -0.10017958}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4693139771096478}
@@ -376,7 +376,6 @@ MonoBehaviour:
   moveSpeed: 8
   jumpForce: 300
   isJumping: 0
-  fireRate: 0
   canShoot: 1
   shotSpeed: 1000
   pepperA: 
@@ -404,13 +403,13 @@ MonoBehaviour:
   playerWindShot: {fileID: 1686227120266522, guid: 9df9119ef73d848538254fdfff1a2178,
     type: 2}
   playerBuffShot: {fileID: 1635764463367764}
-  eggFire: {fileID: 1236616020896136, guid: 17a85e8a409a3408dbdb53842bbc2e29, type: 2}
-  eggWater: {fileID: 0}
-  eggIce: {fileID: 0}
-  eggShock: {fileID: 0}
-  eggEarth: {fileID: 0}
-  eggWind: {fileID: 0}
-  shitBrick: {fileID: 0}
+  eggFire: {fileID: 1362318275178038, guid: fe3c480fc7d014b2fa94b8d7868adbe9, type: 2}
+  eggWater: {fileID: 1659041756498784, guid: cae41515c90484291bda4361fcf5cf49, type: 2}
+  eggIce: {fileID: 1280963530370964, guid: d2f282073be474fe7bbe4950f6709ad9, type: 2}
+  eggShock: {fileID: 1424284241688236, guid: 9a79960a875534884833ffa018d63b46, type: 2}
+  eggEarth: {fileID: 1083823805184314, guid: b5e64eb7520a34c38929a352c40d0faf, type: 2}
+  eggWind: {fileID: 1844889258520278, guid: 559873313083944e9bce606c4643f7de, type: 2}
+  shitBrick: {fileID: 1997457494825484, guid: e9e12c7ab1d3e429a97ce8f4297fc170, type: 2}
 --- !u!212 &212021389264868386
 SpriteRenderer:
   m_ObjectHideFlags: 1
