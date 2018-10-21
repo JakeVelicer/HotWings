@@ -21,9 +21,9 @@ public class DestroyPepper : MonoBehaviour {
 		collision.gameObject.tag == "earthPepper" || collision.gameObject.tag == "healhPepper" ||
 		collision.gameObject.tag == "buffPepper" || collision.gameObject.tag == "Player") {
 
-			if (CanDestroy == true)
-			Destroy(gameObject);
-
+			if (CanDestroy == true) {
+				Destroy(gameObject);
+			}
 		}
 		
 	}
