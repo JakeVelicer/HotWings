@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 
     public GameObject[] EnemyType;
     private GameObject hazard;
-    private Text WaveDisplay;
+    private Text waveDisplay;
     public Vector3 spawnValues;
     public Text scoreDisplay;
     public int EnemiesLeft = 0;
@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public Text inventoryDisplay;
     public int score;
     public GameObject player;
+    public System.Action SpawnPeppers;
 
     public static System.Action<int> OnWaveIncremented;
 
@@ -32,7 +33,7 @@ public class GameController : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
-        WaveDisplay = GameObject.Find("Wave").GetComponent<Text>();
+        waveDisplay = GameObject.Find("Wave").GetComponent<Text>();
         inventoryDisplay = GameObject.Find("Inventory").GetComponent<Text>();
 
         player.GetComponent<playerControls>().pepperB = " ";
@@ -48,7 +49,7 @@ public class GameController : MonoBehaviour
     void Update()
     {
         inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
-        WaveDisplay.text = "Wave: " + WaveCount;
+        waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
         if (EnemiesLeft <= 0)
         {
@@ -67,9 +68,11 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         WaveCount += 1;
-        if (OnWaveIncremented != null)
-        {
+        if (OnWaveIncremented != null) {
             OnWaveIncremented(WaveCount);
+        }
+        if (SpawnPeppers != null) {
+            SpawnPeppers();
         }
     }
 

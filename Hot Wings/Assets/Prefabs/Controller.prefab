@@ -56,10 +56,12 @@ MonoBehaviour:
   - {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
   - {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
   - {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
-  spawnValues: {x: -89, y: 5, z: 0}
+  spawnValues: {x: 60, y: 5, z: 0}
   scoreDisplay: {fileID: 0}
   EnemiesLeft: 0
   EnemyCount: 10
+  GoSpawn: 0
+  WaveCount: 0
   inventoryDisplay: {fileID: 0}
   score: 0
   player: {fileID: 0}

@@ -9,8 +9,6 @@ public class playerControls : MonoBehaviour
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
-    public System.Action OnHeal;
-
     public int moveSpeed = 10;
     public int jumpForce = 300;
     public bool isJumping;
