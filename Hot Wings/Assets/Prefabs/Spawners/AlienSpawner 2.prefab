@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SaucerNumber: 2
-  MotherShip: {fileID: 0}
+  MotherShip: {fileID: 1911000877547620, guid: e53ba94efc0b34241814698d4af376eb, type: 2}
   Aliens:
   - {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
   - {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}

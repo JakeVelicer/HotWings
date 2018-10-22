@@ -165,7 +165,7 @@ public class BasicEnemyControls : MonoBehaviour {
 					break;
 			}
 		}
-		else if (dist <= ChaseRange) {
+		else if (dist <= ChaseRange && AlienType == 6) {
 			CanChase = false;
 			ChaseDirection();
 			if (CanFireRay == false) {
