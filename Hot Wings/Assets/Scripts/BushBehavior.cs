@@ -167,6 +167,10 @@ public class BushBehavior : MonoBehaviour {
 					ChosenPepper = PepperDrops[Random.Range(0,6)];
 					SpawnPepper();
 					break;
+				case 7:
+					ChosenPepper = PepperDrops[Random.Range(6,9)];
+					SpawnPepper();
+					break;
 			}
 		}
 	}
