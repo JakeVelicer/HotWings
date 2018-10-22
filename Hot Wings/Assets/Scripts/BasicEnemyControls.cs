@@ -108,7 +108,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			ChaseDirection();
 		}
 		// Tells the player to attack if close enough
-		else if (Vector3.Distance(Target.position, transform.position) <= FireRange) {
+		else if (Vector3.Distance(Target.position, transform.position) <= FireRange && AlienType != 6) {
 			CanChase = false;
 			ChaseDirection();
 
@@ -163,6 +163,14 @@ public class BasicEnemyControls : MonoBehaviour {
 						StartCoroutine(RayTime());
 					}
 					break;
+			}
+		}
+		else if (dist <= ChaseRange) {
+			CanChase = false;
+			ChaseDirection();
+			if (CanFireRay == false) {
+				SaucerRay.SetActive(false);
+				StartCoroutine(RayTime());
 			}
 		}
 		// Does nothing if out of range of chasing and attacking, will roam eventually
