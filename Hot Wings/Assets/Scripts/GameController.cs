@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
 
-    public GameObject[] EnemyType;
+    public GameObject[] SaucerObject;
     private GameObject hazard;
     private Text waveDisplay;
-    public Vector3 spawnValues;
+    //public Vector3 spawnValues;
     public Text scoreDisplay;
     public int EnemiesLeft = 0;
-    public int EnemyCount;
+    //public int SaucerCount;
     [HideInInspector] public bool GoSpawn;
     public int WaveCount;
     public Text inventoryDisplay;
@@ -80,13 +80,19 @@ public class GameController : MonoBehaviour
     {
         if (GoSpawn == true)
         {
-            for (int i = 0; i < EnemyCount; i++)
+            /*
+            for (int i = 0; i < SaucerCount; i++)
             {
-                hazard = EnemyType[Random.Range(0, 4)];
+                hazard = SaucerObject[Random.Range(0, 3)];
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
             }
+            */
+
+            Instantiate(SaucerObject[0], new Vector3 (-8.3f, 5, 0), Quaternion.identity);
+            Instantiate(SaucerObject[1], new Vector3 (-44.6f, 5, 0), Quaternion.identity);
+            Instantiate(SaucerObject[2], new Vector3 (27.8f, 5, 0), Quaternion.identity);
         }
     }
 }
