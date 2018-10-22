@@ -57,8 +57,8 @@ MonoBehaviour:
   Aliens:
   - {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
   - {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
-  - {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
   - {fileID: 1543632953322894, guid: 072758c31bfe44dba865b1f2f83a5b9f, type: 2}
+  - {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
 --- !u!212 &212768058861599332
 SpriteRenderer:
   m_ObjectHideFlags: 1

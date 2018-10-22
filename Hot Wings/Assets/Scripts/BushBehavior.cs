@@ -13,7 +13,7 @@ public class BushBehavior : MonoBehaviour {
 	void Start () {
 
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
-		Controller.SpawnObjects += CallSpawn;
+		Controller.SpawnPeppers += CallSpawn;
 
 	}
 	

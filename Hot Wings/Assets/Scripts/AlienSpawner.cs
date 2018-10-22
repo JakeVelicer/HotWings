@@ -15,7 +15,7 @@ public class AlienSpawner : MonoBehaviour {
 	void Start () {
 
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
-		Controller.SpawnObjects += CallSpawnEnemies;
+		Controller.SpawnTheEnemies += CallSpawnEnemies;
 		Sprite = gameObject.GetComponent<SpriteRenderer>();
 		Controller.EnemiesLeft++;
 
@@ -136,7 +136,7 @@ public class AlienSpawner : MonoBehaviour {
             yield return new WaitForSeconds(1);
         }
 		Controller.EnemiesLeft--;
-		Controller.SpawnObjects = null;
+		Controller.SpawnTheEnemies = null;
 		Destroy(gameObject, 2);
 	}
 }
