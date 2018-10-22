@@ -25,17 +25,20 @@ public class PauseMenu : MonoBehaviour {
     void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-            menuSounds.clip = pauseSound;
-            menuSounds.loop = false;
-            menuSounds.Play();
+        
 			if (GameIsPaused)
 			{
 				Resume();
 			} else
 			{
 				Pause();
+			
 			}
+			 menuSounds.clip = pauseSound;
+            menuSounds.loop = false;
+            menuSounds.Play();
 			}
+
 		}
 
 	void Resume()
