@@ -21,10 +21,12 @@ public class BasicEnemyControls : MonoBehaviour {
 	private float CoolDownTimer = 0;
 
     private bool CanChase;
+	private bool CanFireRay;
 	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
 	public GameObject BulletObject;
 	public GameObject BombObject;
+	public GameObject SaucerRay;
 	public int AlienType;
 	public System.Action OnPunch;
 
@@ -97,6 +99,8 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	void ChaseTarget () {
 
+		float dist = Target.transform.position.x - Target.transform.position.x;
+
 		// Determines if the range of the player is close enough to be chased
 		if (Vector3.Distance(Target.position, transform.position) <= ChaseRange &&
 		Vector3.Distance(Target.position, transform.position) > FireRange) {
@@ -104,7 +108,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			ChaseDirection();
 		}
 		// Tells the player to attack if close enough
-		else if (Vector3.Distance(Target.position, transform.position) <= FireRange) {
+		else if (Vector3.Distance(Target.position, transform.position) <= FireRange && AlienType != 6) {
 			CanChase = false;
 			ChaseDirection();
 
@@ -153,6 +157,20 @@ public class BasicEnemyControls : MonoBehaviour {
 					}
 					CoolDownTimer -= Time.deltaTime;
 					break;
+				case 6:
+     				if (CanFireRay == false) {
+						SaucerRay.SetActive(false);
+						StartCoroutine(RayTime());
+					}
+					break;
+			}
+		}
+		else if (dist <= ChaseRange && AlienType == 6) {
+			CanChase = false;
+			ChaseDirection();
+			if (CanFireRay == false) {
+				SaucerRay.SetActive(false);
+				StartCoroutine(RayTime());
 			}
 		}
 		// Does nothing if out of range of chasing and attacking, will roam eventually
@@ -224,6 +242,16 @@ public class BasicEnemyControls : MonoBehaviour {
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
+
+	}
+
+	IEnumerator RayTime () {
+
+		yield return new WaitForSeconds(3);
+		CanFireRay = true;
+		SaucerRay.SetActive(true);
+		yield return new WaitForSeconds(5);
+		CanFireRay = false;
 
 	}
 

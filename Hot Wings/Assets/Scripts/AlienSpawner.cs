@@ -105,13 +105,17 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[3]));
 							break;
 					}
-					//GameObject shot = Instantiate (MotherShip, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
+					GameObject shot = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
 					break;
 			}
 		}
 		else if (Controller.WaveCount >= 6) {
 
 			EnemiesToSpawn = EnemiesToSpawn + 1;
+
+			if (Controller.WaveCount % 5 == 0 ) {
+				GameObject shot = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
+			}
 
 			switch(SaucerNumber) {
 				case 1:

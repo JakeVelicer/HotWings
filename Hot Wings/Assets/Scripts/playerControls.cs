@@ -652,6 +652,9 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
+    }
+    
+    void OnTriggerStay2D(Collider2D collider) {
         if (collider.gameObject.tag == "enemyDeathRay")
         {
             if (!isImmune)
