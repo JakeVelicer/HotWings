@@ -12,7 +12,7 @@ public class EnemyDamageValues : MonoBehaviour {
 	[HideInInspector] public float IceDamage;
 	[HideInInspector] public float EarthDamage;
 	[HideInInspector] public float WindDamage;
-	[HideInInspector] private int JackedDamage;
+	[HideInInspector] public float JackedDamage;
 
 	// Use this for initialization
 	void Start () {

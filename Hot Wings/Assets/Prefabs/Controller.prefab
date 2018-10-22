@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4800849916176994}
   - component: {fileID: 114962278524806552}
+  - component: {fileID: 114359089860403696}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -34,12 +35,30 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1204508181842710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.05, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114359089860403696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204508181842710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf7b82e6102374cd29fddebd3dd1e692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TutorialCanvas: {fileID: 0}
+  Waves:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114962278524806552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,15 +70,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d315bd91c42c4cb698009c28f697c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyType:
-  - {fileID: 1543632953322894, guid: 072758c31bfe44dba865b1f2f83a5b9f, type: 2}
-  - {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
-  - {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
-  - {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
-  spawnValues: {x: -89, y: 5, z: 0}
+  SaucerObject:
+  - {fileID: 1246866687860266, guid: 0c3aebacc626045d2895a3810c89d097, type: 2}
+  - {fileID: 1078093335936488, guid: 6c1e4c25840434f669bbcde65d096bc3, type: 2}
+  - {fileID: 1026707281357506, guid: e614cb8415e454dd69ee0b04b7cfb3b1, type: 2}
   scoreDisplay: {fileID: 0}
   EnemiesLeft: 0
-  EnemyCount: 10
+  GoSpawn: 0
+  WaveCount: 0
   inventoryDisplay: {fileID: 0}
   score: 0
   player: {fileID: 0}

@@ -26,10 +26,23 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject BulletObject;
 	public GameObject BombObject;
 	public int AlienType;
+	public System.Action OnPunch;
 
-	// Use this for initialization
-	void Start () {
+    private AudioSource enemySounds;
+    public AudioClip enemyPistol;
+    public AudioClip enemyRapidFire;
+    public AudioClip enemyLaser;
+    public AudioClip enemyDeath1;
+    public AudioClip enemyDeath2;
+    public AudioClip enemyDeath3;
 
+    private bool soundPlaying = false;
+
+    // Use this for initialization
+    void Start () {
+
+        enemySounds = gameObject.GetComponent<AudioSource>();
+        enemySounds.loop = false;
 		//Rigidbody = GetComponent<Rigidbody2D> ();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
@@ -48,7 +61,16 @@ public class BasicEnemyControls : MonoBehaviour {
 		ChaseTarget();
 
 		if (EnemyHealth <= 0) {
-
+            if (AlienType == 1 || AlienType == 5)
+            {
+                enemySounds.clip = enemyDeath2;
+                enemySounds.Play();
+            }
+            else if (AlienType == 3 || AlienType == 4)
+            {
+                enemySounds.clip = enemyDeath1;
+                enemySounds.Play();
+            }
             MainController.score += enemyValue;
 			MainController.EnemiesLeft--;
 			Destroy(gameObject);
@@ -93,6 +115,9 @@ public class BasicEnemyControls : MonoBehaviour {
 				case 1: 
      				if (CoolDownTimer <= 0) {
 						Punch = true;
+						if (OnPunch != null) {
+							OnPunch();
+						}
 						CoolDownTimer = CoolDown;
 					}
 					else {
@@ -134,6 +159,8 @@ public class BasicEnemyControls : MonoBehaviour {
 		else {
 			CanChase = false;
 			CoolDownTimer = 0;
+            enemySounds.Stop();
+            soundPlaying = false;
 		}
 	}
 
@@ -153,12 +180,28 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Instantiates a chosen projectile in the scene and propels it forward like a bullet
 	void AttackPhase1 () {
 
-		if (ToTheRight == true) {
-			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(0.86f, 0.24f, 0), 
-			Quaternion.identity) as GameObject;
-			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
-		}
-		else if (ToTheRight == false) {
+        if (AlienType == 3) {
+            enemySounds.clip = enemyPistol;
+            enemySounds.loop = false;
+        }
+        if (AlienType == 5) {
+            enemySounds.clip = enemyRapidFire;
+            enemySounds.loop = true;
+        }
+        if (ToTheRight == true)
+        {
+            enemySounds.Play();
+            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(0.86f, 0.24f, 0),
+            Quaternion.identity) as GameObject;
+            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
+        }
+        else if (ToTheRight == false) 
+        {
+            if (soundPlaying == false)
+            {
+                enemySounds.Play();
+            }
+            soundPlaying = true;
 			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-0.86f, 0.24f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
@@ -195,6 +238,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 		else if (collision.gameObject.tag == "Wind") {
 			EnemyHealth -= DamageValues.WindDamage * Time.deltaTime;
+		}
+		else if (collision.gameObject.name == "AnchorArms") {
+			EnemyHealth -= DamageValues.JackedDamage * Time.deltaTime;
 		}
 	}
 

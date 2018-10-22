@@ -8,15 +8,13 @@ public class playerControls : MonoBehaviour
 
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
-
+    public System.Action OnPunch;
     public int moveSpeed = 10;
     public int jumpForce = 300;
     public bool isJumping;
-    public float fireRate;
     public bool canShoot = true;
     public int shotSpeed = 1000;
-    public bool isSingleShot = true;
-    public bool isFiring = false;
+    private bool Healing;
     private float ChargeTime = 1;
     private float DamageMultiplier;
 
@@ -27,8 +25,8 @@ public class playerControls : MonoBehaviour
 
     public Text healthDisplay;
     public int health;
-    private float DashTime;
-    //private int DashCount;
+    private float BuffTimer;
+    private int HealthTimer;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -45,6 +43,22 @@ public class playerControls : MonoBehaviour
     public GameObject playerWindShot;
     public GameObject playerBuffShot;
     private GameObject ElectricShotToUse;
+
+    public AudioSource playerSounds;
+
+    public AudioClip playerFire;
+    public AudioClip playerWater;
+    public AudioClip playerIce;
+    public AudioClip playerShock1;
+    public AudioClip playerShock2;
+    public AudioClip playerShock3;
+    public AudioClip playerShock4;
+    public AudioClip playerEarth;
+    public AudioClip playerWind;
+    public AudioClip playerBuff;
+
+    public AudioClip playerHit;
+    public AudioClip playerDeath;
 
     public GameObject eggFire;
     public GameObject eggWater;
@@ -63,7 +77,8 @@ public class playerControls : MonoBehaviour
 
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
-        
+
+        playerSounds = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -102,16 +117,32 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        playerSounds.clip = playerFire;
+                        playerSounds.loop = true;
+                        playerSounds.Play();
                         playerFireShot.SetActive(true);
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space))
+                    {
+                        playerSounds.Stop();
                     }
                     break;
                 case 2: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        playerSounds.clip = playerWater;
+                        playerSounds.loop = true;
+                        playerSounds.Play();
                         playerWaterShot.SetActive(true);
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space)) {
+                        playerSounds.Stop();
                     }
                     break;
                 case 3: // CALLS Ice Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        playerSounds.clip = playerIce;
+                        playerSounds.loop = false;
+                        playerSounds.Play();
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
@@ -126,15 +157,27 @@ public class playerControls : MonoBehaviour
                     {
                         canShoot = false;
                         if (ChargeTime >= 3) {
+                            playerSounds.clip = playerShock4;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot4;
                         }
                         else if (ChargeTime >= 2) {
+                            playerSounds.clip = playerShock3;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot3;
                         }
                         else if (ChargeTime >= 1) {
+                            playerSounds.clip = playerShock2;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot2;
                         }
                         else if (ChargeTime < 1) {
+                            playerSounds.clip = playerShock1;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot1;
                         }
                         shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0), 
@@ -153,18 +196,23 @@ public class playerControls : MonoBehaviour
                 case 5: // Earth Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        playerSounds.clip = playerEarth;
+                        playerSounds.loop = false;
+                        playerSounds.Play();
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
 			            Quaternion.identity) as GameObject;
                         //shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        pepperIndexA = 0;
-                        pepperA = null;
+                        ConsumableOver();
                         StartCoroutine(shootWait());
                     }
                     break;
                 case 6: // Wind Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        playerSounds.clip = playerWind;
+                        playerSounds.loop = false;
+                        playerSounds.Play();
                         canShoot = false;
                         shot = Instantiate(playerWindShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
@@ -182,20 +230,20 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 7: // Buff Arms Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-                        canShoot = false;
-                        shot = Instantiate(playerBuffShot, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                        if (facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        }
-                        else if (!facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-                        }
-                        StartCoroutine(shootWait());
+                    playerBuffShot.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        //canShoot = false;
+                        if (OnPunch != null) {
+                            playerSounds.clip = playerBuff;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
+                            OnPunch();
+						}
+                    }
+                    BuffTimer = BuffTimer - 1 * Time.deltaTime;
+                    if (BuffTimer <= 0) {
+                        playerBuffShot.SetActive(false);
+                        ConsumableOver();
                     }
                     break;
                 case 8: // CALLS Speed Dash Pepper Power Attack
@@ -204,6 +252,16 @@ public class playerControls : MonoBehaviour
                         if (DashDirection == 0) {
                             StartCoroutine(SpeedDash());
                         }
+                    }
+                    break;
+                case 9: // CALLS Health Pepper Power heal
+                    if (Input.GetKeyDown(KeyCode.Space) && Healing == false) {
+                        Healing = true;
+                        StartCoroutine(HealThePlayer());
+                    }
+                    if (HealthTimer <= 0) {
+                        Healing = false;
+                        ConsumableOver();
                     }
                     break;
             }
@@ -233,85 +291,67 @@ public class playerControls : MonoBehaviour
     {
         GameObject shot;
 
-        switch (pepperIndexA)
+        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
-            case 1:
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    shot = Instantiate(eggFire, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+            switch (pepperIndexA)
+            {
+                case 1:
+                    shot = Instantiate(eggFire, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                     pepperA = pepperB;
                     pepperIndexA = pepperIndexB;
                     pepperB = null;
                     pepperIndexB = 0;
-                }
-                break;
-            case 2:
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    shot = Instantiate(eggWater, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    break;
+                case 2:
+                    shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                     pepperA = pepperB;
                     pepperIndexA = pepperIndexB;
                     pepperB = null;
                     pepperIndexB = 0;
-                }
-                break;
-            case 3:
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    shot = Instantiate(eggIce, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    break;
+                case 3:
+                    shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                     pepperA = pepperB;
                     pepperIndexA = pepperIndexB;
                     pepperB = null;
                     pepperIndexB = 0;
-                }
-                break;
-            case 4:
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    shot = Instantiate(eggShock, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    break;
+                case 4:
+                    shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                     pepperA = pepperB;
                     pepperIndexA = pepperIndexB;
                     pepperB = null;
                     pepperIndexB = 0;
-                }
-                break;
-            case 5:
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    shot = Instantiate(eggEarth, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    break;
+                case 6:
+                    shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                     pepperA = pepperB;
                     pepperIndexA = pepperIndexB;
                     pepperB = null;
                     pepperIndexB = 0;
-                }
-                break;
-            case 6:
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    shot = Instantiate(eggWind, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
+                    break;
+                case 8:
+                    shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
+                        if (facingRight)
+                        {
+                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+                        }
+                        else if (!facingRight)
+                        {
+                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+                        }
                     pepperA = pepperB;
                     pepperIndexA = pepperIndexB;
                     pepperB = null;
                     pepperIndexB = 0;
-                }
-                break;
-            case 7:
-                if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-                {
-                    shot = Instantiate(shitBrick, transform.position,
-                        Quaternion.Euler(new Vector3(0, 0, 0))) as GameObject;
-                    pepperA = pepperB;
-                    pepperIndexA = pepperIndexB;
-                    pepperB = null;
-                    pepperIndexB = 0;
-                }
-                break;
+                    break;
+            }
         }
     }
 
@@ -360,10 +400,10 @@ public class playerControls : MonoBehaviour
     {
         //Debug.Log("Counting down...");
         if (pepperIndexA == 8) {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
             DashDirection = 0;
         }
-        if (pepperIndexA == 6) {
+        else if (pepperIndexA == 6) {
             yield return new WaitForSeconds(2.0f);
         }
         else if (pepperIndexA == 4) {
@@ -382,6 +422,23 @@ public class playerControls : MonoBehaviour
         isImmune = false;
     }
 
+    private IEnumerator HealThePlayer()
+    {
+        for (int i = 0; i < 5; i++) {
+            HealthTimer = HealthTimer - 1;
+            health = health + 20;
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    private void ConsumableOver()
+    {
+        pepperA = null;
+        GameObject shot = Instantiate(shitBrick, transform.position + new Vector3(0, 0, 0), 
+		    Quaternion.identity) as GameObject;
+        pepperIndexA = 0;
+    }
+
     void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy")
@@ -392,22 +449,6 @@ public class playerControls : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "healthPepper")
-        {
-            health += 100;
-            if (health > 500)
-            {
-                health = 500;
-                healthDisplay.text = "Health: " + health;
-
-            }
-            if (health < 500)
-            {
-                healthDisplay.text = "Health: " + health;
-
-            }
-            Destroy(collider.gameObject);
-        }
         if (collider.gameObject.tag == "firePepper")
         {
             if (pepperIndexA == 0)
@@ -494,6 +535,7 @@ public class playerControls : MonoBehaviour
         }
         if (collider.gameObject.tag == "buffPepper")
         {
+            BuffTimer = 20;
             if (pepperIndexA == 0)
             {
                 pepperIndexA = 7;
@@ -518,63 +560,112 @@ public class playerControls : MonoBehaviour
                 pepperIndexB = 8;
                 pepperB = "speedPepper";
             }
-            //DashCount = 6;
+            Destroy(collider.gameObject);
+        }
+        if (collider.gameObject.tag == "healthPepper")
+        {
+            HealthTimer = 5;
+            if (pepperIndexA == 0)
+            {
+                pepperIndexA = 9;
+                pepperA = "healthPepper";
+            }
+            else
+            {
+                pepperIndexB = 9;
+                pepperB = "healthPepper";
+            }
             Destroy(collider.gameObject);
         }
         if (collider.gameObject.tag == "enemyFist")
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 3;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
-
         }
         if (collider.gameObject.tag == "enemyShotT1")
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 5;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyShotT2")
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 5;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyShotT3")
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 20;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyExplosion")
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 10;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyDeathRay")
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 30;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
     }
 }
