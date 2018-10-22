@@ -7,8 +7,13 @@ public class TutorialPopups : MonoBehaviour
 {
     private GameController Controller;
     public GameObject TutorialCanvas;
-
     public GameObject[] Waves;
+
+    void Awake () {
+
+        TutorialCanvas = GameObject.Find("TutorialCanvas");
+        
+    }
 
     void OnEnable()
     {
