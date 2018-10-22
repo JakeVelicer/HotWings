@@ -581,6 +581,12 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 3;
                 StartCoroutine(iFrames());
@@ -590,9 +596,12 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 5;
                 StartCoroutine(iFrames());
@@ -602,9 +611,12 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 5;
                 StartCoroutine(iFrames());
@@ -614,9 +626,12 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 20;
                 StartCoroutine(iFrames());
@@ -626,9 +641,12 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 10;
                 StartCoroutine(iFrames());
@@ -638,9 +656,12 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 30;
                 StartCoroutine(iFrames());
