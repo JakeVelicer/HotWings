@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1103321857479440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.31, y: -3.3289664, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,7 +81,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.13, y: 1.93}
+    oldSize: {x: 1.4, y: 1.7}
     newSize: {x: 1.13, y: 1.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -89,12 +89,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.13499999, y: 0.965}
+    - - {x: -0.52119064, y: 0.8105234}
       - {x: -0.565, y: 0.205}
       - {x: -0.565, y: -0.035}
-      - {x: -0.13499999, y: -0.965}
-      - {x: 0.565, y: -0.965}
-      - {x: 0.565, y: 0.965}
+      - {x: -0.54693794, y: -0.75903136}
+      - {x: 0.57787323, y: -0.7590311}
+      - {x: -0.11726761, y: 0.7847774}
 --- !u!82 &82875434001243750
 AudioSource:
   m_ObjectHideFlags: 1
@@ -274,9 +274,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: acd03add9c8d94884af20798e7ece6a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06f15b3ee1c914e688e50c16a70539d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.13, y: 1.93}
