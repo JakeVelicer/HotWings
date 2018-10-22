@@ -18,8 +18,6 @@ public class playerControls : MonoBehaviour
     private float ChargeTime = 1;
     private float DamageMultiplier;
 
-    private AudioSource playerSounds;
-
     public string pepperA = null;
     public string pepperB = null;
     public int pepperIndexA;
@@ -45,6 +43,8 @@ public class playerControls : MonoBehaviour
     public GameObject playerWindShot;
     public GameObject playerBuffShot;
     private GameObject ElectricShotToUse;
+
+    public AudioSource playerSounds;
 
     public AudioClip playerFire;
     public AudioClip playerWater;
@@ -581,71 +581,91 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 3;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
-
         }
         if (collider.gameObject.tag == "enemyShotT1")
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 5;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyShotT2")
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 5;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyShotT3")
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 20;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyExplosion")
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 10;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyDeathRay")
         {
             if (!isImmune)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
                 isImmune = true;
                 health -= 30;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
     }
 }

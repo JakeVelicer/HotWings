@@ -7,16 +7,27 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
 
-public static bool GameIsPaused = false; 
+    public static bool GameIsPaused = false;
 
-public GameObject pauseMenuUI;
-	// Use this for initialization
-	
-	
-	// Update is called once per frame
-void Update () {
+    private AudioSource menuSounds;
+    public AudioClip clickSound;
+    public AudioClip pauseSound;
+
+    public GameObject pauseMenuUI;
+    // Use this for initialization
+    private void Start()
+    {
+        menuSounds = gameObject.GetComponent<AudioSource>();
+    }
+
+
+    // Update is called once per frame
+    void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
+            menuSounds.clip = pauseSound;
+            menuSounds.loop = false;
+            menuSounds.Play();
 			if (GameIsPaused)
 			{
 				Resume();
@@ -26,8 +37,6 @@ void Update () {
 			}
 			}
 		}
-		
-		
 
 	void Resume()
 	{

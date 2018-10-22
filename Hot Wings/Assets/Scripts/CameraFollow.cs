@@ -11,10 +11,16 @@ public class CameraFollow : MonoBehaviour {
     public bool bounds; 
     public Vector3 minCameraPosition; 
     public Vector3 maxCameraPosition;
+
+    private AudioSource bgm;
+    public AudioClip gameplaySong;
     
 	// Use this for initialization
 	void Start () {
 
+        bgm = gameObject.GetComponent<AudioSource>();
+        bgm.loop = true;
+        bgm.Play();
         player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
