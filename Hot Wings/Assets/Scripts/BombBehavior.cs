@@ -33,7 +33,7 @@ public class BombBehavior : MonoBehaviour {
 		if (Timer <= 0 && PlayAnim == true) {
 			ExplodeAnim.SetTrigger("Boom");
 			PlayAnim = false;
-            bombSound.Play();
+            bombSound.PlayDelayed(1.0f);
 			Destroy(transform.parent.gameObject, 1.1f);
 		}
 	}
