@@ -583,9 +583,8 @@ public class playerControls : MonoBehaviour
             {
                 isImmune = true;
                 health -= 3;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
-
         }
         if (collider.gameObject.tag == "enemyShotT1")
         {
@@ -596,8 +595,8 @@ public class playerControls : MonoBehaviour
                 playerSounds.Play();
                 isImmune = true;
                 health -= 5;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyShotT2")
         {
@@ -608,8 +607,8 @@ public class playerControls : MonoBehaviour
                 playerSounds.Play();
                 isImmune = true;
                 health -= 5;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyShotT3")
         {
@@ -620,8 +619,8 @@ public class playerControls : MonoBehaviour
                 playerSounds.Play();
                 isImmune = true;
                 health -= 20;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyExplosion")
         {
@@ -632,8 +631,8 @@ public class playerControls : MonoBehaviour
                 playerSounds.Play();
                 isImmune = true;
                 health -= 10;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
         if (collider.gameObject.tag == "enemyDeathRay")
         {
@@ -644,8 +643,8 @@ public class playerControls : MonoBehaviour
                 playerSounds.Play();
                 isImmune = true;
                 health -= 30;
+                StartCoroutine(iFrames());
             }
-            StartCoroutine(iFrames());
         }
     }
 }
