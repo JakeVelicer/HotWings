@@ -9,19 +9,16 @@ public class AlienSpawner : MonoBehaviour {
 	public GameObject MotherShip;
 	public GameObject[] Aliens;
 	private GameController Controller;
+	private SpriteRenderer Sprite;
 
 	// Use this for initialization
 	void Start () {
 
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 		Controller.SpawnObjects += CallSpawnEnemies;
+		Sprite = gameObject.GetComponent<SpriteRenderer>();
 		Controller.EnemiesLeft++;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void CallSpawnEnemies () {
@@ -108,7 +105,7 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[3]));
 							break;
 					}
-					GameObject shot = Instantiate (MotherShip, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
+					//GameObject shot = Instantiate (MotherShip, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
 					break;
 			}
 		}
@@ -139,6 +136,7 @@ public class AlienSpawner : MonoBehaviour {
             yield return new WaitForSeconds(1);
         }
 		Controller.EnemiesLeft--;
+		Controller.SpawnObjects = null;
 		Destroy(gameObject, 2);
 	}
 }

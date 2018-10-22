@@ -19,12 +19,10 @@ public class GameController : MonoBehaviour
     public int score;
     public GameObject player;
     public System.Action SpawnObjects;
-
     public static System.Action<int> OnWaveIncremented;
 
     void Awake()
     {
-
         Time.timeScale = 1;
     }
 
