@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     public Text inventoryDisplay;
     public int score;
     public GameObject player;
-    public System.Action SpawnPeppers;
+    public System.Action SpawnObjects;
 
     public static System.Action<int> OnWaveIncremented;
 
@@ -71,8 +71,8 @@ public class GameController : MonoBehaviour
         if (OnWaveIncremented != null) {
             OnWaveIncremented(WaveCount);
         }
-        if (SpawnPeppers != null) {
-            SpawnPeppers();
+        if (SpawnObjects != null) {
+            SpawnObjects();
         }
     }
 

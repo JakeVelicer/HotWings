@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114940188864123562}
   - component: {fileID: 114731147697618552}
   m_Layer: 0
-  m_Name: Alien 2
+  m_Name: Pistol Alien
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,6 +111,7 @@ MonoBehaviour:
   IceDamage: 0
   EarthDamage: 0
   WindDamage: 0
+  JackedDamage: 0
 --- !u!114 &114940188864123562
 MonoBehaviour:
   m_ObjectHideFlags: 1
