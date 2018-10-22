@@ -38,7 +38,10 @@ public GameObject DeathMenuUI;
 	}
 	void Pause()
 	{
-		DeathMenuUI.SetActive(true);
+        PlayerHealth.playerSounds.clip = PlayerHealth.playerDeath;
+        PlayerHealth.playerSounds.loop = false;
+        PlayerHealth.playerSounds.Play();
+        DeathMenuUI.SetActive(true);
 		Time.timeScale = 0f;
 		Death = true;
 	}

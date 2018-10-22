@@ -377,7 +377,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -543,6 +543,19 @@ MonoBehaviour:
   playerWindShot: {fileID: 1686227120266522, guid: 9df9119ef73d848538254fdfff1a2178,
     type: 2}
   playerBuffShot: {fileID: 1635764463367764}
+  playerSounds: {fileID: 0}
+  playerFire: {fileID: 8300000, guid: 9d781257aa4274e1b9d5f92e17202c91, type: 3}
+  playerWater: {fileID: 8300000, guid: 3f22534da7ce14460b4eb1d2b0924891, type: 3}
+  playerIce: {fileID: 8300000, guid: c0481425004fc4c7d875859c325b045c, type: 3}
+  playerShock1: {fileID: 8300000, guid: 2d505a585bef34f2d8a4fb92d364bd81, type: 3}
+  playerShock2: {fileID: 8300000, guid: 9824a99a475904bfd8eb21581a4eee22, type: 3}
+  playerShock3: {fileID: 8300000, guid: 71db141c17acc49f8bcc161e91c5fe0e, type: 3}
+  playerShock4: {fileID: 8300000, guid: d1f5597fdbe0946d29180e38f761fe19, type: 3}
+  playerEarth: {fileID: 8300000, guid: c50f1153d735341e8b76c8f0ca706ccd, type: 3}
+  playerWind: {fileID: 8300000, guid: 2fefdd0d8858b478aaf4ddd170425f24, type: 3}
+  playerBuff: {fileID: 8300000, guid: d79c1fb67dc5c4ff28ccc72102d48907, type: 3}
+  playerHit: {fileID: 8300000, guid: d933d60633ec840bfb726221f043cdac, type: 3}
+  playerDeath: {fileID: 8300000, guid: e63587fc128e24d4887a5e0569afc81f, type: 3}
   eggFire: {fileID: 1362318275178038, guid: fe3c480fc7d014b2fa94b8d7868adbe9, type: 2}
   eggWater: {fileID: 1659041756498784, guid: cae41515c90484291bda4361fcf5cf49, type: 2}
   eggIce: {fileID: 1280963530370964, guid: d2f282073be474fe7bbe4950f6709ad9, type: 2}

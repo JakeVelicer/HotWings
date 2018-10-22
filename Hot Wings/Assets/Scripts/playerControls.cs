@@ -18,8 +18,6 @@ public class playerControls : MonoBehaviour
     private float ChargeTime = 1;
     private float DamageMultiplier;
 
-    private AudioSource playerSounds;
-
     public string pepperA = null;
     public string pepperB = null;
     public int pepperIndexA;
@@ -45,6 +43,8 @@ public class playerControls : MonoBehaviour
     public GameObject playerWindShot;
     public GameObject playerBuffShot;
     private GameObject ElectricShotToUse;
+
+    public AudioSource playerSounds;
 
     public AudioClip playerFire;
     public AudioClip playerWater;

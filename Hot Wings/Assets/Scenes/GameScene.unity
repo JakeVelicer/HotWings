@@ -2841,6 +2841,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf05ba141001493b8e1fc79f18527eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: e161b04aef7e44e419a68773e6fceea6, type: 3}
+  pauseSound: {fileID: 8300000, guid: 22d3e6cc1f8c641e0a13f534211581e0, type: 3}
   pauseMenuUI: {fileID: 592334540}
 --- !u!1 &931421312
 GameObject:
