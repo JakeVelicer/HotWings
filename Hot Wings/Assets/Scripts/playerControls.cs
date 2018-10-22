@@ -18,6 +18,8 @@ public class playerControls : MonoBehaviour
     private float ChargeTime = 1;
     private float DamageMultiplier;
 
+    private AudioSource playerSounds;
+
     public string pepperA = null;
     public string pepperB = null;
     public int pepperIndexA;
@@ -44,6 +46,20 @@ public class playerControls : MonoBehaviour
     public GameObject playerBuffShot;
     private GameObject ElectricShotToUse;
 
+    public AudioClip playerFire;
+    public AudioClip playerWater;
+    public AudioClip playerIce;
+    public AudioClip playerShock1;
+    public AudioClip playerShock2;
+    public AudioClip playerShock3;
+    public AudioClip playerShock4;
+    public AudioClip playerEarth;
+    public AudioClip playerWind;
+    public AudioClip playerBuff;
+
+    public AudioClip playerHit;
+    public AudioClip playerDeath;
+
     public GameObject eggFire;
     public GameObject eggWater;
     public GameObject eggIce;
@@ -61,7 +77,8 @@ public class playerControls : MonoBehaviour
 
         playerFireShot.SetActive(false);
         playerWaterShot.SetActive(false);
-        
+
+        playerSounds = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -100,16 +117,32 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        playerSounds.clip = playerFire;
+                        playerSounds.loop = true;
+                        playerSounds.Play();
                         playerFireShot.SetActive(true);
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space))
+                    {
+                        playerSounds.Stop();
                     }
                     break;
                 case 2: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        playerSounds.clip = playerWater;
+                        playerSounds.loop = true;
+                        playerSounds.Play();
                         playerWaterShot.SetActive(true);
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space)) {
+                        playerSounds.Stop();
                     }
                     break;
                 case 3: // CALLS Ice Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        playerSounds.clip = playerIce;
+                        playerSounds.loop = false;
+                        playerSounds.Play();
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
@@ -124,15 +157,27 @@ public class playerControls : MonoBehaviour
                     {
                         canShoot = false;
                         if (ChargeTime >= 3) {
+                            playerSounds.clip = playerShock4;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot4;
                         }
                         else if (ChargeTime >= 2) {
+                            playerSounds.clip = playerShock3;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot3;
                         }
                         else if (ChargeTime >= 1) {
+                            playerSounds.clip = playerShock2;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot2;
                         }
                         else if (ChargeTime < 1) {
+                            playerSounds.clip = playerShock1;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
                             ElectricShotToUse = playerShockShot1;
                         }
                         shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0), 
@@ -151,6 +196,9 @@ public class playerControls : MonoBehaviour
                 case 5: // Earth Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        playerSounds.clip = playerEarth;
+                        playerSounds.loop = false;
+                        playerSounds.Play();
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
 			            Quaternion.identity) as GameObject;
@@ -162,6 +210,9 @@ public class playerControls : MonoBehaviour
                 case 6: // Wind Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        playerSounds.clip = playerWind;
+                        playerSounds.loop = false;
+                        playerSounds.Play();
                         canShoot = false;
                         shot = Instantiate(playerWindShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
@@ -183,7 +234,10 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         //canShoot = false;
                         if (OnPunch != null) {
-							OnPunch();
+                            playerSounds.clip = playerBuff;
+                            playerSounds.loop = false;
+                            playerSounds.Play();
+                            OnPunch();
 						}
                     }
                     BuffTimer = BuffTimer - 1 * Time.deltaTime;
@@ -537,6 +591,9 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
+                playerSounds.clip = playerHit;
+                playerSounds.loop = false;
+                playerSounds.Play();
                 isImmune = true;
                 health -= 5;
             }
@@ -546,6 +603,9 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
+                playerSounds.clip = playerHit;
+                playerSounds.loop = false;
+                playerSounds.Play();
                 isImmune = true;
                 health -= 5;
             }
@@ -555,6 +615,9 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
+                playerSounds.clip = playerHit;
+                playerSounds.loop = false;
+                playerSounds.Play();
                 isImmune = true;
                 health -= 20;
             }
@@ -564,6 +627,9 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
+                playerSounds.clip = playerHit;
+                playerSounds.loop = false;
+                playerSounds.Play();
                 isImmune = true;
                 health -= 10;
             }
@@ -573,6 +639,9 @@ public class playerControls : MonoBehaviour
         {
             if (!isImmune)
             {
+                playerSounds.clip = playerHit;
+                playerSounds.loop = false;
+                playerSounds.Play();
                 isImmune = true;
                 health -= 30;
             }
