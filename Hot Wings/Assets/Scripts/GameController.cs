@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
         inventoryDisplay = GameObject.Find("Inventory").GetComponent<Text>();
 
         player.GetComponent<playerControls>().pepperB = " ";
-        inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
+        inventoryDisplay.text = "Inventory:" + "\n"+ player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
 
         score = 0;
         scoreDisplay.text = "Score: " + score;
@@ -47,7 +47,8 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
+        inventoryDisplay.text = "Inventory:" + "\n" + player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
+
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
         if (EnemiesLeft <= 0)
@@ -91,10 +92,14 @@ public class GameController : MonoBehaviour
                 Instantiate(hazard, spawnPosition, spawnRotation);
             }
             */
-
-            Instantiate(SaucerObject[0], new Vector3 (-8.3f, 5, 0), Quaternion.identity);
-            Instantiate(SaucerObject[1], new Vector3 (-44.6f, 5, 0), Quaternion.identity);
-            Instantiate(SaucerObject[2], new Vector3 (27.8f, 5, 0), Quaternion.identity);
+            
+            GameObject Saucer;
+            Saucer = Instantiate(SaucerObject[0], new Vector3 (-8.3f, 5, 0), Quaternion.identity) as GameObject;
+            Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground";
+            Saucer = Instantiate(SaucerObject[1], new Vector3 (-44.6f, 5, 0), Quaternion.identity) as GameObject;
+            Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground";
+            Saucer = Instantiate(SaucerObject[2], new Vector3 (27.8f, 5, 0), Quaternion.identity) as GameObject;
+            Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground";
         }
     }
 }
