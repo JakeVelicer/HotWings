@@ -38,12 +38,15 @@ public GameObject DeathMenuUI;
 	}
 	void Pause()
 	{
-        PlayerHealth.playerSounds.clip = PlayerHealth.playerDeath;
-        PlayerHealth.playerSounds.loop = false;
-        PlayerHealth.playerSounds.Play();
+        if (!Death)
+        {
+            PlayerHealth.playerSounds.clip = PlayerHealth.playerDeath;
+            PlayerHealth.playerSounds.loop = false;
+            PlayerHealth.playerSounds.Play();
+            Death = true;
+        }
         DeathMenuUI.SetActive(true);
 		Time.timeScale = 0f;
-		Death = true;
 	}
 	
 }
