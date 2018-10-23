@@ -105,7 +105,8 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[3]));
 							break;
 					}
-					GameObject shot = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
+					GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
+					Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground";
 					break;
 			}
 		}
