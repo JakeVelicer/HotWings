@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeathMenu : MonoBehaviour {
-	public static bool Death = false; 
+	public static bool Death = false;
 
 public GameObject DeathMenuUI;
 
@@ -20,7 +20,7 @@ public GameObject DeathMenuUI;
 	void Update () {
 
 		if (PlayerHealth.health <= 0) {
-			Pause();
+			Dead();
 		}
 		
 	}
@@ -36,7 +36,7 @@ public GameObject DeathMenuUI;
 		Application.Quit();
 		Debug.Log("Gamequit");
 	}
-	void Pause()
+	void Dead()
 	{
         PlayerHealth.playerSounds.clip = PlayerHealth.playerDeath;
         PlayerHealth.playerSounds.loop = false;

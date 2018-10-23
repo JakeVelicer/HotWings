@@ -178,6 +178,6 @@ public class BushBehavior : MonoBehaviour {
 	void SpawnPepper () {
 		GameObject shot = Instantiate(ChosenPepper, transform.position + new Vector3 (0, 0, 0),
 		Quaternion.identity) as GameObject;
-		shot.GetComponent<SpriteRenderer>().sortingLayerName = "Midground";
+		shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
 	}
 }
