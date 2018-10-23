@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour
         inventoryDisplay = GameObject.Find("Inventory").GetComponent<Text>();
 
         player.GetComponent<playerControls>().pepperB = " ";
-        inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
+        inventoryDisplay.text = "Inventory:" + "\n"+ player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
 
         score = 0;
         scoreDisplay.text = "Score: " + score;
@@ -47,7 +47,8 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        inventoryDisplay.text = "Inventory:" + player.GetComponent<playerControls>().pepperA + "\n" + "\t \t \t \t" + player.GetComponent<playerControls>().pepperB;
+        inventoryDisplay.text = "Inventory:" + "\n" + player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
+
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
         if (EnemiesLeft <= 0)
