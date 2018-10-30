@@ -39,6 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4219828050112124}
   - component: {fileID: 212508069453043682}
+  - component: {fileID: 95463584247855870}
   m_Layer: 11
   m_Name: Pepper-indicator
   m_TagString: Untagged
@@ -128,6 +129,24 @@ PolygonCollider2D:
       - {x: 0.105, y: -0.205}
       - {x: 0.21499999, y: -0.065}
       - {x: 0.225, y: 0.055}
+--- !u!95 &95463584247855870
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815430846462756}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db2cf38790a0542fbba2a2a4ac9df930, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114218813873760580
 MonoBehaviour:
   m_ObjectHideFlags: 1
