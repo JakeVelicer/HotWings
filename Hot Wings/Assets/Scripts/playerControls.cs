@@ -16,7 +16,6 @@ public class playerControls : MonoBehaviour
     public int shotSpeed = 1000;
     private bool Healing;
     private float ChargeTime = 1;
-    private float DamageMultiplier;
 
     public string pepperA = null;
     public string pepperB = null;
@@ -151,7 +150,7 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKey(KeyCode.Space))
                     {
                         ChargeTime = ChargeTime + Time.deltaTime;
-                        Debug.Log(ChargeTime);
+                        //Debug.Log(ChargeTime);
                     }
                     if (Input.GetKeyUp(KeyCode.Space))
                     {
@@ -396,6 +395,20 @@ public class playerControls : MonoBehaviour
         StartCoroutine(shootWait());
     }
 
+    void CollidingDeathRay () {
+        if (!isImmune) {
+            if (!playerSounds.isPlaying)
+            {
+                playerSounds.clip = playerHit;
+                playerSounds.loop = false;
+                playerSounds.Play();
+            }
+            isImmune = true;
+            health -= 10;
+            StartCoroutine(iFrames());
+        }
+    }
+
     private IEnumerator shootWait()
     {
         //Debug.Log("Counting down...");
@@ -449,138 +462,109 @@ public class playerControls : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "firePepper")
-        {
-            if (pepperIndexA == 0)
-            {
+        if (collider.gameObject.tag == "firePepper") {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 1;
                 pepperA = "firePepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 1;
                 pepperB = "firePepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "waterPepper")
-        {
-            if (pepperIndexA == 0)
-            {
+        if (collider.gameObject.tag == "waterPepper") {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 2;
                 pepperA = "waterPepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 2;
                 pepperB = "waterPepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "icePepper")
-        {
-            if (pepperIndexA == 0)
-            {
+        if (collider.gameObject.tag == "icePepper") {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 3;
                 pepperA = "icePepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 3;
                 pepperB = "icePepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "shockPepper")
-        {
-            if (pepperIndexA == 0)
-            {
+        if (collider.gameObject.tag == "shockPepper") {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 4;
                 pepperA = "shockPepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 4;
                 pepperB = "shockPepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "earthPepper")
-        {
-            if (pepperIndexA == 0)
-            {
+        if (collider.gameObject.tag == "earthPepper") {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 5;
                 pepperA = "earthPepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 5;
                 pepperB = "earthPepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "windPepper")
-        {
-            if (pepperIndexA == 0)
-            {
+        if (collider.gameObject.tag == "windPepper") {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 6;
                 pepperA = "windPepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 6;
                 pepperB = "windPepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "buffPepper")
-        {
+        if (collider.gameObject.tag == "buffPepper") {
             BuffTimer = 20;
-            if (pepperIndexA == 0)
-            {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 7;
                 pepperA = "buffPepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 7;
                 pepperB = "buffPepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "speedPepper")
-        {
-            if (pepperIndexA == 0)
-            {
+        if (collider.gameObject.tag == "speedPepper") {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 8;
                 pepperA = "speedPepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 8;
                 pepperB = "speedPepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "healthPepper")
-        {
+        if (collider.gameObject.tag == "healthPepper") {
             HealthTimer = 5;
-            if (pepperIndexA == 0)
-            {
+            if (pepperIndexA == 0) {
                 pepperIndexA = 9;
                 pepperA = "healthPepper";
             }
-            else
-            {
+            else {
                 pepperIndexB = 9;
                 pepperB = "healthPepper";
             }
             Destroy(collider.gameObject);
         }
-        if (collider.gameObject.tag == "enemyFist")
-        {
-            if (!isImmune)
-            {
+        if (collider.gameObject.tag == "enemyFist") {
+            if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
                     playerSounds.clip = playerHit;
@@ -592,10 +576,8 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyShotT1")
-        {
-            if (!isImmune)
-            {
+        if (collider.gameObject.tag == "enemyShotT1") {
+            if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
                     playerSounds.clip = playerHit;
@@ -607,10 +589,8 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyShotT2")
-        {
-            if (!isImmune)
-            {
+        if (collider.gameObject.tag == "enemyShotT2") {
+            if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
                     playerSounds.clip = playerHit;
@@ -622,10 +602,8 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyShotT3")
-        {
-            if (!isImmune)
-            {
+        if (collider.gameObject.tag == "enemyShotT3") {
+            if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
                     playerSounds.clip = playerHit;
@@ -637,10 +615,8 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyExplosion")
-        {
-            if (!isImmune)
-            {
+        if (collider.gameObject.tag == "enemyExplosion") {
+            if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
                     playerSounds.clip = playerHit;
@@ -652,23 +628,19 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-    }
-    
-    void OnTriggerStay2D(Collider2D collider) {
-        if (collider.gameObject.tag == "enemyDeathRay")
-        {
-            if (!isImmune)
-            {
-                if (!playerSounds.isPlaying)
-                {
-                    playerSounds.clip = playerHit;
-                    playerSounds.loop = false;
-                    playerSounds.Play();
-                }
-                isImmune = true;
-                health -= 30;
-                StartCoroutine(iFrames());
-            }
+        if (collider.gameObject.tag == "enemyDeathRay") {
+            //SaucerColliding = true;
+            InvokeRepeating("CollidingDeathRay", 0, 0.5f);
         }
     }
+    
+    void OnTriggerExit2D(Collider2D collider) {
+        if (collider.gameObject.tag == "enemyDeathRay")
+        {
+            //SaucerColliding = false;
+            Debug.Log("Left Collider");
+            CancelInvoke("CollidingDeathRay");
+        }
+    }
+
 }

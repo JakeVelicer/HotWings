@@ -77,6 +77,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			MainController.EnemiesLeft--;
 			Destroy(gameObject);
 		}
+		Debug.Log(CoolDownTimer);
 		
 	}
 
@@ -99,16 +100,15 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	void ChaseTarget () {
 
-		float dist = Target.transform.position.x - Target.transform.position.x;
+		float Dist = Vector3.Distance(Target.position, transform.position);
 
 		// Determines if the range of the player is close enough to be chased
-		if (Vector3.Distance(Target.position, transform.position) <= ChaseRange &&
-		Vector3.Distance(Target.position, transform.position) > FireRange) {
+		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 6) {
 			CanChase = true;
-			ChaseDirection();
+			ChaseDirection(); 
 		}
 		// Tells the player to attack if close enough
-		else if (Vector3.Distance(Target.position, transform.position) <= FireRange && AlienType != 6) {
+		else if (Dist <= FireRange && AlienType != 6) {
 			CanChase = false;
 			ChaseDirection();
 
@@ -116,7 +116,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			The switch here should probably only have cases for the 3 different attack types, but 
 			I have not changed it yet in case a reason emerges to have them for each enemy type. */
 			switch (AlienType) {
-				case 1: 
+				case 1:
      				if (CoolDownTimer <= 0) {
 						Punch = true;
 						if (OnPunch != null) {
@@ -141,7 +141,7 @@ public class BasicEnemyControls : MonoBehaviour {
 						AttackPhase1();
 						CoolDownTimer = CoolDown;
 					}
-					CoolDownTimer -= Time.deltaTime;
+					//CoolDownTimer -= Time.deltaTime;
 					break;
 				case 4:
      				if (CoolDownTimer <= 0) {
@@ -157,21 +157,21 @@ public class BasicEnemyControls : MonoBehaviour {
 					}
 					CoolDownTimer -= Time.deltaTime;
 					break;
-				case 6:
-     				if (CanFireRay == false) {
-						SaucerRay.SetActive(false);
-						StartCoroutine(RayTime());
-					}
-					break;
 			}
 		}
-		else if (dist <= ChaseRange && AlienType == 6) {
-			CanChase = false;
+		if (Dist <= 10 && Dist > 0.7 && AlienType == 6) {
+			CanChase = true;
 			ChaseDirection();
 			if (CanFireRay == false) {
 				SaucerRay.SetActive(false);
 				StartCoroutine(RayTime());
-			}
+				Debug.LogFormat("Called");
+			};
+		}
+		else if (Dist > 20 && AlienType == 6) {
+			CanChase = false;
+			SaucerRay.SetActive(false);
+			ChaseDirection();
 		}
 		// Does nothing if out of range of chasing and attacking, will roam eventually
 		else {
@@ -213,7 +213,7 @@ public class BasicEnemyControls : MonoBehaviour {
             Quaternion.identity) as GameObject;
             Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
         }
-        else if (ToTheRight == false) 
+        else if (ToTheRight == false)
         {
             if (soundPlaying == false)
             {
@@ -246,35 +246,16 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	IEnumerator RayTime () {
-
-		yield return new WaitForSeconds(3);
 		CanFireRay = true;
+		yield return new WaitForSeconds(3);
 		SaucerRay.SetActive(true);
 		yield return new WaitForSeconds(5);
 		CanFireRay = false;
-
 	}
 
-	// Takes damage from stream attacks
-	void OnTriggerStay2D (Collider2D collision) {
-
-		if (collision.gameObject.tag == "Fire") {
-			EnemyHealth -= DamageValues.FireDamage * Time.deltaTime;
-		}
-		else if (collision.gameObject.tag == "Water") {
-			EnemyHealth -= DamageValues.WaterDamage * Time.deltaTime;
-		}
-		else if (collision.gameObject.tag == "Wind") {
-			EnemyHealth -= DamageValues.WindDamage * Time.deltaTime;
-		}
-		else if (collision.gameObject.name == "AnchorArms") {
-			EnemyHealth -= DamageValues.JackedDamage * Time.deltaTime;
-		}
-	}
-
-	// Takes damage from burst attacks
 	void OnTriggerEnter2D (Collider2D collision) {
 
+			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage;
 		}
@@ -293,6 +274,41 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.tag == "Earth") {
 			EnemyHealth -= DamageValues.EarthDamage;
 		}
+		else if (collision.gameObject.name == "AnchorArms") {
+			EnemyHealth -= DamageValues.JackedDamage;
+		}
+			// Takes damage from stream attacks
+		else if (collision.gameObject.tag == "Fire") {
+			InvokeRepeating("TakeFireDamage", 0, 1);
+		}
+		else if (collision.gameObject.tag == "Water") {
+			InvokeRepeating("TakeWaterDamage", 0, 1);
+		}
+		else if (collision.gameObject.tag == "Wind") {
+			InvokeRepeating("TakeWindDamage", 0, 1);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D collider) {
+		if (collider.gameObject.tag == "Fire") {
+			CancelInvoke("TakeFireDamage");
+		}
+		else if (collider.gameObject.tag == "Water") {
+			CancelInvoke("TakeWaterDamage");
+		}
+		else if (collider.gameObject.tag == "Wind") {
+			CancelInvoke("TakeWindDamage");
+		}
+	}
+
+	void TakeFireDamage() {
+		EnemyHealth -= DamageValues.FireDamage;
+	}
+	void TakeWaterDamage() {
+		EnemyHealth -= DamageValues.WaterDamage;
+	}
+	void TakeWindDamage() {
+		EnemyHealth -= DamageValues.WindDamage;
 	}
 
 }

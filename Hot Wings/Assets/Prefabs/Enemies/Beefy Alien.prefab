@@ -343,7 +343,7 @@ MonoBehaviour:
   enemyValue: 10
   MovementSpeed: 5
   ChaseRange: 8
-  FireRange: 1.1
+  FireRange: 1.5
   ProjectileSpeed: 500
   ProjectileHeight: 0
   CoolDown: 0.2
