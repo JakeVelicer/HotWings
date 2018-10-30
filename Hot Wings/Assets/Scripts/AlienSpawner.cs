@@ -17,7 +17,6 @@ public class AlienSpawner : MonoBehaviour {
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 		Controller.SpawnTheEnemies += CallSpawnEnemies;
 		Sprite = gameObject.GetComponent<SpriteRenderer>();
-		Controller.EnemiesLeft++;
 
 	}
 
@@ -34,11 +33,9 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[0]));
 							break;
 						case 2:
-							Controller.EnemiesLeft--;
 							Destroy(gameObject);
 							break;
 						case 3:
-							Controller.EnemiesLeft--;
 							Destroy(gameObject);
 							break;
 					}
@@ -54,7 +51,6 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[1]));
 							break;
 						case 3:
-							Controller.EnemiesLeft--;
 							Destroy(gameObject);
 							break;
 					}
@@ -105,8 +101,8 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[3]));
 							break;
 					}
-					GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
-					Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground";
+					GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, -3.5f, 0), Quaternion.identity) as GameObject;
+					Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
 					break;
 			}
 		}
@@ -115,7 +111,8 @@ public class AlienSpawner : MonoBehaviour {
 			EnemiesToSpawn = EnemiesToSpawn + 1;
 
 			if (Controller.WaveCount % 5 == 0 ) {
-				GameObject shot = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
+				GameObject shot = Instantiate (MotherShip, new Vector3 (0, -3.66f, 0), Quaternion.identity) as GameObject;
+				shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
 			}
 
 			switch(SaucerNumber) {
@@ -140,7 +137,6 @@ public class AlienSpawner : MonoBehaviour {
 			shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             yield return new WaitForSeconds(1);
         }
-		Controller.EnemiesLeft--;
 		Controller.SpawnTheEnemies = null;
 		Destroy(gameObject, 2);
 	}
