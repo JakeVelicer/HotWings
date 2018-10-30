@@ -279,9 +279,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyHealth: 100
   enemyValue: 100
-  MovementSpeed: 6
-  ChaseRange: 12
-  FireRange: 7.5
+  MovementSpeed: 4
+  ChaseRange: 15
+  FireRange: 10
   ProjectileSpeed: 0
   ProjectileHeight: 0
   CoolDown: 5
