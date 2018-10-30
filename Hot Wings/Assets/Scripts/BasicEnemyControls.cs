@@ -29,6 +29,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject SaucerRay;
 	public int AlienType;
 	public System.Action OnPunch;
+	private System.Action ActivateDeathBeam;
 
     private AudioSource enemySounds;
     public AudioClip enemyPistol;
@@ -167,10 +168,9 @@ public class BasicEnemyControls : MonoBehaviour {
 			CanChase = true;
 			ChaseDirection();
 			if (CanFireRay == false) {
-				SaucerRay.SetActive(false);
 				StartCoroutine(RayTime());
-				Debug.LogFormat("Called");
-			};
+				Debug.Log("Called");
+			}
 		}
 		else if (Dist > 20 && AlienType == 6) {
 			CanChase = false;
@@ -251,9 +251,10 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	IEnumerator RayTime () {
 		CanFireRay = true;
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(1);
 		SaucerRay.SetActive(true);
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(1);
+		SaucerRay.SetActive(false);
 		CanFireRay = false;
 	}
 

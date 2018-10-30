@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4259703233359782}
   - component: {fileID: 212387931474359562}
+  - component: {fileID: 95261664103806306}
   m_Layer: 11
   m_Name: Pepper-indicator
   m_TagString: Untagged
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611945723092240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.06, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4259703233359782}
@@ -127,6 +128,24 @@ PolygonCollider2D:
       - {x: 0.015, y: -0.29999998}
       - {x: 0.125, y: -0.17999999}
       - {x: 0.225, y: -0.02}
+--- !u!95 &95261664103806306
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1027472148372600}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db2cf38790a0542fbba2a2a4ac9df930, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114228331080407616
 MonoBehaviour:
   m_ObjectHideFlags: 1
