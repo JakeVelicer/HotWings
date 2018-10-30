@@ -92,6 +92,8 @@ public class AlienSpawner : MonoBehaviour {
 					switch(SaucerNumber) {
 						case 1:
 							StartCoroutine(SpawnEnemy(5, Aliens[0]));
+							GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, -2.24f, 0), Quaternion.identity) as GameObject;
+							Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
 							break;
 						case 2:
 							StartCoroutine(SpawnEnemy(5, Aliens[1]));
@@ -101,8 +103,6 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[3]));
 							break;
 					}
-					GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, -3.5f, 0), Quaternion.identity) as GameObject;
-					Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
 					break;
 			}
 		}
@@ -111,8 +111,10 @@ public class AlienSpawner : MonoBehaviour {
 			EnemiesToSpawn = EnemiesToSpawn + 1;
 
 			if (Controller.WaveCount % 5 == 0 ) {
-				GameObject shot = Instantiate (MotherShip, new Vector3 (0, -3.66f, 0), Quaternion.identity) as GameObject;
-				shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+				if (SaucerNumber == 1) {
+					GameObject shot = Instantiate (MotherShip, new Vector3 (0, -2.24f, 0), Quaternion.identity) as GameObject;
+					shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
+				}
 			}
 
 			switch(SaucerNumber) {

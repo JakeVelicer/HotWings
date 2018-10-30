@@ -64,5 +64,14 @@ public class EnemyDamageValues : MonoBehaviour {
 			WindDamage = 2;
 			JackedDamage = 30;
 		}
+		if (Enemy.AlienType == 6) {
+			FireDamage = 10;
+			WaterDamage = 10;
+			ElectricDamage = 10;
+			IceDamage = 10;
+			EarthDamage = 10;
+			WindDamage = 30;
+			JackedDamage = 30;
+		}
 	}
 }
