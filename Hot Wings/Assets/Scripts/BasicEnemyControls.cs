@@ -73,6 +73,11 @@ public class BasicEnemyControls : MonoBehaviour {
                 enemySounds.clip = enemyDeath1;
                 enemySounds.Play();
             }
+            else if (AlienType == 6)
+            {
+                enemySounds.clip = enemyDeath3;
+                enemySounds.Play();
+            }
             MainController.score += enemyValue;
 			MainController.EnemiesLeft--;
 			Destroy(gameObject);
