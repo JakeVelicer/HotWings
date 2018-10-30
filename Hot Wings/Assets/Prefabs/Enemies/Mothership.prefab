@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1734118268867056
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,9 +279,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyHealth: 100
   enemyValue: 100
-  MovementSpeed: 6
-  ChaseRange: 12
-  FireRange: 7.5
+  MovementSpeed: 4
+  ChaseRange: 15
+  FireRange: 10
   ProjectileSpeed: 0
   ProjectileHeight: 0
   CoolDown: 5

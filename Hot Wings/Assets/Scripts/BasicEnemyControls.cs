@@ -29,6 +29,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject SaucerRay;
 	public int AlienType;
 	public System.Action OnPunch;
+	private System.Action ActivateDeathBeam;
 
     private AudioSource enemySounds;
     public AudioClip enemyPistol;
@@ -71,6 +72,11 @@ public class BasicEnemyControls : MonoBehaviour {
             else if (AlienType == 3 || AlienType == 4)
             {
                 enemySounds.clip = enemyDeath1;
+                enemySounds.Play();
+            }
+            else if (AlienType == 6)
+            {
+                enemySounds.clip = enemyDeath3;
                 enemySounds.Play();
             }
             MainController.score += enemyValue;
@@ -158,16 +164,15 @@ public class BasicEnemyControls : MonoBehaviour {
 					break;
 			}
 		}
-		else if (Dist <= 10 && Dist > 0.7 && AlienType == 6) {
+		else if (Dist <= FireRange && Dist > 0.5 && AlienType == 6) {
 			CanChase = true;
 			ChaseDirection();
 			if (CanFireRay == false) {
-				SaucerRay.SetActive(false);
 				StartCoroutine(RayTime());
-				Debug.LogFormat("Called");
-			};
+				Debug.Log("Called");
+			}
 		}
-		else if (Dist > 20 && AlienType == 6) {
+		else if (Dist > ChaseRange && AlienType == 6) {
 			CanChase = false;
 			SaucerRay.SetActive(false);
 			ChaseDirection();
@@ -246,9 +251,10 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	IEnumerator RayTime () {
 		CanFireRay = true;
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(2);
 		SaucerRay.SetActive(true);
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(3);
+		SaucerRay.SetActive(false);
 		CanFireRay = false;
 	}
 
