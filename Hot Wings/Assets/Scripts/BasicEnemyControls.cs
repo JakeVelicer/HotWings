@@ -77,7 +77,6 @@ public class BasicEnemyControls : MonoBehaviour {
 			MainController.EnemiesLeft--;
 			Destroy(gameObject);
 		}
-		Debug.Log(CoolDownTimer);
 		
 	}
 
@@ -141,7 +140,7 @@ public class BasicEnemyControls : MonoBehaviour {
 						AttackPhase1();
 						CoolDownTimer = CoolDown;
 					}
-					//CoolDownTimer -= Time.deltaTime;
+					CoolDownTimer -= Time.deltaTime;
 					break;
 				case 4:
      				if (CoolDownTimer <= 0) {
@@ -159,7 +158,7 @@ public class BasicEnemyControls : MonoBehaviour {
 					break;
 			}
 		}
-		if (Dist <= 10 && Dist > 0.7 && AlienType == 6) {
+		else if (Dist <= 10 && Dist > 0.7 && AlienType == 6) {
 			CanChase = true;
 			ChaseDirection();
 			if (CanFireRay == false) {
