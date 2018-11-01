@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour
         scoreDisplay.text = "Score: " + score;
 
         WaveCount = 0;
-        //StartCoroutine (SpawnWaves ());
+        
     }
 
     void Update()
@@ -61,8 +61,7 @@ public class GameController : MonoBehaviour
         {
             GoSpawn = false;
         }
-        
-        //Debug.Log ("Wave Number: " + WaveCount);
+
     }
 
     IEnumerator Count()

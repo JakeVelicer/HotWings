@@ -158,6 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f64c92e97764af59353bf3fcc4daa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PepperNumber: 8
+  PepperName: speedPepper
 --- !u!212 &212508069453043682
 SpriteRenderer:
   m_ObjectHideFlags: 1
