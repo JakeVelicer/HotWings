@@ -110,7 +110,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Determines if the range of the player is close enough to be chased
 		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 6) {
 			CanChase = true;
-			ChaseDirection(); 
+			ChaseDirection();
 		}
 		// Tells the player to attack if close enough
 		else if (Dist <= FireRange && AlienType != 6) {
@@ -164,7 +164,7 @@ public class BasicEnemyControls : MonoBehaviour {
 					break;
 			}
 		}
-		else if (Dist <= FireRange && Dist > 0.5 && AlienType == 6) {
+		else if (Dist <= FireRange && Dist > 0.7 && AlienType == 6) {
 			CanChase = true;
 			ChaseDirection();
 			if (CanFireRay == false) {

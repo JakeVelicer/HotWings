@@ -17,7 +17,6 @@ public class AlienSpawner : MonoBehaviour {
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 		Controller.SpawnTheEnemies += CallSpawnEnemies;
 		Sprite = gameObject.GetComponent<SpriteRenderer>();
-		Controller.EnemiesLeft++;
 
 	}
 
@@ -34,11 +33,9 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[0]));
 							break;
 						case 2:
-							Controller.EnemiesLeft--;
 							Destroy(gameObject);
 							break;
 						case 3:
-							Controller.EnemiesLeft--;
 							Destroy(gameObject);
 							break;
 					}
@@ -54,7 +51,6 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[1]));
 							break;
 						case 3:
-							Controller.EnemiesLeft--;
 							Destroy(gameObject);
 							break;
 					}
@@ -96,6 +92,7 @@ public class AlienSpawner : MonoBehaviour {
 					switch(SaucerNumber) {
 						case 1:
 							StartCoroutine(SpawnEnemy(5, Aliens[0]));
+							SpawnAttackSaucer();
 							break;
 						case 2:
 							StartCoroutine(SpawnEnemy(5, Aliens[1]));
@@ -105,8 +102,6 @@ public class AlienSpawner : MonoBehaviour {
 							StartCoroutine(SpawnEnemy(5, Aliens[3]));
 							break;
 					}
-					GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
-					Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground";
 					break;
 			}
 		}
@@ -114,13 +109,12 @@ public class AlienSpawner : MonoBehaviour {
 
 			EnemiesToSpawn = EnemiesToSpawn + 1;
 
-			if (Controller.WaveCount % 5 == 0 ) {
-				GameObject shot = Instantiate (MotherShip, new Vector3 (0, 4, 0), Quaternion.identity) as GameObject;
-			}
-
 			switch(SaucerNumber) {
 				case 1:
 					StartCoroutine(SpawnEnemy(EnemiesToSpawn, Aliens[Random.Range(0,4)]));
+					if (Controller.WaveCount % 5 == 0) {
+						SpawnAttackSaucer();
+					}
 					break;
 				case 2:
 					StartCoroutine(SpawnEnemy(EnemiesToSpawn, Aliens[Random.Range(0,4)]));
@@ -140,8 +134,12 @@ public class AlienSpawner : MonoBehaviour {
 			shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             yield return new WaitForSeconds(1);
         }
-		Controller.EnemiesLeft--;
 		Controller.SpawnTheEnemies = null;
 		Destroy(gameObject, 2);
+	}
+
+	void SpawnAttackSaucer () {
+		GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, -2.24f, 0), Quaternion.identity) as GameObject;
+		Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
 	}
 }

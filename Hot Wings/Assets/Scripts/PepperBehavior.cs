@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyPepper : MonoBehaviour {
+public class PepperBehavior : MonoBehaviour {
 
 	private bool CanDestroy = false;
+	private playerControls Player;
 
 	// Use this for initialization
 	void Start () {
 
+		Player = GameObject.FindWithTag("Player").GetComponent<playerControls>();
 		StartCoroutine(Activation());
+		this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 		
 	}
 
@@ -19,7 +22,7 @@ public class DestroyPepper : MonoBehaviour {
 		collision.gameObject.tag == "icePepper" || collision.gameObject.tag == "speedPepper" ||
 		collision.gameObject.tag == "shockPepper" || collision.gameObject.tag == "windPepper" ||
 		collision.gameObject.tag == "earthPepper" || collision.gameObject.tag == "healhPepper" ||
-		collision.gameObject.tag == "buffPepper" || collision.gameObject.tag == "Player") {
+		collision.gameObject.tag == "buffPepper") {
 
 			if (CanDestroy == true) {
 				Destroy(gameObject);

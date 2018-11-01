@@ -9,11 +9,11 @@ public class playerControls : MonoBehaviour
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
-    public int moveSpeed = 10;
-    public int jumpForce = 300;
+    public int moveSpeed;
+    public int jumpForce;
     public bool isJumping;
     public bool canShoot = true;
-    public int shotSpeed = 1000;
+    public int shotSpeed;
     private bool Healing;
     private float ChargeTime = 1;
 
@@ -24,8 +24,8 @@ public class playerControls : MonoBehaviour
 
     public Text healthDisplay;
     public int health;
-    private float BuffTimer;
-    private int HealthTimer;
+    public float BuffTimer;
+    public int HealthTimer;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -281,8 +281,8 @@ public class playerControls : MonoBehaviour
             pepperA = pepperB;
             pepperB = tempPepper;
 
-            Debug.Log("Pepper A is now " + pepperA);
-            Debug.Log("Pepper B is now " + pepperB);
+            //Debug.Log("Pepper A is now " + pepperA);
+            //Debug.Log("Pepper B is now " + pepperB);
         }
     }
 
@@ -290,67 +290,51 @@ public class playerControls : MonoBehaviour
     {
         GameObject shot;
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.RightAlt))
         {
             switch (pepperIndexA)
             {
                 case 1:
                     shot = Instantiate(eggFire, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-                    pepperA = pepperB;
-                    pepperIndexA = pepperIndexB;
-                    pepperB = null;
-                    pepperIndexB = 0;
+		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 2:
                     shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-                    pepperA = pepperB;
-                    pepperIndexA = pepperIndexB;
-                    pepperB = null;
-                    pepperIndexB = 0;
+		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 3:
                     shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-                    pepperA = pepperB;
-                    pepperIndexA = pepperIndexB;
-                    pepperB = null;
-                    pepperIndexB = 0;
+		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 4:
                     shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-                    pepperA = pepperB;
-                    pepperIndexA = pepperIndexB;
-                    pepperB = null;
-                    pepperIndexB = 0;
+		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 6:
                     shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-                    pepperA = pepperB;
-                    pepperIndexA = pepperIndexB;
-                    pepperB = null;
-                    pepperIndexB = 0;
+		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 8:
                     shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-                        if (facingRight)
-                        {
+		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
+                        if (facingRight) {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
-                        else if (!facingRight)
-                        {
+                        else if (!facingRight) {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
-                    pepperA = pepperB;
-                    pepperIndexA = pepperIndexB;
-                    pepperB = null;
-                    pepperIndexB = 0;
                     break;
             }
+            pepperA = pepperB;
+            pepperIndexA = pepperIndexB;
+            pepperB = null;
+            pepperIndexB = 0;
         }
     }
 
@@ -454,114 +438,53 @@ public class playerControls : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collider)
     {
-        if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy")
-        {
+        if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy") {
             isJumping = false;
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "firePepper") {
-            if (pepperIndexA == 0) {
-                pepperIndexA = 1;
-                pepperA = "firePepper";
+        if (pepperIndexA == 0 || pepperIndexB == 0) {
+
+            if (collider.gameObject.tag == "firePepper") {
+                PepperCollision(1, "firePepper");
+                Destroy(collider.gameObject);
             }
-            else {
-                pepperIndexB = 1;
-                pepperB = "firePepper";
+            if (collider.gameObject.tag == "waterPepper") {
+                PepperCollision(2, "waterPepper");
+                Destroy(collider.gameObject);
             }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "waterPepper") {
-            if (pepperIndexA == 0) {
-                pepperIndexA = 2;
-                pepperA = "waterPepper";
+            if (collider.gameObject.tag == "icePepper") {
+                PepperCollision(3, "icePepper");
+                Destroy(collider.gameObject);
             }
-            else {
-                pepperIndexB = 2;
-                pepperB = "waterPepper";
+            if (collider.gameObject.tag == "shockPepper") {
+                PepperCollision(4, "shockPepper");
+                Destroy(collider.gameObject);
             }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "icePepper") {
-            if (pepperIndexA == 0) {
-                pepperIndexA = 3;
-                pepperA = "icePepper";
+            if (collider.gameObject.tag == "earthPepper") {
+                PepperCollision(5, "earthPepper");
+                Destroy(collider.gameObject);
             }
-            else {
-                pepperIndexB = 3;
-                pepperB = "icePepper";
+            if (collider.gameObject.tag == "windPepper") {
+                PepperCollision(6, "windPepper");
+                Destroy(collider.gameObject);
             }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "shockPepper") {
-            if (pepperIndexA == 0) {
-                pepperIndexA = 4;
-                pepperA = "shockPepper";
+            if (collider.gameObject.tag == "buffPepper") {
+                BuffTimer = 20;
+                PepperCollision(7, "buffPepper");
+                Destroy(collider.gameObject);
             }
-            else {
-                pepperIndexB = 4;
-                pepperB = "shockPepper";
+            if (collider.gameObject.tag == "speedPepper") {
+                PepperCollision(8, "speedPepper");
+                Destroy(collider.gameObject);
             }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "earthPepper") {
-            if (pepperIndexA == 0) {
-                pepperIndexA = 5;
-                pepperA = "earthPepper";
+            if (collider.gameObject.tag == "healthPepper") {
+                HealthTimer = 5;
+                PepperCollision(9, "healthPepper");
+                Destroy(collider.gameObject);
             }
-            else {
-                pepperIndexB = 5;
-                pepperB = "earthPepper";
-            }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "windPepper") {
-            if (pepperIndexA == 0) {
-                pepperIndexA = 6;
-                pepperA = "windPepper";
-            }
-            else {
-                pepperIndexB = 6;
-                pepperB = "windPepper";
-            }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "buffPepper") {
-            BuffTimer = 20;
-            if (pepperIndexA == 0) {
-                pepperIndexA = 7;
-                pepperA = "buffPepper";
-            }
-            else {
-                pepperIndexB = 7;
-                pepperB = "buffPepper";
-            }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "speedPepper") {
-            if (pepperIndexA == 0) {
-                pepperIndexA = 8;
-                pepperA = "speedPepper";
-            }
-            else {
-                pepperIndexB = 8;
-                pepperB = "speedPepper";
-            }
-            Destroy(collider.gameObject);
-        }
-        if (collider.gameObject.tag == "healthPepper") {
-            HealthTimer = 5;
-            if (pepperIndexA == 0) {
-                pepperIndexA = 9;
-                pepperA = "healthPepper";
-            }
-            else {
-                pepperIndexB = 9;
-                pepperB = "healthPepper";
-            }
-            Destroy(collider.gameObject);
         }
         if (collider.gameObject.tag == "enemyFist") {
             if (!isImmune) {
@@ -635,11 +558,21 @@ public class playerControls : MonoBehaviour
     }
     
     void OnTriggerExit2D(Collider2D collider) {
-        if (collider.gameObject.tag == "enemyDeathRay")
-        {
+        if (collider.gameObject.tag == "enemyDeathRay") {
             //SaucerColliding = false;
             Debug.Log("Left Collider");
             CancelInvoke("CollidingDeathRay");
+        }
+    }
+
+    void PepperCollision(int pepperNumber, string pepperName) {
+        if (pepperIndexA == 0) {
+            pepperIndexA = pepperNumber;
+            pepperA = pepperName;
+        }
+        else if (pepperIndexB == 0) {
+            pepperIndexB = pepperNumber;
+            pepperB = pepperName;
         }
     }
 
