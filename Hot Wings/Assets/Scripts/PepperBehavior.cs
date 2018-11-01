@@ -12,6 +12,7 @@ public class PepperBehavior : MonoBehaviour {
 
 		Player = GameObject.FindWithTag("Player").GetComponent<playerControls>();
 		StartCoroutine(Activation());
+		this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 		
 	}
 
