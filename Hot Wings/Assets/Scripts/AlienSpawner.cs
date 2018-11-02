@@ -131,7 +131,7 @@ public class AlienSpawner : MonoBehaviour {
 		for (int i = 0; i < EnemiesToSpawn; i++) {
 			GameObject shot = Instantiate(ChosenAlien, transform.position + new Vector3 (0, 0, 0),
 			Quaternion.identity) as GameObject;
-			shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+			//shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             yield return new WaitForSeconds(1);
         }
 		Controller.SpawnTheEnemies = null;
@@ -140,6 +140,6 @@ public class AlienSpawner : MonoBehaviour {
 
 	void SpawnAttackSaucer () {
 		GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, -2.24f, 0), Quaternion.identity) as GameObject;
-		Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
+		//Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Midground2";
 	}
 }

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114107041866988774}
   - component: {fileID: 95645072628614824}
   - component: {fileID: 82560460657957814}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ExplosionHitBox
   m_TagString: Water
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 212796244848294362}
   - component: {fileID: 61724178198005772}
   - component: {fileID: 50297093417701324}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EggWaterBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,8 +295,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 889142871
-  m_SortingLayer: 2
+  m_SortingLayerID: 719109109
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 30efe9f8ccf9d4d10ab90eb6963da78e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -341,7 +341,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1485028015
+  m_SortingLayerID: 719109109
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2a1527e03eb6d4685b452464b4a4d75a, type: 3}
