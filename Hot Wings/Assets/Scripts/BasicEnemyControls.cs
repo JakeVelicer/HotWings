@@ -110,6 +110,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	void ChaseTarget () {
 
 		float Dist = Vector3.Distance(Target.position, transform.position);
+		float DistX = Mathf.Abs(Target.position.x - transform.position.x);
 
 		// Determines if the range of the player is close enough to be chased
 		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 6) {
@@ -168,7 +169,7 @@ public class BasicEnemyControls : MonoBehaviour {
 					break;
 			}
 		}
-		else if (Dist <= FireRange && Dist > 0.7 && AlienType == 6) {
+		else if (DistX <= FireRange && DistX > 0.5 && AlienType == 6) {
 			CanChase = true;
 			ChaseDirection();
 			if (CanFireRay == false) {
@@ -176,7 +177,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				//Debug.Log("Called");
 			}
 		}
-		else if (Dist > ChaseRange && AlienType == 6) {
+		else if (DistX > ChaseRange && AlienType == 6) {
 			CanChase = false;
 			SaucerRay.SetActive(false);
 			ChaseDirection();
