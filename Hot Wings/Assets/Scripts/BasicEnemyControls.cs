@@ -266,7 +266,13 @@ public class BasicEnemyControls : MonoBehaviour {
 		CanFireRay = true;
 	}
 
-	void OnTriggerEnter2D (Collider2D collision) {
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.gameObject.tag == "Wind") {
+			InvokeRepeating("TakeWindDamage", 0, 0.5f);
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D collision) {
 
 			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
@@ -297,9 +303,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.tag == "Water") {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
 		}
-		else if (collision.gameObject.tag == "Wind") {
-			InvokeRepeating("TakeWindDamage", 0, 0.5f);
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
@@ -309,7 +312,10 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Water") {
 			CancelInvoke("TakeWaterDamage");
 		}
-		else if (collider.gameObject.tag == "Wind") {
+	}
+
+	void OnCollisionExit2D(Collision2D collider) {
+		if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
 		}
 	}
