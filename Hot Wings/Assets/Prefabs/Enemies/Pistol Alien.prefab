@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4825684722047112}
   - component: {fileID: 212359287118209502}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Enemy-Dot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114940188864123562}
   - component: {fileID: 114731147697618552}
   - component: {fileID: 82460498013228052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pistol Alien
   m_TagString: Enemy
   m_Icon: {fileID: 0}

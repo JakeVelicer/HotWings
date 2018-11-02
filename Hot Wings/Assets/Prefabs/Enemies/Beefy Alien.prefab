@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114724499976048838}
   - component: {fileID: 114455122676272482}
   - component: {fileID: 82080929906829846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Beefy Alien
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4874159237924024}
   - component: {fileID: 212440769785492296}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Enemy-Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 61392771181264434}
   - component: {fileID: 95472849633742014}
   - component: {fileID: 114444306350690214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arm
   m_TagString: enemyFist
   m_Icon: {fileID: 0}

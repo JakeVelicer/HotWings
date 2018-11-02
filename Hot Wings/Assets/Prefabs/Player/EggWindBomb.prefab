@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212305928925546104}
   - component: {fileID: 61154209682108620}
   - component: {fileID: 50404105834069016}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: EggWindBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114003091292770008}
   - component: {fileID: 95571604570332616}
   - component: {fileID: 82292413716277730}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ExplosionHitBox
   m_TagString: Wind
   m_Icon: {fileID: 0}

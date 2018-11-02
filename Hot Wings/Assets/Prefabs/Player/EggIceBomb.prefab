@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212361789630427376}
   - component: {fileID: 61737266064768538}
   - component: {fileID: 50403147072127750}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: EggIceBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114084751508677734}
   - component: {fileID: 95492482773508134}
   - component: {fileID: 82292345993697014}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ExplosionHitBox
   m_TagString: Ice
   m_Icon: {fileID: 0}

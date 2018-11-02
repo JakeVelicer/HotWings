@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212626609132626784}
   - component: {fileID: 61724226540375758}
   - component: {fileID: 50868816372791196}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: EggEarthBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114070532860557990}
   - component: {fileID: 95185976234305806}
   - component: {fileID: 82991948756475542}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ExplosionHitBox
   m_TagString: Earth
   m_Icon: {fileID: 0}

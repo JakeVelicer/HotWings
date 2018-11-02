@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114272149656950584}
   - component: {fileID: 95592753194580452}
   - component: {fileID: 82873902291009520}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ExplosionHitBox
   m_TagString: Electric
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 212565616942477406}
   - component: {fileID: 61144934285882100}
   - component: {fileID: 50929513053796620}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: EggElectricBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}

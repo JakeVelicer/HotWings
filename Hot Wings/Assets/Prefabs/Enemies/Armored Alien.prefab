@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4779431144634038}
   - component: {fileID: 212167176348155082}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Enemy-Dot (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114297506926165502}
   - component: {fileID: 114778261452989646}
   - component: {fileID: 82845513020187754}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Armored Alien
   m_TagString: Enemy
   m_Icon: {fileID: 0}
