@@ -22,7 +22,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private float CoolDownTimer = 0;
 
     private bool CanChase;
-	private bool CanFireRay;
+	private bool CanFireRay = true;
 	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
 	public GameObject BulletObject;
@@ -172,7 +172,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (DistX <= FireRange && DistX > 0.5 && AlienType == 6) {
 			CanChase = true;
 			ChaseDirection();
-			if (CanFireRay == false) {
+			if (CanFireRay == true) {
 				StartCoroutine(RayTime());
 				//Debug.Log("Called");
 			}
@@ -255,7 +255,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	IEnumerator RayTime () {
-		CanFireRay = true;
+		CanFireRay = false;
 		yield return new WaitForSeconds(3);
 		SaucerRay.SetActive(true);
 		BeamAnimation.PlayBeamAnim();
@@ -263,7 +263,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		BeamAnimation.PlayRetractAnim();
 		yield return new WaitForSeconds(0.2f);
 		SaucerRay.SetActive(false);
-		CanFireRay = false;
+		CanFireRay = true;
 	}
 
 	void OnTriggerEnter2D (Collider2D collision) {
@@ -292,13 +292,13 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
-			InvokeRepeating("TakeFireDamage", 0, 1);
+			InvokeRepeating("TakeFireDamage", 0, 0.5f);
 		}
 		else if (collision.gameObject.tag == "Water") {
-			InvokeRepeating("TakeWaterDamage", 0, 1);
+			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
 		}
 		else if (collision.gameObject.tag == "Wind") {
-			InvokeRepeating("TakeWindDamage", 0, 1);
+			InvokeRepeating("TakeWindDamage", 0, 0.5f);
 		}
 	}
 

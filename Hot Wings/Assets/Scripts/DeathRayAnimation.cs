@@ -16,6 +16,7 @@ public class DeathRayAnimation : MonoBehaviour {
 		//DeathRay.SetBool("Retract", false);
 		DeathRay.Play("LaserShoot");
 	}
+	
 	public void PlayRetractAnim() {
 		DeathRay = gameObject.GetComponent<Animator>();
 		//DeathRay.SetBool("Retract", true);

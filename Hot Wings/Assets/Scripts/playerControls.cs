@@ -9,6 +9,7 @@ public class playerControls : MonoBehaviour
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
+    private StreamAttackAnimation StreamAnimations;
     public int moveSpeed;
     public int jumpForce;
     public bool isJumping;
@@ -120,9 +121,14 @@ public class playerControls : MonoBehaviour
                         playerSounds.loop = true;
                         playerSounds.Play();
                         playerFireShot.SetActive(true);
+                        StreamAnimations = gameObject.transform.GetChild(0)
+                        .GetComponent<StreamAttackAnimation>();
+                        StreamAnimations.PlayBeamAnimFlame();
                     }
-                    if (Input.GetKeyUp(KeyCode.Space))
-                    {
+                    if (Input.GetKeyUp(KeyCode.Space)) {
+                        canShoot = false;
+                        StreamAnimations.PlayRetractAnimFlame();
+                        StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
                     break;
@@ -132,8 +138,14 @@ public class playerControls : MonoBehaviour
                         playerSounds.loop = true;
                         playerSounds.Play();
                         playerWaterShot.SetActive(true);
+                        StreamAnimations = gameObject.transform.GetChild(1)
+                        .GetComponent<StreamAttackAnimation>();
+                        StreamAnimations.PlayBeamAnimWater();
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
+                        canShoot = false;                       
+                        StreamAnimations.PlayRetractAnimWater();
+                        StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
                     break;
@@ -265,11 +277,6 @@ public class playerControls : MonoBehaviour
                     break;
             }
         }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            playerFireShot.SetActive(false);
-            playerWaterShot.SetActive(false);
-        }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
             int tempIndex = pepperIndexA;
@@ -390,7 +397,15 @@ public class playerControls : MonoBehaviour
     private IEnumerator shootWait()
     {
         //Debug.Log("Counting down...");
-        if (pepperIndexA == 8) {
+        if (pepperIndexA == 1) {
+            yield return new WaitForSeconds(0.2f);
+            playerFireShot.SetActive(false);
+        }
+        else if (pepperIndexA == 2) {
+            yield return new WaitForSeconds(0.2f);
+            playerWaterShot.SetActive(false);
+        }
+        else if (pepperIndexA == 8) {
             yield return new WaitForSeconds(0.3f);
             DashDirection = 0;
         }

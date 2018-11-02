@@ -27,7 +27,7 @@ public class TutorialPopups : MonoBehaviour
 
     private void OnWaveIncremented(int waveCount)
     {
-        Debug.Log("Tutorial Popup knows that the wave was incremented to " + waveCount);
+        //Debug.Log("Tutorial Popup knows that the wave was incremented to " + waveCount);
         
         if (waveCount <= Waves.Length)
         {

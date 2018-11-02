@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4693139771096478}
   - component: {fileID: 212021389264868386}
   - component: {fileID: 61407580975228454}
+  - component: {fileID: 95356710905998052}
+  - component: {fileID: 114461515021020980}
   m_Layer: 0
   m_Name: StreamShotFire
   m_TagString: Fire
@@ -54,6 +56,8 @@ GameObject:
   - component: {fileID: 4958017697618880}
   - component: {fileID: 212399223985679904}
   - component: {fileID: 60185226697164842}
+  - component: {fileID: 95065878032960246}
+  - component: {fileID: 114495698874390936}
   m_Layer: 0
   m_Name: StreamShotWater
   m_TagString: Water
@@ -121,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853898952368290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.916, y: 2.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4693139771096478}
@@ -545,6 +549,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95065878032960246
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1634015094940242}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 227b92d9af9ba41faa8b5ffe35649fe1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95356710905998052
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330926032680734}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 227b92d9af9ba41faa8b5ffe35649fe1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95801111395765528
 Animator:
   serializedVersion: 3
@@ -585,6 +625,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e262715f2da34885a06ceed5381ccf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114461515021020980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330926032680734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9284b9f3273b242f08d1edc8b2e15197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114495698874390936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1634015094940242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9284b9f3273b242f08d1edc8b2e15197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114521986171018460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -607,6 +669,8 @@ MonoBehaviour:
   pepperIndexB: 0
   healthDisplay: {fileID: 0}
   health: 500
+  BuffTimer: 0
+  HealthTimer: 0
   isImmune: 0
   facingRight: 0
   playerFireShot: {fileID: 1330926032680734}
