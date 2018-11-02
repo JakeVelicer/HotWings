@@ -507,7 +507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156245189}
   - component: {fileID: 156245190}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 175384180}
   - component: {fileID: 175384179}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -947,7 +947,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1847
+    m_Bits: 3895
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1114,7 +1114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245815334}
   - component: {fileID: 245815335}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1290,7 +1290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 368311789}
   - component: {fileID: 368311790}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1513,6 +1513,18 @@ Prefab:
       propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1853898952368290, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635764463367764, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1595222671151094, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
@@ -1525,7 +1537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 404497597}
   - component: {fileID: 404497596}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Barn Outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2470,7 +2482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 721815823}
   - component: {fileID: 721815824}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2951,7 +2963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 773192089}
   - component: {fileID: 773192088}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BACKGROUND2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4994,7 +5006,7 @@ GameObject:
   - component: {fileID: 1323816680}
   - component: {fileID: 1323816679}
   - component: {fileID: 1323816681}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BACKGROUNDPETER
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -5097,7 +5109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1353177938}
   - component: {fileID: 1353177939}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6722,7 +6734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1995237071}
   - component: {fileID: 1995237070}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Barn Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
