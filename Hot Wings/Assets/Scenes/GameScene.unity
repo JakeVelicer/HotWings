@@ -156,7 +156,7 @@ RectTransform:
   - {fileID: 1309133160}
   - {fileID: 1787955889}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -338,7 +338,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4896343855335752, guid: 843fb84daa3874bf3a8e230d5fb0adb3, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 60750834556699788, guid: 843fb84daa3874bf3a8e230d5fb0adb3,
         type: 2}
@@ -507,7 +507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156245189}
   - component: {fileID: 156245190}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,7 +643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 175384180}
   - component: {fileID: 175384179}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -947,7 +947,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1847
+    m_Bits: 3895
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -971,7 +971,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &244073352
 MonoBehaviour:
@@ -1114,7 +1114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245815334}
   - component: {fileID: 245815335}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1290,7 +1290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 368311789}
   - component: {fileID: 368311790}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1501,7 +1501,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
         type: 2}
@@ -1525,7 +1525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 404497597}
   - component: {fileID: 404497596}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Barn Outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1601,7 +1601,7 @@ GameObject:
   - component: {fileID: 405392516}
   - component: {fileID: 405392518}
   - component: {fileID: 405392517}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: FULL_GROUND_11520width (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1954,7 +1954,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4755124350736044, guid: cd718318fb24945de915eee04611d1c1, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1056208338417154, guid: cd718318fb24945de915eee04611d1c1, type: 2}
       propertyPath: m_Name
@@ -2297,7 +2297,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4755124350736044, guid: cd718318fb24945de915eee04611d1c1, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 60540897622445164, guid: cd718318fb24945de915eee04611d1c1,
         type: 2}
@@ -2470,7 +2470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 721815823}
   - component: {fileID: 721815824}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2550,7 +2550,7 @@ GameObject:
   - component: {fileID: 729301909}
   - component: {fileID: 729301908}
   - component: {fileID: 729301907}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BACKGROUND-AND-FOREGROUND
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2876,7 +2876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758632659}
   - component: {fileID: 758632658}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: entire background-01-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2951,7 +2951,7 @@ GameObject:
   m_Component:
   - component: {fileID: 773192089}
   - component: {fileID: 773192088}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BACKGROUND2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3228,7 +3228,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4896343855335752, guid: 843fb84daa3874bf3a8e230d5fb0adb3, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1623076883732252, guid: 843fb84daa3874bf3a8e230d5fb0adb3, type: 2}
       propertyPath: m_Name
@@ -3375,7 +3375,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929102820
 GameObject:
@@ -3465,7 +3465,7 @@ RectTransform:
   m_Children:
   - {fileID: 592334541}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3497,7 +3497,7 @@ GameObject:
   - component: {fileID: 931421316}
   - component: {fileID: 931421315}
   - component: {fileID: 931421314}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hay Bale (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -3779,6 +3779,10 @@ Prefab:
       propertyPath: m_SortingLayer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1350232966689596, guid: 338ad3325f4924d38935268db6dd8e8c, type: 2}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 338ad3325f4924d38935268db6dd8e8c, type: 2}
   m_IsPrefabAsset: 0
@@ -3953,7 +3957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1095075020}
   - component: {fileID: 1095075019}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: TRACTOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4122,7 +4126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4755124350736044, guid: cd718318fb24945de915eee04611d1c1, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1056208338417154, guid: cd718318fb24945de915eee04611d1c1, type: 2}
       propertyPath: m_Name
@@ -4192,7 +4196,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 6144
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 8997058fa827b4989818d627d87931c5, type: 2}
   m_TargetDisplay: 0
@@ -4215,7 +4219,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180713056 stripped
 GameObject:
@@ -4349,7 +4353,7 @@ Prefab:
     - target: {fileID: 224966107851082644, guid: 2dde0d5427908489eb102e193625e79f,
         type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 224966107851082644, guid: 2dde0d5427908489eb102e193625e79f,
         type: 2}
@@ -4591,7 +4595,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4755124350736044, guid: cd718318fb24945de915eee04611d1c1, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1056208338417154, guid: cd718318fb24945de915eee04611d1c1, type: 2}
       propertyPath: m_Name
@@ -4687,7 +4691,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4012572171968496, guid: f135ebc68f274443bbaae1a36365c2ca, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1460521527792378, guid: f135ebc68f274443bbaae1a36365c2ca, type: 2}
       propertyPath: m_Name
@@ -4994,7 +4998,7 @@ GameObject:
   - component: {fileID: 1323816680}
   - component: {fileID: 1323816679}
   - component: {fileID: 1323816681}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BACKGROUNDPETER
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -5097,7 +5101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1353177938}
   - component: {fileID: 1353177939}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: CLOUDS2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5396,7 +5400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1503105424}
   - component: {fileID: 1503105423}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5589,7 +5593,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4012572171968496, guid: f135ebc68f274443bbaae1a36365c2ca, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1460521527792378, guid: f135ebc68f274443bbaae1a36365c2ca, type: 2}
       propertyPath: m_Name
@@ -5617,6 +5621,10 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460521527792378, guid: f135ebc68f274443bbaae1a36365c2ca, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f135ebc68f274443bbaae1a36365c2ca, type: 2}
@@ -5733,7 +5741,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4012572171968496, guid: f135ebc68f274443bbaae1a36365c2ca, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 60295536696271384, guid: f135ebc68f274443bbaae1a36365c2ca,
         type: 2}
@@ -5981,7 +5989,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1752625199}
   - component: {fileID: 1752625200}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: FULL_GROUND_11520width
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -6277,7 +6285,7 @@ GameObject:
   - component: {fileID: 1786117674}
   - component: {fileID: 1786117673}
   - component: {fileID: 1786117672}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hay Bale (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -6706,7 +6714,7 @@ RectTransform:
   m_Children:
   - {fileID: 2143385910}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6722,7 +6730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1995237071}
   - component: {fileID: 1995237070}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Barn Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7006,7 +7014,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4896343855335752, guid: 843fb84daa3874bf3a8e230d5fb0adb3, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1623076883732252, guid: 843fb84daa3874bf3a8e230d5fb0adb3, type: 2}
       propertyPath: m_Name

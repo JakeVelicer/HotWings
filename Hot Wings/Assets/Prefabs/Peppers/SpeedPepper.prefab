@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 4219828050112124}
   - component: {fileID: 212508069453043682}
   - component: {fileID: 95713385018926404}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Pepper-indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1129920098866954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7099996, y: 6.19, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4219828050112124}
