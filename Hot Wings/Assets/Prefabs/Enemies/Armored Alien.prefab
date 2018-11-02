@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114297506926165502}
   - component: {fileID: 114778261452989646}
   - component: {fileID: 82845513020187754}
+  - component: {fileID: 95933640055054048}
   m_Layer: 8
   m_Name: Armored Alien
   m_TagString: Enemy
@@ -223,6 +224,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95933640055054048
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997235813895256}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114297506926165502
 MonoBehaviour:
   m_ObjectHideFlags: 1

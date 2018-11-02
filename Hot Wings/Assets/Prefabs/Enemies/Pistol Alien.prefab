@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114940188864123562}
   - component: {fileID: 114731147697618552}
   - component: {fileID: 82460498013228052}
+  - component: {fileID: 95935984626892552}
   m_Layer: 8
   m_Name: Pistol Alien
   m_TagString: Enemy
@@ -221,6 +222,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95935984626892552
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1504860558006326}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114731147697618552
 MonoBehaviour:
   m_ObjectHideFlags: 1

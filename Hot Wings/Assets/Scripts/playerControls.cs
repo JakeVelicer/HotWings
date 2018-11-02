@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Animations;
 public class playerControls : MonoBehaviour
 {
+
+    Animator anim;
+   
+
 
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
@@ -71,6 +75,9 @@ public class playerControls : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        anim = GetComponent<Animator>();
+
+
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
@@ -84,6 +91,25 @@ public class playerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        //float move = Input.GetAxis("Horizontal");
+        //anim.SetFloat("Speed", moveSpeed);
+
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            //anim.SetTrigger(runStateHash); 
+            anim.SetInteger("Speed", 1);
+            //anim.speed = 1f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            // anim. = 0f;
+            // anim.SetTrigger(idleHash);
+            anim.SetInteger("Speed", 0);
+        }
+
         healthDisplay.text = "Health: " + health;
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)

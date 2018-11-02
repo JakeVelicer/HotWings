@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class BasicEnemyControls : MonoBehaviour {
 
-	private Rigidbody2D Rigidbody;
+    Animator anim;
+
+    private Rigidbody2D Rigidbody;
 	private Transform Target;
 	private GameController MainController;
 	private EnemyDamageValues DamageValues;
@@ -45,6 +47,7 @@ public class BasicEnemyControls : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        anim = GetComponent<Animator>();
         enemySounds = gameObject.GetComponent<AudioSource>();
         enemySounds.loop = false;
 		//Rigidbody = GetComponent<Rigidbody2D> ();
@@ -98,11 +101,29 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
-				transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
+                if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
+                {
+
+
+                }
+                if ((anim.GetInteger("Near") == 1))
+                {
+                    anim.SetInteger("Near", 0);
+                }
+                transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
 			}
 			else if (ToTheRight == true) {
 				transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
-			}
+                if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
+                {
+
+
+                }
+                if(anim.GetInteger("Near") == 1)
+                {
+                    anim.SetInteger("Near", 0);
+                }
+            }
 			//Rigidbody.AddForce (MovementSpeed * new Vector2 (1,0));
 		}
 	}
@@ -155,7 +176,16 @@ public class BasicEnemyControls : MonoBehaviour {
 					break;
 				case 4:
      				if (CoolDownTimer <= 0) {
-						AttackPhase2();
+                        /*if (anim.GetInteger("Near") != 0 || anim.GetInteger("Near") != 1)
+                        {
+
+
+                        }
+                        else
+                        {*/
+                            anim.SetInteger("Near", 1);
+                       // }
+                        AttackPhase2();
 						CoolDownTimer = CoolDown;
 					}
 					CoolDownTimer -= Time.deltaTime;
