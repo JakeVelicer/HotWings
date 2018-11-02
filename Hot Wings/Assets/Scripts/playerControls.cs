@@ -297,32 +297,26 @@ public class playerControls : MonoBehaviour
                 case 1:
                     shot = Instantiate(eggFire, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 2:
                     shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 3:
                     shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 4:
                     shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 6:
                     shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                     break;
                 case 8:
                     shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
-		            shot.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Player";
                         if (facingRight) {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
@@ -553,7 +547,7 @@ public class playerControls : MonoBehaviour
         }
         if (collider.gameObject.tag == "enemyDeathRay") {
             //SaucerColliding = true;
-            InvokeRepeating("CollidingDeathRay", 0, 0.5f);
+            InvokeRepeating("CollidingDeathRay", 0, 0.4f);
         }
     }
     

@@ -9,6 +9,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private GameController MainController;
 	private EnemyDamageValues DamageValues;
     private GameObject gameController;
+	private DeathRayAnimation BeamAnimation;
 
 	public float EnemyHealth;
     public int enemyValue;
@@ -50,6 +51,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		MainController.EnemiesLeft++;
+		if (AlienType == 6) {
+			BeamAnimation = gameObject.transform.GetChild(1).GetComponent<DeathRayAnimation>();
+		}
 		
 	}
 	
@@ -134,7 +138,7 @@ public class BasicEnemyControls : MonoBehaviour {
 						CoolDownTimer -= Time.deltaTime;
 					}
 					break;
-				case 2: 
+				case 2:
      				if (CoolDownTimer <= 0) {
 						AttackPhase1();
 						CoolDownTimer = CoolDown;
@@ -169,7 +173,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			ChaseDirection();
 			if (CanFireRay == false) {
 				StartCoroutine(RayTime());
-				Debug.Log("Called");
+				//Debug.Log("Called");
 			}
 		}
 		else if (Dist > ChaseRange && AlienType == 6) {
@@ -251,9 +255,12 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	IEnumerator RayTime () {
 		CanFireRay = true;
-		yield return new WaitForSeconds(2);
-		SaucerRay.SetActive(true);
 		yield return new WaitForSeconds(3);
+		SaucerRay.SetActive(true);
+		BeamAnimation.PlayBeamAnim();
+		yield return new WaitForSeconds(3);
+		BeamAnimation.PlayRetractAnim();
+		yield return new WaitForSeconds(0.2f);
 		SaucerRay.SetActive(false);
 		CanFireRay = false;
 	}

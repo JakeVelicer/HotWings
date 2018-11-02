@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4984719261676144}
   - component: {fileID: 212612232211031524}
   - component: {fileID: 61279300305926938}
+  - component: {fileID: 95127997838063886}
+  - component: {fileID: 114465979340541408}
   m_Layer: 0
   m_Name: DeathRay
   m_TagString: enemyDeathRay
@@ -83,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1911000877547620}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.24, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4233657020772442}
@@ -276,6 +278,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95127997838063886
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717192696476054}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f5a847b0f2ff4f80ae35c04185779e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114465979340541408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717192696476054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808ad6e5cd412410a8fe6b91ae1324a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114571564197748410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -294,7 +325,7 @@ MonoBehaviour:
   FireRange: 10
   ProjectileSpeed: 0
   ProjectileHeight: 0
-  CoolDown: 5
+  CoolDown: 0
   Punch: 0
   ToTheRight: 0
   BulletObject: {fileID: 0}

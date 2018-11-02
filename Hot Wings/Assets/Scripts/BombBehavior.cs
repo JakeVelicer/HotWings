@@ -23,6 +23,7 @@ public class BombBehavior : MonoBehaviour {
         }
 		ExplodeAnim = gameObject.GetComponent<Animator>();
 		PlayAnim = true;
+		//gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Player";
 		
 	}
 	
