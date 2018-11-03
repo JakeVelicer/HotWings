@@ -7,8 +7,6 @@ public class playerControls : MonoBehaviour
 {
 
     Animator anim;
-   
-
 
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
@@ -29,8 +27,8 @@ public class playerControls : MonoBehaviour
 
     public Text healthDisplay;
     public int health;
-    public float BuffTimer;
-    public int HealthTimer;
+    private float BuffTimer;
+    private int HealthTimer;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -76,15 +74,9 @@ public class playerControls : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-
-
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
-
-        playerFireShot.SetActive(false);
-        playerWaterShot.SetActive(false);
-
         playerSounds = gameObject.GetComponent<AudioSource>();
     }
 
@@ -97,18 +89,6 @@ public class playerControls : MonoBehaviour
         //anim.SetFloat("Speed", moveSpeed);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            //anim.SetTrigger(runStateHash); 
-            anim.SetInteger("Speed", 1);
-            //anim.speed = 1f;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            // anim. = 0f;
-            // anim.SetTrigger(idleHash);
-            anim.SetInteger("Speed", 0);
-        }
 
         healthDisplay.text = "Health: " + health;
 
@@ -119,15 +99,24 @@ public class playerControls : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
+            anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(1, 1, 1);
             facingRight = true;
             transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
+            anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(-1, 1, 1);
             facingRight = false;
             transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)
+        || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            // anim. = 0f;
+            // anim.SetTrigger(idleHash);
+            anim.SetInteger("Speed", 0);
         }
         PepAttacks();
         EggBombs();
@@ -146,14 +135,16 @@ public class playerControls : MonoBehaviour
                         playerSounds.clip = playerFire;
                         playerSounds.loop = true;
                         playerSounds.Play();
-                        playerFireShot.SetActive(true);
-                        StreamAnimations = gameObject.transform.GetChild(0)
-                        .GetComponent<StreamAttackAnimation>();
-                        StreamAnimations.PlayBeamAnimFlame();
+                        playerFireShot.GetComponent<Collider2D>().enabled = true;
+                        playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
+                        //StreamAnimations = playerFireShot.GetComponent<StreamAttackAnimation>();
+                        //StreamAnimations.PlayBeamAnimFlame();
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
                         canShoot = false;
-                        StreamAnimations.PlayRetractAnimFlame();
+                        //StreamAnimations.PlayRetractAnimFlame();
+                        playerFireShot.GetComponent<Collider2D>().enabled = false;
+                        playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
                         StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
@@ -163,14 +154,13 @@ public class playerControls : MonoBehaviour
                         playerSounds.clip = playerWater;
                         playerSounds.loop = true;
                         playerSounds.Play();
-                        playerWaterShot.SetActive(true);
-                        StreamAnimations = gameObject.transform.GetChild(1)
-                        .GetComponent<StreamAttackAnimation>();
-                        StreamAnimations.PlayBeamAnimWater();
+                        playerWaterShot.GetComponent<Collider2D>().enabled = true;
+                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
-                        canShoot = false;                       
-                        StreamAnimations.PlayRetractAnimWater();
+                        canShoot = false;
+                        playerWaterShot.GetComponent<Collider2D>().enabled = false;
+                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
                         StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
@@ -424,12 +414,10 @@ public class playerControls : MonoBehaviour
     {
         //Debug.Log("Counting down...");
         if (pepperIndexA == 1) {
-            yield return new WaitForSeconds(0.2f);
-            playerFireShot.SetActive(false);
+            //yield return new WaitForSeconds(0.5f);
         }
         else if (pepperIndexA == 2) {
-            yield return new WaitForSeconds(0.2f);
-            playerWaterShot.SetActive(false);
+            //yield return new WaitForSeconds(0.5f);
         }
         else if (pepperIndexA == 8) {
             yield return new WaitForSeconds(0.3f);

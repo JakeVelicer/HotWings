@@ -27,6 +27,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private bool CanFireRay = true;
 	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
+	private playerControls Player;
 	public GameObject BulletObject;
 	public GameObject BombObject;
 	public GameObject SaucerRay;
@@ -54,6 +55,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		MainController.EnemiesLeft++;
+		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
 		if (AlienType == 6) {
 			BeamAnimation = gameObject.transform.GetChild(1).GetComponent<DeathRayAnimation>();
 		}
@@ -330,7 +332,12 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.tag == "Wind") {
 			InvokeRepeating("TakeWindDamage", 0, 0.5f);
 			Rigidbody.AddForce(Vector3.up * 600);
-			Rigidbody.AddForce(Vector3.right * 600);
+			if (Player.facingRight) {
+				Rigidbody.AddForce(Vector3.right * 600);
+			}
+			else if (!Player.facingRight) {
+				Rigidbody.AddForce(Vector3.left * 600);
+			}
 		}
 	}
 
