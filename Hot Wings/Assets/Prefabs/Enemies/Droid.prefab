@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 60293166970677178}
   - component: {fileID: 114424023063058006}
   - component: {fileID: 114118599915383504}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Droid
   m_TagString: Enemy
   m_Icon: {fileID: 0}
