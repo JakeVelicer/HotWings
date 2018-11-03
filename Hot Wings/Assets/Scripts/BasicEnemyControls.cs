@@ -149,9 +149,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			switch (AlienType) {
 				case 1:
      				if (CoolDownTimer <= 0) {
-						Punch = true;
+						
+                        Punch = true;
 						if (OnPunch != null) {
-							OnPunch();
+                            anim.SetInteger("Near", 1);
+                            OnPunch();
 						}
 						CoolDownTimer = CoolDown;
 					}
