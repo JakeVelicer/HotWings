@@ -50,7 +50,7 @@ public class BasicEnemyControls : MonoBehaviour {
         anim = GetComponent<Animator>();
         enemySounds = gameObject.GetComponent<AudioSource>();
         enemySounds.loop = false;
-		//Rigidbody = GetComponent<Rigidbody2D> ();
+		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		MainController.EnemiesLeft++;
@@ -104,7 +104,6 @@ public class BasicEnemyControls : MonoBehaviour {
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
                 {
 
-
                 }
                 if ((anim.GetInteger("Near") == 1))
                 {
@@ -124,7 +123,7 @@ public class BasicEnemyControls : MonoBehaviour {
                     anim.SetInteger("Near", 0);
                 }
             }
-			//Rigidbody.AddForce (MovementSpeed * new Vector2 (1,0));
+			//Rigidbody.AddForce (Vector3.right * MovementSpeed);
 		}
 	}
 
@@ -206,7 +205,6 @@ public class BasicEnemyControls : MonoBehaviour {
 			ChaseDirection();
 			if (CanFireRay == true) {
 				StartCoroutine(RayTime());
-				//Debug.Log("Called");
 			}
 		}
 		else if (DistX > ChaseRange && AlienType == 6) {
@@ -298,12 +296,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		CanFireRay = true;
 	}
 
-	void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.gameObject.tag == "Wind") {
-			InvokeRepeating("TakeWindDamage", 0, 0.5f);
-		}
-	}
-
 	void OnTriggerEnter2D(Collider2D collision) {
 
 			// Takes damage from burst attacks
@@ -335,6 +327,11 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.tag == "Water") {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
 		}
+		else if (collision.gameObject.tag == "Wind") {
+			InvokeRepeating("TakeWindDamage", 0, 0.5f);
+			Rigidbody.AddForce(Vector3.up * 600);
+			Rigidbody.AddForce(Vector3.right * 600);
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
@@ -344,10 +341,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Water") {
 			CancelInvoke("TakeWaterDamage");
 		}
-	}
-
-	void OnCollisionExit2D(Collision2D collider) {
-		if (collider.gameObject.tag == "Wind") {
+		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
 		}
 	}
