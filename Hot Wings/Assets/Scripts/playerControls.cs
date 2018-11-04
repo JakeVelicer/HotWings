@@ -95,21 +95,21 @@ public class playerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             isJumping = true;
-            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce);
+            PlayerRigidbody.AddForce(Vector2.up * jumpForce);
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(1, 1, 1);
             facingRight = true;
-            transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            PlayerRigidbody.AddForce(Vector2.right * moveSpeed);
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(-1, 1, 1);
             facingRight = false;
-            transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+            PlayerRigidbody.AddForce(Vector2.left * moveSpeed);
         }
         if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)
         || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
@@ -373,7 +373,7 @@ public class playerControls : MonoBehaviour
                 }
             }
             else if (i >= 0.9f) {
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.2f);
                 PlayerRigidbody.velocity = Vector2.zero;
             }
         }
