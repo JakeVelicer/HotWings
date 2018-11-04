@@ -5,12 +5,12 @@ using UnityEngine;
 public class ObstacleInteraction : MonoBehaviour {
     public GameObject player;
     public Vector3 newPostion;
-    public PolygonCollider2D checker;
+    private Collider2D checker;
     public float heightchecker;
     // Use this for initialization
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
-       checker = GetComponent<PolygonCollider2D>();
+        checker = GetComponent<Collider2D>();
     }
 	
 	// Update is called once per frame
