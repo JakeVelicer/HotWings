@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61279300305926938}
   - component: {fileID: 95127997838063886}
   - component: {fileID: 114465979340541408}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: DeathRay
   m_TagString: enemyDeathRay
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4233657020772442}
   - component: {fileID: 212542975724806718}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,7 +350,7 @@ MonoBehaviour:
   BulletObject: {fileID: 0}
   BombObject: {fileID: 0}
   SaucerRay: {fileID: 1717192696476054}
-  AlienType: 6
+  AlienType: 5
   enemyPistol: {fileID: 8300000, guid: ad6b93273989e4f8ebfd7c8156fa1728, type: 3}
   enemyRapidFire: {fileID: 8300000, guid: 7e83895ac186b464e9b1f2b162a0e84c, type: 3}
   enemyLaser: {fileID: 8300000, guid: 4ae791f5f021f42a9b9f3ec58689bcdd, type: 3}

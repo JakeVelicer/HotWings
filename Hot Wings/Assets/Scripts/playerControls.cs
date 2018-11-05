@@ -12,7 +12,8 @@ public class playerControls : MonoBehaviour
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
     private StreamAttackAnimation StreamAnimations;
-    public int moveSpeed;
+    public int Speed;
+    private int moveSpeed;
     public int jumpForce;
     public bool isJumping;
     public bool canShoot = true;
@@ -78,6 +79,7 @@ public class playerControls : MonoBehaviour
         healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
         playerSounds = gameObject.GetComponent<AudioSource>();
+        moveSpeed = Speed;
     }
 
     // Update is called once per frame

@@ -31,11 +31,11 @@ public class EnemyDamageValues : MonoBehaviour {
 		if (Enemy.AlienType == 2) {
 			FireDamage = 10;
 			WaterDamage = 25;
-			ElectricDamage = 28;
-			IceDamage = 5;
-			EarthDamage = 5;
+			ElectricDamage = 10;
+			IceDamage = 12;
+			EarthDamage = 8;
 			WindDamage = 5;
-			JackedDamage= 30;
+			JackedDamage = 30;
 		}
 		if (Enemy.AlienType == 3) {
 			FireDamage = 10;
@@ -47,15 +47,6 @@ public class EnemyDamageValues : MonoBehaviour {
 			JackedDamage = 30;
 		}
 		if (Enemy.AlienType == 4) {
-			FireDamage = 10;
-			WaterDamage = 25;
-			ElectricDamage = 10;
-			IceDamage = 12;
-			EarthDamage = 8;
-			WindDamage = 5;
-			JackedDamage = 30;
-		}
-		if (Enemy.AlienType == 5) {
 			FireDamage = 2;
 			WaterDamage = 5;
 			ElectricDamage = 10;
@@ -64,7 +55,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			WindDamage = 2;
 			JackedDamage = 30;
 		}
-		if (Enemy.AlienType == 6) {
+		if (Enemy.AlienType == 5) {
 			FireDamage = 10;
 			WaterDamage = 10;
 			ElectricDamage = 10;

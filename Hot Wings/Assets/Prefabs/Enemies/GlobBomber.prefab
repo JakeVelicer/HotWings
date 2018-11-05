@@ -264,7 +264,7 @@ MonoBehaviour:
     type: 2}
   BombObject: {fileID: 1236616020896136, guid: 16da38cee053b4bd48fae32185fa3d39, type: 2}
   SaucerRay: {fileID: 0}
-  AlienType: 4
+  AlienType: 2
   enemyPistol: {fileID: 8300000, guid: ad6b93273989e4f8ebfd7c8156fa1728, type: 3}
   enemyRapidFire: {fileID: 8300000, guid: 7e83895ac186b464e9b1f2b162a0e84c, type: 3}
   enemyLaser: {fileID: 8300000, guid: 4ae791f5f021f42a9b9f3ec58689bcdd, type: 3}

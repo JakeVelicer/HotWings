@@ -37,18 +37,47 @@ GameObject:
   - component: {fileID: 4622810067361452}
   - component: {fileID: 212719007059225900}
   - component: {fileID: 50184324279040080}
-  - component: {fileID: 60938734187206492}
   - component: {fileID: 114940188864123562}
   - component: {fileID: 114731147697618552}
   - component: {fileID: 82460498013228052}
   - component: {fileID: 95935984626892552}
+  - component: {fileID: 70787505477166112}
   m_Layer: 8
-  m_Name: Pistol Alien
+  m_Name: Roly Poly
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1669837772144392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4273532376147154}
+  - component: {fileID: 58636528472977220}
+  m_Layer: 0
+  m_Name: AttackCollider
+  m_TagString: enemyShotT1
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4273532376147154
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1669837772144392}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.05, y: -0.29, z: -0.029705992}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4622810067361452}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4622810067361452
 Transform:
   m_ObjectHideFlags: 1
@@ -59,6 +88,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4273532376147154}
   - {fileID: 4825684722047112}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +104,7 @@ Transform:
   m_LocalScale: {x: 1.5541869, y: 1.5541869, z: 1.5541869}
   m_Children: []
   m_Father: {fileID: 4622810067361452}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50184324279040080
 Rigidbody2D:
@@ -96,8 +126,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!60 &60938734187206492
-PolygonCollider2D:
+--- !u!58 &58636528472977220
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1669837772144392}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!70 &70787505477166112
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -108,25 +153,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.96, y: 1.72}
-    newSize: {x: 1.13, y: 1.93}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.065322876, y: 0.8076024}
-      - {x: 0.036678314, y: 0.30630255}
-      - {x: -0.32174873, y: 0.21930885}
-      - {x: 0.0073547363, y: -0.077926636}
-      - {x: -0.16361618, y: -0.8219111}
-      - {x: 0.4076023, y: -0.82191086}
-      - {x: 0.42191124, y: 0.7646761}
+  m_Offset: {x: 0.11552477, y: 0}
+  m_Size: {x: 0.7289505, y: 1.72}
+  m_Direction: 0
 --- !u!82 &82460498013228052
 AudioSource:
   m_ObjectHideFlags: 1
@@ -274,16 +303,16 @@ MonoBehaviour:
   MovementSpeed: 6
   ChaseRange: 12
   FireRange: 5
-  ProjectileSpeed: 500
+  ProjectileSpeed: 20
   ProjectileHeight: 0
-  CoolDown: 1
+  CoolDown: 2
   Punch: 0
   ToTheRight: 0
   BulletObject: {fileID: 1425322878777434, guid: d710a071fed314e81a0ea7643b3ce107,
     type: 2}
   BombObject: {fileID: 1236616020896136, guid: 16da38cee053b4bd48fae32185fa3d39, type: 2}
   SaucerRay: {fileID: 0}
-  AlienType: 3
+  AlienType: 1
   enemyPistol: {fileID: 8300000, guid: ad6b93273989e4f8ebfd7c8156fa1728, type: 3}
   enemyRapidFire: {fileID: 8300000, guid: 7e83895ac186b464e9b1f2b162a0e84c, type: 3}
   enemyLaser: {fileID: 8300000, guid: 4ae791f5f021f42a9b9f3ec58689bcdd, type: 3}
