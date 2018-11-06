@@ -1535,6 +1535,16 @@ Prefab:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 184746483}
+    - target: {fileID: 82558382875807298, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 82558382875807298, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
