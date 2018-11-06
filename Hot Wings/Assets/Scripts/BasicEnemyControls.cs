@@ -25,7 +25,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private int DashDirection;
 
     private bool CanChase;
-	private bool TouchingGround;
+	private bool TouchStop;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	[HideInInspector] public bool Punch;
@@ -60,7 +60,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
-		TouchingGround = false;
+		TouchStop = false;
 		MainController.EnemiesLeft++;
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
 		if (AlienType == 1) {
@@ -70,7 +70,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (AlienType == 5) {
 			BeamAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
 		}
-		Debug.Log(TouchingGround);
+		Debug.Log(TouchStop);
 		
 	}
 	
@@ -118,7 +118,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
-     			if (TouchingGround) {
+     			if (TouchStop) {
                 	transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
 				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
@@ -131,7 +131,7 @@ public class BasicEnemyControls : MonoBehaviour {
                 }
 			}
 			else if (ToTheRight == true) {
-     			if (TouchingGround) {
+     			if (TouchStop) {
 					transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
 				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
@@ -169,7 +169,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				switch (AlienType) {
 					// Roly Poly Alien
 					case 1:
-						if (TouchingGround) {
+						if (TouchStop) {
 							CanAttack = false;
 							StartCoroutine(DashAttack());
 						}
@@ -374,6 +374,10 @@ public class BasicEnemyControls : MonoBehaviour {
 				Rigidbody.AddForce(Vector3.left * 600);
 			}
 		}
+		else if (collision.gameObject.tag == "Enemy") {
+			//TouchStop = true;
+			//Rigidbody.velocity = Vector2.zero;
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
@@ -385,6 +389,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
+		}
+		else if (collider.gameObject.tag == "Enemy") {
+			//TouchStop = false;
 		}
 	}
 
@@ -400,13 +407,13 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "Ground") {
-			TouchingGround = true;
+			TouchStop = true;
 		}
 	}
 	
 	void OnCollisionExit2D(Collision2D other) {
 		if (other.gameObject.tag == "Ground") {
-			TouchingGround = false;
+			TouchStop = false;
 		}
 	}
 

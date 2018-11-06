@@ -5,21 +5,13 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour {
 
 	// Use this for initialization
-	private Rigidbody2D Rb;
-	private BasicEnemyControls BasicEnemy;
-
-	// Use this for initialization
-	void Start () {
-
-		Destroy (gameObject, 5);
-
+	void Start() {
+		Destroy (gameObject, 2);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
-		
-	}
+	void OnBecameInvisible() {
+        Destroy(gameObject);
+    }
 
 	void OnTriggerEnter2D(Collider2D collision) {
 		
