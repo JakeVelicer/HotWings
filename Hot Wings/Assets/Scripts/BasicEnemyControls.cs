@@ -47,6 +47,8 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip enemyDeath2;
     public AudioClip enemyDeath3;
 
+	public static System.Action<int> OnEnemyDeath;
+
     private bool soundPlaying = false;
 
     // Use this for initialization
@@ -99,6 +101,10 @@ public class BasicEnemyControls : MonoBehaviour {
             }
             MainController.score += enemyValue;
 			MainController.EnemiesLeft--;
+			if(OnEnemyDeath != null)
+			{
+				OnEnemyDeath(AlienType);
+			}
 			Destroy(gameObject);
 		}
 		
