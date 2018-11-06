@@ -120,6 +120,14 @@ public class playerControls : MonoBehaviour
             // anim.SetTrigger(idleHash);
             anim.SetInteger("Speed", 0);
         }
+        if (pepperIndexA != 1) {
+            playerFireShot.GetComponent<Collider2D>().enabled = false;
+            playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        if (pepperIndexA != 2) {
+            playerWaterShot.GetComponent<Collider2D>().enabled = false;
+            playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
+        }
         PepAttacks();
         EggBombs();
     }
@@ -134,9 +142,7 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        playerSounds.clip = playerFire;
-                        playerSounds.loop = true;
-                        playerSounds.Play();
+                        SoundCall(playerFire);
                         playerFireShot.GetComponent<Collider2D>().enabled = true;
                         playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
                         //StreamAnimations = playerFireShot.GetComponent<StreamAttackAnimation>();
@@ -153,9 +159,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 2: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        playerSounds.clip = playerWater;
-                        playerSounds.loop = true;
-                        playerSounds.Play();
+                        SoundCall(playerWater);
                         playerWaterShot.GetComponent<Collider2D>().enabled = true;
                         playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
                     }
@@ -169,9 +173,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 3: // CALLS Ice Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        playerSounds.clip = playerIce;
-                        playerSounds.loop = false;
-                        playerSounds.Play();
+                        SoundCall(playerIce);
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
@@ -186,27 +188,19 @@ public class playerControls : MonoBehaviour
                     {
                         canShoot = false;
                         if (ChargeTime >= 3) {
-                            playerSounds.clip = playerShock4;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock4);
                             ElectricShotToUse = playerShockShot4;
                         }
                         else if (ChargeTime >= 2) {
-                            playerSounds.clip = playerShock3;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock3);
                             ElectricShotToUse = playerShockShot3;
                         }
                         else if (ChargeTime >= 1) {
-                            playerSounds.clip = playerShock2;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock2);
                             ElectricShotToUse = playerShockShot2;
                         }
                         else if (ChargeTime < 1) {
-                            playerSounds.clip = playerShock1;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock1);
                             ElectricShotToUse = playerShockShot1;
                         }
                         shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0), 
@@ -225,9 +219,7 @@ public class playerControls : MonoBehaviour
                 case 5: // Earth Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        playerSounds.clip = playerEarth;
-                        playerSounds.loop = false;
-                        playerSounds.Play();
+                        SoundCall(playerEarth);
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
 			            Quaternion.identity) as GameObject;
@@ -239,9 +231,7 @@ public class playerControls : MonoBehaviour
                 case 6: // Wind Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        playerSounds.clip = playerWind;
-                        playerSounds.loop = false;
-                        playerSounds.Play();
+                        SoundCall(playerWind);
                         canShoot = false;
                         shot = Instantiate(playerWindShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
@@ -263,9 +253,7 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         //canShoot = false;
                         if (OnPunch != null) {
-                            playerSounds.clip = playerBuff;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerBuff);
                             OnPunch();
 						}
                     }
@@ -402,9 +390,7 @@ public class playerControls : MonoBehaviour
         if (!isImmune) {
             if (!playerSounds.isPlaying)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                SoundCall(playerHit);
             }
             isImmune = true;
             health -= 10;
@@ -599,6 +585,12 @@ public class playerControls : MonoBehaviour
             pepperIndexB = pepperNumber;
             pepperB = pepperName;
         }
+    }
+
+    void SoundCall (AudioClip clip) {
+        playerSounds.clip = clip;
+        playerSounds.loop = false;
+        playerSounds.Play();
     }
 
 }
