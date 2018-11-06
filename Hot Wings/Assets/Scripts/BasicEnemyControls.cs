@@ -25,6 +25,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private int DashDirection;
 
     private bool CanChase;
+	private bool TouchingGround;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	[HideInInspector] public bool Punch;
@@ -57,6 +58,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
+		TouchingGround = false;
 		MainController.EnemiesLeft++;
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
 		if (AlienType == 1) {
@@ -66,6 +68,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (AlienType == 5) {
 			BeamAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
 		}
+		Debug.Log(TouchingGround);
 		
 	}
 	
@@ -109,6 +112,9 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
+     			if (TouchingGround) {
+                	transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
+				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
                 {
 
@@ -117,13 +123,13 @@ public class BasicEnemyControls : MonoBehaviour {
                 {
                     anim.SetInteger("Near", 0);
                 }
-                transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
 			}
 			else if (ToTheRight == true) {
-				transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
+     			if (TouchingGround) {
+					transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
+				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
                 {
-
 
                 }
                 if(anim.GetInteger("Near") == 1)
@@ -157,8 +163,10 @@ public class BasicEnemyControls : MonoBehaviour {
 				switch (AlienType) {
 					// Roly Poly Alien
 					case 1:
-						CanAttack = false;
-						StartCoroutine(DashAttack());
+						if (TouchingGround) {
+							CanAttack = false;
+							StartCoroutine(DashAttack());
+						}
 						break;
 					// Blob Alien
 					case 2:
@@ -382,6 +390,18 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 	void TakeWindDamage() {
 		EnemyHealth -= DamageValues.WindDamage;
+	}
+
+	void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.tag == "Ground") {
+			TouchingGround = true;
+		}
+	}
+	
+	void OnCollisionExit2D(Collision2D other) {
+		if (other.gameObject.tag == "Ground") {
+			TouchingGround = false;
+		}
 	}
 
 }
