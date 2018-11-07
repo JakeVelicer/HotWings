@@ -28,7 +28,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	private bool TouchStop;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
-	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
 	private playerControls Player;
 	public GameObject BulletObject;
@@ -63,14 +62,13 @@ public class BasicEnemyControls : MonoBehaviour {
 		TouchStop = false;
 		MainController.EnemiesLeft++;
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
-		if (AlienType == 1) {
-			AttackCollider = gameObject.transform.GetChild(0).GetComponent<CircleCollider2D>();
+		if (AlienType == 1 || AlienType == 3) {
+			AttackCollider = gameObject.transform.GetChild(0).GetComponent<Collider2D>();
 			AttackCollider.enabled = false;
 		}
 		if (AlienType == 5) {
 			BeamAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
 		}
-		Debug.Log(TouchStop);
 		
 	}
 	
@@ -184,12 +182,11 @@ public class BasicEnemyControls : MonoBehaviour {
 					// Beefy Alien
 					case 3:
 						CanAttack = false;
-						Punch = true;
-						if (OnPunch != null) {
-							anim.SetInteger("Near", 1);
-							OnPunch();
-						}
-						StartCoroutine(shootWait());
+						StartCoroutine(JumpSmashAttack());
+						//if (OnPunch != null) {
+							//anim.SetInteger("Near", 1);
+							//OnPunch();
+						//}
 						break;
 					// Armored Alien
 					case 4:
@@ -286,17 +283,18 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	}
 
-	// Saucer attack cycle
-	IEnumerator RayTime () {
-		CanFireRay = false;
-		yield return new WaitForSeconds(3);
-		SaucerRay.SetActive(true);
-		BeamAnimation.PlayBeamAnim();
-		yield return new WaitForSeconds(3);
-		BeamAnimation.PlayRetractAnim();
-		yield return new WaitForSeconds(0.2f);
-		SaucerRay.SetActive(false);
-		CanFireRay = true;
+	// Propels this enemy toward the player
+	private IEnumerator JumpSmashAttack () {
+
+      	gameObject.GetComponent<Rigidbody2D>().AddForce
+		(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 60);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 900);
+        yield return new WaitForSeconds(0.3f);
+		AttackCollider.enabled = true;
+        yield return new WaitForSeconds(1.6f);
+		AttackCollider.enabled = false;
+		StartCoroutine(shootWait());
+
 	}
 
 	// Dash attack cycle
@@ -325,6 +323,19 @@ public class BasicEnemyControls : MonoBehaviour {
             }
         }
 		StartCoroutine(shootWait());
+	}
+
+	// Saucer attack cycle
+	IEnumerator RayTime () {
+		CanFireRay = false;
+		yield return new WaitForSeconds(3);
+		SaucerRay.SetActive(true);
+		BeamAnimation.PlayBeamAnim();
+		yield return new WaitForSeconds(3);
+		BeamAnimation.PlayRetractAnim();
+		yield return new WaitForSeconds(0.2f);
+		SaucerRay.SetActive(false);
+		CanFireRay = true;
 	}
 
     private IEnumerator shootWait()
