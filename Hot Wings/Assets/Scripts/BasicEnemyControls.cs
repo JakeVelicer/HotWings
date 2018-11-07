@@ -287,11 +287,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	private IEnumerator JumpSmashAttack () {
 
       	gameObject.GetComponent<Rigidbody2D>().AddForce
-		(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 60);
-		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 900);
-        yield return new WaitForSeconds(0.3f);
+		(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 2500);
+        yield return new WaitForSeconds(0.5f);
 		AttackCollider.enabled = true;
-        yield return new WaitForSeconds(1.6f);
+		Rigidbody.gravityScale = 12;
+        yield return new WaitForSeconds(0.4f);
+		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
 		StartCoroutine(shootWait());
 
