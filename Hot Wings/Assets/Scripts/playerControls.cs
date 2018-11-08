@@ -7,14 +7,13 @@ public class playerControls : MonoBehaviour
 {
 
     Animator anim;
-   
-
 
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
     private StreamAttackAnimation StreamAnimations;
-    public int moveSpeed;
+    public int Speed;
+    private int moveSpeed;
     public int jumpForce;
     public bool isJumping;
     public bool canShoot = true;
@@ -29,8 +28,8 @@ public class playerControls : MonoBehaviour
 
     public Text healthDisplay;
     public int health;
-    public float BuffTimer;
-    public int HealthTimer;
+    private float BuffTimer;
+    private int HealthTimer;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -76,16 +75,11 @@ public class playerControls : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-
-
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
-
-        playerFireShot.SetActive(false);
-        playerWaterShot.SetActive(false);
-
         playerSounds = gameObject.GetComponent<AudioSource>();
+        moveSpeed = Speed;
     }
 
     // Update is called once per frame
@@ -97,43 +91,43 @@ public class playerControls : MonoBehaviour
         //anim.SetFloat("Speed", moveSpeed);
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            //anim.SetTrigger(runStateHash); 
-            anim.SetInteger("Speed", 1);
-            //anim.speed = 1f;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            // anim. = 0f;
-            // anim.SetTrigger(idleHash);
-            anim.SetInteger("Speed", 0);
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            anim.SetInteger("Speed", 0);
-        }
 
         healthDisplay.text = "Health: " + health;
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             isJumping = true;
-            GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce);
+            PlayerRigidbody.AddForce(Vector2.up * jumpForce);
         }
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
+            anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(1, 1, 1);
             facingRight = true;
-            transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+            PlayerRigidbody.AddForce(Vector2.right * moveSpeed);
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
+            anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(-1, 1, 1);
             facingRight = false;
-            transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+            PlayerRigidbody.AddForce(Vector2.left * moveSpeed);
         }
-       
+        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)
+        || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            // anim. = 0f;
+            // anim.SetTrigger(idleHash);
+            anim.SetInteger("Speed", 0);
+        }
+        if (pepperIndexA != 1) {
+            playerFireShot.GetComponent<Collider2D>().enabled = false;
+            playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        if (pepperIndexA != 2) {
+            playerWaterShot.GetComponent<Collider2D>().enabled = false;
+            playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
+        }
         PepAttacks();
         EggBombs();
     }
@@ -148,48 +142,38 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        anim.SetInteger("Speed", 2);
-                        playerSounds.clip = playerFire;
-                        playerSounds.loop = true;
-                        playerSounds.Play();
-                        playerFireShot.SetActive(true);
-                        StreamAnimations = gameObject.transform.GetChild(0)
-                        .GetComponent<StreamAttackAnimation>();
-                        StreamAnimations.PlayBeamAnimFlame();
+                        SoundCall(playerFire);
+                        playerFireShot.GetComponent<Collider2D>().enabled = true;
+                        playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
+                        //StreamAnimations = playerFireShot.GetComponent<StreamAttackAnimation>();
+                        //StreamAnimations.PlayBeamAnimFlame();
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
-                        anim.SetInteger("Speed", 0);
                         canShoot = false;
-                        StreamAnimations.PlayRetractAnimFlame();
+                        //StreamAnimations.PlayRetractAnimFlame();
+                        playerFireShot.GetComponent<Collider2D>().enabled = false;
+                        playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
                         StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
                     break;
                 case 2: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        anim.SetInteger("Speed", 2);
-                        playerSounds.clip = playerWater;
-                        playerSounds.loop = true;
-                        playerSounds.Play();
-                        playerWaterShot.SetActive(true);
-                        StreamAnimations = gameObject.transform.GetChild(1)
-                        .GetComponent<StreamAttackAnimation>();
-                        StreamAnimations.PlayBeamAnimWater();
+                        SoundCall(playerWater);
+                        playerWaterShot.GetComponent<Collider2D>().enabled = true;
+                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
-                        anim.SetInteger("Speed", 0);
-                        canShoot = false;                       
-                        StreamAnimations.PlayRetractAnimWater();
+                        canShoot = false;
+                        playerWaterShot.GetComponent<Collider2D>().enabled = false;
+                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
                         StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
                     break;
                 case 3: // CALLS Ice Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        anim.SetInteger("Speed", 2);
-                        playerSounds.clip = playerIce;
-                        playerSounds.loop = false;
-                        playerSounds.Play();
+                        SoundCall(playerIce);
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
@@ -203,33 +187,20 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyUp(KeyCode.Space))
                     {
                         canShoot = false;
-
                         if (ChargeTime >= 3) {
-                            anim.SetInteger("Speed", 2);
-                            playerSounds.clip = playerShock4;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock4);
                             ElectricShotToUse = playerShockShot4;
                         }
                         else if (ChargeTime >= 2) {
-                            anim.SetInteger("Speed", 2);
-                            playerSounds.clip = playerShock3;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock3);
                             ElectricShotToUse = playerShockShot3;
                         }
                         else if (ChargeTime >= 1) {
-                            anim.SetInteger("Speed", 2);
-                            playerSounds.clip = playerShock2;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock2);
                             ElectricShotToUse = playerShockShot2;
                         }
                         else if (ChargeTime < 1) {
-                            anim.SetInteger("Speed", 2);
-                            playerSounds.clip = playerShock1;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerShock1);
                             ElectricShotToUse = playerShockShot1;
                         }
                         shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0), 
@@ -242,17 +213,13 @@ public class playerControls : MonoBehaviour
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                         }
-                        anim.SetInteger("Speed", 0);
                         StartCoroutine(shootWait());
                     }
                     break;
                 case 5: // Earth Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        anim.SetInteger("Speed", 2);
-                        playerSounds.clip = playerEarth;
-                        playerSounds.loop = false;
-                        playerSounds.Play();
+                        SoundCall(playerEarth);
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
 			            Quaternion.identity) as GameObject;
@@ -264,10 +231,7 @@ public class playerControls : MonoBehaviour
                 case 6: // Wind Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        anim.SetInteger("Speed", 2);
-                        playerSounds.clip = playerWind;
-                        playerSounds.loop = false;
-                        playerSounds.Play();
+                        SoundCall(playerWind);
                         canShoot = false;
                         shot = Instantiate(playerWindShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
@@ -289,9 +253,7 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         //canShoot = false;
                         if (OnPunch != null) {
-                            playerSounds.clip = playerBuff;
-                            playerSounds.loop = false;
-                            playerSounds.Play();
+                            SoundCall(playerBuff);
                             OnPunch();
 						}
                     }
@@ -401,7 +363,7 @@ public class playerControls : MonoBehaviour
                 }
             }
             else if (i >= 0.9f) {
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.2f);
                 PlayerRigidbody.velocity = Vector2.zero;
             }
         }
@@ -428,9 +390,7 @@ public class playerControls : MonoBehaviour
         if (!isImmune) {
             if (!playerSounds.isPlaying)
             {
-                playerSounds.clip = playerHit;
-                playerSounds.loop = false;
-                playerSounds.Play();
+                SoundCall(playerHit);
             }
             isImmune = true;
             health -= 10;
@@ -442,12 +402,10 @@ public class playerControls : MonoBehaviour
     {
         //Debug.Log("Counting down...");
         if (pepperIndexA == 1) {
-            yield return new WaitForSeconds(0.2f);
-            playerFireShot.SetActive(false);
+            //yield return new WaitForSeconds(0.5f);
         }
         else if (pepperIndexA == 2) {
-            yield return new WaitForSeconds(0.2f);
-            playerWaterShot.SetActive(false);
+            //yield return new WaitForSeconds(0.5f);
         }
         else if (pepperIndexA == 8) {
             yield return new WaitForSeconds(0.3f);
@@ -627,6 +585,12 @@ public class playerControls : MonoBehaviour
             pepperIndexB = pepperNumber;
             pepperB = pepperName;
         }
+    }
+
+    void SoundCall (AudioClip clip) {
+        playerSounds.clip = clip;
+        playerSounds.loop = false;
+        playerSounds.Play();
     }
 
 }

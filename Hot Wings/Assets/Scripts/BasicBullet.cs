@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class BasicBullet : MonoBehaviour {
 
-	private Rigidbody2D Rb;
-	private BasicEnemyControls BasicEnemy;
-
 	// Use this for initialization
 	void Start () {
-		Destroy (gameObject, 5);
+		Destroy (gameObject, 1.3f);
 	}
 
 	void OnTriggerEnter2D(Collider2D collision) {

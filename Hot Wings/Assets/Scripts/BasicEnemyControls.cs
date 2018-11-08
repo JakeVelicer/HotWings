@@ -22,14 +22,18 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float ProjectileHeight;
 	public float CoolDown;
 	private float CoolDownTimer = 0;
+	private int DashDirection;
 
     private bool CanChase;
+	private bool TouchStop;
+	private bool CanAttack = true;
 	private bool CanFireRay = true;
-	[HideInInspector] public bool Punch;
 	public bool ToTheRight;
+	private playerControls Player;
 	public GameObject BulletObject;
 	public GameObject BombObject;
 	public GameObject SaucerRay;
+	private Collider2D AttackCollider;
 	public int AlienType;
 	public System.Action OnPunch;
 	private System.Action ActivateDeathBeam;
@@ -42,6 +46,8 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip enemyDeath2;
     public AudioClip enemyDeath3;
 
+	public static System.Action<int> OnEnemyDeath;
+
     private bool soundPlaying = false;
 
     // Use this for initialization
@@ -50,12 +56,18 @@ public class BasicEnemyControls : MonoBehaviour {
         anim = GetComponent<Animator>();
         enemySounds = gameObject.GetComponent<AudioSource>();
         enemySounds.loop = false;
-		//Rigidbody = GetComponent<Rigidbody2D> ();
+		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
+		TouchStop = false;
 		MainController.EnemiesLeft++;
-		if (AlienType == 6) {
-			BeamAnimation = gameObject.transform.GetChild(1).GetComponent<DeathRayAnimation>();
+		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+		if (AlienType == 1 || AlienType == 3) {
+			AttackCollider = gameObject.transform.GetChild(0).GetComponent<Collider2D>();
+			AttackCollider.enabled = false;
+		}
+		if (AlienType == 5) {
+			BeamAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
 		}
 		
 	}
@@ -65,29 +77,32 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		// Finds the Player's transform and stores it in target
 		Target = GameObject.FindGameObjectWithTag ("Player").transform;
-        //gameController = GameObject.FindGameObjectWithTag("Controller");
 
         Movement();
 		ChaseTarget();
 
 		if (EnemyHealth <= 0) {
-            if (AlienType == 1 || AlienType == 5)
+            if (AlienType == 3 || AlienType == 4)
             {
                 enemySounds.clip = enemyDeath2;
                 enemySounds.Play();
             }
-            else if (AlienType == 3 || AlienType == 4)
+            else if (AlienType == 1 || AlienType == 2)
             {
                 enemySounds.clip = enemyDeath1;
                 enemySounds.Play();
             }
-            else if (AlienType == 6)
+            else if (AlienType == 5)
             {
                 enemySounds.clip = enemyDeath3;
                 enemySounds.Play();
             }
             MainController.score += enemyValue;
 			MainController.EnemiesLeft--;
+			if(OnEnemyDeath != null)
+			{
+				OnEnemyDeath(AlienType);
+			}
 			Destroy(gameObject);
 		}
 		
@@ -101,22 +116,24 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
+     			if (TouchStop) {
+                	transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
+				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
                 {
-
 
                 }
                 if ((anim.GetInteger("Near") == 1))
                 {
                     anim.SetInteger("Near", 0);
                 }
-                transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
 			}
 			else if (ToTheRight == true) {
-				transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
+     			if (TouchStop) {
+					transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
+				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
                 {
-
 
                 }
                 if(anim.GetInteger("Near") == 1)
@@ -124,7 +141,7 @@ public class BasicEnemyControls : MonoBehaviour {
                     anim.SetInteger("Near", 0);
                 }
             }
-			//Rigidbody.AddForce (MovementSpeed * new Vector2 (1,0));
+			//Rigidbody.AddForce (Vector3.right * MovementSpeed);
 		}
 	}
 
@@ -134,82 +151,62 @@ public class BasicEnemyControls : MonoBehaviour {
 		float DistX = Mathf.Abs(Target.position.x - transform.position.x);
 
 		// Determines if the range of the player is close enough to be chased
-		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 6) {
+		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 5) {
 			CanChase = true;
 			ChaseDirection();
 		}
 		// Tells the player to attack if close enough
-		else if (Dist <= FireRange && AlienType != 6) {
+		else if (Dist <= FireRange && AlienType != 5) {
 			CanChase = false;
 			ChaseDirection();
 
 			/* The switch assigns the proper cooldown and attack phase for each enemy type.
 			The switch here should probably only have cases for the 3 different attack types, but 
 			I have not changed it yet in case a reason emerges to have them for each enemy type. */
-			switch (AlienType) {
-				case 1:
-     				if (CoolDownTimer <= 0) {
-						
-                        Punch = true;
-						if (OnPunch != null) {
-                            anim.SetInteger("Near", 1);
-                            OnPunch();
+			if (CanAttack) {
+				switch (AlienType) {
+					// Roly Poly Alien
+					case 1:
+						if (TouchStop) {
+							CanAttack = false;
+							StartCoroutine(DashAttack());
 						}
-						CoolDownTimer = CoolDown;
-					}
-					else {
-						//Punch = false;
-						CoolDownTimer -= Time.deltaTime;
-					}
-					break;
-				case 2:
-     				if (CoolDownTimer <= 0) {
-						AttackPhase1();
-						CoolDownTimer = CoolDown;
-					}
-					CoolDownTimer -= Time.deltaTime;
-					break;
-				case 3:
-     				if (CoolDownTimer <= 0) {
-						AttackPhase1();
-						CoolDownTimer = CoolDown;
-					}
-					CoolDownTimer -= Time.deltaTime;
-					break;
-				case 4:
-     				if (CoolDownTimer <= 0) {
-                        /*if (anim.GetInteger("Near") != 0 || anim.GetInteger("Near") != 1)
-                        {
-
-
-                        }
-                        else
-                        {*/
-                            anim.SetInteger("Near", 1);
-                       // }
-                        AttackPhase2();
-						CoolDownTimer = CoolDown;
-					}
-					CoolDownTimer -= Time.deltaTime;
-					break;
-				case 5:
-     				if (CoolDownTimer <= 0) {
-						AttackPhase1();
-						CoolDownTimer = CoolDown;
-					}
-					CoolDownTimer -= Time.deltaTime;
-					break;
+						break;
+					// Blob Alien
+					case 2:
+						CanAttack = false;
+						anim.SetInteger("Near", 1);
+						BombAttack();
+						StartCoroutine(shootWait());
+						break;
+					// Beefy Alien
+					case 3:
+						CanAttack = false;
+						StartCoroutine(JumpSmashAttack());
+						//if (OnPunch != null) {
+							//anim.SetInteger("Near", 1);
+							//OnPunch();
+						//}
+						break;
+					// Armored Alien
+					case 4:
+						CanAttack = false;
+						GunAttack();
+						StartCoroutine(shootWait());
+						break;
+				}
 			}
 		}
-		else if (DistX <= FireRange && DistX > 0.5 && AlienType == 6) {
+		// Saucer Attack Check
+		else if (DistX <= FireRange && DistX > 0.5 && AlienType == 5) {
 			CanChase = true;
 			ChaseDirection();
 			if (CanFireRay == true) {
 				StartCoroutine(RayTime());
-				//Debug.Log("Called");
 			}
 		}
-		else if (DistX > ChaseRange && AlienType == 6) {
+		// Saucer Stop Check
+		else if (DistX > ChaseRange && AlienType == 5) {
 			CanChase = false;
 			SaucerRay.SetActive(false);
 			ChaseDirection();
@@ -237,13 +234,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	// Instantiates a chosen projectile in the scene and propels it forward like a bullet
-	void AttackPhase1 () {
+	void GunAttack () {
 
-        if (AlienType == 3) {
+        if (AlienType == 1) {
             enemySounds.clip = enemyPistol;
             enemySounds.loop = false;
         }
-        if (AlienType == 5) {
+        if (AlienType == 4) {
             enemySounds.clip = enemyRapidFire;
             enemySounds.loop = true;
         }
@@ -269,7 +266,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	// Instantiates a chosen projectile in the scene and propels it forward and up like a thrown bomb
-	void AttackPhase2 () {
+	void BombAttack () {
 
 		if (ToTheRight == true) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.86f, 0.24f, 0), 
@@ -286,6 +283,51 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	}
 
+	// Propels this enemy toward the player
+	private IEnumerator JumpSmashAttack () {
+
+      	gameObject.GetComponent<Rigidbody2D>().AddForce
+		(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 2500);
+        yield return new WaitForSeconds(0.5f);
+		AttackCollider.enabled = true;
+		Rigidbody.gravityScale = 12;
+        yield return new WaitForSeconds(0.4f);
+		Rigidbody.gravityScale = 2;
+		AttackCollider.enabled = false;
+		StartCoroutine(shootWait());
+
+	}
+
+	// Dash attack cycle
+    private IEnumerator DashAttack()
+    {
+		AttackCollider.enabled = true;
+        if (ToTheRight) {
+            DashDirection = 1;
+        }
+        else if (!ToTheRight) {
+            DashDirection = 2;
+        }
+        for (float i = 0; i < 1; i += 0.1f) {
+            if (i < 0.9f) {
+                if (DashDirection == 1) {
+                    Rigidbody.velocity = Vector2.right * ProjectileSpeed;
+                }
+                else if (DashDirection == 2) {
+                    Rigidbody.velocity = Vector2.left * ProjectileSpeed;
+                }
+            }
+            else if (i >= 0.9f) {
+                yield return new WaitForSeconds(0.6f);
+                Rigidbody.velocity = Vector2.zero;
+				AttackCollider.enabled = false;
+            }
+        }
+		StartCoroutine(shootWait());
+	}
+
+	// Saucer attack cycle
 	IEnumerator RayTime () {
 		CanFireRay = false;
 		yield return new WaitForSeconds(3);
@@ -298,11 +340,11 @@ public class BasicEnemyControls : MonoBehaviour {
 		CanFireRay = true;
 	}
 
-	void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.gameObject.tag == "Wind") {
-			InvokeRepeating("TakeWindDamage", 0, 0.5f);
-		}
-	}
+    private IEnumerator shootWait()
+	{
+        yield return new WaitForSeconds(CoolDown);
+        CanAttack = true;
+    }
 
 	void OnTriggerEnter2D(Collider2D collision) {
 
@@ -335,6 +377,20 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.tag == "Water") {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
 		}
+		else if (collision.gameObject.tag == "Wind") {
+			InvokeRepeating("TakeWindDamage", 0, 0.5f);
+			Rigidbody.AddForce(Vector3.up * 600);
+			if (Player.facingRight) {
+				Rigidbody.AddForce(Vector3.right * 600);
+			}
+			else if (!Player.facingRight) {
+				Rigidbody.AddForce(Vector3.left * 600);
+			}
+		}
+		else if (collision.gameObject.tag == "Enemy") {
+			//TouchStop = true;
+			//Rigidbody.velocity = Vector2.zero;
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
@@ -344,11 +400,11 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Water") {
 			CancelInvoke("TakeWaterDamage");
 		}
-	}
-
-	void OnCollisionExit2D(Collision2D collider) {
-		if (collider.gameObject.tag == "Wind") {
+		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
+		}
+		else if (collider.gameObject.tag == "Enemy") {
+			//TouchStop = false;
 		}
 	}
 
@@ -360,6 +416,18 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 	void TakeWindDamage() {
 		EnemyHealth -= DamageValues.WindDamage;
+	}
+
+	void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.tag == "Ground") {
+			TouchStop = true;
+		}
+	}
+	
+	void OnCollisionExit2D(Collision2D other) {
+		if (other.gameObject.tag == "Ground") {
+			TouchStop = false;
+		}
 	}
 
 }

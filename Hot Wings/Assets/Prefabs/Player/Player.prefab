@@ -29,7 +29,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1595222671151094
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +64,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1635764463367764
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 114521986171018460}
   - component: {fileID: 114252273296168062}
   - component: {fileID: 50358536106252440}
-  - component: {fileID: 60522254821040660}
   - component: {fileID: 82558382875807298}
   - component: {fileID: 95088745545128228}
+  - component: {fileID: 70184183924648998}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -126,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853898952368290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4693139771096478}
@@ -186,14 +186,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 1.2
+  m_LinearDrag: 3
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!60 &60185226697164842
 PolygonCollider2D:
@@ -201,7 +201,7 @@ PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634015094940242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -317,88 +317,6 @@ PolygonCollider2D:
       - {x: 0.17999999, y: 0.695}
       - {x: 0.13, y: 0.685}
       - {x: 0.089999996, y: 0.615}
---- !u!60 &60522254821040660
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1853898952368290}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.52, y: 1.51}
-    newSize: {x: 0.68, y: 1.93}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.03, y: -0.575}
-      - {x: 0.17999999, y: -0.505}
-      - {x: 0.32, y: -0.45499998}
-      - {x: 0.48, y: -0.265}
-      - {x: 0.51, y: -0.155}
-      - {x: 0.51, y: -0.085}
-      - {x: 0.41, y: 0.095}
-      - {x: 0.47, y: 0.175}
-      - {x: 0.59, y: 0.175}
-      - {x: 0.66999996, y: 0.185}
-      - {x: 0.7, y: 0.205}
-      - {x: 0.7, y: 0.33499998}
-      - {x: 0.66999996, y: 0.505}
-      - {x: 0.63, y: 0.575}
-      - {x: 0.56, y: 0.645}
-      - {x: 0.65, y: 0.755}
-      - {x: 0.32, y: 0.755}
-      - {x: 0.22999999, y: 0.73499995}
-      - {x: 0.11, y: 0.655}
-      - {x: 0.04, y: 0.53499997}
-      - {x: -0.01, y: 0.42499998}
-      - {x: 0, y: 0.385}
-      - {x: 0.02, y: 0.225}
-      - {x: 0.049999997, y: 0.205}
-      - {x: 0.16, y: 0.285}
-      - {x: 0.14999999, y: 0.195}
-      - {x: 0.089999996, y: 0.085}
-      - {x: 0.03, y: 0.114999995}
-      - {x: -0.11, y: 0.105}
-      - {x: -0.19999999, y: 0.085}
-      - {x: -0.21, y: 0.24499999}
-      - {x: -0.26, y: 0.315}
-      - {x: -0.34, y: 0.385}
-      - {x: -0.45, y: 0.45499998}
-      - {x: -0.53, y: 0.415}
-      - {x: -0.66999996, y: 0.305}
-      - {x: 0.054603577, y: -0.46315217}
-      - {x: -0.26097298, y: -0.37262428}
-      - {x: -0.59, y: 0.114999995}
-      - {x: -0.57, y: 0.095}
-      - {x: -0.45999998, y: 0.074999996}
-      - {x: 0.12453842, y: -0.69589114}
-      - {x: 0.16592407, y: -0.5967823}
-      - {x: 0.3059883, y: -0.37080908}
-      - {x: 0.20506668, y: -0.5004455}
-      - {x: -0.22999999, y: -0.625}
-      - {x: -0.21, y: -0.755}
-      - {x: 0.19999999, y: -0.755}
-      - {x: 0.21, y: -0.73499995}
-      - {x: 0.19999999, y: -0.705}
-      - {x: 0.099999994, y: -0.645}
-    - - {x: -0.049999997, y: -0.645}
-      - {x: -0.08, y: -0.645}
-      - {x: -0.08, y: -0.635}
-      - {x: -0.11, y: -0.60499996}
-      - {x: -0.049999997, y: -0.66499996}
-      - {x: -0.03, y: -0.675}
-      - {x: -0.02, y: -0.66499996}
 --- !u!60 &60558783482825198
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -436,13 +354,13 @@ BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330926032680734}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05892098, y: -0.014730573}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -453,8 +371,23 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1764734, y: 0.4424088}
+  m_Size: {x: 3.53, y: 1.12}
   m_EdgeRadius: 0
+--- !u!70 &70184183924648998
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853898952368290}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00000017881393, y: 0}
+  m_Size: {x: 0.93175447, y: 1.52}
+  m_Direction: 0
 --- !u!82 &82558382875807298
 AudioSource:
   m_ObjectHideFlags: 1
@@ -466,7 +399,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.55
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -557,7 +490,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634015094940242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 227b92d9af9ba41faa8b5ffe35649fe1, type: 2}
   m_CullingMode: 0
@@ -593,7 +526,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330926032680734}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 227b92d9af9ba41faa8b5ffe35649fe1, type: 2}
   m_CullingMode: 0
@@ -677,8 +610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1ca8670596a42a2b323e649eb65851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  jumpForce: 350
+  Speed: 45
+  jumpForce: 1500
   isJumping: 0
   canShoot: 1
   shotSpeed: 800
@@ -688,8 +621,6 @@ MonoBehaviour:
   pepperIndexB: 0
   healthDisplay: {fileID: 0}
   health: 500
-  BuffTimer: 0
-  HealthTimer: 0
   isImmune: 0
   facingRight: 0
   playerFireShot: {fileID: 1330926032680734}
@@ -713,10 +644,10 @@ MonoBehaviour:
   playerFire: {fileID: 8300000, guid: 9d781257aa4274e1b9d5f92e17202c91, type: 3}
   playerWater: {fileID: 8300000, guid: 3f22534da7ce14460b4eb1d2b0924891, type: 3}
   playerIce: {fileID: 8300000, guid: c0481425004fc4c7d875859c325b045c, type: 3}
-  playerShock1: {fileID: 8300000, guid: 2d505a585bef34f2d8a4fb92d364bd81, type: 3}
-  playerShock2: {fileID: 8300000, guid: 9824a99a475904bfd8eb21581a4eee22, type: 3}
-  playerShock3: {fileID: 8300000, guid: 71db141c17acc49f8bcc161e91c5fe0e, type: 3}
-  playerShock4: {fileID: 8300000, guid: d1f5597fdbe0946d29180e38f761fe19, type: 3}
+  playerShock1: {fileID: 8300000, guid: d37c1377d6ce34b83876394766a4aea1, type: 3}
+  playerShock2: {fileID: 8300000, guid: 16e45fe31131542aa96d15c507895bba, type: 3}
+  playerShock3: {fileID: 8300000, guid: dc11f41e1bd70455ab8b12a5fb508fcc, type: 3}
+  playerShock4: {fileID: 8300000, guid: 16a7ed90dfe1d4e5b9d30133632d67af, type: 3}
   playerEarth: {fileID: 8300000, guid: c50f1153d735341e8b76c8f0ca706ccd, type: 3}
   playerWind: {fileID: 8300000, guid: 2fefdd0d8858b478aaf4ddd170425f24, type: 3}
   playerBuff: {fileID: 8300000, guid: d79c1fb67dc5c4ff28ccc72102d48907, type: 3}
@@ -735,7 +666,7 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330926032680734}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -827,7 +758,7 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634015094940242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
