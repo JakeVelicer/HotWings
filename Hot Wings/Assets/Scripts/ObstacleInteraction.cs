@@ -15,23 +15,18 @@ public class ObstacleInteraction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       newPostion = player.transform.position;  
+       newPostion = player.transform.position;
 
-        if(newPostion.y < heightchecker)
-        {
-
-            checker.enabled = false;
-
-
-        } 
-
-        if(newPostion.y > heightchecker)
+        if (newPostion.y > heightchecker)
         {
             checker.enabled = true;
 
 
-        }
+        }else{
 
+            checker.enabled = false;
+        }
+    
 
     }
 }
