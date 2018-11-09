@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
 
-    private Vector2 velocity;
+    public Vector3 cameraPosition = Vector3.zero;
+    public Transform target;
+
+    private Vector3 velocity;
     public float smoothTimeY;
     public float smoothTimeX;
     public GameObject player;  
@@ -27,6 +30,10 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+       
+
+
+
         float posX = Mathf.SmoothDamp(transform.position.x, player.transform.position.x, ref velocity.x, smoothTimeX);
         float posY = Mathf.SmoothDamp(transform.position.y, player.transform.position.y, ref velocity.y, smoothTimeY);
         transform.position = new Vector3(posX, posY, transform.position.z);
@@ -34,8 +41,10 @@ public class CameraFollow : MonoBehaviour {
         if (bounds){
 
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, minCameraPosition.x, maxCameraPosition.x),
-            Mathf.Clamp(transform.position.y, minCameraPosition.y, maxCameraPosition.y),
-            Mathf.Clamp(transform.position.z, minCameraPosition.z, maxCameraPosition.z));
+                                             Mathf.Clamp(transform.position.y, minCameraPosition.y, maxCameraPosition.y),
+                                             Mathf.Clamp(transform.position.z, minCameraPosition.z, maxCameraPosition.z));
         }
     }
+
+  
 }

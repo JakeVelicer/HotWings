@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScreenWrap : MonoBehaviour {
 
+    public GameObject mainCamera;
+
     private float rotationSpeed;
     private float thrustForce;
     private Rigidbody2D rb2D; 
@@ -17,13 +19,13 @@ public class ScreenWrap : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         rb2D = GetComponent<Rigidbody2D>();
         renderers = GetComponentsInChildren<Renderer>(); 
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void LateUpdate () {
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
@@ -43,7 +45,8 @@ public class ScreenWrap : MonoBehaviour {
 
             isWrappingX = false;
             isWrappingY = false;
-
+            mainCamera.GetComponent<CameraFollow>().smoothTimeX = .5f;
+            mainCamera.GetComponent<CameraFollow>().smoothTimeY = .5f;
             return; 
         }
         if(isWrappingX && isWrappingY) {
@@ -53,11 +56,15 @@ public class ScreenWrap : MonoBehaviour {
         Vector3 newPostion = transform.position; 
 
         if(newPostion.x>1 || newPostion.x <0) {
+            mainCamera.GetComponent<CameraFollow>().smoothTimeX = 0f;
+            mainCamera.GetComponent<CameraFollow>().smoothTimeY = 0f;
             newPostion.x = -newPostion.x;
             isWrappingX = true;
 
         }
         if (newPostion.y > 1 || newPostion.y < 0) {
+            mainCamera.GetComponent<CameraFollow>().smoothTimeX = 0f;
+            mainCamera.GetComponent<CameraFollow>().smoothTimeY = 0f;
             newPostion.y = +newPostion.y;
             isWrappingY = true;
 
