@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212823481814307350}
   - component: {fileID: 114124968239632228}
   - component: {fileID: 68625517742527492}
+  - component: {fileID: 114318161144092460}
   m_Layer: 0
   m_Name: Hay Bale
   m_TagString: Ground
@@ -77,6 +78,17 @@ MonoBehaviour:
   player: {fileID: 0}
   newPostion: {x: 0, y: 0, z: 0}
   heightchecker: -0.9
+--- !u!114 &114318161144092460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350232966689596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51c2ad6bc5e7e4c56b393b00fc266708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212823481814307350
 SpriteRenderer:
   m_ObjectHideFlags: 1
