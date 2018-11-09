@@ -11,7 +11,8 @@ public class playerControls : MonoBehaviour
     private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
-    private StreamAttackAnimation StreamAnimations;
+    private StreamAttackAnimationFire StreamAnimFire;
+    private StreamAttackAnimationWater StreamAnimWater;
     public int Speed;
     private int moveSpeed;
     public int jumpForce;
@@ -71,6 +72,8 @@ public class playerControls : MonoBehaviour
     public GameObject eggWind;
     public GameObject shitBrick;
 
+    public Sprite[] IceSprites;
+
     // Use this for initialization
     void Start()
     {
@@ -79,6 +82,8 @@ public class playerControls : MonoBehaviour
         healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
         playerSounds = gameObject.GetComponent<AudioSource>();
+        StreamAnimFire = this.gameObject.transform.GetChild(0).GetComponent<StreamAttackAnimationFire>();
+        StreamAnimWater = this.gameObject.transform.GetChild(1).GetComponent<StreamAttackAnimationWater>();
         moveSpeed = Speed;
     }
 
@@ -122,11 +127,11 @@ public class playerControls : MonoBehaviour
         }
         if (pepperIndexA != 1) {
             playerFireShot.GetComponent<Collider2D>().enabled = false;
-            playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
+            //playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
         }
         if (pepperIndexA != 2) {
             playerWaterShot.GetComponent<Collider2D>().enabled = false;
-            playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
+            //playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
         }
         PepAttacks();
         EggBombs();
@@ -144,15 +149,12 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         SoundCall(playerFire);
                         playerFireShot.GetComponent<Collider2D>().enabled = true;
-                        playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
-                        //StreamAnimations = playerFireShot.GetComponent<StreamAttackAnimation>();
-                        //StreamAnimations.PlayBeamAnimFlame();
+                        //playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
+                        StreamAnimFire.StartBeam();
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
                         canShoot = false;
-                        //StreamAnimations.PlayRetractAnimFlame();
-                        playerFireShot.GetComponent<Collider2D>().enabled = false;
-                        playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
+                        StreamAnimFire.EndBeam();
                         StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
@@ -161,12 +163,12 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         SoundCall(playerWater);
                         playerWaterShot.GetComponent<Collider2D>().enabled = true;
-                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
+                        //playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
+                        StreamAnimWater.StartBeam();
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
                         canShoot = false;
-                        playerWaterShot.GetComponent<Collider2D>().enabled = false;
-                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
+                        StreamAnimWater.EndBeam();
                         StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
@@ -284,7 +286,16 @@ public class playerControls : MonoBehaviour
             }
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
-        {
+        {   
+            if (pepperIndexA == 1 && StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                StreamAnimFire.EndBeam();
+                Debug.Log("Called1");
+            }
+            else if (pepperIndexA == 2 && StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                StreamAnimWater.EndBeam();
+                Debug.Log("Called2");
+            }
+
             int tempIndex = pepperIndexA;
             string tempPepper = pepperA;
 
@@ -294,8 +305,6 @@ public class playerControls : MonoBehaviour
             pepperA = pepperB;
             pepperB = tempPepper;
 
-            //Debug.Log("Pepper A is now " + pepperA);
-            //Debug.Log("Pepper B is now " + pepperB);
         }
     }
 
@@ -375,6 +384,7 @@ public class playerControls : MonoBehaviour
         for (int i = 0; i < 3; i++) {
             GameObject shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
 			Quaternion.identity) as GameObject;
+            shot.GetComponent<SpriteRenderer>().sprite = IceSprites[i];
             if (facingRight) {
                 shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
             }
@@ -405,7 +415,7 @@ public class playerControls : MonoBehaviour
             //yield return new WaitForSeconds(0.5f);
         }
         else if (pepperIndexA == 2) {
-            //yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(1f);
         }
         else if (pepperIndexA == 8) {
             yield return new WaitForSeconds(0.3f);

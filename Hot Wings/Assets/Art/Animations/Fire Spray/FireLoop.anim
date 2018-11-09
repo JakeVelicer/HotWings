@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: StreamIdle
+  m_Name: FireLoop
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,9 +19,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 0}
-    - time: 0.033333335
-      value: {fileID: 0}
+      value: {fileID: 21300000, guid: 1823c8473d2fa40f4a0633a0048a2890, type: 3}
+    - time: 0.05
+      value: {fileID: 21300000, guid: 1823c8473d2fa40f4a0633a0048a2890, type: 3}
+    - time: 0.1
+      value: {fileID: 21300000, guid: 02f912d3d1f284f9d9e25d60f4a750eb, type: 3}
+    - time: 0.15
+      value: {fileID: 21300000, guid: cff56a2962dfe45659b5fa27b6c21b04, type: 3}
+    - time: 0.2
+      value: {fileID: 21300000, guid: b3a03c90dab0247b198ae201a2593711, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 74bf01ee0b28f44ad94d24b1d7db96c0, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -41,14 +49,18 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 1823c8473d2fa40f4a0633a0048a2890, type: 3}
+    - {fileID: 21300000, guid: 1823c8473d2fa40f4a0633a0048a2890, type: 3}
+    - {fileID: 21300000, guid: 02f912d3d1f284f9d9e25d60f4a750eb, type: 3}
+    - {fileID: 21300000, guid: cff56a2962dfe45659b5fa27b6c21b04, type: 3}
+    - {fileID: 21300000, guid: b3a03c90dab0247b198ae201a2593711, type: 3}
+    - {fileID: 21300000, guid: 74bf01ee0b28f44ad94d24b1d7db96c0, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.050000004
+    m_StopTime: 0.26666668
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

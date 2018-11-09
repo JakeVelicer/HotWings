@@ -1,0 +1,34 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StreamAttackAnimationWater : MonoBehaviour {
+
+	[HideInInspector] public Animator Anim;
+	private playerControls PlayerScript;
+
+	// Use this for initialization
+	void Start () {
+
+		Anim = gameObject.GetComponent<Animator>();
+		PlayerScript = transform.GetComponentInParent<playerControls>();
+		
+	}
+
+	void Update() {
+ 		if (this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Finish")) {
+			gameObject.GetComponent<Collider2D>().enabled = false;
+            //gameObject.GetComponent<SpriteRenderer>().enabled = false;
+		}
+		
+	}
+	
+	public void EndBeam() {
+		Anim.SetTrigger("Finish");
+	}
+
+	public void StartBeam() {
+		Anim.SetTrigger("Start");
+	}
+
+}
