@@ -2,40 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollowLerp : MonoBehaviour {
+public class CameraFollowLerp : MonoBehaviour
+{
 
-    // Transforms to act as start and end markers for the journey.
-    public Transform startMarker;
-    public Transform endMarker;
+    public GameObject objectToFollow;
 
-    // Movement speed in units/sec.
-    public float speed = 1.0F;
+    public float speed = 2.0f;
 
-    // Time when the movement started.
-    private float startTime;
-
-    // Total distance between the markers.
-    private float journeyLength;
-
-    void Start()
+    void Update()
     {
-        // Keep a note of the time the movement started.
-        startTime = Time.time;
+        float interpolation = speed * Time.deltaTime;
 
-        // Calculate the journey length.
-        journeyLength = Vector3.Distance(startMarker.position, endMarker.position);
-    }
+        Vector3 position = this.transform.position;
+        position.y = Mathf.Lerp(this.transform.position.y, objectToFollow.transform.position.y, interpolation);
+        position.x = Mathf.Lerp(this.transform.position.x, objectToFollow.transform.position.x, interpolation);
 
-    // Follows the target position like with a spring
-    void FixedUpdate()
-    {
-        // Distance moved = time * speed.
-        float distCovered = (Time.time - startTime) * speed;
-
-        // Fraction of journey completed = current distance divided by total distance.
-        float fracJourney = distCovered / journeyLength;
-
-        // Set our position as a fraction of the distance between the markers.
-        transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fracJourney);
+        this.transform.position = position;
     }
 }
