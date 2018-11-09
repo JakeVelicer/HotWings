@@ -67,6 +67,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			AttackCollider.enabled = false;
 		}
 		if (AlienType == 5) {
+			TouchStop = true;
 			BeamAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
 		}
 		
