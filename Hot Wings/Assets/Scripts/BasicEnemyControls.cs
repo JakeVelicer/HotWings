@@ -181,9 +181,11 @@ public class BasicEnemyControls : MonoBehaviour {
 						StartCoroutine(shootWait());
 						break;
 					// Beefy Alien
-					case 3:
+					case 3: 
+
 						CanAttack = false;
-						StartCoroutine(JumpSmashAttack());
+                        anim.SetInteger("Near", 1);
+                        StartCoroutine(JumpSmashAttack());
 						//if (OnPunch != null) {
 							//anim.SetInteger("Near", 1);
 							//OnPunch();
@@ -286,19 +288,27 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	// Propels this enemy toward the player
 	private IEnumerator JumpSmashAttack () {
-
-      	gameObject.GetComponent<Rigidbody2D>().AddForce
+        yield return new WaitForSeconds(.2f);
+        // anim.SetInteger("Near", 2);
+        gameObject.GetComponent<Rigidbody2D>().AddForce
 		(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
 		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 2500);
-        yield return new WaitForSeconds(0.5f);
-		AttackCollider.enabled = true;
+        //anim.SetInteger("Near", 2); 
+        //anim.SetInteger("Near", 2);
+        yield return new WaitForSeconds(.5f);
+        anim.SetInteger("Near", 2);
+        yield return new WaitForSeconds(.3f);
+        AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
+
         yield return new WaitForSeconds(0.4f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
-		StartCoroutine(shootWait());
+       
+        StartCoroutine(shootWait());
 
-	}
+
+    }
 
 	// Dash attack cycle
     private IEnumerator DashAttack()
@@ -343,6 +353,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
     private IEnumerator shootWait()
 	{
+       // anim.SetInteger("Near", 0);
         yield return new WaitForSeconds(CoolDown);
         CanAttack = true;
     }
