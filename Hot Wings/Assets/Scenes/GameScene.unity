@@ -7360,6 +7360,11 @@ Prefab:
       propertyPath: m_Name
       value: SpecialPepperSpawn (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 212761118244661090, guid: fd4f25e1b4a1141a0a268e401a022a74,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd4f25e1b4a1141a0a268e401a022a74, type: 2}
   m_IsPrefabAsset: 0
