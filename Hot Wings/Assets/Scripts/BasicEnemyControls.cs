@@ -86,26 +86,46 @@ public class BasicEnemyControls : MonoBehaviour {
             if (AlienType == 3 || AlienType == 4)
             {
                 enemySounds.clip = enemyDeath2;
-                enemySounds.Play();
+                if (soundPlaying == false)
+                {
+                    enemySounds.Play();
+                    soundPlaying = true;
+                }
             }
             else if (AlienType == 1 || AlienType == 2)
             {
                 enemySounds.clip = enemyDeath1;
-                enemySounds.Play();
+                if (soundPlaying == false)
+                {
+                    enemySounds.Play();
+                    soundPlaying = true;
+                }
             }
             else if (AlienType == 5)
             {
                 enemySounds.clip = enemyDeath3;
-                enemySounds.Play();
+                if (soundPlaying == false)
+                {
+                    enemySounds.Play();
+                    soundPlaying = true;
+                }
             }
             MainController.score += enemyValue;
 			MainController.EnemiesLeft--;
-			if(OnEnemyDeath != null)
-			{
-				OnEnemyDeath(AlienType);
-			}
-			Destroy(gameObject);
-		}
+            if (OnEnemyDeath != null)
+            {
+                OnEnemyDeath(AlienType);
+            }
+
+            if (AlienType == 5)
+            {
+                Destroy(gameObject, 0.7f);
+            }
+            else
+            {
+                Destroy(gameObject, 0.2f);
+            }
+        }
 		
 	}
 
@@ -344,9 +364,14 @@ public class BasicEnemyControls : MonoBehaviour {
 		yield return new WaitForSeconds(3);
 		SaucerRay.SetActive(true);
 		BeamAnimation.PlayBeamAnim();
+        enemySounds.clip = enemyLaser;
+        enemySounds.loop = true;
+        enemySounds.Play();
 		yield return new WaitForSeconds(3);
 		BeamAnimation.PlayRetractAnim();
 		yield return new WaitForSeconds(0.2f);
+        enemySounds.Stop();
+        enemySounds.loop = false;
 		SaucerRay.SetActive(false);
 		CanFireRay = true;
 	}
@@ -358,7 +383,7 @@ public class BasicEnemyControls : MonoBehaviour {
         CanAttack = true;
     }
 
-	void OnTriggerEnter2D(Collider2D collision) {
+    void OnTriggerEnter2D(Collider2D collision) {
 
 			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
