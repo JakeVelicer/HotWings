@@ -549,7 +549,7 @@ MonoBehaviour:
   playerSounds: {fileID: 0}
   playerFire: {fileID: 8300000, guid: 9d781257aa4274e1b9d5f92e17202c91, type: 3}
   playerWater: {fileID: 8300000, guid: 3f22534da7ce14460b4eb1d2b0924891, type: 3}
-  playerIce: {fileID: 8300000, guid: c0481425004fc4c7d875859c325b045c, type: 3}
+  playerIce: {fileID: 8300000, guid: 3e33d7a562c734f52b78c6af1a246685, type: 3}
   playerShock1: {fileID: 8300000, guid: d37c1377d6ce34b83876394766a4aea1, type: 3}
   playerShock2: {fileID: 8300000, guid: 16e45fe31131542aa96d15c507895bba, type: 3}
   playerShock3: {fileID: 8300000, guid: dc11f41e1bd70455ab8b12a5fb508fcc, type: 3}

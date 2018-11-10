@@ -35,7 +35,7 @@ public class BombBehavior : MonoBehaviour {
 			ExplodeAnim.SetTrigger("Boom");
 			PlayAnim = false;
             bombSound.PlayDelayed(1.0f);
-			Destroy(transform.parent.gameObject, 1.1f);
+			Destroy(transform.parent.gameObject, 2.0f);
 		}
 	}
 }

@@ -194,7 +194,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -345,7 +345,6 @@ MonoBehaviour:
   ProjectileSpeed: 0
   ProjectileHeight: 0
   CoolDown: 0
-  Punch: 0
   ToTheRight: 0
   BulletObject: {fileID: 0}
   BombObject: {fileID: 0}
