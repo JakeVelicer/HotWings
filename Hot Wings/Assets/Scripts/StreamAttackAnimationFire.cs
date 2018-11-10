@@ -21,13 +21,13 @@ public class StreamAttackAnimationFire : MonoBehaviour {
             //gameObject.GetComponent<SpriteRenderer>().enabled = false;
 		}
 	}
-	
-	public void EndBeam() {
-		Anim.SetTrigger("Finish");
-	}
 
 	public void StartBeam() {
-		Anim.SetTrigger("Start");
+		Anim.Play("Start");
+	}
+
+	public void GoToIdle() {
+		Anim.Play("Finish");
 	}
 
 }
