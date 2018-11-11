@@ -79,15 +79,6 @@ public class GameController : MonoBehaviour
 
     void SpawnEnemies()
     {
-        /*
-        for (int i = 0; i < SaucerCount; i++)
-        {
-            hazard = SaucerObject[Random.Range(0, 3)];
-            Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-            Quaternion spawnRotation = Quaternion.identity;
-            Instantiate(hazard, spawnPosition, spawnRotation);
-        }
-        */
         
         GameObject Saucer;
         Saucer = Instantiate(SaucerObject[0], new Vector3 (-8.3f, 5, 0), Quaternion.identity) as GameObject;
