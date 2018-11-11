@@ -35,6 +35,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject BombObject;
 	public GameObject SaucerRay;
 	private Collider2D AttackCollider;
+	private Collider2D Collider;
 	public int AlienType;
 	public System.Action OnPunch;
 	private System.Action ActivateDeathBeam;
@@ -59,6 +60,7 @@ public class BasicEnemyControls : MonoBehaviour {
         enemySounds.loop = false;
 		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
+		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
 		TouchStop = false;
@@ -89,7 +91,6 @@ public class BasicEnemyControls : MonoBehaviour {
 				DestroyEnemySequence();
 			}
 		}
-		
 	}
 
 	// Controls the actual movement of the object
@@ -435,8 +436,8 @@ public class BasicEnemyControls : MonoBehaviour {
 				Rigidbody.AddForce(Vector3.left * 600);
 			}
 		}
-		else if (collision.gameObject.tag == "Enemy") {
-			//TouchStop = true;
+		else if (collision.gameObject.tag == "Wall") {
+			//TouchStop = false;
 			//Rigidbody.velocity = Vector2.zero;
 		}
 	}
@@ -451,8 +452,8 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
 		}
-		else if (collider.gameObject.tag == "Enemy") {
-			//TouchStop = false;
+		else if (collider.gameObject.tag == "Wall") {
+			//TouchStop = true;
 		}
 	}
 
