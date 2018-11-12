@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class BasicEnemyControls : MonoBehaviour {
 
-    Animator anim;
-
     private Rigidbody2D Rigidbody;
 	private Transform Target;
 	private GameController MainController;
 	private EnemyDamageValues DamageValues;
     private GameObject gameController;
 	private DeathRayAnimation BeamAnimation;
+    private Animator anim;
 	private System.Action DestroyEnemySequence;
 
 	public float EnemyHealth;
@@ -25,14 +24,17 @@ public class BasicEnemyControls : MonoBehaviour {
 	private float CoolDownTimer = 0;
 	private int DashDirection;
 
+	private bool CanRoam;
     private bool CanChase;
-	private bool TouchStop;
+	public bool TouchStop;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	public bool ToTheRight;
+
 	private playerControls Player;
 	public GameObject BulletObject;
 	public GameObject BombObject;
+	public GameObject IceBlock;
 	public GameObject SaucerRay;
 	private Collider2D AttackCollider;
 	private Collider2D Collider;
@@ -47,8 +49,10 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip enemyDeath1;
     public AudioClip enemyDeath2;
     public AudioClip enemyDeath3;
+    public AudioClip enemyDeath4;
+    public AudioClip enemyDeath5;
 
-	public static System.Action<int> OnEnemyDeath;
+    public static System.Action<int> OnEnemyDeath;
 
     private bool soundPlaying = false;
 
@@ -63,6 +67,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+		InvokeRepeating ("Roam", 0, 2.0f);
 		TouchStop = false;
 		MainController.EnemiesLeft++;
 		DestroyEnemySequence += EnemyDeathSequence;
@@ -86,6 +91,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
         Movement();
 		ChaseTarget();
+		//TrackOtherEnemies();
 		if (EnemyHealth <= 0) {
 			if (DestroyEnemySequence != null) {
 				DestroyEnemySequence();
@@ -97,7 +103,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	void Movement () {
 
 		// Checks if it is allowed to chase the player
-		if (CanChase == true) {
+		if (CanChase == true || CanRoam == true) {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
@@ -138,49 +144,52 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Determines if the range of the player is close enough to be chased
 		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 5) {
 			CanChase = true;
+			CanRoam = false;
 			ChaseDirection();
 		}
 		// Tells the player to attack if close enough
 		else if (Dist <= FireRange && AlienType != 5) {
 			CanChase = false;
+			CanRoam = false;
 			ChaseDirection();
 
 			/* The switch assigns the proper cooldown and attack phase for each enemy type.
 			The switch here should probably only have cases for the 3 different attack types, but 
 			I have not changed it yet in case a reason emerges to have them for each enemy type. */
 			if (CanAttack) {
-				switch (AlienType) {
-					// Roly Poly Alien
-					case 1:
-						if (TouchStop) {
+				if (TouchStop) {
+					switch (AlienType) {
+						// Roly Poly Alien
+						case 1:
 							CanAttack = false;
+							anim.SetInteger("Near", 1);
 							StartCoroutine(DashAttack());
-						}
-						break;
-					// Blob Alien
-					case 2:
-						CanAttack = false;
-						anim.SetInteger("Near", 1);
-						BombAttack();
-						StartCoroutine(shootWait());
-						break;
-					// Beefy Alien
-					case 3: 
+							break;
+						// Blob Alien
+						case 2:
+							CanAttack = false;
+							anim.SetInteger("Near", 1);
+							BombAttack();
+							StartCoroutine(shootWait());
+							break;
+						// Beefy Alien
+						case 3: 
 
-						CanAttack = false;
-                        anim.SetInteger("Near", 1);
-                        StartCoroutine(JumpSmashAttack());
-						//if (OnPunch != null) {
-							//anim.SetInteger("Near", 1);
-							//OnPunch();
-						//}
-						break;
-					// Armored Alien
-					case 4:
-						CanAttack = false;
-						GunAttack();
-						StartCoroutine(shootWait());
-						break;
+							CanAttack = false;
+							anim.SetInteger("Near", 1);
+							StartCoroutine(JumpSmashAttack());
+							//if (OnPunch != null) {
+								//anim.SetInteger("Near", 1);
+								//OnPunch();
+							//}
+							break;
+						// Armored Alien
+						case 4:
+							CanAttack = false;
+							GunAttack();
+							StartCoroutine(shootWait());
+							break;
+					}
 				}
 			}
 		}
@@ -201,6 +210,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Does nothing if out of range of chasing and attacking, will roam eventually
 		else {
 			CanChase = false;
+			if (AlienType != 5) {
+				CanRoam = true;
+			}
 			CoolDownTimer = 0;
             enemySounds.Stop();
             soundPlaying = false;
@@ -210,15 +222,50 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Determines the direction the object faces when chasing
 	void ChaseDirection () {
 
-		if (Target.position.x > transform.position.x + 0.5) {
-			transform.localScale = new Vector3(-1, 1, 1);
-			ToTheRight = true;
+		if (CanRoam == false) {
+			if (Target.position.x > transform.position.x + 0.5) {
+				transform.localScale = new Vector3(-1, 1, 1);
+				ToTheRight = true;
+			}
+			else if (Target.position.x < transform.position.x + 0.5) {
+				transform.localScale = new Vector3(1, 1, 1);
+				ToTheRight = false;
+			}
 		}
-		else if (Target.position.x < transform.position.x + 0.5) {
-			transform.localScale = new Vector3(1, 1, 1);
-			ToTheRight = false;
+		if (CanRoam == true) {
+			if (ToTheRight == false) {
+				transform.localScale = new Vector3(-1, 1, 1);
+				ToTheRight = true;
+			}
+			else if (ToTheRight == true) {
+				transform.localScale = new Vector3(1, 1, 1);
+				ToTheRight = false;
+			}
 		}
 	}
+
+	void TrackOtherEnemies () {
+
+		Vector2 vector = Vector2.right;
+		if (ToTheRight == true) {
+			vector = Vector2.right;
+		}
+		else if (ToTheRight == false) {
+			vector = Vector2.left;
+		}
+
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, vector , 5);
+
+		if (hit.collider != null && hit.collider.tag == ("Enemy")) {
+			TouchStop = false;
+			Debug.Log("Called");
+		}
+		else {
+			TouchStop = true;
+		}
+
+	}
+
 
 	// Instantiates a chosen projectile in the scene and propels it forward like a bullet
 	void GunAttack () {
@@ -315,6 +362,7 @@ public class BasicEnemyControls : MonoBehaviour {
             }
             else if (i >= 0.9f) {
                 yield return new WaitForSeconds(0.6f);
+				anim.SetInteger("Near", 2);
                 Rigidbody.velocity = Vector2.zero;
 				AttackCollider.enabled = false;
             }
@@ -323,7 +371,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	// Saucer attack cycle
-	IEnumerator RayTime () {
+	private IEnumerator RayTime () {
 		CanFireRay = false;
 		yield return new WaitForSeconds(3);
 		SaucerRay.SetActive(true);
@@ -353,16 +401,34 @@ public class BasicEnemyControls : MonoBehaviour {
 		MainController.score += enemyValue;
 		MainController.EnemiesLeft--;
 
-		if (AlienType == 3 || AlienType == 4)
+		if (AlienType == 1)
 		{
-			enemySounds.clip = enemyDeath2;
+			enemySounds.clip = enemyDeath4;
 			if (soundPlaying == false)
 			{
 				enemySounds.Play();
 				soundPlaying = true;
 			}
 		}
-		else if (AlienType == 1 || AlienType == 2)
+        else if (AlienType == 2)
+        {
+            enemySounds.clip = enemyDeath5;
+            if (soundPlaying == false)
+            {
+                enemySounds.Play();
+                soundPlaying = true;
+            }
+        }
+        else if (AlienType == 3)
+        {
+            enemySounds.clip = enemyDeath2;
+            if (soundPlaying == false)
+            {
+                enemySounds.Play();
+                soundPlaying = true;
+            }
+        }
+        else if (AlienType == 4)
 		{
 			enemySounds.clip = enemyDeath1;
 			if (soundPlaying == false)
@@ -387,11 +453,11 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		if (AlienType == 5)
 		{
-			Destroy(gameObject, 0.7f);
+			Destroy(gameObject, 1.0f);
 		}
 		else
 		{
-			Destroy(gameObject, 0.2f);
+			Destroy(gameObject, 0.3f);
 		}
 	}
 
@@ -410,9 +476,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
 		}
-		else if (collision.gameObject.tag == "Ice") {
-			EnemyHealth -= DamageValues.IceDamage;
-		}
 		else if (collision.gameObject.tag == "Earth") {
 			EnemyHealth -= DamageValues.EarthDamage;
 		}
@@ -422,6 +485,14 @@ public class BasicEnemyControls : MonoBehaviour {
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
 			InvokeRepeating("TakeFireDamage", 0, 0.5f);
+		}
+		else if (collision.gameObject.tag == "Ice") {
+			GameObject Projectile = Instantiate (IceBlock, transform.position + new Vector3(0, 0, 0), 
+			Quaternion.identity) as GameObject;
+		}
+		else if (collision.gameObject.tag == "IceBlock") {
+			InvokeRepeating("TakeIceDamage", 0, 0.5f);
+			TouchStop = false;
 		}
 		else if (collision.gameObject.tag == "Water") {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
@@ -436,10 +507,6 @@ public class BasicEnemyControls : MonoBehaviour {
 				Rigidbody.AddForce(Vector3.left * 600);
 			}
 		}
-		else if (collision.gameObject.tag == "Wall") {
-			//TouchStop = false;
-			//Rigidbody.velocity = Vector2.zero;
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
@@ -452,8 +519,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
 		}
-		else if (collider.gameObject.tag == "Wall") {
-			//TouchStop = true;
+		else if (collider.gameObject.tag == "IceBlock") {
+			CancelInvoke("TakeIceDamage");
+			TouchStop = true;
 		}
 	}
 
@@ -466,6 +534,9 @@ public class BasicEnemyControls : MonoBehaviour {
 	void TakeWindDamage() {
 		EnemyHealth -= DamageValues.WindDamage;
 	}
+	void TakeIceDamage() {
+		EnemyHealth -= DamageValues.IceDamage;
+	}
 
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "Ground") {
@@ -476,6 +547,12 @@ public class BasicEnemyControls : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D other) {
 		if (other.gameObject.tag == "Ground") {
 			TouchStop = false;
+		}
+	}
+
+	private void Roam () {
+		if (CanRoam) {
+			ChaseDirection();
 		}
 	}
 

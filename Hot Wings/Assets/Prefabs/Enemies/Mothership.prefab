@@ -345,9 +345,11 @@ MonoBehaviour:
   ProjectileSpeed: 0
   ProjectileHeight: 0
   CoolDown: 0
+  TouchStop: 0
   ToTheRight: 0
   BulletObject: {fileID: 0}
   BombObject: {fileID: 0}
+  IceBlock: {fileID: 1277225917556578, guid: fe7cacf7d94904c0885608adf4b8cd89, type: 2}
   SaucerRay: {fileID: 1717192696476054}
   AlienType: 5
   enemyPistol: {fileID: 8300000, guid: ad6b93273989e4f8ebfd7c8156fa1728, type: 3}
@@ -356,6 +358,8 @@ MonoBehaviour:
   enemyDeath1: {fileID: 8300000, guid: e3864ca75b0034944a0e97113fa1a516, type: 3}
   enemyDeath2: {fileID: 8300000, guid: a30a23601c00048e5947e7ff4a8aa5ae, type: 3}
   enemyDeath3: {fileID: 8300000, guid: 6ff2a53d5fa9c4abdb05685a2794ff87, type: 3}
+  enemyDeath4: {fileID: 8300000, guid: 307ae5a384f0b475fb5caa1b03155ea6, type: 3}
+  enemyDeath5: {fileID: 8300000, guid: 726eaf6d32ef84a10a35814d6de80319, type: 3}
 --- !u!114 &114764225815220934
 MonoBehaviour:
   m_ObjectHideFlags: 1

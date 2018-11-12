@@ -36,7 +36,7 @@ public class WindBehavior : MonoBehaviour {
 	}
 
 	IEnumerator FadeImage() {
-    	for (float i = 1.2f; i >= 0; i -= Time.deltaTime) {
+    	for (float i = 1f; i >= 0; i -= Time.deltaTime) {
             Sprite.color = new Color(1f,1f,1f,i);
             yield return null;
         }

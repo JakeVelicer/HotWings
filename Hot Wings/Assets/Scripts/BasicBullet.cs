@@ -14,5 +14,8 @@ public class BasicBullet : MonoBehaviour {
 		if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Enemy") {
 			Destroy (gameObject);
 		}
+		if (gameObject.tag == "Ice" && collision.gameObject.tag == "IceBlock") {
+			Destroy (gameObject);
+		}
 	}
 }

@@ -61,7 +61,11 @@ public class playerControls : MonoBehaviour
     public AudioClip playerEarth;
     public AudioClip playerWind;
     public AudioClip playerBuff;
+    public AudioClip playerDash;
+    public AudioClip playerHeal;
 
+    public AudioClip pepperCollect;
+    public AudioClip eggDrop;
     public AudioClip playerHit;
     public AudioClip playerDeath;
 
@@ -236,15 +240,17 @@ public class playerControls : MonoBehaviour
                     {
                         SoundCall(playerWind);
                         canShoot = false;
-                        shot = Instantiate(playerWindShot, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
                         if (facingRight)
                         {
+                            shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0), 
+			                Quaternion.identity) as GameObject;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }
                         else if (!facingRight)
                         {
+                            shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0), 
+			                Quaternion.identity) as GameObject;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }
@@ -268,6 +274,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 8: // CALLS Speed Dash Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        SoundCall(playerDash);
                         canShoot = false;
                         if (DashDirection == 0) {
                             StartCoroutine(SpeedDash());
@@ -276,6 +283,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 9: // CALLS Health Pepper Power heal
                     if (Input.GetKeyDown(KeyCode.Space) && Healing == false) {
+                        SoundCall(playerHeal);
                         Healing = true;
                         StartCoroutine(HealThePlayer());
                     }
@@ -319,26 +327,32 @@ public class playerControls : MonoBehaviour
             switch (pepperIndexA)
             {
                 case 1:
+                    SoundCall(eggDrop);
                     shot = Instantiate(eggFire, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 2:
+                    SoundCall(eggDrop);
                     shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 3:
+                    SoundCall(eggDrop);
                     shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 4:
+                    SoundCall(eggDrop);
                     shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 6:
+                    SoundCall(eggDrop);
                     shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 8:
+                    SoundCall(eggDrop);
                     shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                         if (facingRight) {
@@ -590,10 +604,12 @@ public class playerControls : MonoBehaviour
 
     void PepperCollision(int pepperNumber, string pepperName) {
         if (pepperIndexA == 0) {
+            SoundCall(pepperCollect);
             pepperIndexA = pepperNumber;
             pepperA = pepperName;
         }
         else if (pepperIndexB == 0) {
+            SoundCall(pepperCollect);
             pepperIndexB = pepperNumber;
             pepperB = pepperName;
         }
@@ -602,6 +618,7 @@ public class playerControls : MonoBehaviour
     void SoundCall (AudioClip clip) {
         playerSounds.clip = clip;
         playerSounds.loop = false;
+        playerSounds.loop |= (clip == playerFire || clip == playerWater);
         playerSounds.Play();
     }
 

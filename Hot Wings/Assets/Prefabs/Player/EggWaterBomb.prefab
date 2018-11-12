@@ -262,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Timer: 1
   enemyBomb: {fileID: 8300000, guid: 548b0559b352740ed868a6002cf5be52, type: 3}
-  playerBomb: {fileID: 8300000, guid: 9f0fe22002e9c4c5f8ee2944bc27835f, type: 3}
+  playerBomb: {fileID: 8300000, guid: a9c4b248558644c43b9e0c60d9fcd2bd, type: 3}
 --- !u!212 &212758217230705864
 SpriteRenderer:
   m_ObjectHideFlags: 1
