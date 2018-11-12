@@ -47,8 +47,10 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip enemyDeath1;
     public AudioClip enemyDeath2;
     public AudioClip enemyDeath3;
+    public AudioClip enemyDeath4;
+    public AudioClip enemyDeath5;
 
-	public static System.Action<int> OnEnemyDeath;
+    public static System.Action<int> OnEnemyDeath;
 
     private bool soundPlaying = false;
 
@@ -353,16 +355,34 @@ public class BasicEnemyControls : MonoBehaviour {
 		MainController.score += enemyValue;
 		MainController.EnemiesLeft--;
 
-		if (AlienType == 3 || AlienType == 4)
+		if (AlienType == 1)
 		{
-			enemySounds.clip = enemyDeath2;
+			enemySounds.clip = enemyDeath4;
 			if (soundPlaying == false)
 			{
 				enemySounds.Play();
 				soundPlaying = true;
 			}
 		}
-		else if (AlienType == 1 || AlienType == 2)
+        else if (AlienType == 2)
+        {
+            enemySounds.clip = enemyDeath5;
+            if (soundPlaying == false)
+            {
+                enemySounds.Play();
+                soundPlaying = true;
+            }
+        }
+        else if (AlienType == 3)
+        {
+            enemySounds.clip = enemyDeath2;
+            if (soundPlaying == false)
+            {
+                enemySounds.Play();
+                soundPlaying = true;
+            }
+        }
+        else if (AlienType == 4)
 		{
 			enemySounds.clip = enemyDeath1;
 			if (soundPlaying == false)

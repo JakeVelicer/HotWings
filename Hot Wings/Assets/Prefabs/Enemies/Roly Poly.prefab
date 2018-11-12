@@ -306,7 +306,6 @@ MonoBehaviour:
   ProjectileSpeed: 20
   ProjectileHeight: 0
   CoolDown: 2
-  Punch: 0
   ToTheRight: 0
   BulletObject: {fileID: 1425322878777434, guid: d710a071fed314e81a0ea7643b3ce107,
     type: 2}
@@ -319,6 +318,8 @@ MonoBehaviour:
   enemyDeath1: {fileID: 8300000, guid: e3864ca75b0034944a0e97113fa1a516, type: 3}
   enemyDeath2: {fileID: 8300000, guid: a30a23601c00048e5947e7ff4a8aa5ae, type: 3}
   enemyDeath3: {fileID: 8300000, guid: 6ff2a53d5fa9c4abdb05685a2794ff87, type: 3}
+  enemyDeath4: {fileID: 8300000, guid: 307ae5a384f0b475fb5caa1b03155ea6, type: 3}
+  enemyDeath5: {fileID: 8300000, guid: 726eaf6d32ef84a10a35814d6de80319, type: 3}
 --- !u!212 &212359287118209502
 SpriteRenderer:
   m_ObjectHideFlags: 1
