@@ -32,7 +32,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			FireDamage = 10;
 			WaterDamage = 25;
 			ElectricDamage = 10;
-			IceDamage = 1;
+			IceDamage = 12;
 			EarthDamage = 8;
 			WindDamage = 5;
 			JackedDamage = 30;

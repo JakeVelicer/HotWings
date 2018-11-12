@@ -161,9 +161,9 @@ public class BasicEnemyControls : MonoBehaviour {
 					switch (AlienType) {
 						// Roly Poly Alien
 						case 1:
-								CanAttack = false;
-								anim.SetInteger("Near", 1);
-								StartCoroutine(DashAttack());
+							CanAttack = false;
+							anim.SetInteger("Near", 1);
+							StartCoroutine(DashAttack());
 							break;
 						// Blob Alien
 						case 2:

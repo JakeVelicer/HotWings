@@ -240,15 +240,17 @@ public class playerControls : MonoBehaviour
                     {
                         SoundCall(playerWind);
                         canShoot = false;
-                        shot = Instantiate(playerWindShot, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
                         if (facingRight)
                         {
+                            shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0), 
+			                Quaternion.identity) as GameObject;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }
                         else if (!facingRight)
                         {
+                            shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0), 
+			                Quaternion.identity) as GameObject;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }
