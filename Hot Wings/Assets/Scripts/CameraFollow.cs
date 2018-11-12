@@ -22,6 +22,7 @@ public class CameraFollow : MonoBehaviour {
 	void Start () {
 
         bgm = gameObject.GetComponent<AudioSource>();
+        bgm.clip = gameplaySong;
         bgm.loop = true;
         bgm.Play();
         player = GameObject.FindGameObjectWithTag("Player");
