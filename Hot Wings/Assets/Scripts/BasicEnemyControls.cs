@@ -13,6 +13,7 @@ public class BasicEnemyControls : MonoBehaviour {
     private GameObject gameController;
 	private DeathRayAnimation BeamAnimation;
 	private System.Action DestroyEnemySequence;
+	private GameObject[] OtherAliens;
 
 	public float EnemyHealth;
     public int enemyValue;
@@ -24,12 +25,14 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float CoolDown;
 	private float CoolDownTimer = 0;
 	private int DashDirection;
+	private bool CanRoam;
 
     private bool CanChase;
-	private bool TouchStop;
+	public bool TouchStop;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	public bool ToTheRight;
+
 	private playerControls Player;
 	public GameObject BulletObject;
 	public GameObject BombObject;
@@ -65,6 +68,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+		InvokeRepeating ("Roam", 0, 2.0f);
 		TouchStop = false;
 		MainController.EnemiesLeft++;
 		DestroyEnemySequence += EnemyDeathSequence;
@@ -88,6 +92,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
         Movement();
 		ChaseTarget();
+		//TrackOtherEnemies();
 		if (EnemyHealth <= 0) {
 			if (DestroyEnemySequence != null) {
 				DestroyEnemySequence();
@@ -99,7 +104,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	void Movement () {
 
 		// Checks if it is allowed to chase the player
-		if (CanChase == true) {
+		if (CanChase == true || CanRoam == true) {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
@@ -140,11 +145,13 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Determines if the range of the player is close enough to be chased
 		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 5) {
 			CanChase = true;
+			CanRoam = false;
 			ChaseDirection();
 		}
 		// Tells the player to attack if close enough
 		else if (Dist <= FireRange && AlienType != 5) {
 			CanChase = false;
+			CanRoam = false;
 			ChaseDirection();
 
 			/* The switch assigns the proper cooldown and attack phase for each enemy type.
@@ -203,6 +210,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Does nothing if out of range of chasing and attacking, will roam eventually
 		else {
 			CanChase = false;
+			if (AlienType != 5) {
+				CanRoam = true;
+			}
 			CoolDownTimer = 0;
             enemySounds.Stop();
             soundPlaying = false;
@@ -212,15 +222,50 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Determines the direction the object faces when chasing
 	void ChaseDirection () {
 
-		if (Target.position.x > transform.position.x + 0.5) {
-			transform.localScale = new Vector3(-1, 1, 1);
-			ToTheRight = true;
+		if (CanRoam == false) {
+			if (Target.position.x > transform.position.x + 0.5) {
+				transform.localScale = new Vector3(-1, 1, 1);
+				ToTheRight = true;
+			}
+			else if (Target.position.x < transform.position.x + 0.5) {
+				transform.localScale = new Vector3(1, 1, 1);
+				ToTheRight = false;
+			}
 		}
-		else if (Target.position.x < transform.position.x + 0.5) {
-			transform.localScale = new Vector3(1, 1, 1);
-			ToTheRight = false;
+		if (CanRoam == true) {
+			if (ToTheRight == false) {
+				transform.localScale = new Vector3(-1, 1, 1);
+				ToTheRight = true;
+			}
+			else if (ToTheRight == true) {
+				transform.localScale = new Vector3(1, 1, 1);
+				ToTheRight = false;
+			}
 		}
 	}
+
+	void TrackOtherEnemies () {
+
+		Vector2 vector = Vector2.right;
+		if (ToTheRight == true) {
+			vector = Vector2.right;
+		}
+		else if (ToTheRight == false) {
+			vector = Vector2.left;
+		}
+
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, vector , 5);
+
+		if (hit.collider != null && hit.collider.tag == ("Enemy")) {
+			TouchStop = false;
+			Debug.Log("Called");
+		}
+		else {
+			TouchStop = true;
+		}
+
+	}
+
 
 	// Instantiates a chosen projectile in the scene and propels it forward like a bullet
 	void GunAttack () {
@@ -325,7 +370,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	// Saucer attack cycle
-	IEnumerator RayTime () {
+	private IEnumerator RayTime () {
 		CanFireRay = false;
 		yield return new WaitForSeconds(3);
 		SaucerRay.SetActive(true);
@@ -458,7 +503,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 		else if (collision.gameObject.tag == "Wall") {
 			//TouchStop = false;
-			//Rigidbody.velocity = Vector2.zero;
 		}
 	}
 
@@ -496,6 +540,13 @@ public class BasicEnemyControls : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D other) {
 		if (other.gameObject.tag == "Ground") {
 			TouchStop = false;
+		}
+	}
+
+	private void Roam () {
+		if (CanRoam) {
+			ChaseDirection();
+			Debug.Log("called");
 		}
 	}
 
