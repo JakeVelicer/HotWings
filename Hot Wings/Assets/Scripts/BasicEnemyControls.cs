@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class BasicEnemyControls : MonoBehaviour {
 
-    Animator anim;
-
     private Rigidbody2D Rigidbody;
 	private Transform Target;
 	private GameController MainController;
 	private EnemyDamageValues DamageValues;
     private GameObject gameController;
 	private DeathRayAnimation BeamAnimation;
+    private Animator anim;
 	private System.Action DestroyEnemySequence;
 
 	public float EnemyHealth;
@@ -163,6 +162,7 @@ public class BasicEnemyControls : MonoBehaviour {
 						// Roly Poly Alien
 						case 1:
 								CanAttack = false;
+								anim.SetInteger("Near", 1);
 								StartCoroutine(DashAttack());
 							break;
 						// Blob Alien
@@ -362,6 +362,7 @@ public class BasicEnemyControls : MonoBehaviour {
             }
             else if (i >= 0.9f) {
                 yield return new WaitForSeconds(0.6f);
+				anim.SetInteger("Near", 2);
                 Rigidbody.velocity = Vector2.zero;
 				AttackCollider.enabled = false;
             }
