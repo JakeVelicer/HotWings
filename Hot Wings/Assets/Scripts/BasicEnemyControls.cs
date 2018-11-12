@@ -407,11 +407,11 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		if (AlienType == 5)
 		{
-			Destroy(gameObject, 0.7f);
+			Destroy(gameObject, 1.0f);
 		}
 		else
 		{
-			Destroy(gameObject, 0.2f);
+			Destroy(gameObject, 0.3f);
 		}
 	}
 
