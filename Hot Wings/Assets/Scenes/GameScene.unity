@@ -3633,6 +3633,11 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 2064819700}
+    - target: {fileID: 114464802836156736, guid: 6accb243cfe4141a4a2fcedf9eca0eb1,
+        type: 2}
+      propertyPath: gameplaySong
+      value: 
+      objectReference: {fileID: 8300000, guid: f21cc4edfec6c471ea8d5d36e94df2ce, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6accb243cfe4141a4a2fcedf9eca0eb1, type: 2}
   m_IsPrefabAsset: 0
