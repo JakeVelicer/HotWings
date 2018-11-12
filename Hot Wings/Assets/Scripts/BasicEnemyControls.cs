@@ -97,6 +97,14 @@ public class BasicEnemyControls : MonoBehaviour {
 				DestroyEnemySequence();
 			}
 		}
+
+		if (transform.position.y <= -1.5) {
+			TouchStop = true;
+		}
+		else if (transform.position.y > -1.5) {
+			TouchStop = false;
+		}
+
 	}
 
 	// Controls the actual movement of the object
@@ -536,18 +544,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 	void TakeIceDamage() {
 		EnemyHealth -= DamageValues.IceDamage;
-	}
-
-	void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.tag == "Ground") {
-			TouchStop = true;
-		}
-	}
-	
-	void OnCollisionExit2D(Collision2D other) {
-		if (other.gameObject.tag == "Ground") {
-			TouchStop = false;
-		}
 	}
 
 	private void Roam () {
