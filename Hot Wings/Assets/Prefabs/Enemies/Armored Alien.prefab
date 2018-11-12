@@ -261,10 +261,12 @@ MonoBehaviour:
   ProjectileSpeed: 500
   ProjectileHeight: 0
   CoolDown: 0.5
+  TouchStop: 0
   ToTheRight: 0
   BulletObject: {fileID: 1425322878777434, guid: d710a071fed314e81a0ea7643b3ce107,
     type: 2}
   BombObject: {fileID: 1236616020896136, guid: 16da38cee053b4bd48fae32185fa3d39, type: 2}
+  IceBlock: {fileID: 1277225917556578, guid: fe7cacf7d94904c0885608adf4b8cd89, type: 2}
   SaucerRay: {fileID: 0}
   AlienType: 4
   enemyPistol: {fileID: 8300000, guid: ad6b93273989e4f8ebfd7c8156fa1728, type: 3}

@@ -13,7 +13,6 @@ public class BasicEnemyControls : MonoBehaviour {
     private GameObject gameController;
 	private DeathRayAnimation BeamAnimation;
 	private System.Action DestroyEnemySequence;
-	private GameObject[] OtherAliens;
 
 	public float EnemyHealth;
     public int enemyValue;
@@ -25,8 +24,8 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float CoolDown;
 	private float CoolDownTimer = 0;
 	private int DashDirection;
-	private bool CanRoam;
 
+	private bool CanRoam;
     private bool CanChase;
 	public bool TouchStop;
 	private bool CanAttack = true;
@@ -36,6 +35,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private playerControls Player;
 	public GameObject BulletObject;
 	public GameObject BombObject;
+	public GameObject IceBlock;
 	public GameObject SaucerRay;
 	private Collider2D AttackCollider;
 	private Collider2D Collider;
@@ -158,38 +158,38 @@ public class BasicEnemyControls : MonoBehaviour {
 			The switch here should probably only have cases for the 3 different attack types, but 
 			I have not changed it yet in case a reason emerges to have them for each enemy type. */
 			if (CanAttack) {
-				switch (AlienType) {
-					// Roly Poly Alien
-					case 1:
-						if (TouchStop) {
+				if (TouchStop) {
+					switch (AlienType) {
+						// Roly Poly Alien
+						case 1:
+								CanAttack = false;
+								StartCoroutine(DashAttack());
+							break;
+						// Blob Alien
+						case 2:
 							CanAttack = false;
-							StartCoroutine(DashAttack());
-						}
-						break;
-					// Blob Alien
-					case 2:
-						CanAttack = false;
-						anim.SetInteger("Near", 1);
-						BombAttack();
-						StartCoroutine(shootWait());
-						break;
-					// Beefy Alien
-					case 3: 
+							anim.SetInteger("Near", 1);
+							BombAttack();
+							StartCoroutine(shootWait());
+							break;
+						// Beefy Alien
+						case 3: 
 
-						CanAttack = false;
-                        anim.SetInteger("Near", 1);
-                        StartCoroutine(JumpSmashAttack());
-						//if (OnPunch != null) {
-							//anim.SetInteger("Near", 1);
-							//OnPunch();
-						//}
-						break;
-					// Armored Alien
-					case 4:
-						CanAttack = false;
-						GunAttack();
-						StartCoroutine(shootWait());
-						break;
+							CanAttack = false;
+							anim.SetInteger("Near", 1);
+							StartCoroutine(JumpSmashAttack());
+							//if (OnPunch != null) {
+								//anim.SetInteger("Near", 1);
+								//OnPunch();
+							//}
+							break;
+						// Armored Alien
+						case 4:
+							CanAttack = false;
+							GunAttack();
+							StartCoroutine(shootWait());
+							break;
+					}
 				}
 			}
 		}
@@ -475,9 +475,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
 		}
-		else if (collision.gameObject.tag == "Ice") {
-			EnemyHealth -= DamageValues.IceDamage;
-		}
 		else if (collision.gameObject.tag == "Earth") {
 			EnemyHealth -= DamageValues.EarthDamage;
 		}
@@ -487,6 +484,14 @@ public class BasicEnemyControls : MonoBehaviour {
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
 			InvokeRepeating("TakeFireDamage", 0, 0.5f);
+		}
+		else if (collision.gameObject.tag == "Ice") {
+			GameObject Projectile = Instantiate (IceBlock, transform.position + new Vector3(0, 0, 0), 
+			Quaternion.identity) as GameObject;
+		}
+		else if (collision.gameObject.tag == "IceBlock") {
+			InvokeRepeating("TakeIceDamage", 0, 0.5f);
+			TouchStop = false;
 		}
 		else if (collision.gameObject.tag == "Water") {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
@@ -501,9 +506,6 @@ public class BasicEnemyControls : MonoBehaviour {
 				Rigidbody.AddForce(Vector3.left * 600);
 			}
 		}
-		else if (collision.gameObject.tag == "Wall") {
-			//TouchStop = false;
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
@@ -516,8 +518,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
 		}
-		else if (collider.gameObject.tag == "Wall") {
-			//TouchStop = true;
+		else if (collider.gameObject.tag == "IceBlock") {
+			CancelInvoke("TakeIceDamage");
+			TouchStop = true;
 		}
 	}
 
@@ -529,6 +532,9 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 	void TakeWindDamage() {
 		EnemyHealth -= DamageValues.WindDamage;
+	}
+	void TakeIceDamage() {
+		EnemyHealth -= DamageValues.IceDamage;
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
@@ -546,7 +552,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	private void Roam () {
 		if (CanRoam) {
 			ChaseDirection();
-			Debug.Log("called");
 		}
 	}
 
