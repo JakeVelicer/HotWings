@@ -11,6 +11,8 @@ public class AchievementManager : MonoBehaviour
 
     private Dictionary<int, int> m_alienDeathDictionary = new Dictionary<int, int>();
 
+    public int enemiesKilled;
+
     private bool m_didNotTakeDamageDuringTutorial;
     public bool DidNotTakeDamageDuringTutorial
     {
@@ -75,5 +77,6 @@ public class AchievementManager : MonoBehaviour
         }
         return mostKilledAlien;
     }
+    
 
 }

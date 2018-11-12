@@ -12,6 +12,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private EnemyDamageValues DamageValues;
     private GameObject gameController;
 	private DeathRayAnimation BeamAnimation;
+	private System.Action DestroyEnemySequence;
 
 	public float EnemyHealth;
     public int enemyValue;
@@ -34,6 +35,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject BombObject;
 	public GameObject SaucerRay;
 	private Collider2D AttackCollider;
+	private Collider2D Collider;
 	public int AlienType;
 	public System.Action OnPunch;
 	private System.Action ActivateDeathBeam;
@@ -58,10 +60,13 @@ public class BasicEnemyControls : MonoBehaviour {
         enemySounds.loop = false;
 		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
+		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
+		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
 		TouchStop = false;
 		MainController.EnemiesLeft++;
-		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+		DestroyEnemySequence += EnemyDeathSequence;
+		
 		if (AlienType == 1 || AlienType == 3) {
 			AttackCollider = gameObject.transform.GetChild(0).GetComponent<Collider2D>();
 			AttackCollider.enabled = false;
@@ -81,52 +86,11 @@ public class BasicEnemyControls : MonoBehaviour {
 
         Movement();
 		ChaseTarget();
-
 		if (EnemyHealth <= 0) {
-            if (AlienType == 3 || AlienType == 4)
-            {
-                enemySounds.clip = enemyDeath2;
-                if (soundPlaying == false)
-                {
-                    enemySounds.Play();
-                    soundPlaying = true;
-                }
-            }
-            else if (AlienType == 1 || AlienType == 2)
-            {
-                enemySounds.clip = enemyDeath1;
-                if (soundPlaying == false)
-                {
-                    enemySounds.Play();
-                    soundPlaying = true;
-                }
-            }
-            else if (AlienType == 5)
-            {
-                enemySounds.clip = enemyDeath3;
-                if (soundPlaying == false)
-                {
-                    enemySounds.Play();
-                    soundPlaying = true;
-                }
-            }
-            MainController.score += enemyValue;
-			MainController.EnemiesLeft--;
-            if (OnEnemyDeath != null)
-            {
-                OnEnemyDeath(AlienType);
-            }
-
-            if (AlienType == 5)
-            {
-                Destroy(gameObject, 0.7f);
-            }
-            else
-            {
-                Destroy(gameObject, 0.2f);
-            }
-        }
-		
+			if (DestroyEnemySequence != null) {
+				DestroyEnemySequence();
+			}
+		}
 	}
 
 	// Controls the actual movement of the object
@@ -383,6 +347,54 @@ public class BasicEnemyControls : MonoBehaviour {
         CanAttack = true;
     }
 
+	void EnemyDeathSequence () {
+
+		DestroyEnemySequence = null;
+		MainController.score += enemyValue;
+		MainController.EnemiesLeft--;
+
+		if (AlienType == 3 || AlienType == 4)
+		{
+			enemySounds.clip = enemyDeath2;
+			if (soundPlaying == false)
+			{
+				enemySounds.Play();
+				soundPlaying = true;
+			}
+		}
+		else if (AlienType == 1 || AlienType == 2)
+		{
+			enemySounds.clip = enemyDeath1;
+			if (soundPlaying == false)
+			{
+				enemySounds.Play();
+				soundPlaying = true;
+			}
+		}
+		else if (AlienType == 5)
+		{
+			enemySounds.clip = enemyDeath3;
+			if (soundPlaying == false)
+			{
+				enemySounds.Play();
+				soundPlaying = true;
+			}
+		}
+		if (OnEnemyDeath != null)
+		{
+			OnEnemyDeath(AlienType);
+		}
+
+		if (AlienType == 5)
+		{
+			Destroy(gameObject, 0.7f);
+		}
+		else
+		{
+			Destroy(gameObject, 0.2f);
+		}
+	}
+
     void OnTriggerEnter2D(Collider2D collision) {
 
 			// Takes damage from burst attacks
@@ -424,8 +436,8 @@ public class BasicEnemyControls : MonoBehaviour {
 				Rigidbody.AddForce(Vector3.left * 600);
 			}
 		}
-		else if (collision.gameObject.tag == "Enemy") {
-			//TouchStop = true;
+		else if (collision.gameObject.tag == "Wall") {
+			//TouchStop = false;
 			//Rigidbody.velocity = Vector2.zero;
 		}
 	}
@@ -440,8 +452,8 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
 		}
-		else if (collider.gameObject.tag == "Enemy") {
-			//TouchStop = false;
+		else if (collider.gameObject.tag == "Wall") {
+			//TouchStop = true;
 		}
 	}
 
