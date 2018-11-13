@@ -39,14 +39,22 @@ public GameObject DeathMenuUI;
 	void Dead()
 	{
         if (!Death)
-        {
+        { 
+
             PlayerHealth.playerSounds.clip = PlayerHealth.playerDeath;
             PlayerHealth.playerSounds.loop = false;
             PlayerHealth.playerSounds.Play();
             Death = true;
         }
-        DeathMenuUI.SetActive(true);
-		Time.timeScale = 0f;
+        StartCoroutine(EndGame());
+
 	}
-	
+    private IEnumerator EndGame()
+    {
+       
+            yield return new WaitForSeconds(1.5f);
+        DeathMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
 }
