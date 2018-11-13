@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1103321857479440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.463603, y: -3.3503544, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4973121201369962}
@@ -108,8 +108,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.07931161}
-  m_Size: {x: 1.4, y: 1.7432613}
+  m_Offset: {x: -0.08057988, y: 0.059167266}
+  m_Size: {x: 1.5611598, y: 1.78355}
   m_Direction: 0
 --- !u!82 &82875434001243750
 AudioSource:
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5689354223d4cdca98879bd7b011ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: 12
+  EnemyHealth: 20
   enemyValue: 30
   MovementSpeed: 6
   ChaseRange: 10
@@ -358,7 +358,7 @@ SpriteRenderer:
   m_SortingLayerID: 719109109
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 06f15b3ee1c914e688e50c16a70539d2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f90d58de986cc41a09652e170326bb40, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

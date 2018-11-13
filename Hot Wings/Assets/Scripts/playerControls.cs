@@ -138,6 +138,9 @@ public class playerControls : MonoBehaviour
             playerWaterShot.GetComponent<Collider2D>().enabled = false;
             //playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
         }
+        if (health == 0) {
+            anim.SetInteger("Speed", 9);
+        }
         PepAttacks();
         EggBombs();
     }
