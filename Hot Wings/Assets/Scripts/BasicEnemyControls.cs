@@ -193,8 +193,10 @@ public class BasicEnemyControls : MonoBehaviour {
 							break;
 						// Armored Alien
 						case 4:
-							CanAttack = false;
-							GunAttack();
+                            anim.SetInteger("Near", 1);
+                            CanAttack = false;
+                            StartCoroutine(GunAnti());
+                            //GunAttack();
 							StartCoroutine(shootWait());
 							break;
 					}
@@ -274,9 +276,43 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	}
 
+    private IEnumerator GunAnti()
+    { yield return new WaitForSeconds(.6f);
+        GunAttack();
+        /*
+        if (AlienType == 1)
+        {
+            enemySounds.clip = enemyPistol;
+            enemySounds.loop = false;
+        }
+        if (AlienType == 4)
+        {
+            enemySounds.clip = enemyRapidFire;
+            enemySounds.loop = true;
+        } 
 
-	// Instantiates a chosen projectile in the scene and propels it forward like a bullet
-	void GunAttack () {
+        if (ToTheRight == true)
+        {
+           // yield return new WaitForSeconds(.2f);
+            enemySounds.Play();
+            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(0.86f, 0.35f, 0),
+            Quaternion.identity) as GameObject;
+            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
+        }
+        else if (ToTheRight == false)
+        {
+            if (soundPlaying == false)
+            {
+                enemySounds.Play();
+            }
+            soundPlaying = true;
+            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(-0.86f, 0.35f, 0),
+            Quaternion.identity) as GameObject;
+            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
+        }*/
+    }
+        // Instantiates a chosen projectile in the scene and propels it forward like a bullet
+        void GunAttack () {
 
         if (AlienType == 1) {
             enemySounds.clip = enemyPistol;
@@ -289,7 +325,7 @@ public class BasicEnemyControls : MonoBehaviour {
         if (ToTheRight == true)
         {
             enemySounds.Play();
-            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(0.86f, 0.24f, 0),
+            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(1.0f, .10f, 0),
             Quaternion.identity) as GameObject;
             Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
         }
@@ -300,7 +336,7 @@ public class BasicEnemyControls : MonoBehaviour {
                 enemySounds.Play();
             }
             soundPlaying = true;
-			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-0.86f, 0.24f, 0), 
+			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-1.0f, .10f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
