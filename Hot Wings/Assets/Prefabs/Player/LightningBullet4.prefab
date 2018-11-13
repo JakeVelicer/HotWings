@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 61424175097298198}
   - component: {fileID: 50425116639492804}
   - component: {fileID: 114092345361283236}
+  - component: {fileID: 95863194868056976}
   m_Layer: 0
   m_Name: LightningBullet4
   m_TagString: Electric
@@ -38,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 1002045632042286}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -86,8 +87,26 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.17, y: 0.37}
+  m_Size: {x: 2.75, y: 0.67}
   m_EdgeRadius: 0
+--- !u!95 &95863194868056976
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002045632042286}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c53c048f64b24a80b7bd962aa807d89, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114092345361283236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87adb8c7e0bd04c63b29695236b82d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Anim: {fileID: 95863194868056976}
 --- !u!212 &212948221685641506
 SpriteRenderer:
   m_ObjectHideFlags: 1

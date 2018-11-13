@@ -3,7 +3,10 @@ guid: 70b175a1e9155456e8f6d9b2c749085f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - target: {instanceID: 0}
+  - player: {instanceID: 0}
+  - gameplaySong: {fileID: 8300000, guid: f21cc4edfec6c471ea8d5d36e94df2ce, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

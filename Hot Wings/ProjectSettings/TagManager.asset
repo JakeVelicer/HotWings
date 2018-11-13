@@ -28,6 +28,8 @@ TagManager:
   - healthPepper
   - speedPepper
   - buffPepper
+  - IceBlock
+  - Checker
   layers:
   - Default
   - TransparentFX

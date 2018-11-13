@@ -557,6 +557,10 @@ MonoBehaviour:
   playerEarth: {fileID: 8300000, guid: c50f1153d735341e8b76c8f0ca706ccd, type: 3}
   playerWind: {fileID: 8300000, guid: 2fefdd0d8858b478aaf4ddd170425f24, type: 3}
   playerBuff: {fileID: 8300000, guid: d79c1fb67dc5c4ff28ccc72102d48907, type: 3}
+  playerDash: {fileID: 8300000, guid: 90db93abe013a4175a2765922f6ec99f, type: 3}
+  playerHeal: {fileID: 8300000, guid: 4f9566aca3c2b4eb3b56f8e5c4db729c, type: 3}
+  pepperCollect: {fileID: 8300000, guid: 4a5058eefa32b4dcc85fbc4586584859, type: 3}
+  eggDrop: {fileID: 8300000, guid: 8db09ac713d224026ac0bb5d523745cc, type: 3}
   playerHit: {fileID: 8300000, guid: d933d60633ec840bfb726221f043cdac, type: 3}
   playerDeath: {fileID: 8300000, guid: e63587fc128e24d4887a5e0569afc81f, type: 3}
   eggFire: {fileID: 1362318275178038, guid: fe3c480fc7d014b2fa94b8d7868adbe9, type: 2}
