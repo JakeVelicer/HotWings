@@ -131,8 +131,10 @@ public class AlienSpawner : MonoBehaviour {
 		for (int i = 0; i < EnemiesToSpawn; i++) {
 			GameObject shot = Instantiate(ChosenAlien, transform.position + new Vector3 (0, 0, 0),
 			Quaternion.identity) as GameObject;
-			shot.GetComponent<BasicEnemyControls>().EnemyHealth =
-			shot.GetComponent<BasicEnemyControls>().EnemyHealth * 1.2f;
+			if (Controller.WaveCount > 5) {
+				shot.GetComponent<BasicEnemyControls>().EnemyHealth =
+				shot.GetComponent<BasicEnemyControls>().EnemyHealth * 1.2f;
+			}
 			//shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             yield return new WaitForSeconds(1);
         }

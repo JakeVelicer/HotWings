@@ -23,7 +23,7 @@ public class EnemyDamageValues : MonoBehaviour {
 		if (Enemy.AlienType == 1) {
 			FireDamage = 15;
 			WaterDamage = 8;
-			ElectricDamage = 5;
+			ElectricDamage = 7;
 			IceDamage = 12;
 			EarthDamage = 100;
 			WindDamage = 3;
