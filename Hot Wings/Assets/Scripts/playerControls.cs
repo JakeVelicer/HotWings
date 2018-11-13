@@ -523,19 +523,6 @@ public class playerControls : MonoBehaviour
                 Destroy(collider.gameObject);
             }
         }
-        if (collider.gameObject.tag == "enemyFist") {
-            if (!isImmune) {
-                if (!playerSounds.isPlaying)
-                {
-                    playerSounds.clip = playerHit;
-                    playerSounds.loop = false;
-                    playerSounds.Play();
-                }
-                isImmune = true;
-                health -= 3;
-                StartCoroutine(iFrames());
-            }
-        }
         if (collider.gameObject.tag == "enemyShotT1") {
             if (!isImmune) {
                 if (!playerSounds.isPlaying)
@@ -558,20 +545,7 @@ public class playerControls : MonoBehaviour
                     playerSounds.Play();
                 }
                 isImmune = true;
-                health -= 5;
-                StartCoroutine(iFrames());
-            }
-        }
-        if (collider.gameObject.tag == "enemyShotT3") {
-            if (!isImmune) {
-                if (!playerSounds.isPlaying)
-                {
-                    playerSounds.clip = playerHit;
-                    playerSounds.loop = false;
-                    playerSounds.Play();
-                }
-                isImmune = true;
-                health -= 20;
+                health -= 10;
                 StartCoroutine(iFrames());
             }
         }
@@ -585,6 +559,19 @@ public class playerControls : MonoBehaviour
                 }
                 isImmune = true;
                 health -= 10;
+                StartCoroutine(iFrames());
+            }
+        }
+        if (collider.gameObject.tag == "enemyFist") {
+            if (!isImmune) {
+                if (!playerSounds.isPlaying)
+                {
+                    playerSounds.clip = playerHit;
+                    playerSounds.loop = false;
+                    playerSounds.Play();
+                }
+                isImmune = true;
+                health -= 7;
                 StartCoroutine(iFrames());
             }
         }

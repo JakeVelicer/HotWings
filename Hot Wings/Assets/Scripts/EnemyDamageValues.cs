@@ -19,48 +19,53 @@ public class EnemyDamageValues : MonoBehaviour {
 
 		Enemy = gameObject.GetComponent<BasicEnemyControls> ();
 
+		// Roly Poly Alien
 		if (Enemy.AlienType == 1) {
-			FireDamage = 10;
+			FireDamage = 15;
 			WaterDamage = 8;
-			ElectricDamage = 10;
+			ElectricDamage = 5;
 			IceDamage = 12;
-			EarthDamage = 8;
-			WindDamage = 5;
-			JackedDamage = 30;
+			EarthDamage = 100;
+			WindDamage = 3;
+			JackedDamage = 20;
 		}
+		// Blob Alien
 		if (Enemy.AlienType == 2) {
 			FireDamage = 10;
-			WaterDamage = 25;
-			ElectricDamage = 10;
-			IceDamage = 12;
-			EarthDamage = 8;
+			WaterDamage = 20;
+			ElectricDamage = 15;
+			IceDamage = 5;
+			EarthDamage = 100;
 			WindDamage = 5;
-			JackedDamage = 30;
+			JackedDamage = 20;
 		}
+		// Beefy Alien
 		if (Enemy.AlienType == 3) {
 			FireDamage = 10;
-			WaterDamage = 8;
-			ElectricDamage = 10;
-			IceDamage = 12;
-			EarthDamage = 8;
-			WindDamage = 5;
-			JackedDamage = 30;
-		}
-		if (Enemy.AlienType == 4) {
-			FireDamage = 2;
 			WaterDamage = 5;
 			ElectricDamage = 10;
-			IceDamage = 25;
-			EarthDamage = 30;
-			WindDamage = 2;
-			JackedDamage = 30;
+			IceDamage = 20;
+			EarthDamage = 100;
+			WindDamage = 5;
+			JackedDamage = 20;
 		}
+		// Armored Alien
+		if (Enemy.AlienType == 4) {
+			FireDamage = 8;
+			WaterDamage = 4;
+			ElectricDamage = 25;
+			IceDamage = 20;
+			EarthDamage = 100;
+			WindDamage = 10;
+			JackedDamage = 20;
+		}
+		// Saucer
 		if (Enemy.AlienType == 5) {
-			FireDamage = 10;
-			WaterDamage = 10;
+			FireDamage = 5;
+			WaterDamage = 5;
 			ElectricDamage = 10;
 			IceDamage = 10;
-			EarthDamage = 10;
+			EarthDamage = 100;
 			WindDamage = 30;
 			JackedDamage = 30;
 		}
