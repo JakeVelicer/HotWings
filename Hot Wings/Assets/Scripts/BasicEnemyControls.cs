@@ -523,6 +523,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.tag == "Earth") {
 			EnemyHealth -= DamageValues.EarthDamage;
 		}
+		else if (collision.gameObject.tag == "Speed") {
+			EnemyHealth -= DamageValues.SpeedDamage;
+		}
 		else if (collision.gameObject.name == "AnchorArms") {
 			EnemyHealth -= DamageValues.JackedDamage;
 		}

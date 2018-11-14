@@ -30,6 +30,7 @@ TagManager:
   - buffPepper
   - IceBlock
   - Checker
+  - Speed
   layers:
   - Default
   - TransparentFX

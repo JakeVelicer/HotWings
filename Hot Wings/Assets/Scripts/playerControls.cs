@@ -37,6 +37,7 @@ public class playerControls : MonoBehaviour
     public bool isImmune = false;
     public bool facingRight = true;
 
+    public GameObject DashCollider;
     public GameObject playerFireShot;
     public GameObject playerWaterShot;
     public GameObject playerIceShot;
@@ -375,6 +376,7 @@ public class playerControls : MonoBehaviour
 
     private IEnumerator SpeedDash()
     {
+        DashCollider.GetComponent<Collider2D>().enabled = true;
         if (facingRight) {
             DashDirection = 1;
         }
@@ -392,6 +394,7 @@ public class playerControls : MonoBehaviour
             }
             else if (i >= 0.9f) {
                 yield return new WaitForSeconds(0.2f);
+                DashCollider.GetComponent<Collider2D>().enabled = false;
                 PlayerRigidbody.velocity = Vector2.zero;
             }
         }

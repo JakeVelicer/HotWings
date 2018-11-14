@@ -9,6 +9,7 @@ public class EnemyDamageValues : MonoBehaviour {
 	[HideInInspector] public float FireDamage;
 	[HideInInspector] public float WaterDamage;
 	[HideInInspector] public float ElectricDamage;
+	[HideInInspector] public float SpeedDamage;
 	[HideInInspector] public float IceDamage;
 	[HideInInspector] public float EarthDamage;
 	[HideInInspector] public float WindDamage;
@@ -24,6 +25,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			FireDamage = 15;
 			WaterDamage = 8;
 			ElectricDamage = 7;
+			SpeedDamage = 8;
 			IceDamage = 12;
 			EarthDamage = 100;
 			WindDamage = 3;
@@ -34,6 +36,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			FireDamage = 10;
 			WaterDamage = 20;
 			ElectricDamage = 15;
+			SpeedDamage = 7;
 			IceDamage = 5;
 			EarthDamage = 100;
 			WindDamage = 5;
@@ -44,6 +47,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			FireDamage = 10;
 			WaterDamage = 5;
 			ElectricDamage = 10;
+			SpeedDamage = 6;
 			IceDamage = 20;
 			EarthDamage = 100;
 			WindDamage = 5;
@@ -54,6 +58,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			FireDamage = 8;
 			WaterDamage = 4;
 			ElectricDamage = 25;
+			SpeedDamage = 5;
 			IceDamage = 20;
 			EarthDamage = 100;
 			WindDamage = 10;
@@ -64,6 +69,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			FireDamage = 5;
 			WaterDamage = 5;
 			ElectricDamage = 10;
+			SpeedDamage = 4;
 			IceDamage = 10;
 			EarthDamage = 100;
 			WindDamage = 30;
