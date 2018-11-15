@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50391629358955450}
   m_Layer: 0
   m_Name: IcePepper
-  m_TagString: icePepper
+  m_TagString: Pepper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

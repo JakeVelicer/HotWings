@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 50836957117905542}
   m_Layer: 0
   m_Name: FirePepper
-  m_TagString: firePepper
+  m_TagString: Pepper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

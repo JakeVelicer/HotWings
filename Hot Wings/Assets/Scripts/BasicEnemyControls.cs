@@ -182,8 +182,7 @@ public class BasicEnemyControls : MonoBehaviour {
 							StartCoroutine(shootWait());
 							break;
 						// Beefy Alien
-						case 3: 
-
+						case 3:
 							CanAttack = false;
 							anim.SetInteger("Near", 1);
 							StartCoroutine(JumpSmashAttack());
@@ -194,11 +193,9 @@ public class BasicEnemyControls : MonoBehaviour {
 							break;
 						// Armored Alien
 						case 4:
-                            anim.SetInteger("Near", 1);
                             CanAttack = false;
-                            StartCoroutine(GunAnti());
-                            //GunAttack();
-							StartCoroutine(shootWait());
+                            anim.SetInteger("Near", 1);
+                            StartCoroutine(GunAttack());
 							break;
 					}
 				}
@@ -261,9 +258,8 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		for (int i = 0; i < OtherEnemies.Length; i++) {
 
-			Vector3 forward = transform.TransformDirection(Vector3.forward);
 			Vector3 toTarget = (OtherEnemies[i].transform.position - transform.position);
-
+			
 			if (Vector3.Dot(toTarget, transform.right) < 0) {
 				TouchStop = false;
 			} else if (Vector3.Dot(toTarget, transform.right) > 0) {
@@ -274,14 +270,10 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	}
 
-    private IEnumerator GunAnti() {
+    // Instantiates a chosen projectile in the scene and propels it forward like a bullet
+    private IEnumerator GunAttack () {
 
 		yield return new WaitForSeconds(0.6f);
-        GunAttack();
-    }
-
-    // Instantiates a chosen projectile in the scene and propels it forward like a bullet
-    void GunAttack () {
 
         if (AlienType == 1) {
             enemySounds.clip = enemyPistol;
@@ -309,6 +301,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
+		StartCoroutine(shootWait());
 	
 	}
 

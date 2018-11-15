@@ -15,7 +15,8 @@ public class GameController : MonoBehaviour
     public int WaveCount;
     public Text inventoryDisplay;
     public int score;
-    public GameObject player;
+    private GameObject player;
+    private GameObject[] PeppersInScene;
     public System.Action SpawnTheEnemies;
     public System.Action SpawnPeppers;
     public static System.Action<int> OnWaveIncremented;
@@ -52,13 +53,20 @@ public class GameController : MonoBehaviour
         if (EnemiesLeft <= 0 && !GoSpawn)
         {
             GoSpawn = true;
-            StartCoroutine("Count");
+            StartCoroutine(Count());
             SpawnEnemies();
         }
         else if (EnemiesLeft > 0)
         {
             GoSpawn = false;
         }
+
+        PeppersInScene = GameObject.FindGameObjectsWithTag("Pepper");
+		if (PeppersInScene.Length == 0) {
+            if (SpawnPeppers != null) {
+                SpawnPeppers();
+            }
+		}
 
     }
 

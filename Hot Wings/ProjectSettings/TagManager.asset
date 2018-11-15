@@ -19,18 +19,10 @@ TagManager:
   - Ice
   - Earth
   - Wind
-  - firePepper
-  - waterPepper
-  - icePepper
-  - earthPepper
-  - windPepper
-  - shockPepper
-  - healthPepper
-  - speedPepper
-  - buffPepper
   - IceBlock
   - Checker
   - Speed
+  - Pepper
   layers:
   - Default
   - TransparentFX

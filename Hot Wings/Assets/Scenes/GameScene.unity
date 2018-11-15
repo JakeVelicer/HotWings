@@ -6501,28 +6501,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
-          type: 2}
-        m_MethodName: Resume
-        m_Mode: 1
+      - m_Target: {fileID: 264278834}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 557051718}
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -7693,11 +7681,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4800849916176994, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7755,6 +7738,11 @@ Prefab:
       propertyPath: backgrounds.Array.data[2]
       value: 
       objectReference: {fileID: 1713664618}
+    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: backgrounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 852133744}
     - target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: TutorialCanvas
@@ -7785,11 +7773,6 @@ Prefab:
       propertyPath: Waves.Array.data[4]
       value: 
       objectReference: {fileID: 135550442}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[3]
-      value: 
-      objectReference: {fileID: 852133744}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
   m_IsPrefabAsset: 0

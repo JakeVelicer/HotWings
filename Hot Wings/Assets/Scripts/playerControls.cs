@@ -7,8 +7,6 @@ public class playerControls : MonoBehaviour
 {
 
     Animator anim;
-
-    private EnemyDamageValues DamageEffects;
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
@@ -484,40 +482,40 @@ public class playerControls : MonoBehaviour
     {
         if (pepperIndexA == 0 || pepperIndexB == 0) {
 
-            if (collider.gameObject.tag == "firePepper") {
+            if (collider.gameObject.name == "FirePepper(Clone)") {
                 PepperCollision(1, "firePepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "waterPepper") {
+            if (collider.gameObject.name == "WaterPepper(Clone)") {
                 PepperCollision(2, "waterPepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "icePepper") {
+            if (collider.gameObject.name == "IcePepper(Clone)") {
                 PepperCollision(3, "icePepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "shockPepper") {
+            if (collider.gameObject.name == "ShockPepper(Clone)") {
                 PepperCollision(4, "shockPepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "earthPepper") {
+            if (collider.gameObject.name == "EarthPepper(Clone)") {
                 PepperCollision(5, "earthPepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "windPepper") {
+            if (collider.gameObject.name == "WindPepper(Clone)") {
                 PepperCollision(6, "windPepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "buffPepper") {
+            if (collider.gameObject.name == "BuffPepper(Clone)") {
                 BuffTimer = 20;
                 PepperCollision(7, "buffPepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "speedPepper") {
+            if (collider.gameObject.name == "SpeedPepper(Clone)") {
                 PepperCollision(8, "speedPepper");
                 Destroy(collider.gameObject);
             }
-            if (collider.gameObject.tag == "healthPepper") {
+            if (collider.gameObject.name == "HealthPepper(Clone)") {
                 HealthTimer = 5;
                 PepperCollision(9, "healthPepper");
                 Destroy(collider.gameObject);
@@ -604,7 +602,7 @@ public class playerControls : MonoBehaviour
     }
 
     void SoundCall (AudioClip clip) {
-        
+
         playerSounds.clip = clip;
         playerSounds.loop = false;
         playerSounds.loop |= (clip == playerFire || clip == playerWater);
