@@ -12,6 +12,8 @@ public class BasicEnemyControls : MonoBehaviour {
 	private DeathRayAnimation BeamAnimation;
     private Animator anim;
 	private System.Action DestroyEnemySequence;
+	public System.Action OnPunch;
+	private System.Action ActivateDeathBeam;
 
 	public float EnemyHealth;
     public int enemyValue;
@@ -36,11 +38,10 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject BombObject;
 	public GameObject IceBlock;
 	public GameObject SaucerRay;
+	public GameObject[] OtherEnemies;
 	private Collider2D AttackCollider;
 	private Collider2D Collider;
 	public int AlienType;
-	public System.Action OnPunch;
-	private System.Action ActivateDeathBeam;
 
     private AudioSource enemySounds;
     public AudioClip enemyPistol;
@@ -256,63 +257,31 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	void TrackOtherEnemies () {
 
-		Vector2 vector = Vector2.right;
-		if (ToTheRight == true) {
-			vector = Vector2.right;
-		}
-		else if (ToTheRight == false) {
-			vector = Vector2.left;
-		}
+		OtherEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, vector , 5);
+		for (int i = 0; i < OtherEnemies.Length; i++) {
 
-		if (hit.collider != null && hit.collider.tag == ("Enemy")) {
-			TouchStop = false;
-			Debug.Log("Called");
-		}
-		else {
-			TouchStop = true;
+			Vector3 forward = transform.TransformDirection(Vector3.forward);
+			Vector3 toTarget = (OtherEnemies[i].transform.position - transform.position);
+
+			if (Vector3.Dot(toTarget, transform.right) < 0) {
+				TouchStop = false;
+			} else if (Vector3.Dot(toTarget, transform.right) > 0) {
+				TouchStop = true;
+			}
+
 		}
 
 	}
 
-    private IEnumerator GunAnti()
-    { yield return new WaitForSeconds(.6f);
-        GunAttack();
-        /*
-        if (AlienType == 1)
-        {
-            enemySounds.clip = enemyPistol;
-            enemySounds.loop = false;
-        }
-        if (AlienType == 4)
-        {
-            enemySounds.clip = enemyRapidFire;
-            enemySounds.loop = true;
-        } 
+    private IEnumerator GunAnti() {
 
-        if (ToTheRight == true)
-        {
-           // yield return new WaitForSeconds(.2f);
-            enemySounds.Play();
-            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(0.86f, 0.35f, 0),
-            Quaternion.identity) as GameObject;
-            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
-        }
-        else if (ToTheRight == false)
-        {
-            if (soundPlaying == false)
-            {
-                enemySounds.Play();
-            }
-            soundPlaying = true;
-            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(-0.86f, 0.35f, 0),
-            Quaternion.identity) as GameObject;
-            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
-        }*/
+		yield return new WaitForSeconds(0.6f);
+        GunAttack();
     }
-        // Instantiates a chosen projectile in the scene and propels it forward like a bullet
-        void GunAttack () {
+
+    // Instantiates a chosen projectile in the scene and propels it forward like a bullet
+    void GunAttack () {
 
         if (AlienType == 1) {
             enemySounds.clip = enemyPistol;
@@ -364,18 +333,14 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Propels this enemy toward the player
 	private IEnumerator JumpSmashAttack () {
         yield return new WaitForSeconds(.2f);
-        // anim.SetInteger("Near", 2);
         gameObject.GetComponent<Rigidbody2D>().AddForce
-		(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
+			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
 		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 2500);
-        //anim.SetInteger("Near", 2); 
-        //anim.SetInteger("Near", 2);
         yield return new WaitForSeconds(.5f);
         anim.SetInteger("Near", 2);
         yield return new WaitForSeconds(.3f);
         AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
-
         yield return new WaitForSeconds(0.4f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
@@ -434,8 +399,8 @@ public class BasicEnemyControls : MonoBehaviour {
 
     private IEnumerator shootWait()
 	{
-       // anim.SetInteger("Near", 0);
-        yield return new WaitForSeconds(CoolDown);
+    	// anim.SetInteger("Near", 0);
+    	yield return new WaitForSeconds(CoolDown);
         CanAttack = true;
     }
 

@@ -37,7 +37,7 @@ public class playerControls : MonoBehaviour
     public bool isImmune = false;
     public bool facingRight = true;
 
-    public GameObject DashCollider;
+    public GameObject playerDashCollider;
     public GameObject playerFireShot;
     public GameObject playerWaterShot;
     public GameObject playerIceShot;
@@ -88,18 +88,13 @@ public class playerControls : MonoBehaviour
         healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         healthDisplay.text = "Health: " + health;
         playerSounds = gameObject.GetComponent<AudioSource>();
-        StreamAnimFire = transform.GetChild(0).GetComponent<StreamAttackAnimationFire>();
-        StreamAnimWater = transform.GetChild(1).GetComponent<StreamAttackAnimationWater>();
+        StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
+        StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
         moveSpeed = Speed;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-
-
-        //float move = Input.GetAxis("Horizontal");
-        //anim.SetFloat("Speed", moveSpeed);
+    void Update() {
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -146,8 +141,8 @@ public class playerControls : MonoBehaviour
         EggBombs();
     }
 
-    void PepAttacks()
-    {
+    void PepAttacks() {
+
         if (canShoot)
         {
             GameObject shot;
@@ -309,7 +304,6 @@ public class playerControls : MonoBehaviour
                 StreamAnimFire.GetComponent<SpriteRenderer>().enabled = false;
             }
 
-
             int tempIndex = pepperIndexA;
             string tempPepper = pepperA;
 
@@ -322,8 +316,8 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    void EggBombs()
-    {
+    void EggBombs() {
+
         GameObject shot;
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.RightAlt))
@@ -374,9 +368,9 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    private IEnumerator SpeedDash()
-    {
-        DashCollider.GetComponent<Collider2D>().enabled = true;
+    private IEnumerator SpeedDash() {
+
+        playerDashCollider.GetComponent<Collider2D>().enabled = true;
         if (facingRight) {
             DashDirection = 1;
         }
@@ -394,15 +388,15 @@ public class playerControls : MonoBehaviour
             }
             else if (i >= 0.9f) {
                 yield return new WaitForSeconds(0.2f);
-                DashCollider.GetComponent<Collider2D>().enabled = false;
+                playerDashCollider.GetComponent<Collider2D>().enabled = false;
                 PlayerRigidbody.velocity = Vector2.zero;
             }
         }
         StartCoroutine(shootWait());
     }
 
-    private IEnumerator IceBurst()
-    {
+    private IEnumerator IceBurst() {
+
         for (int i = 0; i < 3; i++) {
             GameObject shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
 			Quaternion.identity) as GameObject;
@@ -430,8 +424,8 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    private IEnumerator shootWait()
-    {
+    private IEnumerator shootWait() {
+        
         //Debug.Log("Counting down...");
         if (pepperIndexA == 1) {
             //yield return new WaitForSeconds(0.5f);
@@ -587,7 +581,8 @@ public class playerControls : MonoBehaviour
         }
     }
     
-    void OnTriggerExit2D(Collider2D collider) {
+    void OnTriggerExit2D(Collider2D collider)
+    {
         if (collider.gameObject.tag == "enemyDeathRay") {
             //SaucerColliding = false;
             Debug.Log("Left Collider");
@@ -609,6 +604,7 @@ public class playerControls : MonoBehaviour
     }
 
     void SoundCall (AudioClip clip) {
+        
         playerSounds.clip = clip;
         playerSounds.loop = false;
         playerSounds.loop |= (clip == playerFire || clip == playerWater);

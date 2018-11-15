@@ -584,7 +584,7 @@ MonoBehaviour:
   health: 300
   isImmune: 0
   facingRight: 0
-  DashCollider: {fileID: 1195049990912626}
+  playerDashCollider: {fileID: 1195049990912626}
   playerFireShot: {fileID: 1330926032680734}
   playerWaterShot: {fileID: 1634015094940242}
   playerIceShot: {fileID: 1250827892930008, guid: 37ca082d042964ff3bb2b0e9e297b35a,
