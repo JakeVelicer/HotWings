@@ -75,7 +75,6 @@ public class playerControls : MonoBehaviour
     public GameObject eggEarth;
     public GameObject eggWind;
     public GameObject shitBrick;
-
     public Sprite[] IceSprites;
 
     // Use this for initialization
@@ -120,8 +119,6 @@ public class playerControls : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)
         || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
-            // anim. = 0f;
-            // anim.SetTrigger(idleHash);
             anim.SetInteger("Speed", 0);
         }
         if (pepperIndexA != 1) {
@@ -483,42 +480,60 @@ public class playerControls : MonoBehaviour
         if (pepperIndexA == 0 || pepperIndexB == 0) {
 
             if (collider.gameObject.name == "FirePepper(Clone)") {
-                PepperCollision(1, "firePepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 1 && pepperIndexB != 1) {
+                    PepperCollision(1, "firePepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "WaterPepper(Clone)") {
-                PepperCollision(2, "waterPepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 2 && pepperIndexB != 2) {
+                    PepperCollision(2, "waterPepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "IcePepper(Clone)") {
-                PepperCollision(3, "icePepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 3 && pepperIndexB != 3) {
+                    PepperCollision(3, "icePepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "ShockPepper(Clone)") {
-                PepperCollision(4, "shockPepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 4 && pepperIndexB != 4) {
+                    PepperCollision(4, "shockPepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "EarthPepper(Clone)") {
-                PepperCollision(5, "earthPepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 5 && pepperIndexB != 5) {
+                    PepperCollision(5, "earthPepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "WindPepper(Clone)") {
-                PepperCollision(6, "windPepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 6 && pepperIndexB != 6) {
+                    PepperCollision(6, "windPepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "BuffPepper(Clone)") {
-                BuffTimer = 20;
-                PepperCollision(7, "buffPepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 7 && pepperIndexB != 7) {
+                    BuffTimer = 20;
+                    PepperCollision(7, "buffPepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "SpeedPepper(Clone)") {
-                PepperCollision(8, "speedPepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 8 && pepperIndexB != 8) {
+                    PepperCollision(8, "speedPepper");
+                    Destroy(collider.gameObject);
+                }
             }
             if (collider.gameObject.name == "HealthPepper(Clone)") {
-                HealthTimer = 5;
-                PepperCollision(9, "healthPepper");
-                Destroy(collider.gameObject);
+                if (pepperIndexA != 9 && pepperIndexB != 9) {
+                    HealthTimer = 5;
+                    PepperCollision(9, "healthPepper");
+                    Destroy(collider.gameObject);
+                }
             }
         }
         if (collider.gameObject.tag == "enemyShotT1") {
