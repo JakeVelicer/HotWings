@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
 
-    public GameObject[] SaucerObject;
     private GameObject hazard;
     private Text waveDisplay;
     public Text scoreDisplay;
@@ -46,21 +45,18 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        inventoryDisplay.text = "Inventory:" + "\n" + player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
-
+        inventoryDisplay.text = "Inventory:" + "\n" + player.GetComponent<playerControls>().
+            pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
-        if (EnemiesLeft <= 0 && !GoSpawn)
-        {
+
+        // New Wave
+        if (EnemiesLeft <= 0 && !GoSpawn) {
             GoSpawn = true;
-            StartCoroutine(Count());
-            SpawnEnemies();
-        }
-        else if (EnemiesLeft > 0)
-        {
-            GoSpawn = false;
+            StartCoroutine(NextWave());
         }
 
+        // Respawns Peppers
         PeppersInScene = GameObject.FindGameObjectsWithTag("Pepper");
 		if (PeppersInScene.Length == 0) {
             if (SpawnPeppers != null) {
@@ -70,31 +66,35 @@ public class GameController : MonoBehaviour
 
     }
 
-    IEnumerator Count()
+    IEnumerator NextWave()
     {
-        yield return new WaitForSeconds(0.1f);
+        if (WaveCount != 0) {
+            yield return new WaitForSeconds(4f);
+        }
         WaveCount += 1;
         if (OnWaveIncremented != null) {
             OnWaveIncremented(WaveCount);
         }
-        if (SpawnTheEnemies != null) {
-            SpawnTheEnemies();
-        }
         if (SpawnPeppers != null) {
             SpawnPeppers();
         }
+        StartCoroutine(SpawnerAnims());
+        yield return new WaitForSeconds(6f);
+        if (SpawnTheEnemies != null) {
+            SpawnTheEnemies();
+        }
     }
 
-    void SpawnEnemies()
-    {
-        
-        GameObject Saucer;
-        Saucer = Instantiate(SaucerObject[0], new Vector3 (-8.3f, 5, 0), Quaternion.identity) as GameObject;
-        Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground1";
-        Saucer = Instantiate(SaucerObject[1], new Vector3 (-44.6f, 5, 0), Quaternion.identity) as GameObject;
-        Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground1";
-        Saucer = Instantiate(SaucerObject[2], new Vector3 (27.8f, 5, 0), Quaternion.identity) as GameObject;
-        Saucer.GetComponent<SpriteRenderer>().sortingLayerName = "Midground1";
-    
+    private IEnumerator SpawnerAnims() {
+
+        yield return new WaitForSeconds(4.5f);
+
+        GameObject.Find("AlienSpawner1").GetComponent<Animator>().Play("SwoopSpawning1");
+        if (WaveCount >=2) {
+            GameObject.Find("AlienSpawner2").GetComponent<Animator>().Play("SwoopSpawning2");
+        }
+        if (WaveCount >=3) {
+            GameObject.Find("AlienSpawner3").GetComponent<Animator>().Play("SwoopSpawning3");
+        }
     }
 }

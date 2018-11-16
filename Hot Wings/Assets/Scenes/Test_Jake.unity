@@ -389,48 +389,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c55e190f18ff844c98b41c5d642b5205, type: 2}
   m_IsPrefabAsset: 0
---- !u!1001 &752311060
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-      propertyPath: m_RootOrder
-      value: 20
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!4 &766717966 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4925777363362866, guid: c55e190f18ff844c98b41c5d642b5205,
@@ -474,6 +432,10 @@ Prefab:
     - target: {fileID: 4717192569889684, guid: a42b7fb5654c94c8a987ca4c387a9064, type: 2}
       propertyPath: m_RootOrder
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1957191143683904, guid: a42b7fb5654c94c8a987ca4c387a9064, type: 2}
+      propertyPath: m_Name
+      value: BuffPepper(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a42b7fb5654c94c8a987ca4c387a9064, type: 2}
@@ -569,6 +531,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 1457251003203642, guid: e0a56cb6923aa44c7b4276c70f7b0413, type: 2}
+      propertyPath: m_Name
+      value: WaterPepper(Clone)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0a56cb6923aa44c7b4276c70f7b0413, type: 2}
   m_IsPrefabAsset: 0
@@ -610,6 +576,10 @@ Prefab:
     - target: {fileID: 4256084275600770, guid: f10712301fefc4e95a227b1233a779a5, type: 2}
       propertyPath: m_RootOrder
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129920098866954, guid: f10712301fefc4e95a227b1233a779a5, type: 2}
+      propertyPath: m_Name
+      value: SpeedPepper(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f10712301fefc4e95a227b1233a779a5, type: 2}
@@ -698,6 +668,10 @@ Prefab:
     - target: {fileID: 4626748999109748, guid: 05df061579f174b919c4fe0cc02b1fa2, type: 2}
       propertyPath: m_RootOrder
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535949296278698, guid: 05df061579f174b919c4fe0cc02b1fa2, type: 2}
+      propertyPath: m_Name
+      value: WindPepper(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05df061579f174b919c4fe0cc02b1fa2, type: 2}
@@ -924,8 +898,54 @@ Prefab:
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 1115091725573784, guid: 84c16c048903e4d11926a498948acfa6, type: 2}
+      propertyPath: m_Name
+      value: EarthPepper(Clone)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84c16c048903e4d11926a498948acfa6, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1230974565
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508693116825596, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1289234105
 Prefab:
@@ -1013,6 +1033,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1848664911598782, guid: ea3c677e1845d400188311d882c800ec, type: 2}
+      propertyPath: m_Name
+      value: IcePepper(Clone)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea3c677e1845d400188311d882c800ec, type: 2}
   m_IsPrefabAsset: 0
@@ -1054,6 +1078,10 @@ Prefab:
     - target: {fileID: 4519427603804768, guid: 01c1f4a6750e040c9a8daa6a87c09633, type: 2}
       propertyPath: m_RootOrder
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611945723092240, guid: 01c1f4a6750e040c9a8daa6a87c09633, type: 2}
+      propertyPath: m_Name
+      value: ShockPepper(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01c1f4a6750e040c9a8daa6a87c09633, type: 2}
@@ -1271,7 +1299,7 @@ Transform:
   - {fileID: 2077712314}
   - {fileID: 1879382902}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1702179020
 Prefab:
@@ -1417,6 +1445,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1305498700976076, guid: 3c2d42a85f4ec4d3da4979b44782e842, type: 2}
+      propertyPath: m_Name
+      value: HealthPepper(Clone)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c2d42a85f4ec4d3da4979b44782e842, type: 2}
   m_IsPrefabAsset: 0
@@ -1458,6 +1490,10 @@ Prefab:
     - target: {fileID: 4392651202424270, guid: 65c0c304f93444f0ca8bbc034a72dfbb, type: 2}
       propertyPath: m_RootOrder
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943175805063150, guid: 65c0c304f93444f0ca8bbc034a72dfbb, type: 2}
+      propertyPath: m_Name
+      value: FirePepper(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65c0c304f93444f0ca8bbc034a72dfbb, type: 2}

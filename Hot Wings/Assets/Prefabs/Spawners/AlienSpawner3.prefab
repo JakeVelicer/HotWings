@@ -9,62 +9,82 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1026707281357506}
+  m_RootGameObject: {fileID: 1512209396893224}
   m_IsPrefabAsset: 1
---- !u!1 &1026707281357506
+--- !u!1 &1512209396893224
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4583461916205116}
-  - component: {fileID: 212768058861599332}
-  - component: {fileID: 114674729500152334}
+  - component: {fileID: 4007967472515162}
+  - component: {fileID: 212530977303087820}
+  - component: {fileID: 114398547506015748}
+  - component: {fileID: 95775613290306008}
   m_Layer: 0
-  m_Name: AlienSpawner 3
+  m_Name: AlienSpawner3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4583461916205116
+--- !u!4 &4007967472515162
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1026707281357506}
+  m_GameObject: {fileID: 1512209396893224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 30, y: 15, z: 0}
   m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114674729500152334
+--- !u!95 &95775613290306008
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1512209396893224}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6df6aca487bd540328f3448cc243346f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114398547506015748
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1026707281357506}
+  m_GameObject: {fileID: 1512209396893224}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc0a41d1d4986471abf68e9a67afcd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SaucerNumber: 3
+  EnemiesToSpawn: 5
   MotherShip: {fileID: 1911000877547620, guid: e53ba94efc0b34241814698d4af376eb, type: 2}
   Aliens:
   - {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
   - {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
   - {fileID: 1543632953322894, guid: 072758c31bfe44dba865b1f2f83a5b9f, type: 2}
   - {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
---- !u!212 &212768058861599332
+--- !u!212 &212530977303087820
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1026707281357506}
+  m_GameObject: {fileID: 1512209396893224}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -91,8 +111,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 889142871
-  m_SortingLayer: 2
+  m_SortingLayerID: -55276611
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b66b1e41e45f344ab91573d504c5b947, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

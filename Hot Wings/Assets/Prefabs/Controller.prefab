@@ -88,10 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d315bd91c42c4cb698009c28f697c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SaucerObject:
-  - {fileID: 1246866687860266, guid: 0c3aebacc626045d2895a3810c89d097, type: 2}
-  - {fileID: 1078093335936488, guid: 6c1e4c25840434f669bbcde65d096bc3, type: 2}
-  - {fileID: 1026707281357506, guid: e614cb8415e454dd69ee0b04b7cfb3b1, type: 2}
   scoreDisplay: {fileID: 0}
   EnemiesLeft: 0
   GoSpawn: 0
