@@ -125,7 +125,7 @@ public class playerControls : MonoBehaviour
             playerFireShot.GetComponent<Collider2D>().enabled = false;
             //playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
         }
-        if (pepperIndexA != 2) {
+        if (pepperIndexA != 3) {
             playerWaterShot.GetComponent<Collider2D>().enabled = false;
             //playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
         }
@@ -158,28 +158,7 @@ public class playerControls : MonoBehaviour
                         playerSounds.Stop();
                     }
                     break;
-                case 2: // Water Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space)) {
-                        SoundCall(playerWater);
-                        playerWaterShot.GetComponent<Collider2D>().enabled = true;
-                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
-                        StreamAnimWater.StartBeam();
-                    }
-                    if (Input.GetKeyUp(KeyCode.Space)) {
-                        canShoot = false;
-                        StreamAnimWater.GoToIdle();
-                        StartCoroutine(shootWait());
-                        playerSounds.Stop();
-                    }
-                    break;
-                case 3: // CALLS Ice Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space)) {
-                        SoundCall(playerIce);
-                        canShoot = false;
-                        StartCoroutine(IceBurst());
-                    }
-                    break;
-                case 4: // Electric Shock Pepper Power Attack
+                case 2: // Electric Shock Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
                     {
                         ChargeTime = ChargeTime + Time.deltaTime;
@@ -217,16 +196,34 @@ public class playerControls : MonoBehaviour
                         StartCoroutine(shootWait());
                     }
                     break;
-                case 5: // Earth Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-                        SoundCall(playerEarth);
+                case 3: // Water Pepper Power Attack
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        SoundCall(playerWater);
+                        playerWaterShot.GetComponent<Collider2D>().enabled = true;
+                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
+                        StreamAnimWater.StartBeam();
+                    }
+                    if (Input.GetKeyUp(KeyCode.Space)) {
                         canShoot = false;
-                        shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
-			            Quaternion.identity) as GameObject;
-                        //shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        ConsumableOver();
+                        StreamAnimWater.GoToIdle();
                         StartCoroutine(shootWait());
+                        playerSounds.Stop();
+                    }
+                    break;
+                case 4: // CALLS Ice Pepper Power Attack
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        SoundCall(playerIce);
+                        canShoot = false;
+                        StartCoroutine(IceBurst());
+                    }
+                    break;
+                case 5: // CALLS Speed Dash Pepper Power Attack
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        SoundCall(playerDash);
+                        canShoot = false;
+                        if (DashDirection == 0) {
+                            StartCoroutine(SpeedDash());
+                        }
                     }
                     break;
                 case 6: // Wind Pepper Power Attack
@@ -251,7 +248,18 @@ public class playerControls : MonoBehaviour
                         StartCoroutine(shootWait());
                     }
                     break;
-                case 7: // Buff Arms Pepper Power Attack
+                case 7: // CALLS Health Pepper Power heal
+                    if (Input.GetKeyDown(KeyCode.Space) && Healing == false) {
+                        SoundCall(playerHeal);
+                        Healing = true;
+                        StartCoroutine(HealThePlayer());
+                    }
+                    if (HealthTimer <= 0) {
+                        Healing = false;
+                        ConsumableOver();
+                    }
+                    break;
+                case 8: // Buff Arms Pepper Power Attack
                     playerBuffShot.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         //canShoot = false;
@@ -266,24 +274,16 @@ public class playerControls : MonoBehaviour
                         ConsumableOver();
                     }
                     break;
-                case 8: // CALLS Speed Dash Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space)) {
-                        SoundCall(playerDash);
+                case 9: // Earth Pepper Power Attack
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        SoundCall(playerEarth);
                         canShoot = false;
-                        if (DashDirection == 0) {
-                            StartCoroutine(SpeedDash());
-                        }
-                    }
-                    break;
-                case 9: // CALLS Health Pepper Power heal
-                    if (Input.GetKeyDown(KeyCode.Space) && Healing == false) {
-                        SoundCall(playerHeal);
-                        Healing = true;
-                        StartCoroutine(HealThePlayer());
-                    }
-                    if (HealthTimer <= 0) {
-                        Healing = false;
+                        shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
+			            Quaternion.identity) as GameObject;
+                        //shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         ConsumableOver();
+                        StartCoroutine(shootWait());
                     }
                     break;
             }
@@ -294,7 +294,7 @@ public class playerControls : MonoBehaviour
                 StreamAnimFire.GoToIdle();
                 StreamAnimWater.GetComponent<SpriteRenderer>().enabled = false;
             }
-            else if (pepperIndexA == 2 && StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+            else if (pepperIndexA == 3 && StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
                 StreamAnimWater.GoToIdle();
                 StreamAnimFire.GetComponent<SpriteRenderer>().enabled = false;
             }
@@ -326,25 +326,20 @@ public class playerControls : MonoBehaviour
                     break;
                 case 2:
                     SoundCall(eggDrop);
-                    shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
+                    shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 3:
                     SoundCall(eggDrop);
-                    shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
+                    shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 4:
                     SoundCall(eggDrop);
-                    shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
+                    shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
-                case 6:
-                    SoundCall(eggDrop);
-                    shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                    break;
-                case 8:
+                case 5:
                     SoundCall(eggDrop);
                     shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
@@ -354,6 +349,11 @@ public class playerControls : MonoBehaviour
                         else if (!facingRight) {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
+                    break;
+                case 6:
+                    SoundCall(eggDrop);
+                    shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
+			            Quaternion.identity) as GameObject;
                     break;
             }
             pepperA = pepperB;
@@ -425,17 +425,17 @@ public class playerControls : MonoBehaviour
         if (pepperIndexA == 1) {
             //yield return new WaitForSeconds(0.5f);
         }
-        else if (pepperIndexA == 2) {
+        else if (pepperIndexA == 3) {
             //yield return new WaitForSeconds(1f);
         }
-        else if (pepperIndexA == 8) {
+        else if (pepperIndexA == 5) {
             yield return new WaitForSeconds(0.3f);
             DashDirection = 0;
         }
         else if (pepperIndexA == 6) {
             yield return new WaitForSeconds(2.0f);
         }
-        else if (pepperIndexA == 4) {
+        else if (pepperIndexA == 2) {
             ChargeTime = 0;
             yield return new WaitForSeconds(0.4f);
         }
@@ -485,27 +485,27 @@ public class playerControls : MonoBehaviour
                     Destroy(collider.gameObject);
                 }
             }
-            if (collider.gameObject.name == "WaterPepper(Clone)") {
+            if (collider.gameObject.name == "ShockPepper(Clone)") {
                 if (pepperIndexA != 2 && pepperIndexB != 2) {
-                    PepperCollision(2, "waterPepper");
+                    PepperCollision(2, "shockPepper");
+                    Destroy(collider.gameObject);
+                }
+            }
+            if (collider.gameObject.name == "WaterPepper(Clone)") {
+                if (pepperIndexA != 3 && pepperIndexB != 3) {
+                    PepperCollision(3, "waterPepper");
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "IcePepper(Clone)") {
-                if (pepperIndexA != 3 && pepperIndexB != 3) {
-                    PepperCollision(3, "icePepper");
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "ShockPepper(Clone)") {
                 if (pepperIndexA != 4 && pepperIndexB != 4) {
-                    PepperCollision(4, "shockPepper");
+                    PepperCollision(4, "icePepper");
                     Destroy(collider.gameObject);
                 }
             }
-            if (collider.gameObject.name == "EarthPepper(Clone)") {
+            if (collider.gameObject.name == "SpeedPepper(Clone)") {
                 if (pepperIndexA != 5 && pepperIndexB != 5) {
-                    PepperCollision(5, "earthPepper");
+                    PepperCollision(5, "speedPepper");
                     Destroy(collider.gameObject);
                 }
             }
@@ -515,23 +515,23 @@ public class playerControls : MonoBehaviour
                     Destroy(collider.gameObject);
                 }
             }
-            if (collider.gameObject.name == "BuffPepper(Clone)") {
-                if (pepperIndexA != 7 && pepperIndexB != 7) {
-                    BuffTimer = 20;
-                    PepperCollision(7, "buffPepper");
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "SpeedPepper(Clone)") {
-                if (pepperIndexA != 8 && pepperIndexB != 8) {
-                    PepperCollision(8, "speedPepper");
-                    Destroy(collider.gameObject);
-                }
-            }
             if (collider.gameObject.name == "HealthPepper(Clone)") {
-                if (pepperIndexA != 9 && pepperIndexB != 9) {
+                if (pepperIndexA != 7 && pepperIndexB != 7) {
                     HealthTimer = 5;
-                    PepperCollision(9, "healthPepper");
+                    PepperCollision(7, "healthPepper");
+                    Destroy(collider.gameObject);
+                }
+            }
+            if (collider.gameObject.name == "BuffPepper(Clone)") {
+                if (pepperIndexA != 8 && pepperIndexB != 8) {
+                    BuffTimer = 20;
+                    PepperCollision(8, "buffPepper");
+                    Destroy(collider.gameObject);
+                }
+            }
+            if (collider.gameObject.name == "EarthPepper(Clone)") {
+                if (pepperIndexA != 9 && pepperIndexB != 9) {
+                    PepperCollision(9, "earthPepper");
                     Destroy(collider.gameObject);
                 }
             }
