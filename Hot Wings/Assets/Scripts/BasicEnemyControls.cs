@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicEnemyControls : MonoBehaviour {
 
+	// Private Objects
     private Rigidbody2D Rigidbody;
 	private Transform Target;
 	private GameController MainController;
@@ -14,7 +15,9 @@ public class BasicEnemyControls : MonoBehaviour {
 	private System.Action DestroyEnemySequence;
 	public System.Action OnPunch;
 	private System.Action ActivateDeathBeam;
+    public static System.Action<int> OnEnemyDeath;
 
+	// Number Elements
 	public float EnemyHealth;
     public int enemyValue;
     public float MovementSpeed;
@@ -26,6 +29,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private float CoolDownTimer = 0;
 	private int DashDirection;
 
+	// Boolean Elements
 	private bool CanRoam;
     private bool CanChase;
 	public bool TouchStop;
@@ -33,6 +37,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private bool CanFireRay = true;
 	public bool ToTheRight;
 
+	// Attack Objects and Elements
 	private playerControls Player;
 	public GameObject BulletObject;
 	public GameObject BombObject;
@@ -41,8 +46,11 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject[] OtherEnemies;
 	private Collider2D AttackCollider;
 	private Collider2D Collider;
+
+	// The type of enemy this is
 	public int AlienType;
 
+	// Sound Elements
     private AudioSource enemySounds;
     public AudioClip enemyPistol;
     public AudioClip enemyRapidFire;
@@ -52,23 +60,23 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip enemyDeath3;
     public AudioClip enemyDeath4;
     public AudioClip enemyDeath5;
-
-    public static System.Action<int> OnEnemyDeath;
-
     private bool soundPlaying = false;
 
     // Use this for initialization
     void Start () {
 
+		// Assignment Calls
         anim = GetComponent<Animator>();
         enemySounds = gameObject.GetComponent<AudioSource>();
-        enemySounds.loop = false;
 		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+
+		// Setting elements to their proper states
 		InvokeRepeating ("Roam", 0, 2.0f);
+		enemySounds.loop = false;
 		TouchStop = false;
 		MainController.EnemiesLeft++;
 		DestroyEnemySequence += EnemyDeathSequence;
@@ -93,6 +101,7 @@ public class BasicEnemyControls : MonoBehaviour {
         Movement();
 		ChaseTarget();
 		//TrackOtherEnemies();
+
 		if (EnemyHealth <= 0) {
 			if (DestroyEnemySequence != null) {
 				DestroyEnemySequence();
@@ -162,9 +171,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			CanRoam = false;
 			ChaseDirection();
 
-			/* The switch assigns the proper cooldown and attack phase for each enemy type.
-			The switch here should probably only have cases for the 3 different attack types, but 
-			I have not changed it yet in case a reason emerges to have them for each enemy type. */
+			// This switch assigns the proper cooldown and attack phase for each enemy type.
 			if (CanAttack) {
 				if (TouchStop) {
 					switch (AlienType) {
@@ -346,12 +353,15 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Dash attack cycle
     private IEnumerator DashAttack()
     {
+		yield return new WaitForSeconds(0.7f);
 		AttackCollider.enabled = true;
         if (ToTheRight) {
             DashDirection = 1;
+			anim.SetInteger("R_or_L", DashDirection);
         }
         else if (!ToTheRight) {
             DashDirection = 2;
+			anim.SetInteger("R_or_L", DashDirection);
         }
         for (float i = 0; i < 1; i += 0.1f) {
             if (i < 0.9f) {
@@ -374,6 +384,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	// Saucer attack cycle
 	private IEnumerator RayTime () {
+		
 		CanFireRay = false;
 		yield return new WaitForSeconds(3);
 		SaucerRay.SetActive(true);
