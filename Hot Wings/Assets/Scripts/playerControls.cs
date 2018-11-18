@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 public class playerControls : MonoBehaviour
 {
 
-    Animator anim;
+    private Animator anim;
     private Rigidbody2D PlayerRigidbody;
     public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
@@ -21,12 +21,12 @@ public class playerControls : MonoBehaviour
     private bool Healing;
     private float ChargeTime = 1;
 
+    //Pepper references
     public string pepperA = null;
     public string pepperB = null;
     public int pepperIndexA;
     public int pepperIndexB;
 
-    public Text healthDisplay;
     public int health;
     private float BuffTimer;
     private int HealthTimer;
@@ -82,8 +82,6 @@ public class playerControls : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         PlayerRigidbody = GetComponent<Rigidbody2D>();
-        healthDisplay = GameObject.Find("Health").GetComponent<Text>();
-        healthDisplay.text = "Health: " + health;
         playerSounds = gameObject.GetComponent<AudioSource>();
         StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
@@ -94,8 +92,6 @@ public class playerControls : MonoBehaviour
     void Update() {
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-
-        healthDisplay.text = "Health: " + health;
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
@@ -321,6 +317,9 @@ public class playerControls : MonoBehaviour
             {
                 case 1:
                     SoundCall(eggDrop);
+                    if (StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                        StreamAnimFire.GoToIdle();
+                    }
                     shot = Instantiate(eggFire, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
@@ -331,6 +330,9 @@ public class playerControls : MonoBehaviour
                     break;
                 case 3:
                     SoundCall(eggDrop);
+                    if (StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                        StreamAnimWater.GoToIdle();
+                    }
                     shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
