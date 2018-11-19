@@ -231,6 +231,7 @@ public class playerControls : MonoBehaviour
                         {
                             shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0), 
 			                Quaternion.identity) as GameObject;
+                            shot.GetComponent<WindBehavior>().GoRight = true;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }
@@ -238,6 +239,7 @@ public class playerControls : MonoBehaviour
                         {
                             shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0), 
 			                Quaternion.identity) as GameObject;
+                        	shot.GetComponent<WindBehavior>().GoRight = false;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }

@@ -6,20 +6,19 @@ using UnityEngine;
 public class WindBehavior : MonoBehaviour {
 
 	private Animator WindGrow;
-	private playerControls Player;
 	private SpriteRenderer Sprite;
+	public bool GoRight;
 
 	// Use this for initialization
 	void Start () {
 
-		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
 		WindGrow = gameObject.GetComponent<Animator>();
 		Sprite = gameObject.GetComponent<SpriteRenderer>();
 
-		if (Player.facingRight == true) {
+		if (GoRight == true) {
 			WindGrow.Play("WindBlowRight");
 		}
-		else if (Player.facingRight == false) {
+		else if (GoRight == false) {
 			WindGrow.Play("WindBlowLeft");
 		}
 		StartCoroutine(FadeImage());
@@ -30,13 +29,13 @@ public class WindBehavior : MonoBehaviour {
 	void Update () {
 
 		if (WindGrow.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !WindGrow.IsInTransition(0)) {
-			Destroy (gameObject);
+			Destroy (gameObject, 0.1f);
 		}
 		
 	}
 
 	IEnumerator FadeImage() {
-    	for (float i = 1f; i >= 0; i -= Time.deltaTime) {
+    	for (float i = 1; i >= 0; i -= Time.deltaTime) {
             Sprite.color = new Color(1f,1f,1f,i);
             yield return null;
         }

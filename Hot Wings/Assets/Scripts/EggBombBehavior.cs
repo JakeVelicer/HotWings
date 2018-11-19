@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombBehavior : MonoBehaviour {
+public class EggBombBehavior : MonoBehaviour {
 
 	private Animator ExplodeAnim;
 	public float Timer;
 	private bool PlayAnim;
 	private Collider2D Collider;
     private AudioSource bombSound;
-    public AudioClip enemyBomb;
+    public AudioClip playerBomb;
 
 	// Use this for initialization
 	void Start () {
 
         bombSound = gameObject.GetComponent<AudioSource>();
-        bombSound.clip = enemyBomb;
-		ExplodeAnim = gameObject.GetComponent<Animator>();
+        bombSound.clip = playerBomb;
+		ExplodeAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
 		PlayAnim = true;
-		Collider = gameObject.GetComponent<Collider2D>();
+		Collider = gameObject.transform.GetChild(0).GetComponent<Collider2D>();
+		//gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Player";
 		
 	}
 	
@@ -27,11 +28,12 @@ public class BombBehavior : MonoBehaviour {
 	
 		Timer -= Time.deltaTime;
 		if (Timer <= 0 && PlayAnim == true) {
+			PlayAnim = false;
 			ExplodeAnim.SetTrigger("Boom");
 			Collider.enabled = true;
-			PlayAnim = false;
-            bombSound.PlayDelayed(1.0f);
-			Destroy(transform.parent.gameObject, 2.0f);
+            bombSound.Play();
+			gameObject.GetComponent<SpriteRenderer>().enabled = false;
+			Destroy(gameObject, 0.6f);
 		}
 	}
 }
