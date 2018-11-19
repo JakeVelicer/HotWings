@@ -72,7 +72,7 @@ public class playerControls : MonoBehaviour
     public GameObject eggWater;
     public GameObject eggIce;
     public GameObject eggShock;
-    public GameObject eggEarth;
+    public GameObject eggSpeed;
     public GameObject eggWind;
     public GameObject shitBrick;
     public Sprite[] IceSprites;
@@ -345,7 +345,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 5:
                     SoundCall(eggDrop);
-                    shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
+                    shot = Instantiate(eggSpeed, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                         if (facingRight) {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
