@@ -7,9 +7,13 @@ using UnityEngine.UI;
 public class DeathMenu : MonoBehaviour {
 	public static bool Death = false;
 
-public GameObject DeathMenuUI;
+	public GameObject DeathMenuUI;
 
 	private playerControls PlayerHealth;
+	private GameController Controller;
+	
+	  public Text waveText;
+   	 public Text scoreText;
 	
 	void Start () {
 
@@ -22,7 +26,14 @@ public GameObject DeathMenuUI;
 		if (PlayerHealth.health <= 0) {
 			Dead();
 		}
+
+
+        
 		
+	}
+	void OnEnable ()
+	{
+		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 	}
 
 	// Use this for initialization
@@ -52,9 +63,12 @@ public GameObject DeathMenuUI;
     private IEnumerator EndGame()
     {
        
-            yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);
         DeathMenuUI.SetActive(true);
         Time.timeScale = 0f;
+
+		waveText.text = "" + Controller.WaveCount;
+        scoreText.text = "" + Controller.score;
     }
 
 }

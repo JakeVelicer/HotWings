@@ -98,7 +98,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Finds the Player's transform and stores it in target
 		Target = GameObject.FindGameObjectWithTag ("Player").transform;
 
-        Movement();
 		ChaseTarget();
 		//TrackOtherEnemies();
 
@@ -117,6 +116,10 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	}
 
+	void FixedUpdate() {
+        Movement();
+	}
+
 	// Controls the actual movement of the object
 	void Movement () {
 
@@ -125,8 +128,10 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
-     			if (TouchStop) {
-                	transform.Translate (Vector3.left * Time.deltaTime * MovementSpeed);
+     			if (TouchStop && CanAttack) {
+					Vector2 myVel = Rigidbody.velocity;
+                	myVel.x = -MovementSpeed;
+					Rigidbody.velocity = myVel;
 				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
                 {
@@ -138,8 +143,10 @@ public class BasicEnemyControls : MonoBehaviour {
                 }
 			}
 			else if (ToTheRight == true) {
-     			if (TouchStop) {
-					transform.Translate (Vector3.right * Time.deltaTime * MovementSpeed);
+     			if (TouchStop && CanAttack) {
+					Vector2 myVel = Rigidbody.velocity;
+                	myVel.x = MovementSpeed;
+					Rigidbody.velocity = myVel;
 				}
                 if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
                 {
@@ -150,7 +157,6 @@ public class BasicEnemyControls : MonoBehaviour {
                     anim.SetInteger("Near", 0);
                 }
             }
-			//Rigidbody.AddForce (Vector3.right * MovementSpeed);
 		}
 	}
 
@@ -186,7 +192,6 @@ public class BasicEnemyControls : MonoBehaviour {
 							CanAttack = false;
 							anim.SetInteger("Near", 1);
 							BombAttack();
-							StartCoroutine(shootWait());
 							break;
 						// Beefy Alien
 						case 3:
@@ -280,6 +285,7 @@ public class BasicEnemyControls : MonoBehaviour {
     // Instantiates a chosen projectile in the scene and propels it forward like a bullet
     private IEnumerator GunAttack () {
 
+		Rigidbody.velocity = Vector2.zero;
 		yield return new WaitForSeconds(0.6f);
 
         if (AlienType == 1) {
@@ -314,7 +320,8 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	// Instantiates a chosen projectile in the scene and propels it forward and up like a thrown bomb
 	void BombAttack () {
-
+		
+		Rigidbody.velocity = Vector2.zero;
 		if (ToTheRight == true) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.86f, 0.24f, 0), 
 			Quaternion.identity) as GameObject;
@@ -327,58 +334,54 @@ public class BasicEnemyControls : MonoBehaviour {
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
+		StartCoroutine(shootWait());
 
 	}
 
 	// Propels this enemy toward the player
 	private IEnumerator JumpSmashAttack () {
+
         yield return new WaitForSeconds(.2f);
         gameObject.GetComponent<Rigidbody2D>().AddForce
-			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
-		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 2500);
+			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 38);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 700);
         yield return new WaitForSeconds(.5f);
         anim.SetInteger("Near", 2);
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.2f);
         AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
         yield return new WaitForSeconds(0.4f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
-       
         StartCoroutine(shootWait());
-
 
     }
 
 	// Dash attack cycle
     private IEnumerator DashAttack()
     {
-		yield return new WaitForSeconds(0.7f);
-		AttackCollider.enabled = true;
+		Rigidbody.velocity = Vector2.zero;
         if (ToTheRight) {
             DashDirection = 1;
-			anim.SetInteger("R_or_L", DashDirection);
+			anim.SetInteger("R_or_L", 1);
         }
         else if (!ToTheRight) {
             DashDirection = 2;
-			anim.SetInteger("R_or_L", DashDirection);
+			anim.SetInteger("R_or_L", 2);
         }
-        for (float i = 0; i < 1; i += 0.1f) {
-            if (i < 0.9f) {
-                if (DashDirection == 1) {
-                    Rigidbody.velocity = Vector2.right * ProjectileSpeed;
-                }
-                else if (DashDirection == 2) {
-                    Rigidbody.velocity = Vector2.left * ProjectileSpeed;
-                }
-            }
-            else if (i >= 0.9f) {
-                yield return new WaitForSeconds(0.6f);
-				anim.SetInteger("Near", 2);
-                Rigidbody.velocity = Vector2.zero;
-				AttackCollider.enabled = false;
-            }
-        }
+		yield return new WaitForSeconds(0.7f);
+		AttackCollider.enabled = true;
+		if (DashDirection == 1) {
+			Rigidbody.AddForce(Vector2.right * ProjectileSpeed, ForceMode2D.Impulse);
+		}
+		else if (DashDirection == 2) {
+			Rigidbody.AddForce(Vector2.left * ProjectileSpeed, ForceMode2D.Impulse);
+		}
+		yield return new WaitForSeconds(0.6f);
+		anim.SetInteger("Near", 2);
+		Rigidbody.velocity = Vector2.zero;
+		Rigidbody.angularVelocity = 0.0f;
+		AttackCollider.enabled = false;
 		StartCoroutine(shootWait());
 	}
 
