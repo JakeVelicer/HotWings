@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212255569526608520}
   - component: {fileID: 61932683841694952}
   - component: {fileID: 50029209065644306}
+  - component: {fileID: 114862870947640846}
   m_Layer: 9
   m_Name: UsedEgg
   m_TagString: Untagged
@@ -87,6 +88,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.83, y: 0.45}
   m_EdgeRadius: 0
+--- !u!114 &114862870947640846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1997457494825484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e1f5c2cc6764c4b9a2a8bc0f8de20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: 7
 --- !u!212 &212255569526608520
 SpriteRenderer:
   m_ObjectHideFlags: 1
