@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1103321857479440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -48.9, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4973121201369962}
@@ -87,7 +87,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -238,7 +238,7 @@ MonoBehaviour:
   EnemyHealth: 20
   enemyValue: 30
   MovementSpeed: 6
-  ChaseRange: 10
+  ChaseRange: 11
   FireRange: 7
   ProjectileSpeed: 250
   ProjectileHeight: 400
@@ -250,6 +250,7 @@ MonoBehaviour:
   BombObject: {fileID: 1236616020896136, guid: 16da38cee053b4bd48fae32185fa3d39, type: 2}
   IceBlock: {fileID: 1277225917556578, guid: fe7cacf7d94904c0885608adf4b8cd89, type: 2}
   SaucerRay: {fileID: 0}
+  OtherEnemies: []
   AlienType: 2
   enemyPistol: {fileID: 8300000, guid: ad6b93273989e4f8ebfd7c8156fa1728, type: 3}
   enemyRapidFire: {fileID: 8300000, guid: 7e83895ac186b464e9b1f2b162a0e84c, type: 3}
@@ -273,6 +274,7 @@ MonoBehaviour:
   FireDamage: 0
   WaterDamage: 0
   ElectricDamage: 0
+  SpeedDamage: 0
   IceDamage: 0
   EarthDamage: 0
   WindDamage: 0
@@ -310,7 +312,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1485028015
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f5551ea6d987446dd9fa3133ca66faf4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
