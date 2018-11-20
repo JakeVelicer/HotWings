@@ -33,16 +33,7 @@ public class DeathMenu : MonoBehaviour {
 	}
 	void OnEnable ()
 	{
-
-			Controller = GameObject.Find("Controller").GetComponent<GameController>();
-        
-           
-            waveText.text = "" + Controller.WaveCount;
-            scoreText.text = "" + Controller.score;
-
-
-		
-
+		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 	}
 
 	// Use this for initialization
@@ -75,6 +66,9 @@ public class DeathMenu : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
         DeathMenuUI.SetActive(true);
         Time.timeScale = 0f;
+
+		waveText.text = "" + Controller.WaveCount;
+        scoreText.text = "" + Controller.score;
     }
 
 }
