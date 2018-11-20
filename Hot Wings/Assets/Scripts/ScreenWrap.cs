@@ -30,8 +30,8 @@ public class ScreenWrap : MonoBehaviour {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        rb2D.angularVelocity = -horizontal * rotationSpeed;
-        rb2D.AddForce(transform.up * vertical * thrustForce);
+        //rb2D.angularVelocity = -horizontal * rotationSpeed;
+        //rb2D.AddForce(transform.up * vertical * thrustForce);
 
         ScreenWrapping();
 
