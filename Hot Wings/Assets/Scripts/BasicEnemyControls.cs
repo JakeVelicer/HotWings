@@ -191,7 +191,7 @@ public class BasicEnemyControls : MonoBehaviour {
 						case 2:
 							CanAttack = false;
 							anim.SetInteger("Near", 1);
-							BombAttack();
+							StartCoroutine(BombAttack());
 							break;
 						// Beefy Alien
 						case 3:
@@ -213,25 +213,27 @@ public class BasicEnemyControls : MonoBehaviour {
 				}
 			}
 		}
-		// Saucer Attack Check
+		// Saucer Chase Check
 		else if (DistX <= FireRange && DistX > 0.5 && AlienType == 5) {
 			CanChase = true;
+			CanRoam = false;
 			ChaseDirection();
 			if (CanFireRay == true) {
 				StartCoroutine(RayTime());
 			}
 		}
-		// Saucer Stop Check
-		else if (DistX > ChaseRange && AlienType == 5) {
+		// Saucer Attack Check
+		else if (DistX <= FireRange && DistX <= 0.5 && AlienType == 5) {
 			CanChase = false;
-			SaucerRay.SetActive(false);
+			Rigidbody.velocity = Vector2.zero;
 			ChaseDirection();
 		}
-		// Does nothing if out of range of chasing and attacking, will roam eventually
+		// Roams out of range of chasing and attacking
 		else {
 			CanChase = false;
-			if (AlienType != 5) {
-				CanRoam = true;
+			CanRoam = true;
+			if (AlienType == 5) {
+				SaucerRay.SetActive(false);
 			}
 			CoolDownTimer = 0;
             enemySounds.Stop();
@@ -319,17 +321,19 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	// Instantiates a chosen projectile in the scene and propels it forward and up like a thrown bomb
-	void BombAttack () {
+	private IEnumerator BombAttack () {
 		
 		Rigidbody.velocity = Vector2.zero;
+		yield return new WaitForSeconds(0.2f);
+
 		if (ToTheRight == true) {
-			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.86f, 0.24f, 0), 
+			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
 		else if (ToTheRight == false) {
-			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(-0.86f, 0.24f, 0), 
+			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(-0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
@@ -341,10 +345,12 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Propels this enemy toward the player
 	private IEnumerator JumpSmashAttack () {
 
+		Rigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(.2f);
+
         gameObject.GetComponent<Rigidbody2D>().AddForce
-			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 38);
-		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 700);
+			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
+		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
         yield return new WaitForSeconds(.5f);
         anim.SetInteger("Near", 2);
         yield return new WaitForSeconds(.2f);
@@ -389,7 +395,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private IEnumerator RayTime () {
 		
 		CanFireRay = false;
-		yield return new WaitForSeconds(3);
+		yield return new WaitForSeconds(2.5f);
 		SaucerRay.SetActive(true);
 		BeamAnimation.PlayBeamAnim();
         enemySounds.clip = enemyLaser;
@@ -520,10 +526,10 @@ public class BasicEnemyControls : MonoBehaviour {
 			InvokeRepeating("TakeWindDamage", 0, 0.5f);
 			Rigidbody.AddForce(Vector3.up * 600);
 			if (Player.facingRight) {
-				Rigidbody.AddForce(Vector3.right * 600);
+				Rigidbody.AddForce(Vector3.right * 300);
 			}
 			else if (!Player.facingRight) {
-				Rigidbody.AddForce(Vector3.left * 600);
+				Rigidbody.AddForce(Vector3.left * 300);
 			}
 		}
 	}
