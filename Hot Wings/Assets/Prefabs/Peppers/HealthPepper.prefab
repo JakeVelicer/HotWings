@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50601487833975546}
   m_Layer: 0
   m_Name: HealthPepper
-  m_TagString: healthPepper
+  m_TagString: Pepper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

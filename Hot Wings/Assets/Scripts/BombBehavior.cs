@@ -10,22 +10,15 @@ public class BombBehavior : MonoBehaviour {
 	private Collider2D Collider;
     private AudioSource bombSound;
     public AudioClip enemyBomb;
-    public AudioClip playerBomb;
 
 	// Use this for initialization
 	void Start () {
 
         bombSound = gameObject.GetComponent<AudioSource>();
-        if (gameObject.tag == "enemyExplosion") {
-            bombSound.clip = enemyBomb;
-        }
-        else {
-            bombSound.clip = playerBomb;
-        }
+        bombSound.clip = enemyBomb;
 		ExplodeAnim = gameObject.GetComponent<Animator>();
 		PlayAnim = true;
 		Collider = gameObject.GetComponent<Collider2D>();
-		//gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Player";
 		
 	}
 	

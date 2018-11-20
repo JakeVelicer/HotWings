@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BasicEnemyControls : MonoBehaviour {
 
+	// Private Objects
     private Rigidbody2D Rigidbody;
 	private Transform Target;
 	private GameController MainController;
@@ -12,7 +13,11 @@ public class BasicEnemyControls : MonoBehaviour {
 	private DeathRayAnimation BeamAnimation;
     private Animator anim;
 	private System.Action DestroyEnemySequence;
+	public System.Action OnPunch;
+	private System.Action ActivateDeathBeam;
+    public static System.Action<int> OnEnemyDeath;
 
+	// Number Elements
 	public float EnemyHealth;
     public int enemyValue;
     public float MovementSpeed;
@@ -24,6 +29,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private float CoolDownTimer = 0;
 	private int DashDirection;
 
+	// Boolean Elements
 	private bool CanRoam;
     private bool CanChase;
 	public bool TouchStop;
@@ -31,17 +37,20 @@ public class BasicEnemyControls : MonoBehaviour {
 	private bool CanFireRay = true;
 	public bool ToTheRight;
 
+	// Attack Objects and Elements
 	private playerControls Player;
 	public GameObject BulletObject;
 	public GameObject BombObject;
 	public GameObject IceBlock;
 	public GameObject SaucerRay;
+	public GameObject[] OtherEnemies;
 	private Collider2D AttackCollider;
 	private Collider2D Collider;
-	public int AlienType;
-	public System.Action OnPunch;
-	private System.Action ActivateDeathBeam;
 
+	// The type of enemy this is
+	public int AlienType;
+
+	// Sound Elements
     private AudioSource enemySounds;
     public AudioClip enemyPistol;
     public AudioClip enemyRapidFire;
@@ -51,23 +60,23 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip enemyDeath3;
     public AudioClip enemyDeath4;
     public AudioClip enemyDeath5;
-
-    public static System.Action<int> OnEnemyDeath;
-
     private bool soundPlaying = false;
 
     // Use this for initialization
     void Start () {
 
+		// Assignment Calls
         anim = GetComponent<Animator>();
         enemySounds = gameObject.GetComponent<AudioSource>();
-        enemySounds.loop = false;
 		Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+
+		// Setting elements to their proper states
 		InvokeRepeating ("Roam", 0, 2.0f);
+		enemySounds.loop = false;
 		TouchStop = false;
 		MainController.EnemiesLeft++;
 		DestroyEnemySequence += EnemyDeathSequence;
@@ -92,6 +101,7 @@ public class BasicEnemyControls : MonoBehaviour {
         Movement();
 		ChaseTarget();
 		//TrackOtherEnemies();
+
 		if (EnemyHealth <= 0) {
 			if (DestroyEnemySequence != null) {
 				DestroyEnemySequence();
@@ -161,9 +171,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			CanRoam = false;
 			ChaseDirection();
 
-			/* The switch assigns the proper cooldown and attack phase for each enemy type.
-			The switch here should probably only have cases for the 3 different attack types, but 
-			I have not changed it yet in case a reason emerges to have them for each enemy type. */
+			// This switch assigns the proper cooldown and attack phase for each enemy type.
 			if (CanAttack) {
 				if (TouchStop) {
 					switch (AlienType) {
@@ -181,8 +189,7 @@ public class BasicEnemyControls : MonoBehaviour {
 							StartCoroutine(shootWait());
 							break;
 						// Beefy Alien
-						case 3: 
-
+						case 3:
 							CanAttack = false;
 							anim.SetInteger("Near", 1);
 							StartCoroutine(JumpSmashAttack());
@@ -193,11 +200,9 @@ public class BasicEnemyControls : MonoBehaviour {
 							break;
 						// Armored Alien
 						case 4:
-                            anim.SetInteger("Near", 1);
                             CanAttack = false;
-                            StartCoroutine(GunAnti());
-                            //GunAttack();
-							StartCoroutine(shootWait());
+                            anim.SetInteger("Near", 1);
+                            StartCoroutine(GunAttack());
 							break;
 					}
 				}
@@ -256,63 +261,26 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	void TrackOtherEnemies () {
 
-		Vector2 vector = Vector2.right;
-		if (ToTheRight == true) {
-			vector = Vector2.right;
-		}
-		else if (ToTheRight == false) {
-			vector = Vector2.left;
-		}
+		OtherEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, vector , 5);
+		for (int i = 0; i < OtherEnemies.Length; i++) {
 
-		if (hit.collider != null && hit.collider.tag == ("Enemy")) {
-			TouchStop = false;
-			Debug.Log("Called");
-		}
-		else {
-			TouchStop = true;
+			Vector3 toTarget = (OtherEnemies[i].transform.position - transform.position);
+			
+			if (Vector3.Dot(toTarget, transform.right) < 0) {
+				TouchStop = false;
+			} else if (Vector3.Dot(toTarget, transform.right) > 0) {
+				TouchStop = true;
+			}
+
 		}
 
 	}
 
-    private IEnumerator GunAnti()
-    { yield return new WaitForSeconds(.6f);
-        GunAttack();
-        /*
-        if (AlienType == 1)
-        {
-            enemySounds.clip = enemyPistol;
-            enemySounds.loop = false;
-        }
-        if (AlienType == 4)
-        {
-            enemySounds.clip = enemyRapidFire;
-            enemySounds.loop = true;
-        } 
+    // Instantiates a chosen projectile in the scene and propels it forward like a bullet
+    private IEnumerator GunAttack () {
 
-        if (ToTheRight == true)
-        {
-           // yield return new WaitForSeconds(.2f);
-            enemySounds.Play();
-            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(0.86f, 0.35f, 0),
-            Quaternion.identity) as GameObject;
-            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
-        }
-        else if (ToTheRight == false)
-        {
-            if (soundPlaying == false)
-            {
-                enemySounds.Play();
-            }
-            soundPlaying = true;
-            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(-0.86f, 0.35f, 0),
-            Quaternion.identity) as GameObject;
-            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
-        }*/
-    }
-        // Instantiates a chosen projectile in the scene and propels it forward like a bullet
-        void GunAttack () {
+		yield return new WaitForSeconds(0.6f);
 
         if (AlienType == 1) {
             enemySounds.clip = enemyPistol;
@@ -340,6 +308,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
+		StartCoroutine(shootWait());
 	
 	}
 
@@ -364,18 +333,14 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Propels this enemy toward the player
 	private IEnumerator JumpSmashAttack () {
         yield return new WaitForSeconds(.2f);
-        // anim.SetInteger("Near", 2);
         gameObject.GetComponent<Rigidbody2D>().AddForce
-		(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
+			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 270);
 		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 2500);
-        //anim.SetInteger("Near", 2); 
-        //anim.SetInteger("Near", 2);
         yield return new WaitForSeconds(.5f);
         anim.SetInteger("Near", 2);
         yield return new WaitForSeconds(.3f);
         AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
-
         yield return new WaitForSeconds(0.4f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
@@ -388,12 +353,15 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Dash attack cycle
     private IEnumerator DashAttack()
     {
+		yield return new WaitForSeconds(0.7f);
 		AttackCollider.enabled = true;
         if (ToTheRight) {
             DashDirection = 1;
+			anim.SetInteger("R_or_L", DashDirection);
         }
         else if (!ToTheRight) {
             DashDirection = 2;
+			anim.SetInteger("R_or_L", DashDirection);
         }
         for (float i = 0; i < 1; i += 0.1f) {
             if (i < 0.9f) {
@@ -416,6 +384,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	// Saucer attack cycle
 	private IEnumerator RayTime () {
+		
 		CanFireRay = false;
 		yield return new WaitForSeconds(3);
 		SaucerRay.SetActive(true);
@@ -434,8 +403,8 @@ public class BasicEnemyControls : MonoBehaviour {
 
     private IEnumerator shootWait()
 	{
-       // anim.SetInteger("Near", 0);
-        yield return new WaitForSeconds(CoolDown);
+    	// anim.SetInteger("Near", 0);
+    	yield return new WaitForSeconds(CoolDown);
         CanAttack = true;
     }
 
@@ -522,6 +491,9 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 		else if (collision.gameObject.tag == "Earth") {
 			EnemyHealth -= DamageValues.EarthDamage;
+		}
+		else if (collision.gameObject.tag == "Speed") {
+			EnemyHealth -= DamageValues.SpeedDamage;
 		}
 		else if (collision.gameObject.name == "AnchorArms") {
 			EnemyHealth -= DamageValues.JackedDamage;

@@ -19,17 +19,10 @@ TagManager:
   - Ice
   - Earth
   - Wind
-  - firePepper
-  - waterPepper
-  - icePepper
-  - earthPepper
-  - windPepper
-  - shockPepper
-  - healthPepper
-  - speedPepper
-  - buffPepper
   - IceBlock
   - Checker
+  - Speed
+  - Pepper
   layers:
   - Default
   - TransparentFX
@@ -78,6 +71,9 @@ TagManager:
     locked: 0
   - name: Midground2
     uniqueID: 719109109
+    locked: 0
+  - name: Midground3
+    uniqueID: 4239690685
     locked: 0
   - name: Player
     uniqueID: 1485028015

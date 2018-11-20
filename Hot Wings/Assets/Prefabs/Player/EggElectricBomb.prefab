@@ -21,9 +21,7 @@ GameObject:
   - component: {fileID: 4723099515107084}
   - component: {fileID: 212639385715034504}
   - component: {fileID: 58088665065693258}
-  - component: {fileID: 114272149656950584}
   - component: {fileID: 95592753194580452}
-  - component: {fileID: 82873902291009520}
   m_Layer: 10
   m_Name: ExplosionHitBox
   m_TagString: Electric
@@ -42,7 +40,9 @@ GameObject:
   - component: {fileID: 212565616942477406}
   - component: {fileID: 61144934285882100}
   - component: {fileID: 50929513053796620}
-  m_Layer: 10
+  - component: {fileID: 82236073619363368}
+  - component: {fileID: 114396163178382536}
+  m_Layer: 9
   m_Name: EggElectricBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,8 +55,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424284241688236}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.0584483, y: -2.080974, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4723099515107084}
@@ -102,15 +102,15 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1015601028142574}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013171673, y: 0.83419967}
+  m_Offset: {x: 0, y: 1}
   serializedVersion: 2
-  m_Radius: 1.59
+  m_Radius: 1.5
 --- !u!61 &61144934285882100
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -136,17 +136,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!82 &82873902291009520
+--- !u!82 &82236073619363368
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1015601028142574}
+  m_GameObject: {fileID: 1424284241688236}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -249,19 +249,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114272149656950584
+--- !u!114 &114396163178382536
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1015601028142574}
+  m_GameObject: {fileID: 1424284241688236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d85690c96064715b7e5b169db3eda2, type: 3}
+  m_Script: {fileID: 11500000, guid: b24c7c6f66d5d490dba6e0a728acb02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: 1
-  enemyBomb: {fileID: 8300000, guid: 548b0559b352740ed868a6002cf5be52, type: 3}
   playerBomb: {fileID: 8300000, guid: a9c4b248558644c43b9e0c60d9fcd2bd, type: 3}
 --- !u!212 &212565616942477406
 SpriteRenderer:
@@ -295,8 +294,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 719109109
-  m_SortingLayer: 3
+  m_SortingLayerID: -55276611
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2820f682da74c405b812b04b8e971729, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

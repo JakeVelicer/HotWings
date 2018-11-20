@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61552201314296712}
   - component: {fileID: 50545406272018428}
   - component: {fileID: 114224794589344736}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: IceBullet
   m_TagString: Ice
   m_Icon: {fileID: 0}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87adb8c7e0bd04c63b29695236b82d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Anim: {fileID: 0}
 --- !u!212 &212097006289295044
 SpriteRenderer:
   m_ObjectHideFlags: 1

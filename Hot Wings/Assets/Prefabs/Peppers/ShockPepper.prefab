@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 50647114083428206}
   m_Layer: 0
   m_Name: ShockPepper
-  m_TagString: shockPepper
+  m_TagString: Pepper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

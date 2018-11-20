@@ -21,9 +21,7 @@ GameObject:
   - component: {fileID: 4409408384283760}
   - component: {fileID: 212758217230705864}
   - component: {fileID: 58587073574471888}
-  - component: {fileID: 114107041866988774}
   - component: {fileID: 95645072628614824}
-  - component: {fileID: 82560460657957814}
   m_Layer: 10
   m_Name: ExplosionHitBox
   m_TagString: Water
@@ -42,7 +40,9 @@ GameObject:
   - component: {fileID: 212796244848294362}
   - component: {fileID: 61724178198005772}
   - component: {fileID: 50297093417701324}
-  m_Layer: 10
+  - component: {fileID: 82971404214963568}
+  - component: {fileID: 114650127031531186}
+  m_Layer: 9
   m_Name: EggWaterBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1659041756498784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4807544, y: -4.0830717, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4409408384283760}
@@ -102,15 +102,15 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1311487427736342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009589672, y: 0.89664924}
+  m_Offset: {x: 0, y: 1}
   serializedVersion: 2
-  m_Radius: 1.595
+  m_Radius: 1.5
 --- !u!61 &61724178198005772
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -136,17 +136,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!82 &82560460657957814
+--- !u!82 &82971404214963568
 AudioSource:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1311487427736342}
+  m_GameObject: {fileID: 1659041756498784}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -249,19 +249,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114107041866988774
+--- !u!114 &114650127031531186
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1311487427736342}
+  m_GameObject: {fileID: 1659041756498784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d85690c96064715b7e5b169db3eda2, type: 3}
+  m_Script: {fileID: 11500000, guid: b24c7c6f66d5d490dba6e0a728acb02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: 1
-  enemyBomb: {fileID: 8300000, guid: 548b0559b352740ed868a6002cf5be52, type: 3}
   playerBomb: {fileID: 8300000, guid: a9c4b248558644c43b9e0c60d9fcd2bd, type: 3}
 --- !u!212 &212758217230705864
 SpriteRenderer:
@@ -341,8 +340,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 719109109
-  m_SortingLayer: 3
+  m_SortingLayerID: -55276611
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2a1527e03eb6d4685b452464b4a4d75a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

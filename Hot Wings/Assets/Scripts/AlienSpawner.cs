@@ -5,15 +5,17 @@ using UnityEngine;
 public class AlienSpawner : MonoBehaviour {
 
 	public int SaucerNumber;
-	private int EnemiesToSpawn = 5;
+	public int EnemiesToSpawn;
 	public GameObject MotherShip;
 	public GameObject[] Aliens;
+	private Animator Anim;
 	private GameController Controller;
 	private SpriteRenderer Sprite;
 
 	// Use this for initialization
 	void Start () {
 
+		Anim = this.transform.GetComponent<Animator>();
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 		Controller.SpawnTheEnemies += CallSpawnEnemies;
 		Sprite = gameObject.GetComponent<SpriteRenderer>();
@@ -32,12 +34,6 @@ public class AlienSpawner : MonoBehaviour {
 						case 1:
 							StartCoroutine(SpawnEnemy(5, Aliens[0]));
 							break;
-						case 2:
-							Destroy(gameObject);
-							break;
-						case 3:
-							Destroy(gameObject);
-							break;
 					}
 					break;
 
@@ -49,9 +45,6 @@ public class AlienSpawner : MonoBehaviour {
 							break;
 						case 2:
 							StartCoroutine(SpawnEnemy(5, Aliens[1]));
-							break;
-						case 3:
-							Destroy(gameObject);
 							break;
 					}
 					break;
@@ -133,13 +126,14 @@ public class AlienSpawner : MonoBehaviour {
 			Quaternion.identity) as GameObject;
 			if (Controller.WaveCount > 5) {
 				shot.GetComponent<BasicEnemyControls>().EnemyHealth =
-				shot.GetComponent<BasicEnemyControls>().EnemyHealth * 1.2f;
+				shot.GetComponent<BasicEnemyControls>().EnemyHealth * 1.1f;
 			}
 			//shot.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             yield return new WaitForSeconds(1);
         }
-		Controller.SpawnTheEnemies = null;
-		Destroy(gameObject, 2);
+		Controller.GoSpawn = false;
+		//Controller.SpawnTheEnemies = null;
+		//Destroy(gameObject, 2);
 	}
 
 	void SpawnAttackSaucer () {
