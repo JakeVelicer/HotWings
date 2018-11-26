@@ -8,6 +8,7 @@ public class playerControls : MonoBehaviour
 
     private Animator anim;
     private Rigidbody2D PlayerRigidbody;
+    private Vector2 velocity;
     public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
     private StreamAttackAnimationWater StreamAnimWater;
@@ -16,9 +17,12 @@ public class playerControls : MonoBehaviour
     private int moveSpeed;
     public int jumpForce;
     public bool isJumping;
+    private bool Dashing;
     public bool canShoot = true;
     public int shotSpeed;
+    public int DashSpeed;
     private bool Healing;
+    private float horizontalInput;
     private float ChargeTime = 1;
 
     //Pepper references
@@ -88,35 +92,38 @@ public class playerControls : MonoBehaviour
         moveSpeed = Speed;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame, movement, animations, attacks called
     void Update() {
+
+        PepAttacks();
+        EggBombs();
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             isJumping = true;
-            PlayerRigidbody.AddForce(Vector2.up * jumpForce);
+            PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+
+        horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
+        if (horizontalInput > 0)
         {
             anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(1, 1, 1);
             facingRight = true;
-            PlayerRigidbody.AddForce(Vector2.right * moveSpeed);
         }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (horizontalInput < 0)
         {
             anim.SetInteger("Speed", 1);
             transform.localScale = new Vector3(-1, 1, 1);
             facingRight = false;
-            PlayerRigidbody.AddForce(Vector2.left * moveSpeed);
         }
-        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)
-        || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        else if (horizontalInput == 0)
         {
             anim.SetInteger("Speed", 0);
         }
+
         if (pepperIndexA != 1) {
             playerFireShot.GetComponent<Collider2D>().enabled = false;
             //playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
@@ -128,8 +135,18 @@ public class playerControls : MonoBehaviour
         if (health == 0) {
             anim.SetInteger("Speed", 9);
         }
-        PepAttacks();
-        EggBombs();
+    }
+
+    void FixedUpdate() {
+
+        // Movement
+        if (!Dashing) {
+            velocity = PlayerRigidbody.velocity;
+            velocity.y += Physics2D.gravity.y * 0.05f;
+            velocity.x = horizontalInput * Speed;
+            PlayerRigidbody.velocity = velocity;
+        }
+
     }
 
     void PepAttacks() {
@@ -137,7 +154,6 @@ public class playerControls : MonoBehaviour
         if (canShoot)
         {
             GameObject shot;
-
             switch (pepperIndexA)
             {
                 case 1: // Fire Pepper Power Attack
@@ -279,7 +295,6 @@ public class playerControls : MonoBehaviour
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
 			            Quaternion.identity) as GameObject;
-                        //shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         ConsumableOver();
                         StartCoroutine(shootWait());
                     }
@@ -369,6 +384,7 @@ public class playerControls : MonoBehaviour
 
     private IEnumerator SpeedDash() {
 
+        Dashing = true;
         playerDashCollider.GetComponent<Collider2D>().enabled = true;
         if (facingRight) {
             DashDirection = 1;
@@ -379,16 +395,17 @@ public class playerControls : MonoBehaviour
         for (float i = 0; i < 1; i += 0.1f) {
             if (i < 0.9f) {
                 if (DashDirection == 1) {
-                    PlayerRigidbody.velocity = Vector2.right * 60;
+                    PlayerRigidbody.velocity = Vector2.right * DashSpeed;
                 }
                 else if (DashDirection == 2) {
-                    PlayerRigidbody.velocity = Vector2.left * 60;
+                    PlayerRigidbody.velocity = Vector2.left * DashSpeed;
                 }
             }
             else if (i >= 0.9f) {
-                yield return new WaitForSeconds(0.2f);
-                playerDashCollider.GetComponent<Collider2D>().enabled = false;
+                yield return new WaitForSeconds(0.1f);
                 PlayerRigidbody.velocity = Vector2.zero;
+                playerDashCollider.GetComponent<Collider2D>().enabled = false;
+                Dashing = false;
             }
         }
         StartCoroutine(shootWait());
@@ -433,7 +450,7 @@ public class playerControls : MonoBehaviour
             //yield return new WaitForSeconds(1f);
         }
         else if (pepperIndexA == 5) {
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.4f);
             DashDirection = 0;
         }
         else if (pepperIndexA == 6) {
