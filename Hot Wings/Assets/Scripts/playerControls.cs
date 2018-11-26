@@ -71,6 +71,7 @@ public class playerControls : MonoBehaviour
     public AudioClip eggDrop;
     public AudioClip playerHit;
     public AudioClip playerDeath;
+    public AudioClip shockLoop;
 
     public GameObject eggFire;
     public GameObject eggWater;
@@ -173,6 +174,7 @@ public class playerControls : MonoBehaviour
                 case 2: // Electric Shock Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
                     {
+                        SoundCall(shockLoop);
                         ChargeTime = ChargeTime + Time.deltaTime;
                         //Debug.Log(ChargeTime);
                     }
@@ -641,7 +643,7 @@ public class playerControls : MonoBehaviour
 
         playerSounds.clip = clip;
         playerSounds.loop = false;
-        playerSounds.loop |= (clip == playerFire || clip == playerWater);
+        playerSounds.loop |= (clip == playerFire || clip == playerWater || clip == shockLoop);
         playerSounds.Play();
     }
 
