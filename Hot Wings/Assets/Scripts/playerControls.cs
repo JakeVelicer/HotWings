@@ -22,6 +22,7 @@ public class playerControls : MonoBehaviour
     public int shotSpeed;
     public int DashSpeed;
     private bool Healing;
+    private float horizontalInput;
     private float ChargeTime = 1;
 
     //Pepper references
@@ -91,13 +92,37 @@ public class playerControls : MonoBehaviour
         moveSpeed = Speed;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame, movement, animations, attacks called
     void Update() {
 
         PepAttacks();
         EggBombs();
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
+        {
+            isJumping = true;
+            PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+
+        horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
+        if (horizontalInput > 0)
+        {
+            anim.SetInteger("Speed", 1);
+            transform.localScale = new Vector3(1, 1, 1);
+            facingRight = true;
+        }
+        else if (horizontalInput < 0)
+        {
+            anim.SetInteger("Speed", 1);
+            transform.localScale = new Vector3(-1, 1, 1);
+            facingRight = false;
+        }
+        else if (horizontalInput == 0)
+        {
+            anim.SetInteger("Speed", 0);
+        }
 
         if (pepperIndexA != 1) {
             playerFireShot.GetComponent<Collider2D>().enabled = false;
@@ -112,39 +137,14 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    // Movement
     void FixedUpdate() {
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
-        {
-            isJumping = true;
-            PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-
-        float horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
-        if (horizontalInput > 0)
-        {
-            anim.SetInteger("Speed", 1);
-            transform.localScale = new Vector3(1, 1, 1);
-            facingRight = true;
-        }
-        else if (horizontalInput < 0)
-        {
-            anim.SetInteger("Speed", 1);
-            transform.localScale = new Vector3(-1, 1, 1);
-            facingRight = false;
-        }
+        // Movement
         if (!Dashing) {
             velocity = PlayerRigidbody.velocity;
             velocity.y += Physics2D.gravity.y * 0.05f;
             velocity.x = horizontalInput * Speed;
             PlayerRigidbody.velocity = velocity;
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow)
-        || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-        {
-            anim.SetInteger("Speed", 0);
         }
 
     }
