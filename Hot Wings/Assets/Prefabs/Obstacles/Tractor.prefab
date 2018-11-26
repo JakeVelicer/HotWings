@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4797831961845856}
   - component: {fileID: 212229427615092570}
-  - component: {fileID: 60779217874971132}
+  - component: {fileID: 61263795664464310}
   - component: {fileID: 114922161568594346}
   - component: {fileID: 114965527511860684}
   m_Layer: 0
@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1549014338457064}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.4061661, y: -0.9777088, z: 0}
+  m_LocalPosition: {x: -1.18, y: -0.89, z: 0}
   m_LocalScale: {x: 2.9510512, y: 1.9795707, z: 2.601312}
   m_Children: []
   m_Father: {fileID: 4437087566550160}
@@ -134,8 +134,8 @@ PolygonCollider2D:
       - {x: -0.5, y: 0.5}
       - {x: 0.5, y: 0.5}
       - {x: 0.4929066, y: 0.47667497}
---- !u!60 &60779217874971132
-PolygonCollider2D:
+--- !u!61 &61263795664464310
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -146,7 +146,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.030846715, y: 0.45218092}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -156,12 +156,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.5, y: -0.5}
-      - {x: -0.5, y: 0.5}
-      - {x: 0.5, y: 0.5}
-      - {x: 0.5, y: -0.5}
+  serializedVersion: 2
+  m_Size: {x: 1.0616933, y: 0.095638156}
+  m_EdgeRadius: 0
 --- !u!114 &114580685738240982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,7 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   newPostion: {x: 0, y: 0, z: 0}
-  heightchecker: 1.5
+  heightchecker: 1.3
 --- !u!114 &114689194723264074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   newPostion: {x: 0, y: 0, z: 0}
-  heightchecker: -1.13
+  heightchecker: -0.5
 --- !u!114 &114965527511860684
 MonoBehaviour:
   m_ObjectHideFlags: 1

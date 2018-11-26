@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   newPostion: {x: 0, y: 0, z: 0}
-  heightchecker: 1.59
+  heightchecker: 1
 --- !u!114 &114063945384903924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   newPostion: {x: 0, y: 0, z: 0}
-  heightchecker: -0.47
+  heightchecker: -0.6
 --- !u!114 &114445395760676920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   newPostion: {x: 0, y: 0, z: 0}
-  heightchecker: 3.484
+  heightchecker: 3
 --- !u!114 &114523905022617966
 MonoBehaviour:
   m_ObjectHideFlags: 1
