@@ -60,6 +60,14 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip enemyDeath3;
     public AudioClip enemyDeath4;
     public AudioClip enemyDeath5;
+    public AudioClip rolyPolyRoll;
+    public AudioClip blobSpit;
+    public AudioClip beefySmash;
+    public AudioClip machineGunRev;
+    public AudioClip laserCharge;
+
+    public AudioClip hitDamage;
+    public AudioClip criticalDamage;
     private bool soundPlaying = false;
 
     // Use this for initialization
@@ -288,7 +296,10 @@ public class BasicEnemyControls : MonoBehaviour {
     private IEnumerator GunAttack () {
 
 		Rigidbody.velocity = Vector2.zero;
-		yield return new WaitForSeconds(0.6f);
+        enemySounds.clip = machineGunRev;
+        enemySounds.loop = false;
+        enemySounds.Play();
+        yield return new WaitForSeconds(0.6f);
 
         if (AlienType == 1) {
             enemySounds.clip = enemyPistol;
@@ -325,8 +336,10 @@ public class BasicEnemyControls : MonoBehaviour {
 		
 		Rigidbody.velocity = Vector2.zero;
 		yield return new WaitForSeconds(0.2f);
-
-		if (ToTheRight == true) {
+        enemySounds.clip = blobSpit;
+        enemySounds.loop = false;
+        enemySounds.Play();
+        if (ToTheRight == true) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
@@ -338,8 +351,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
-		StartCoroutine(shootWait());
-
+        StartCoroutine(shootWait());
 	}
 
 	// Propels this enemy toward the player
@@ -359,6 +371,10 @@ public class BasicEnemyControls : MonoBehaviour {
         yield return new WaitForSeconds(0.4f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
+        yield return new WaitForSeconds(0.2f);
+        enemySounds.clip = beefySmash;
+        enemySounds.loop = false;
+        enemySounds.Play();
         StartCoroutine(shootWait());
 
     }
@@ -377,7 +393,10 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		yield return new WaitForSeconds(0.7f);
 		AttackCollider.enabled = true;
-		if (DashDirection == 1) {
+        enemySounds.clip = rolyPolyRoll;
+        enemySounds.loop = false;
+        enemySounds.Play();
+        if (DashDirection == 1) {
 			Rigidbody.AddForce(Vector2.right * ProjectileSpeed, ForceMode2D.Impulse);
 		}
 		else if (DashDirection == 2) {
@@ -395,6 +414,9 @@ public class BasicEnemyControls : MonoBehaviour {
 	private IEnumerator RayTime () {
 		
 		CanFireRay = false;
+        enemySounds.clip = laserCharge;
+        enemySounds.loop = false;
+        enemySounds.Play();
 		yield return new WaitForSeconds(2.5f);
 		SaucerRay.SetActive(true);
 		BeamAnimation.PlayBeamAnim();
@@ -488,16 +510,65 @@ public class BasicEnemyControls : MonoBehaviour {
 			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage;
-		}
+            if (AlienType == 4)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 4)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+
+        }
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
-		}
+            if (AlienType == 4)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 4)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+        }
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
-		}
+            if (AlienType == 4)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 4)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+        }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
-		}
+            if (AlienType == 4)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 4)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+        }
 		else if (collision.gameObject.tag == "Earth") {
 			EnemyHealth -= DamageValues.EarthDamage;
 		}
@@ -510,22 +581,70 @@ public class BasicEnemyControls : MonoBehaviour {
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
 			InvokeRepeating("TakeFireDamage", 0, 0.5f);
-		}
+            if (AlienType == 1)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 1)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+        }
 		else if (collision.gameObject.tag == "Ice") {
 			GameObject Projectile = Instantiate (IceBlock, transform.position + new Vector3(0, 0, 0), 
 			Quaternion.identity) as GameObject;
-		}
+            if (AlienType == 3)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 3)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+        }
 		else if (collision.gameObject.tag == "IceBlock") {
 			InvokeRepeating("TakeIceDamage", 0, 0.5f);
 			TouchStop = false;
 		}
 		else if (collision.gameObject.tag == "Water") {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
-		}
+            if (AlienType == 2)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 2)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+        }
 		else if (collision.gameObject.tag == "Wind") {
 			InvokeRepeating("TakeWindDamage", 0, 0.5f);
 			Rigidbody.AddForce(Vector3.up * 600);
-			if (Player.facingRight) {
+            if (AlienType == 5)
+            {
+                enemySounds.clip = criticalDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (AlienType != 5)
+            {
+                enemySounds.clip = hitDamage;
+                enemySounds.loop = false;
+                enemySounds.Play();
+            }
+            if (Player.facingRight) {
 				Rigidbody.AddForce(Vector3.right * 300);
 			}
 			else if (!Player.facingRight) {

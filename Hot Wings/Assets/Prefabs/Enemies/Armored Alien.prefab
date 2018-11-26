@@ -278,6 +278,13 @@ MonoBehaviour:
   enemyDeath3: {fileID: 8300000, guid: 6ff2a53d5fa9c4abdb05685a2794ff87, type: 3}
   enemyDeath4: {fileID: 8300000, guid: 307ae5a384f0b475fb5caa1b03155ea6, type: 3}
   enemyDeath5: {fileID: 8300000, guid: 726eaf6d32ef84a10a35814d6de80319, type: 3}
+  rolyPolyRoll: {fileID: 8300000, guid: 280da12270ea34a9fa83cdccbd630d67, type: 3}
+  blobSpit: {fileID: 8300000, guid: 790d39b615a7c4e129330d546b0d3fe0, type: 3}
+  beefySmash: {fileID: 8300000, guid: 5a9dada1fb7cc4a3688339af3b891d83, type: 3}
+  machineGunRev: {fileID: 8300000, guid: c20041a7397634b26ad01e8211b49b0f, type: 3}
+  laserCharge: {fileID: 8300000, guid: 4f9d6d00709c84600b3926a9b92318d4, type: 3}
+  hitDamage: {fileID: 8300000, guid: f08277a209648409ba657323afc4e9d0, type: 3}
+  criticalDamage: {fileID: 8300000, guid: f8ddc2dbc63ff4f1c9f0bc9b00be8d4a, type: 3}
 --- !u!114 &114778261452989646
 MonoBehaviour:
   m_ObjectHideFlags: 1
