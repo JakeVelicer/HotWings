@@ -660,7 +660,6 @@ public class playerControls : MonoBehaviour
     }
 
     void SoundCall (AudioClip clip, AudioSource source) {
-
         source.clip = clip;
         source.loop = false;
         source.loop |= (clip == playerFire || clip == playerWater || clip == shockLoop);

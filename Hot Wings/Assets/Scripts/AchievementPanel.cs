@@ -37,6 +37,7 @@ public class AchievementPanel : MonoBehaviour
         if (m_achievementManager.GetMostKilledAlienNumber() == 1)
         {
             CreateBadge(m_alien1Killed);
+
         }
         else if (m_achievementManager.GetMostKilledAlienNumber() == 2)
         {
@@ -67,7 +68,6 @@ public class AchievementPanel : MonoBehaviour
 
         Image image = gameObject.AddComponent<Image>();
         image.sprite = sprite;
-
         return gameObject;
 
     }

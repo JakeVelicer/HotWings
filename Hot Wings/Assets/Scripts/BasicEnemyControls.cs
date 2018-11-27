@@ -44,6 +44,8 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject BombObject;
 	public GameObject IceBlock;
 	public GameObject SaucerRay;
+	public Material DefaultMaterial;
+	public Material HotFlash;
 	public GameObject[] OtherEnemies;
 	private Collider2D AttackCollider;
 	private Collider2D Collider;
@@ -89,6 +91,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		// Setting elements to their proper states
 		InvokeRepeating ("Roam", 0, 1.5f);
 		TouchStop = false;
+		GetComponent<SpriteRenderer>().material = DefaultMaterial;
 		MainController.EnemiesLeft++;
 		DestroyEnemySequence += EnemyDeathSequence;
 		
@@ -597,6 +600,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	private IEnumerator HitByAttack (int xSpeed, int ySpeed, int Seconds) {
 		Freeze = true;
+		GetComponent<SpriteRenderer>().material = HotFlash;
 		Rigidbody.AddForce(Vector3.up * ySpeed);
 		if (Player.facingRight) {
 			Rigidbody.AddForce(Vector3.right * xSpeed);
@@ -604,6 +608,8 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (!Player.facingRight) {
 			Rigidbody.AddForce(Vector3.left * xSpeed);
 		}
+		yield return new WaitForSeconds(0.1f);
+		GetComponent<SpriteRenderer>().material = DefaultMaterial;
 		yield return new WaitForSeconds(Seconds);
 		Freeze = false;
 	}
