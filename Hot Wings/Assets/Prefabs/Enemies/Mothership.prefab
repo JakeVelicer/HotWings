@@ -660,6 +660,8 @@ MonoBehaviour:
   BombObject: {fileID: 0}
   IceBlock: {fileID: 1277225917556578, guid: fe7cacf7d94904c0885608adf4b8cd89, type: 2}
   SaucerRay: {fileID: 1717192696476054}
+  DefaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  HotFlash: {fileID: 2100000, guid: 88a0b1797384d4326b897e185e8f11d0, type: 2}
   OtherEnemies: []
   AlienType: 5
   enemyAttacks: {fileID: 82582881374649634}
