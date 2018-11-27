@@ -1358,7 +1358,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -543, y: 352}
+  m_AnchoredPosition: {x: 740, y: 352}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &489298370
@@ -2790,8 +2790,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -156.29999}
-  m_SizeDelta: {x: -1062.3, y: -891.5}
+  m_AnchoredPosition: {x: 10.2, y: -134.5}
+  m_SizeDelta: {x: -755.8, y: -848.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &717876783
 MonoBehaviour:
@@ -4505,11 +4505,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 02328c74f507d45ec930ac6abe90898e, type: 3}
-    m_FontSize: 40
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 40
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -4539,8 +4539,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 379, y: -388}
-  m_SizeDelta: {x: 254.1, y: 55.9}
+  m_AnchoredPosition: {x: 367, y: -399.2}
+  m_SizeDelta: {x: 313.7, y: 113.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1086878841
 Prefab:
@@ -5271,8 +5271,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -397, y: -388}
-  m_SizeDelta: {x: 254.1, y: 55.9}
+  m_AnchoredPosition: {x: -388, y: -400.45}
+  m_SizeDelta: {x: 346, y: 110.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1307531541
 CanvasRenderer:
@@ -5302,11 +5302,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 02328c74f507d45ec930ac6abe90898e, type: 3}
-    m_FontSize: 40
+    m_FontSize: 100
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 40
+    m_MinSize: 1
+    m_MaxSize: 100
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -7872,7 +7872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2143385908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7892,7 +7892,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 679586a11007c4197bb452e9e386bfce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f0b221746ccc4275afdb3f8c6819afa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7925,9 +7925,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 960, y: 539}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143385911
 MonoBehaviour:
@@ -7941,7 +7941,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_badgeContainer: {fileID: 717876782}
-  m_noDmgDuringTutorialBadge: {fileID: 21300000, guid: 618c8fb8dcf004a9cb71dbe6c4f9baa0,
+  m_noDmgDuringTutorialBadge: {fileID: 21300000, guid: d998b33db1c1245aebe0a775b8d1d7ea,
     type: 3}
-  m_alien1Killed: {fileID: 21300000, guid: 618c8fb8dcf004a9cb71dbe6c4f9baa0, type: 3}
+  m_alien1Killed: {fileID: 21300000, guid: 20c07dec0c36541a9be9d99cfb4df449, type: 3}
+  m_alien2Killed: {fileID: 21300000, guid: 9ab98ccdca5664f96a451216aa0ca7dd, type: 3}
+  m_alien3Killed: {fileID: 21300000, guid: 334e1c88b034a4400aa335b85959ce2a, type: 3}
+  m_alien4Killed: {fileID: 21300000, guid: e1dc0694044a74730ad11e899ddc8b2a, type: 3}
+  m_alien5Killed: {fileID: 21300000, guid: 901efec0a588744b08c6d63e28144cb2, type: 3}
   m_achievementManager: {fileID: 1361458061}
