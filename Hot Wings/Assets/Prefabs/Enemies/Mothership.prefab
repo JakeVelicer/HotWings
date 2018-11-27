@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 60258781503575978}
   - component: {fileID: 114571564197748410}
   - component: {fileID: 114764225815220934}
+  - component: {fileID: 50416413947625750}
   - component: {fileID: 82582881374649634}
   - component: {fileID: 95369697308904220}
   m_Layer: 8
@@ -107,6 +108,26 @@ Transform:
   m_Father: {fileID: 4391577429631654}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50416413947625750
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1911000877547620}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
 --- !u!60 &60258781503575978
 PolygonCollider2D:
   m_ObjectHideFlags: 1
