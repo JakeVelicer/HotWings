@@ -52,7 +52,11 @@ public class BasicEnemyControls : MonoBehaviour {
 	public int AlienType;
 
 	// Sound Elements
-    private AudioSource enemySounds;
+    public AudioSource enemyAttacks;
+    public AudioSource enemyVocals;
+    public AudioSource enemyDamage;
+    public AudioSource enemyAmbient;
+
     public AudioClip enemyPistol;
     public AudioClip enemyRapidFire;
     public AudioClip enemyLaser;
@@ -76,8 +80,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		// Assignment Calls
         anim = GetComponent<Animator>();
-        enemySounds = gameObject.GetComponent<AudioSource>();
-		Rigidbody = GetComponent<Rigidbody2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
@@ -241,7 +244,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				SaucerRay.SetActive(false);
 			}
 			CoolDownTimer = 0;
-            enemySounds.Stop();
+            enemyAttacks.Stop();
             soundPlaying = false;
 		}
 	}
@@ -293,33 +296,20 @@ public class BasicEnemyControls : MonoBehaviour {
     private IEnumerator GunAttack () {
 
 		Rigidbody.velocity = Vector2.zero;
-        enemySounds.clip = machineGunRev;
-        enemySounds.loop = false;
-        enemySounds.Play();
+        SoundCall(machineGunRev, enemyAmbient);
         yield return new WaitForSeconds(0.6f);
 
-        if (AlienType == 1) {
-            enemySounds.clip = enemyPistol;
-            enemySounds.loop = false;
-        }
         if (AlienType == 4) {
-            enemySounds.clip = enemyRapidFire;
-            enemySounds.loop = true;
+            SoundCall(enemyRapidFire, enemyAttacks);
         }
         if (ToTheRight == true)
         {
-            enemySounds.Play();
             GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(1.0f, .10f, 0),
             Quaternion.identity) as GameObject;
             Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
         }
         else if (ToTheRight == false)
         {
-            if (soundPlaying == false)
-            {
-                enemySounds.Play();
-            }
-            soundPlaying = true;
 			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-1.0f, .10f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
@@ -333,9 +323,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		
 		Rigidbody.velocity = Vector2.zero;
 		yield return new WaitForSeconds(0.2f);
-        enemySounds.clip = blobSpit;
-        enemySounds.loop = false;
-        enemySounds.Play();
+        SoundCall(blobSpit, enemyAttacks);
         if (ToTheRight == true) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
@@ -368,10 +356,7 @@ public class BasicEnemyControls : MonoBehaviour {
         yield return new WaitForSeconds(0.4f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
-        yield return new WaitForSeconds(0.2f);
-        enemySounds.clip = beefySmash;
-        enemySounds.loop = false;
-        enemySounds.Play();
+        SoundCall(beefySmash, enemyAttacks);
         StartCoroutine(shootWait());
 
     }
@@ -413,20 +398,15 @@ public class BasicEnemyControls : MonoBehaviour {
 	private IEnumerator RayTime () {
 		
 		CanFireRay = false;
-        enemySounds.clip = laserCharge;
-        enemySounds.loop = false;
-        enemySounds.Play();
-		yield return new WaitForSeconds(2.5f);
+        SoundCall(laserCharge, enemyAmbient);
+        yield return new WaitForSeconds(2.5f);
 		SaucerRay.SetActive(true);
 		BeamAnimation.PlayBeamAnim();
-        enemySounds.clip = enemyLaser;
-        enemySounds.loop = true;
-        enemySounds.Play();
-		yield return new WaitForSeconds(3);
+        SoundCall(enemyLaser, enemyAttacks);
+        yield return new WaitForSeconds(3);
 		BeamAnimation.PlayRetractAnim();
 		yield return new WaitForSeconds(0.2f);
-        enemySounds.Stop();
-        enemySounds.loop = false;
+        enemyAttacks.Stop();
 		SaucerRay.SetActive(false);
 		CanFireRay = true;
 	}
@@ -447,47 +427,42 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		if (AlienType == 1)
 		{
-			enemySounds.clip = enemyDeath4;
 			if (soundPlaying == false)
 			{
-				enemySounds.Play();
-				soundPlaying = true;
+                SoundCall(enemyDeath4, enemyVocals);
+                soundPlaying = true;
 			}
 		}
         else if (AlienType == 2)
         {
-            enemySounds.clip = enemyDeath5;
             if (soundPlaying == false)
             {
-                enemySounds.Play();
+                SoundCall(enemyDeath5, enemyVocals);
                 soundPlaying = true;
             }
         }
         else if (AlienType == 3)
         {
-            enemySounds.clip = enemyDeath2;
             if (soundPlaying == false)
             {
-                enemySounds.Play();
+                SoundCall(enemyDeath2, enemyVocals);
                 soundPlaying = true;
             }
         }
         else if (AlienType == 4)
 		{
-			enemySounds.clip = enemyDeath1;
 			if (soundPlaying == false)
 			{
-				enemySounds.Play();
-				soundPlaying = true;
+                SoundCall(enemyDeath1, enemyVocals);
+                soundPlaying = true;
 			}
 		}
 		else if (AlienType == 5)
 		{
-			enemySounds.clip = enemyDeath3;
 			if (soundPlaying == false)
 			{
-				enemySounds.Play();
-				soundPlaying = true;
+                SoundCall(enemyDeath3, enemyVocals);
+                soundPlaying = true;
 			}
 		}
 		if (OnEnemyDeath != null)
@@ -513,15 +488,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(100, 200, 1));
             if (AlienType == 4)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
 
         }
@@ -530,15 +501,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(200, 200, 1));
             if (AlienType == 4)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
         }
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
@@ -546,15 +513,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(300, 200, 1));
             if (AlienType == 4)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
         }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
@@ -562,15 +525,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(400, 200, 1));
             if (AlienType == 4)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
         }
 		else if (collision.gameObject.tag == "Earth") {
@@ -590,15 +549,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			InvokeRepeating("TakeFireDamage", 0, 0.5f);
             if (AlienType == 1)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 1)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
         }
 		else if (collision.gameObject.tag == "Ice") {
@@ -608,15 +563,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(0, 0, 3));
             if (AlienType == 3)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 3)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
         }
 		else if (collision.gameObject.tag == "IceBlock") {
@@ -626,15 +577,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
             if (AlienType == 2)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 2)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
         }
 		else if (collision.gameObject.tag == "Wind") {
@@ -642,15 +589,11 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(300, 600, 3));
             if (AlienType == 5)
             {
-                enemySounds.clip = criticalDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 5)
             {
-                enemySounds.clip = hitDamage;
-                enemySounds.loop = false;
-                enemySounds.Play();
+                SoundCall(hitDamage, enemyDamage);
             }
 		}
 	}
@@ -703,5 +646,14 @@ public class BasicEnemyControls : MonoBehaviour {
 			ChaseDirection();
 		}
 	}
+
+    void SoundCall(AudioClip clip, AudioSource source)
+    {
+
+        source.clip = clip;
+        source.loop = false;
+        source.loop |= (source.clip == enemyLaser);
+        source.Play();
+    }
 
 }
