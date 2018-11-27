@@ -88,7 +88,6 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		// Setting elements to their proper states
 		InvokeRepeating ("Roam", 0, 1.5f);
-		enemySounds.loop = false;
 		TouchStop = false;
 		MainController.EnemiesLeft++;
 		DestroyEnemySequence += EnemyDeathSequence;
@@ -375,9 +374,7 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		yield return new WaitForSeconds(0.7f);
 		AttackCollider.enabled = true;
-        enemySounds.clip = rolyPolyRoll;
-        enemySounds.loop = false;
-        enemySounds.Play();
+		SoundCall(rolyPolyRoll, enemyAttacks);
 		if (!Freeze) {
 			if (DashDirection == 1) {
 				Rigidbody.AddForce(Vector2.right * ProjectileSpeed, ForceMode2D.Impulse);
