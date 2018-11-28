@@ -18,6 +18,7 @@ public class playerControls : MonoBehaviour
     public int jumpForce;
     public bool isJumping;
     private bool Dashing;
+    private bool isBuff;
     public bool canShoot = true;
     public int shotSpeed;
     public int DashSpeed;
@@ -26,14 +27,12 @@ public class playerControls : MonoBehaviour
     private float ChargeTime = 1;
 
     //Pepper references
-    public string pepperA = null;
-    public string pepperB = null;
     public int pepperIndexA;
     public int pepperIndexB;
 
     public int health;
-    private float BuffTimer;
-    private int HealthTimer;
+    [HideInInspector] public int BuffTimer;
+    [HideInInspector] public int HealthTimer;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -103,6 +102,7 @@ public class playerControls : MonoBehaviour
 
         PepAttacks();
         EggBombs();
+        SlotBCleanup();
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 
@@ -276,18 +276,22 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 7: // CALLS Health Pepper Power heal
-                    if (Input.GetKeyDown(KeyCode.Space) && Healing == false) {
+                    if (Input.GetKeyDown(KeyCode.Space) && !Healing) {
                         SoundCall(playerHeal, playerAmbient);
                         Healing = true;
                         StartCoroutine(HealThePlayer());
                     }
                     if (HealthTimer <= 0) {
                         Healing = false;
-                        ConsumableOver();
+                        ConsumableOverA();
                     }
                     break;
                 case 8: // Buff Arms Pepper Power Attack
                     playerBuffShot.SetActive(true);
+                    if (!isBuff) {
+                        isBuff = true;
+                        StartCoroutine(BuffTime());
+                    }
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         //canShoot = false;
                         if (OnPunch != null) {
@@ -304,10 +308,10 @@ public class playerControls : MonoBehaviour
                             buffPunch1 = !buffPunch1;
 						}
                     }
-                    BuffTimer = BuffTimer - 1 * Time.deltaTime;
                     if (BuffTimer <= 0) {
                         playerBuffShot.SetActive(false);
-                        ConsumableOver();
+                        isBuff = false;
+                        ConsumableOverA();
                     }
                     break;
                 case 9: // Earth Pepper Power Attack
@@ -317,7 +321,7 @@ public class playerControls : MonoBehaviour
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
 			            Quaternion.identity) as GameObject;
-                        ConsumableOver();
+                        ConsumableOverA();
                         StartCoroutine(shootWait());
                     }
                     break;
@@ -335,14 +339,28 @@ public class playerControls : MonoBehaviour
             }
 
             int tempIndex = pepperIndexA;
-            string tempPepper = pepperA;
-
             pepperIndexA = pepperIndexB;
             pepperIndexB = tempIndex;
 
-            pepperA = pepperB;
-            pepperB = tempPepper;
+        }
+    }
 
+    void SlotBCleanup () {
+
+        switch (pepperIndexB) {
+            case 7:
+                if (HealthTimer <= 0) {
+                    Healing = false;
+                    ConsumableOverB();
+                }
+                break;
+            case 8: // Buff Arms Pepper Power Attack
+                if (BuffTimer <= 0) {
+                    playerBuffShot.SetActive(false);
+                    isBuff = false;
+                    ConsumableOverB();
+                }
+                break;
         }
     }
 
@@ -397,9 +415,7 @@ public class playerControls : MonoBehaviour
 			            Quaternion.identity) as GameObject;
                     break;
             }
-            pepperA = pepperB;
             pepperIndexA = pepperIndexB;
-            pepperB = null;
             pepperIndexB = 0;
         }
     }
@@ -503,12 +519,27 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    private void ConsumableOver()
+    private IEnumerator BuffTime()
     {
-        pepperA = null;
+        for (int i = 0; i < 20; i++) {
+            BuffTimer = BuffTimer - 1;
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    private void ConsumableOverA()
+    {
+        pepperIndexA = pepperIndexB;
+        pepperIndexB = 0;
         GameObject shot = Instantiate(shitBrick, transform.position + new Vector3(0, 0, 0), 
 		    Quaternion.identity) as GameObject;
-        pepperIndexA = 0;
+    }
+
+    private void ConsumableOverB()
+    {
+        pepperIndexB = 0;
+        GameObject shot = Instantiate(shitBrick, transform.position + new Vector3(0, 0, 0), 
+		    Quaternion.identity) as GameObject;
     }
 
     void OnCollisionEnter2D(Collision2D collider)
@@ -524,57 +555,57 @@ public class playerControls : MonoBehaviour
 
             if (collider.gameObject.name == "FirePepper(Clone)") {
                 if (pepperIndexA != 1 && pepperIndexB != 1) {
-                    PepperCollision(1, "firePepper");
+                    PepperCollision(1);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "ShockPepper(Clone)") {
                 if (pepperIndexA != 2 && pepperIndexB != 2) {
-                    PepperCollision(2, "shockPepper");
+                    PepperCollision(2);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "WaterPepper(Clone)") {
                 if (pepperIndexA != 3 && pepperIndexB != 3) {
-                    PepperCollision(3, "waterPepper");
+                    PepperCollision(3);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "IcePepper(Clone)") {
                 if (pepperIndexA != 4 && pepperIndexB != 4) {
-                    PepperCollision(4, "icePepper");
+                    PepperCollision(4);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "SpeedPepper(Clone)") {
                 if (pepperIndexA != 5 && pepperIndexB != 5) {
-                    PepperCollision(5, "speedPepper");
+                    PepperCollision(5);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "WindPepper(Clone)") {
                 if (pepperIndexA != 6 && pepperIndexB != 6) {
-                    PepperCollision(6, "windPepper");
+                    PepperCollision(6);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "HealthPepper(Clone)") {
                 if (pepperIndexA != 7 && pepperIndexB != 7) {
                     HealthTimer = 5;
-                    PepperCollision(7, "healthPepper");
+                    PepperCollision(7);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "BuffPepper(Clone)") {
                 if (pepperIndexA != 8 && pepperIndexB != 8) {
                     BuffTimer = 20;
-                    PepperCollision(8, "buffPepper");
+                    PepperCollision(8);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "EarthPepper(Clone)") {
                 if (pepperIndexA != 9 && pepperIndexB != 9) {
-                    PepperCollision(9, "earthPepper");
+                    PepperCollision(9);
                     Destroy(collider.gameObject);
                 }
             }
@@ -644,16 +675,14 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    void PepperCollision(int pepperNumber, string pepperName) {
+    void PepperCollision(int pepperNumber) {
         if (pepperIndexA == 0) {
             SoundCall(pepperCollect, playerAmbient);
             pepperIndexA = pepperNumber;
-            pepperA = pepperName;
         }
         else if (pepperIndexB == 0) {
             SoundCall(pepperCollect, playerAmbient);
             pepperIndexB = pepperNumber;
-            pepperB = pepperName;
         }
     }
 

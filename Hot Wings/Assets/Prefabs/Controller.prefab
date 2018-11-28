@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114962278524806552}
   - component: {fileID: 114359089860403696}
   - component: {fileID: 114054046426134130}
+  - component: {fileID: 114472545421719894}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -77,6 +78,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &114472545421719894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204508181842710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ab2906830c1489d861f1ee350b6cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerControls: {fileID: 0}
+  enemiesKilled: 0
 --- !u!114 &114962278524806552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,9 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d315bd91c42c4cb698009c28f697c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreDisplay: {fileID: 0}
   EnemiesLeft: 0
-  GoSpawn: 0
   WaveCount: 0
-  inventoryDisplay: {fileID: 0}
   score: 0
+  GoSpawn: 0
+  PepperWait: 0

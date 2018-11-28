@@ -351,7 +351,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private IEnumerator JumpSmashAttack () {
 
 		Rigidbody.velocity = Vector2.zero;
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(0.2f);
         gameObject.GetComponent<Rigidbody2D>().AddForce
 			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
 		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
@@ -380,7 +380,7 @@ public class BasicEnemyControls : MonoBehaviour {
             DashDirection = 2;
 			anim.SetInteger("R_or_L", 2);
         }
-		yield return new WaitForSeconds(0.7f);
+		yield return new WaitForSeconds(0.6f);
 		AttackCollider.enabled = true;
 		SoundCall(rolyPolyRoll, enemyAttacks);
 		if (!Freeze) {
@@ -492,7 +492,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage;
-			StartCoroutine(HitByAttack(100, 200, 1));
+			StartCoroutine(HitByAttack(100, 200, 0.3f));
             if (AlienType == 4)
             {
                 SoundCall(criticalDamage, enemyDamage);
@@ -505,7 +505,7 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
-			StartCoroutine(HitByAttack(200, 200, 1));
+			StartCoroutine(HitByAttack(200, 200, 0.5f));
             if (AlienType == 4)
             {
                 SoundCall(criticalDamage, enemyDamage);
@@ -529,7 +529,7 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
-			StartCoroutine(HitByAttack(400, 200, 1));
+			StartCoroutine(HitByAttack(400, 200, 1.5f));
             if (AlienType == 4)
             {
                 SoundCall(criticalDamage, enemyDamage);
@@ -540,15 +540,15 @@ public class BasicEnemyControls : MonoBehaviour {
             }
         }
 		else if (collision.gameObject.tag == "Earth") {
-			StartCoroutine(HitByAttack(0, 400, 1));
+			StartCoroutine(HitByAttack(0, 400, 2));
 			EnemyHealth -= DamageValues.EarthDamage;
 		}
 		else if (collision.gameObject.tag == "Speed") {
-			StartCoroutine(HitByAttack(0, 200, 1));
+			StartCoroutine(HitByAttack(0, 200, 0.3f));
 			EnemyHealth -= DamageValues.SpeedDamage;
 		}
 		else if (collision.gameObject.name == "AnchorArms") {
-			StartCoroutine(HitByAttack(200, 300, 2));
+			StartCoroutine(HitByAttack(200, 300, 1));
 			EnemyHealth -= DamageValues.JackedDamage;
 		}
 			// Takes damage from stream attacks
@@ -593,7 +593,7 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		else if (collision.gameObject.tag == "Wind") {
 			InvokeRepeating("TakeWindDamage", 0, 0.5f);
-			StartCoroutine(HitByAttack(300, 600, 3));
+			StartCoroutine(HitByAttack(300, 600, 2));
             if (AlienType == 5)
             {
                 SoundCall(criticalDamage, enemyDamage);
@@ -605,7 +605,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator HitByAttack (int xSpeed, int ySpeed, int Seconds) {
+	private IEnumerator HitByAttack (int xSpeed, int ySpeed, float Seconds) {
 		Freeze = true;
 		GetComponent<SpriteRenderer>().material = HotFlash;
 		Rigidbody.AddForce(Vector3.up * ySpeed);
@@ -638,11 +638,11 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	void TakeFireDamage() {
 		EnemyHealth -= DamageValues.FireDamage;
-		StartCoroutine(HitByAttack(100, 100, 1));
+		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
 	void TakeWaterDamage() {
 		EnemyHealth -= DamageValues.WaterDamage;
-		StartCoroutine(HitByAttack(100, 100, 1));
+		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
 	void TakeWindDamage() {
 		EnemyHealth -= DamageValues.WindDamage;
