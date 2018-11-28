@@ -121,10 +121,10 @@ public class BasicEnemyControls : MonoBehaviour {
 			}
 		}
 
-		if (transform.position.y <= -1.5) {
+		if (transform.position.y <= -1.5 && AlienType != 5) {
 			TouchStop = true;
 		}
-		else if (transform.position.y > -1.5) {
+		else if (transform.position.y > -1.5 && AlienType != 5) {
 			TouchStop = false;
 		}
 
@@ -229,20 +229,26 @@ public class BasicEnemyControls : MonoBehaviour {
 			CanRoam = false;
 			ChaseDirection();
 			if (CanFireRay == true) {
+				SaucerRay.GetComponent<Collider2D>().enabled = true;
 				StartCoroutine(RayTime());
 			}
 		}
 		// Saucer Attack Check
-		else if (DistX <= FireRange && DistX <= 0.5 && AlienType == 5) {
+		else if (DistX <= 0.5 && AlienType == 5) {
 			CanChase = false;
 			Rigidbody.velocity = Vector2.zero;
 			ChaseDirection();
+			if (CanFireRay == true) {
+				SaucerRay.GetComponent<Collider2D>().enabled = true;
+				StartCoroutine(RayTime());
+			}
 		}
 		// Roams out of range of chasing and attacking
 		else {
 			CanChase = false;
 			CanRoam = true;
 			if (AlienType == 5) {
+				SaucerRay.GetComponent<Collider2D>().enabled = false;
 				SaucerRay.SetActive(false);
 			}
 			CoolDownTimer = 0;
@@ -346,7 +352,6 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		Rigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(.2f);
-
         gameObject.GetComponent<Rigidbody2D>().AddForce
 			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
 		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
@@ -422,6 +427,8 @@ public class BasicEnemyControls : MonoBehaviour {
 	void EnemyDeathSequence () {
 
 		DestroyEnemySequence = null;
+		Rigidbody.velocity = Vector2.zero;
+		Freeze = true;
 		MainController.score += enemyValue;
 		MainController.EnemiesLeft--;
 

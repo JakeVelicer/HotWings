@@ -29,6 +29,7 @@ public class WindBehavior : MonoBehaviour {
 	void Update () {
 
 		if (WindGrow.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !WindGrow.IsInTransition(0)) {
+			GetComponent<Collider2D>().enabled = false;
 			Destroy (gameObject, 0.1f);
 		}
 		

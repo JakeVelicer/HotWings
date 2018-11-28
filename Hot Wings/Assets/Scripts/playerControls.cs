@@ -640,8 +640,6 @@ public class playerControls : MonoBehaviour
     void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "enemyDeathRay") {
-            //SaucerColliding = false;
-            Debug.Log("Left Collider");
             CancelInvoke("CollidingDeathRay");
         }
     }
