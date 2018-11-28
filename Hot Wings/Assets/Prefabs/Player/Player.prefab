@@ -773,7 +773,7 @@ MonoBehaviour:
   pepperB: 
   pepperIndexA: 0
   pepperIndexB: 0
-  health: 50
+  health: 500
   isImmune: 0
   facingRight: 0
   playerDashCollider: {fileID: 1195049990912626}
