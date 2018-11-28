@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     private Text scoreDisplay;
     private Text waveDisplay;
+    private Text healthDisplay;
     public int EnemiesLeft = 0;
     public int WaveCount;
     public int score;
@@ -31,7 +32,8 @@ public class GameController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
         waveDisplay = GameObject.Find("Wave").GetComponent<Text>();
-        
+        //healthDisplay = GameObject.Find("HealthText").GetComponent<Text>();
+
         WaveCount = 0;
         score = 0;
         scoreDisplay.text = "Score: " + score;
@@ -40,6 +42,7 @@ public class GameController : MonoBehaviour
 
     void Update() {
 
+        //healthDisplay.text = "Health: " + player.GetComponent<playerControls>().health;
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
 
