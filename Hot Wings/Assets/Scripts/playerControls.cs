@@ -18,6 +18,7 @@ public class playerControls : MonoBehaviour
     public int jumpForce;
     public bool isJumping;
     private bool Dashing;
+    private bool isBuff;
     public bool canShoot = true;
     public int shotSpeed;
     public int DashSpeed;
@@ -26,14 +27,12 @@ public class playerControls : MonoBehaviour
     private float ChargeTime = 1;
 
     //Pepper references
-    public string pepperA = null;
-    public string pepperB = null;
     public int pepperIndexA;
     public int pepperIndexB;
 
     public int health;
-    public float BuffTimer;
-    private int HealthTimer;
+    [HideInInspector] public int BuffTimer;
+    [HideInInspector] public int HealthTimer;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -53,6 +52,8 @@ public class playerControls : MonoBehaviour
     private GameObject ElectricShotToUse;
 
     public AudioSource playerSounds;
+    public AudioSource playerVocals;
+    public AudioSource playerAmbient;
 
     public AudioClip playerFire;
     public AudioClip playerWater;
@@ -64,6 +65,9 @@ public class playerControls : MonoBehaviour
     public AudioClip playerEarth;
     public AudioClip playerWind;
     public AudioClip playerBuff;
+    public AudioClip playerBuff2;
+    private bool buffPunch1 = true;
+
     public AudioClip playerDash;
     public AudioClip playerHeal;
 
@@ -72,6 +76,7 @@ public class playerControls : MonoBehaviour
     public AudioClip playerHit;
     public AudioClip playerDeath;
     public AudioClip shockLoop;
+    private bool shockLoopPlaying = false;
 
     public GameObject eggFire;
     public GameObject eggWater;
@@ -89,7 +94,6 @@ public class playerControls : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetBool("isIdle", true);
         PlayerRigidbody = GetComponent<Rigidbody2D>();
-        playerSounds = gameObject.GetComponent<AudioSource>();
         StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
         moveSpeed = Speed;
@@ -100,6 +104,7 @@ public class playerControls : MonoBehaviour
 
         PepAttacks();
         EggBombs();
+        SlotBCleanup();
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         AnimChecker = anim.GetInteger("Speed");
@@ -188,8 +193,7 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        anim.SetBool("isAttacking", true);
-                        SoundCall(playerFire);
+                        SoundCall(playerFire, playerSounds);
                         playerFireShot.GetComponent<Collider2D>().enabled = true;
                         playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
                         StreamAnimFire.StartBeam();
@@ -205,34 +209,35 @@ public class playerControls : MonoBehaviour
                 case 2: // Electric Shock Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
                     {
-                        SoundCall(shockLoop);
+                        if (!shockLoopPlaying)
+                        {
+                            SoundCall(shockLoop, playerAmbient);
+                            shockLoopPlaying = true;
+                        }
                         ChargeTime = ChargeTime + Time.deltaTime;
                         //Debug.Log(ChargeTime);
                     }
                     if (Input.GetKeyUp(KeyCode.Space))
                     {
+                        shockLoopPlaying = false;
+                        playerAmbient.Stop();
                         canShoot = false;
                         if (ChargeTime >= 3) {
-                            anim.SetBool("isAttacking", true);
-                            SoundCall(playerShock4);
+                            SoundCall(playerShock4, playerSounds);
                             ElectricShotToUse = playerShockShot4;
 
                         }
                         else if (ChargeTime >= 2) {
-                            anim.SetBool("isAttacking", true);
-                            SoundCall(playerShock3);
-                            ElectricShotToUse = playerShockShot3; 
-
+                            SoundCall(playerShock3, playerSounds);
+                            ElectricShotToUse = playerShockShot3;
                         }
                         else if (ChargeTime >= 1) {
-                            anim.SetBool("isAttacking", true);
-                            SoundCall(playerShock2);
+                            SoundCall(playerShock2, playerSounds);
                             ElectricShotToUse = playerShockShot2;
                            
                         }
                         else if (ChargeTime < 1) {
-                            anim.SetBool("isAttacking", true);
-                            SoundCall(playerShock1);
+                            SoundCall(playerShock1, playerSounds);
                             ElectricShotToUse = playerShockShot1;
                            
                         }
@@ -251,8 +256,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 3: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        anim.SetBool("isAttacking", true);
-                        SoundCall(playerWater);
+                        SoundCall(playerWater, playerSounds);
                         playerWaterShot.GetComponent<Collider2D>().enabled = true;
                         playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
                         StreamAnimWater.StartBeam();
@@ -267,15 +271,14 @@ public class playerControls : MonoBehaviour
                     break;
                 case 4: // CALLS Ice Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        anim.SetBool("isAttacking", true);
-                        SoundCall(playerIce);
+                        SoundCall(playerIce, playerSounds);
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
                     break;
                 case 5: // CALLS Speed Dash Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        SoundCall(playerDash);
+                        SoundCall(playerDash, playerSounds);
                         canShoot = false;
                         if (DashDirection == 0) {
                             StartCoroutine(SpeedDash());
@@ -285,8 +288,7 @@ public class playerControls : MonoBehaviour
                 case 6: // Wind Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        anim.SetBool("isWind", true);
-                        SoundCall(playerWind);
+                        SoundCall(playerWind, playerSounds);
                         canShoot = false;
                         if (facingRight)
                         {
@@ -310,48 +312,52 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 7: // CALLS Health Pepper Power heal
-                    if (Input.GetKeyDown(KeyCode.Space) && Healing == false) {
-                        SoundCall(playerHeal);
+                    if (Input.GetKeyDown(KeyCode.Space) && !Healing) {
+                        SoundCall(playerHeal, playerAmbient);
                         Healing = true;
                         StartCoroutine(HealThePlayer());
                     }
                     if (HealthTimer <= 0) {
                         Healing = false;
-                        ConsumableOver();
+                        ConsumableOverA();
                     }
                     break;
                 case 8: // Buff Arms Pepper Power Attack
                     playerBuffShot.SetActive(true);
-                    anim.SetBool("isBuff", true);
+                    if (!isBuff) {
+                        isBuff = true;
+                        StartCoroutine(BuffTime());
+                    }
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         //canShoot = false;
                         if (OnPunch != null) {
-                            anim.SetBool("isAttacking", true);
-                            SoundCall(playerBuff);
-                            OnPunch();
-                            //anim.SetBool("isAttacking", false);
-                        }
+                            if (buffPunch1)
+                            {
+                                SoundCall(playerBuff, playerSounds);
+                                OnPunch();
+                            }
+                            else
+                            {
+                                SoundCall(playerBuff2, playerSounds);
+                                OnPunch();
+                            }
+                            buffPunch1 = !buffPunch1;
+						}
                     }
-                    if (Input.GetKeyUp(KeyCode.Space))
-                    {
-                        anim.SetBool("isAttacking", false);
-                    }
-                    BuffTimer = BuffTimer - 1 * Time.deltaTime;
                     if (BuffTimer <= 0) {
                         playerBuffShot.SetActive(false);
-                        anim.SetBool("isAttacking", false);
-                        anim.SetBool("isBuff", false);
-                        ConsumableOver();
+                        isBuff = false;
+                        ConsumableOverA();
                     }
                     break;
                 case 9: // Earth Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        SoundCall(playerEarth);
+                        SoundCall(playerEarth, playerSounds);
                         canShoot = false;
                         shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
 			            Quaternion.identity) as GameObject;
-                        ConsumableOver();
+                        ConsumableOverA();
                         StartCoroutine(shootWait());
                     }
                     break;
@@ -369,14 +375,28 @@ public class playerControls : MonoBehaviour
             }
 
             int tempIndex = pepperIndexA;
-            string tempPepper = pepperA;
-
             pepperIndexA = pepperIndexB;
             pepperIndexB = tempIndex;
 
-            pepperA = pepperB;
-            pepperB = tempPepper;
+        }
+    }
 
+    void SlotBCleanup () {
+
+        switch (pepperIndexB) {
+            case 7:
+                if (HealthTimer <= 0) {
+                    Healing = false;
+                    ConsumableOverB();
+                }
+                break;
+            case 8: // Buff Arms Pepper Power Attack
+                if (BuffTimer <= 0) {
+                    playerBuffShot.SetActive(false);
+                    isBuff = false;
+                    ConsumableOverB();
+                }
+                break;
         }
     }
 
@@ -389,7 +409,7 @@ public class playerControls : MonoBehaviour
             switch (pepperIndexA)
             {
                 case 1:
-                    SoundCall(eggDrop);
+                    SoundCall(eggDrop, playerSounds);
                     if (StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
                         StreamAnimFire.GoToIdle();
                     }
@@ -397,12 +417,12 @@ public class playerControls : MonoBehaviour
 			            Quaternion.identity) as GameObject;
                     break;
                 case 2:
-                    SoundCall(eggDrop);
+                    SoundCall(eggDrop, playerSounds);
                     shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 3:
-                    SoundCall(eggDrop);
+                    SoundCall(eggDrop, playerSounds);
                     if (StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
                         StreamAnimWater.GoToIdle();
                     }
@@ -410,12 +430,12 @@ public class playerControls : MonoBehaviour
 			            Quaternion.identity) as GameObject;
                     break;
                 case 4:
-                    SoundCall(eggDrop);
+                    SoundCall(eggDrop, playerSounds);
                     shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
                 case 5:
-                    SoundCall(eggDrop);
+                    SoundCall(eggDrop, playerSounds);
                     shot = Instantiate(eggSpeed, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                         if (facingRight) {
@@ -426,14 +446,12 @@ public class playerControls : MonoBehaviour
                         }
                     break;
                 case 6:
-                    SoundCall(eggDrop);
+                    SoundCall(eggDrop, playerSounds);
                     shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
             }
-            pepperA = pepperB;
             pepperIndexA = pepperIndexB;
-            pepperB = null;
             pepperIndexB = 0;
         }
     }
@@ -490,7 +508,7 @@ public class playerControls : MonoBehaviour
         if (!isImmune) {
             if (!playerSounds.isPlaying)
             {
-                SoundCall(playerHit);
+                SoundCall(playerHit, playerVocals);
             }
             anim.SetBool("isHit", true);
             isImmune = true;
@@ -552,12 +570,27 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    private void ConsumableOver()
+    private IEnumerator BuffTime()
     {
-        pepperA = null;
+        for (int i = 0; i < 20; i++) {
+            BuffTimer = BuffTimer - 1;
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    private void ConsumableOverA()
+    {
+        pepperIndexA = pepperIndexB;
+        pepperIndexB = 0;
         GameObject shot = Instantiate(shitBrick, transform.position + new Vector3(0, 0, 0), 
 		    Quaternion.identity) as GameObject;
-        pepperIndexA = 0;
+    }
+
+    private void ConsumableOverB()
+    {
+        pepperIndexB = 0;
+        GameObject shot = Instantiate(shitBrick, transform.position + new Vector3(0, 0, 0), 
+		    Quaternion.identity) as GameObject;
     }
 
     void OnCollisionEnter2D(Collision2D collider)
@@ -576,44 +609,44 @@ public class playerControls : MonoBehaviour
 
             if (collider.gameObject.name == "FirePepper(Clone)") {
                 if (pepperIndexA != 1 && pepperIndexB != 1) {
-                    PepperCollision(1, "firePepper");
+                    PepperCollision(1);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "ShockPepper(Clone)") {
                 if (pepperIndexA != 2 && pepperIndexB != 2) {
-                    PepperCollision(2, "shockPepper");
+                    PepperCollision(2);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "WaterPepper(Clone)") {
                 if (pepperIndexA != 3 && pepperIndexB != 3) {
-                    PepperCollision(3, "waterPepper");
+                    PepperCollision(3);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "IcePepper(Clone)") {
                 if (pepperIndexA != 4 && pepperIndexB != 4) {
-                    PepperCollision(4, "icePepper");
+                    PepperCollision(4);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "SpeedPepper(Clone)") {
                 if (pepperIndexA != 5 && pepperIndexB != 5) {
-                    PepperCollision(5, "speedPepper");
+                    PepperCollision(5);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "WindPepper(Clone)") {
                 if (pepperIndexA != 6 && pepperIndexB != 6) {
-                    PepperCollision(6, "windPepper");
+                    PepperCollision(6);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "HealthPepper(Clone)") {
                 if (pepperIndexA != 7 && pepperIndexB != 7) {
                     HealthTimer = 5;
-                    PepperCollision(7, "healthPepper");
+                    PepperCollision(7);
                     Destroy(collider.gameObject);
                 }
             }
@@ -621,13 +654,13 @@ public class playerControls : MonoBehaviour
                 if (pepperIndexA != 8 && pepperIndexB != 8) {
                     anim.SetBool("isBuff", true);
                     BuffTimer = 20;
-                    PepperCollision(8, "buffPepper");
+                    PepperCollision(8);
                     Destroy(collider.gameObject);
                 }
             }
             if (collider.gameObject.name == "EarthPepper(Clone)") {
                 if (pepperIndexA != 9 && pepperIndexB != 9) {
-                    PepperCollision(9, "earthPepper");
+                    PepperCollision(9);
                     Destroy(collider.gameObject);
                 } 
             }
@@ -697,31 +730,26 @@ public class playerControls : MonoBehaviour
     void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "enemyDeathRay") {
-            //SaucerColliding = false;
-            Debug.Log("Left Collider");
             CancelInvoke("CollidingDeathRay");
         }
     }
 
-    void PepperCollision(int pepperNumber, string pepperName) {
+    void PepperCollision(int pepperNumber) {
         if (pepperIndexA == 0) {
-            SoundCall(pepperCollect);
+            SoundCall(pepperCollect, playerAmbient);
             pepperIndexA = pepperNumber;
-            pepperA = pepperName;
         }
         else if (pepperIndexB == 0) {
-            SoundCall(pepperCollect);
+            SoundCall(pepperCollect, playerAmbient);
             pepperIndexB = pepperNumber;
-            pepperB = pepperName;
         }
     }
 
-    void SoundCall (AudioClip clip) {
-
-        playerSounds.clip = clip;
-        playerSounds.loop = false;
-        playerSounds.loop |= (clip == playerFire || clip == playerWater || clip == shockLoop);
-        playerSounds.Play();
+    void SoundCall (AudioClip clip, AudioSource source) {
+        source.clip = clip;
+        source.loop = false;
+        source.loop |= (clip == playerFire || clip == playerWater || clip == shockLoop);
+        source.Play();
     }
 
 }

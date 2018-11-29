@@ -32,25 +32,17 @@ public class GameController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
         waveDisplay = GameObject.Find("Wave").GetComponent<Text>();
-        healthDisplay = GameObject.Find("Health").GetComponent<Text>();
-        //inventoryDisplay = GameObject.Find("Inventory").GetComponent<Text>();
-        //player.GetComponent<playerControls>().pepperB = " ";
-        //inventoryDisplay.text = "Inventory:" + "\n"+ player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
-
-        score = 0;
-        scoreDisplay.text = "Score: " + score;
+        //healthDisplay = GameObject.Find("HealthText").GetComponent<Text>();
 
         WaveCount = 0;
+        score = 0;
+        scoreDisplay.text = "Score: " + score;
         
     }
 
     void Update() {
 
-        /*
-        inventoryDisplay.text = "Inventory:" + "\n" + player.GetComponent<playerControls>().
-            pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
-        */
-        healthDisplay.text = "Health: " + player.GetComponent<playerControls>().health;
+        //healthDisplay.text = "Health: " + player.GetComponent<playerControls>().health;
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
 

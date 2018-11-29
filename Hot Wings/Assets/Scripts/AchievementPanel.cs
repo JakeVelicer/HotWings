@@ -14,6 +14,15 @@ public class AchievementPanel : MonoBehaviour
 
     [SerializeField]
     private Sprite m_alien1Killed;
+    [SerializeField]
+    private Sprite m_alien2Killed;
+    [SerializeField]
+    private Sprite m_alien3Killed;
+    [SerializeField]
+    private Sprite m_alien4Killed;
+    [SerializeField]
+    private Sprite m_alien5Killed;
+
 
     [SerializeField]
     private AchievementManager m_achievementManager;
@@ -28,7 +37,27 @@ public class AchievementPanel : MonoBehaviour
         if (m_achievementManager.GetMostKilledAlienNumber() == 1)
         {
             CreateBadge(m_alien1Killed);
+
         }
+        else if (m_achievementManager.GetMostKilledAlienNumber() == 2)
+        {
+            CreateBadge(m_alien2Killed);
+        }
+        else if (m_achievementManager.GetMostKilledAlienNumber() == 3)
+        {
+            CreateBadge(m_alien3Killed);
+        }
+        else if (m_achievementManager.GetMostKilledAlienNumber() == 4)
+        {
+            CreateBadge(m_alien4Killed);
+        }
+        else if (m_achievementManager.GetMostKilledAlienNumber() == 5)
+        {
+            CreateBadge(m_alien5Killed);
+        }
+      
+
+        
     }
 
     private GameObject CreateBadge(Sprite sprite)
@@ -39,7 +68,6 @@ public class AchievementPanel : MonoBehaviour
 
         Image image = gameObject.AddComponent<Image>();
         image.sprite = sprite;
-
         return gameObject;
 
     }
