@@ -178,12 +178,7 @@ public class playerControls : MonoBehaviour
         }
 
     }
-    void AnimtionState(){
-
-
-
-
-    }
+    
     void PepAttacks() {
 
         if (canShoot)
@@ -339,12 +334,10 @@ public class playerControls : MonoBehaviour
                         if (OnPunch != null) {
                             anim.SetBool("isAttacking", true);
                             OnPunch();
-                            if (buffPunch1)
-                            {
+                            if (buffPunch1) {
                                 SoundCall(playerBuff, playerSounds);
                             }
-                            else
-                            {
+                            else {
                                 SoundCall(playerBuff2, playerSounds);
                             }
                             buffPunch1 = !buffPunch1;

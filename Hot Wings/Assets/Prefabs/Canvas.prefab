@@ -721,14 +721,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 9b56c6132859c4007b6237752d2e077f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1244,8 +1244,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 16.400002, y: -103}
-  m_SizeDelta: {x: 1176.5, y: 152.79999}
+  m_AnchoredPosition: {x: 21, y: -68.7}
+  m_SizeDelta: {x: 1351, y: 274}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224789847382555448
 RectTransform:
@@ -1281,8 +1281,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 17, y: -103}
-  m_SizeDelta: {x: 1401.1, y: 152.79999}
+  m_AnchoredPosition: {x: 17, y: -72.2}
+  m_SizeDelta: {x: 1398, y: 152.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224939712002964794
 RectTransform:
