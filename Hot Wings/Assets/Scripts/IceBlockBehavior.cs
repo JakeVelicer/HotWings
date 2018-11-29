@@ -10,15 +10,14 @@ public class IceBlockBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		StartCoroutine(IceSequence());
 		Collider = GetComponent<Collider2D>();
+		StartCoroutine(IceSequence());
 	}
 
 	IEnumerator IceSequence () {
 		
         yield return new WaitForSeconds(Countdown);
 		Collider.enabled = false;
-        yield return new WaitForSeconds(0.1f);
 		Destroy(gameObject);
 	}
 }

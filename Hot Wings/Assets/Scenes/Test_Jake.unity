@@ -152,6 +152,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 1103321857479440, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
+      propertyPath: m_Name
+      value: GlobBomber(Clone)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
   m_IsPrefabAsset: 0
@@ -691,6 +695,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 21
       objectReference: {fileID: 0}
+    - target: {fileID: 1997235813895256, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
+      propertyPath: m_Name
+      value: Armored Alien(Clone)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45757f6afc6224ff2a0c2df505750018, type: 2}
   m_IsPrefabAsset: 0
@@ -820,6 +828,10 @@ Prefab:
     - target: {fileID: 4622810067361452, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
       propertyPath: m_RootOrder
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1504860558006326, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
+      propertyPath: m_Name
+      value: Roly Poly(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d62788a7fb26e40db98802210c0ed941, type: 2}
@@ -954,6 +966,10 @@ Prefab:
     - target: {fileID: 4586283216913092, guid: 072758c31bfe44dba865b1f2f83a5b9f, type: 2}
       propertyPath: m_RootOrder
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543632953322894, guid: 072758c31bfe44dba865b1f2f83a5b9f, type: 2}
+      propertyPath: m_Name
+      value: Beefy Alien(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 072758c31bfe44dba865b1f2f83a5b9f, type: 2}
@@ -1323,6 +1339,10 @@ Prefab:
     - target: {fileID: 4391577429631654, guid: e53ba94efc0b34241814698d4af376eb, type: 2}
       propertyPath: m_RootOrder
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1911000877547620, guid: e53ba94efc0b34241814698d4af376eb, type: 2}
+      propertyPath: m_Name
+      value: Mothership(Clone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e53ba94efc0b34241814698d4af376eb, type: 2}

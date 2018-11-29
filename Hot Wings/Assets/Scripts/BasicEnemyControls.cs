@@ -37,6 +37,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	public bool ToTheRight;
+	private bool CanSpawnIceBlock = true;
 
 	// Attack Objects and Elements
 	private playerControls Player;
@@ -211,10 +212,6 @@ public class BasicEnemyControls : MonoBehaviour {
 							CanAttack = false;
 							anim.SetInteger("Near", 1);
 							StartCoroutine(JumpSmashAttack());
-							//if (OnPunch != null) {
-								//anim.SetInteger("Near", 1);
-								//OnPunch();
-							//}
 							break;
 						// Armored Alien
 						case 4:
@@ -273,7 +270,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				ToTheRight = false;
 			}
 		}
-		if (CanRoam == true) {
+		else if (CanRoam == true) {
 			if (ToTheRight == false) {
 				transform.localScale = new Vector3(-1, 1, 1);
 				ToTheRight = true;
@@ -568,52 +565,41 @@ public class BasicEnemyControls : MonoBehaviour {
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
 			InvokeRepeating("TakeFireDamage", 0, 0.5f);
-            if (AlienType == 1)
-            {
+            if (AlienType == 1) {
                 SoundCall(criticalDamage, enemyDamage);
             }
-            if (AlienType != 1)
-            {
+            if (AlienType != 1) {
                 SoundCall(hitDamage, enemyDamage);
             }
         }
 		else if (collision.gameObject.tag == "Ice") {
-			GameObject Projectile = Instantiate (IceBlock, transform.position + new Vector3(0, 0, 0), 
-			Quaternion.identity) as GameObject;
-			Rigidbody.velocity = Vector2.zero;
-			StartCoroutine(HitByAttack(0, 0, 3));
-            if (AlienType == 3)
-            {
+			if (CanSpawnIceBlock) {
+				CanSpawnIceBlock = false;
+				StartCoroutine(TakeIceDamage());
+			}
+            if (AlienType == 3) {
                 SoundCall(criticalDamage, enemyDamage);
             }
-            if (AlienType != 3)
-            {
+            if (AlienType != 3) {
                 SoundCall(hitDamage, enemyDamage);
             }
         }
-		else if (collision.gameObject.tag == "IceBlock") {
-			InvokeRepeating("TakeIceDamage", 0, 0.5f);
-		}
 		else if (collision.gameObject.tag == "Water") {
 			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
-            if (AlienType == 2)
-            {
+            if (AlienType == 2) {
                 SoundCall(criticalDamage, enemyDamage);
             }
-            if (AlienType != 2)
-            {
+            if (AlienType != 2) {
                 SoundCall(hitDamage, enemyDamage);
             }
         }
 		else if (collision.gameObject.tag == "Wind") {
 			InvokeRepeating("TakeWindDamage", 0, 0.5f);
 			StartCoroutine(HitByAttack(300, 600, 2));
-            if (AlienType == 5)
-            {
+            if (AlienType == 5) {
                 SoundCall(criticalDamage, enemyDamage);
             }
-            if (AlienType != 5)
-            {
+            if (AlienType != 5) {
                 SoundCall(hitDamage, enemyDamage);
             }
 		}
@@ -645,57 +631,57 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
 		}
-		else if (collider.gameObject.tag == "IceBlock") {
-			CancelInvoke("TakeIceDamage");
-		}
 	}
 
 	void TakeFireDamage() {
-        if (this.name == "Roly Poly(Clone)")
-        {
+        if (AlienType == 1) {
 			CriticalTakeDamage(DamageValues.FireDamage);
 		}
-		else
-		{
+		else {
 			TakeDamage(DamageValues.FireDamage);
 		}
 		EnemyHealth -= DamageValues.FireDamage;
 		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
+
 	void TakeWaterDamage() {
-        if (this.name == "GlobBomber(Clone)")
-        {
+        if (AlienType == 2) {
 			CriticalTakeDamage(DamageValues.WaterDamage);
 		}
-		else
-		{
+		else {
 			TakeDamage(DamageValues.WaterDamage);
 		}
 		EnemyHealth -= DamageValues.WaterDamage;
 		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
+
 	void TakeWindDamage() {
-        if (this.name == "Mothership(Clone)")
-        {
+        if (AlienType == 5) {
             CriticalTakeDamage(DamageValues.WindDamage);
         }
-        else
-        {
+        else {
             TakeDamage(DamageValues.WindDamage);
         }
         EnemyHealth -= DamageValues.WindDamage;
     }
-	void TakeIceDamage() {
-        if (this.name == "Beefy Alien(Clone)")
-        {
-            CriticalTakeDamage(DamageValues.IceDamage);
-        }
-        else
-        {
-            TakeDamage(DamageValues.IceDamage);
-        }
-        EnemyHealth -= DamageValues.IceDamage;
-       
+
+	private IEnumerator TakeIceDamage() {
+		StartCoroutine(HitByAttack(0, 0, 3));
+		Rigidbody.velocity = Vector2.zero;
+		GameObject Projectile = Instantiate (IceBlock, transform.position + new Vector3(0, 0, 0), 
+		Quaternion.identity) as GameObject;
+		Projectile.transform.parent = this.gameObject.transform;
+		for (int i = 0; i < 3; i++) {
+			if (AlienType == 3) {
+				CriticalTakeDamage(DamageValues.IceDamage);
+			}
+			else {
+				TakeDamage(DamageValues.IceDamage);
+			}
+			EnemyHealth -= DamageValues.IceDamage;
+			yield return new WaitForSeconds(1);
+			CanSpawnIceBlock = true;
+		}
     }
 
 	private void Roam () {
