@@ -28,6 +28,20 @@ public class BushBehavior : MonoBehaviour {
 
 			switch(Controller.WaveCount) {
 
+				case 0:
+
+					switch(BushType) {
+					case 1:
+						ChosenPepper = PepperDrops[0];
+						SpawnPepper();
+						break;
+					case 2:
+						ChosenPepper = PepperDrops[1];
+						SpawnPepper();
+						break;
+					}
+					break;
+
 				case 1:
 
 					switch(BushType) {

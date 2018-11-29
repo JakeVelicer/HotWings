@@ -15,6 +15,12 @@ public class TutorialPopups : MonoBehaviour
         
     }
 
+    void Start() {
+
+        Waves[0].SetActive(true);
+        Pause();
+    }
+
     void OnEnable()
     {
         GameController.OnWaveIncremented += OnWaveIncremented;
