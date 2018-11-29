@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimChecker : MonoBehaviour {
+
+
     Animator anim;
-    int idleHash = Animator.StringToHash("HotwingsIDLE");
-    int runStateHash = Animator.StringToHash("Base Layer.HotwingsRun1");
+    public bool isRunning;
+    public bool isAttacking;
+    public bool isJumping;  
+    
 
 
     void Start()
@@ -19,10 +23,14 @@ public class AnimChecker : MonoBehaviour {
         float move = Input.GetAxis("Horizontal");
         anim.SetFloat("Speed", move);
 
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        if (Input.GetKeyDown(KeyCode.LeftArrow)   && stateInfo.fullPathHash == idleHash || Input.GetKeyDown(KeyCode.RightArrow) && stateInfo.fullPathHash == idleHash)
+       
+        if (Input.GetKeyDown(KeyCode.LeftArrow) ||  Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
-            anim.SetTrigger(runStateHash);
+            isRunning = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)){
+
+            isRunning = false;
         }
     }
 }

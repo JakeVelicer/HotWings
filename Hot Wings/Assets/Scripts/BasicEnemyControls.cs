@@ -73,7 +73,10 @@ public class BasicEnemyControls : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-		// Assignment Calls
+
+        FloatingTextController.Initialize();
+        CriticalFloatingTextController.Initialize();
+        // Assignment Calls
         anim = GetComponent<Animator>();
         enemySounds = gameObject.GetComponent<AudioSource>();
 		Rigidbody = GetComponent<Rigidbody2D>();
@@ -510,14 +513,17 @@ public class BasicEnemyControls : MonoBehaviour {
 			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage;
+
             if (AlienType == 4)
             {
+                CriticalTakeDamage(DamageValues.ElectricDamage);
                 enemySounds.clip = criticalDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
             }
             if (AlienType != 4)
             {
+                TakeDamage(DamageValues.ElectricDamage);
                 enemySounds.clip = hitDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
@@ -526,29 +532,36 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
+           
             if (AlienType == 4)
             {
+                CriticalTakeDamage(DamageValues.ElectricDamage * 1.2f);
                 enemySounds.clip = criticalDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
             }
             if (AlienType != 4)
             {
+                TakeDamage(DamageValues.ElectricDamage * 1.2f);
                 enemySounds.clip = hitDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
             }
         }
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
-			EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
+			
+            EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
+
             if (AlienType == 4)
             {
+                CriticalTakeDamage(DamageValues.ElectricDamage * 1.5f);
                 enemySounds.clip = criticalDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
             }
             if (AlienType != 4)
             {
+                TakeDamage(DamageValues.ElectricDamage * 1.5f);
                 enemySounds.clip = hitDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
@@ -556,14 +569,17 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
+            CriticalTakeDamage(DamageValues.ElectricDamage * 2.0f);
             if (AlienType == 4)
             {
+                CriticalTakeDamage(DamageValues.ElectricDamage * 2.0f);
                 enemySounds.clip = criticalDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
             }
             if (AlienType != 4)
             {
+                TakeDamage(DamageValues.ElectricDamage * 2.0f);
                 enemySounds.clip = hitDamage;
                 enemySounds.loop = false;
                 enemySounds.Play();
@@ -571,13 +587,16 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		else if (collision.gameObject.tag == "Earth") {
 			EnemyHealth -= DamageValues.EarthDamage;
-		}
+            TakeDamage(DamageValues.EarthDamage);
+        }
 		else if (collision.gameObject.tag == "Speed") {
 			EnemyHealth -= DamageValues.SpeedDamage;
-		}
+            TakeDamage(DamageValues.SpeedDamage);
+        }
 		else if (collision.gameObject.name == "AnchorArms") {
 			EnemyHealth -= DamageValues.JackedDamage;
-		}
+            TakeDamage(DamageValues.JackedDamage);
+        }
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
 			InvokeRepeating("TakeFireDamage", 0, 0.5f);
@@ -670,22 +689,69 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	void TakeFireDamage() {
-		EnemyHealth -= DamageValues.FireDamage;
-	}
+        if (this.name == "Roly Poly(Clone)")
+        {
+            EnemyHealth -= DamageValues.FireDamage;
+            CriticalTakeDamage(DamageValues.FireDamage);
+        }else{
+            EnemyHealth -= DamageValues.FireDamage;
+            TakeDamage(DamageValues.FireDamage);
+        }
+    }
 	void TakeWaterDamage() {
-		EnemyHealth -= DamageValues.WaterDamage;
-	}
+        if (this.name == "GlobBomber(Clone)")
+        {
+            EnemyHealth -= DamageValues.WaterDamage;
+            CriticalTakeDamage(DamageValues.WaterDamage);
+        }
+        else
+        {
+            EnemyHealth -= DamageValues.WaterDamage;
+            TakeDamage(DamageValues.WaterDamage);
+        }
+    }
 	void TakeWindDamage() {
-		EnemyHealth -= DamageValues.WindDamage;
-	}
+        if (this.name == "Mothership(Clone)")
+        {
+            EnemyHealth -= DamageValues.WindDamage;
+            CriticalTakeDamage(DamageValues.WindDamage);
+        }
+        else
+        {
+            EnemyHealth -= DamageValues.WindDamage;
+            TakeDamage(DamageValues.WindDamage);
+        }
+    }
 	void TakeIceDamage() {
-		EnemyHealth -= DamageValues.IceDamage;
-	}
+        if (this.name == "Beefy Alien(Clone)")
+        {
+            EnemyHealth -= DamageValues.IceDamage;
+            CriticalTakeDamage(DamageValues.IceDamage);
+        }
+        else
+        {
+            EnemyHealth -= DamageValues.IceDamage;
+            TakeDamage(DamageValues.IceDamage);
+        }
+       
+    }
 
 	private void Roam () {
 		if (CanRoam) {
 			ChaseDirection();
 		}
-	}
+    }
+  
+
+    void TakeDamage(float amount)
+    {
+        FloatingTextController.CreateFloatingText(amount.ToString(), this.transform);
+       // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
+    }
+    void CriticalTakeDamage(float amount)
+    {
+        CriticalFloatingTextController.CreateFloatingText(amount.ToString(), this.transform);
+        // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
+    }
 
 }

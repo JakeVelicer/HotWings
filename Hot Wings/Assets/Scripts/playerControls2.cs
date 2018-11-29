@@ -33,7 +33,7 @@ public class playerControls2 : MonoBehaviour
 
     public Text healthDisplay;
     public int health;
-    private float BuffTimer;
+    public float BuffTimer;
     private int HealthTimer;
     private int DashDirection;
 
@@ -217,27 +217,6 @@ public class playerControls2 : MonoBehaviour
         {
             playerWaterShot.GetComponent<Collider2D>().enabled = false;
             //playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
-        }
-
-        if (isRunning == false && isAttack == false)
-        {
-            anim.SetInteger("Speed", 0);
-
-        }
-        if (isRunning == true && isAttack == true)
-        {
-            anim.SetInteger("Speed", 4);
-
-        }
-        if (isRunning == true && isAttack == false)
-        {
-            anim.SetInteger("Speed", 1);
-
-        }
-        if (isRunning == false && isAttack == false)
-        {
-            anim.SetInteger("Speed", 0);
-
         }
         /* if (isRunning == true && Input.GetKeyUp(KeyCode.Space)){
              anim.SetInteger("Speed", 1);

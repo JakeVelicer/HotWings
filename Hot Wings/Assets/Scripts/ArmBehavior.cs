@@ -21,7 +21,8 @@ public class ArmBehavior : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void OnPunch () {
+	void OnPunch () { 
+
         punchSound.Play();
 		PunchAnim.SetTrigger("GoPunch");
 	}

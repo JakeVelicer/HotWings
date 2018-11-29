@@ -173,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330926032680734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.02, y: 0.23, z: 0}
+  m_LocalPosition: {x: 2.16, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4508693116825596}
@@ -199,7 +199,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1634015094940242}
   m_LocalRotation: {x: 0, y: 0, z: -0.044839848, w: 0.99899423}
-  m_LocalPosition: {x: 3.52, y: 0.28, z: 0}
+  m_LocalPosition: {x: 3.76, y: 0.14, z: 0}
   m_LocalScale: {x: 1.6, y: 1.4, z: 1.444}
   m_Children: []
   m_Father: {fileID: 4508693116825596}
@@ -468,7 +468,7 @@ Animator:
   m_GameObject: {fileID: 1853898952368290}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3f558b89b2e744687be94ef17ee45b0d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6cdbed3d98d654b50a46d7c872974f70, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -581,7 +581,8 @@ MonoBehaviour:
   pepperB: 
   pepperIndexA: 0
   pepperIndexB: 0
-  health: 50
+  health: 500
+  BuffTimer: 0
   isImmune: 0
   facingRight: 0
   playerDashCollider: {fileID: 1195049990912626}
@@ -619,6 +620,7 @@ MonoBehaviour:
   eggDrop: {fileID: 8300000, guid: 8db09ac713d224026ac0bb5d523745cc, type: 3}
   playerHit: {fileID: 8300000, guid: d933d60633ec840bfb726221f043cdac, type: 3}
   playerDeath: {fileID: 8300000, guid: e63587fc128e24d4887a5e0569afc81f, type: 3}
+  shockLoop: {fileID: 0}
   eggFire: {fileID: 1362318275178038, guid: fe3c480fc7d014b2fa94b8d7868adbe9, type: 2}
   eggWater: {fileID: 1659041756498784, guid: cae41515c90484291bda4361fcf5cf49, type: 2}
   eggIce: {fileID: 1280963530370964, guid: d2f282073be474fe7bbe4950f6709ad9, type: 2}
@@ -630,6 +632,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0e61240bb9cd846cda68e0a269796deb, type: 3}
   - {fileID: 21300000, guid: da9b5c7921d5740f1b7cf6a384cbabeb, type: 3}
   - {fileID: 21300000, guid: a129a7fb214894f06ab3d8b34a006a5b, type: 3}
+  AnimChecker: 0
 --- !u!212 &212021389264868386
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -820,7 +823,7 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635764463367764}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
