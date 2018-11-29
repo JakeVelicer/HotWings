@@ -193,6 +193,7 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        anim.SetBool("isAttacking", true);
                         SoundCall(playerFire, playerSounds);
                         playerFireShot.GetComponent<Collider2D>().enabled = true;
                         playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
@@ -241,6 +242,7 @@ public class playerControls : MonoBehaviour
                             ElectricShotToUse = playerShockShot1;
                            
                         }
+                        anim.SetBool("isAttacking", true);
                         shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                         if (facingRight)
@@ -256,6 +258,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 3: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        anim.SetBool("isAttacking", true);
                         SoundCall(playerWater, playerSounds);
                         playerWaterShot.GetComponent<Collider2D>().enabled = true;
                         playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
@@ -271,6 +274,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 4: // CALLS Ice Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        anim.SetBool("isAttacking", true);
                         SoundCall(playerIce, playerSounds);
                         canShoot = false;
                         StartCoroutine(IceBurst());
@@ -288,6 +292,7 @@ public class playerControls : MonoBehaviour
                 case 6: // Wind Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        anim.SetBool("isWind", true);
                         SoundCall(playerWind, playerSounds);
                         canShoot = false;
                         if (facingRight)
@@ -324,6 +329,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 8: // Buff Arms Pepper Power Attack
                     playerBuffShot.SetActive(true);
+                    anim.SetBool("isBuff", true);
                     if (!isBuff) {
                         isBuff = true;
                         StartCoroutine(BuffTime());
@@ -331,21 +337,26 @@ public class playerControls : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         //canShoot = false;
                         if (OnPunch != null) {
+                            anim.SetBool("isAttacking", true);
+                            OnPunch();
                             if (buffPunch1)
                             {
                                 SoundCall(playerBuff, playerSounds);
-                                OnPunch();
                             }
                             else
                             {
                                 SoundCall(playerBuff2, playerSounds);
-                                OnPunch();
                             }
                             buffPunch1 = !buffPunch1;
 						}
                     }
+                    if (Input.GetKeyDown(KeyCode.Space)) {
+                        anim.SetBool("isAttacking", false);
+                    }
                     if (BuffTimer <= 0) {
                         playerBuffShot.SetActive(false);
+                        anim.SetBool("isBuff", false);
+                        anim.SetBool("isAttacking", false);
                         isBuff = false;
                         ConsumableOverA();
                     }
