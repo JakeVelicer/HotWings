@@ -498,10 +498,12 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(100, 200, 0.3f));
             if (AlienType == 4)
             {
+				CriticalTakeDamage(DamageValues.ElectricDamage);
                 SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
+				TakeDamage(DamageValues.ElectricDamage);
                 SoundCall(hitDamage, enemyDamage);
             }
 
@@ -511,10 +513,12 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(200, 200, 0.5f));
             if (AlienType == 4)
             {
+				CriticalTakeDamage(DamageValues.ElectricDamage * 1.2f);
                 SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
+				TakeDamage(DamageValues.ElectricDamage * 1.2f);
                 SoundCall(hitDamage, enemyDamage);
             }
         }
@@ -523,10 +527,12 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(300, 200, 1));
             if (AlienType == 4)
             {
+				CriticalTakeDamage(DamageValues.ElectricDamage * 1.5f);
                 SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
+				TakeDamage(DamageValues.ElectricDamage * 1.5f);
                 SoundCall(hitDamage, enemyDamage);
             }
         }
@@ -535,10 +541,12 @@ public class BasicEnemyControls : MonoBehaviour {
 			StartCoroutine(HitByAttack(400, 200, 1.5f));
             if (AlienType == 4)
             {
+				CriticalTakeDamage(DamageValues.ElectricDamage * 2.0f);
                 SoundCall(criticalDamage, enemyDamage);
             }
             if (AlienType != 4)
             {
+				TakeDamage(DamageValues.ElectricDamage * 2.0f);
                 SoundCall(hitDamage, enemyDamage);
             }
         }
@@ -643,36 +651,50 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	void TakeFireDamage() {
+        if (this.name == "Roly Poly(Clone)")
+        {
+			CriticalTakeDamage(DamageValues.FireDamage);
+		}
+		else
+		{
+			TakeDamage(DamageValues.FireDamage);
+		}
 		EnemyHealth -= DamageValues.FireDamage;
 		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
 	void TakeWaterDamage() {
+        if (this.name == "GlobBomber(Clone)")
+        {
+			CriticalTakeDamage(DamageValues.WaterDamage);
+		}
+		else
+		{
+			TakeDamage(DamageValues.WaterDamage);
+		}
 		EnemyHealth -= DamageValues.WaterDamage;
 		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
 	void TakeWindDamage() {
         if (this.name == "Mothership(Clone)")
         {
-            EnemyHealth -= DamageValues.WindDamage;
             CriticalTakeDamage(DamageValues.WindDamage);
         }
         else
         {
-            EnemyHealth -= DamageValues.WindDamage;
             TakeDamage(DamageValues.WindDamage);
         }
+        EnemyHealth -= DamageValues.WindDamage;
     }
 	void TakeIceDamage() {
         if (this.name == "Beefy Alien(Clone)")
         {
-            EnemyHealth -= DamageValues.IceDamage;
             CriticalTakeDamage(DamageValues.IceDamage);
         }
         else
         {
-            EnemyHealth -= DamageValues.IceDamage;
             TakeDamage(DamageValues.IceDamage);
         }
+        EnemyHealth -= DamageValues.IceDamage;
        
     }
 
