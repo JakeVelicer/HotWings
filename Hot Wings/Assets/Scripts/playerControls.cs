@@ -376,19 +376,20 @@ public class playerControls : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {   
-            if (pepperIndexA == 1 && StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
-                StreamAnimFire.GoToIdle();
-                StreamAnimWater.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            else if (pepperIndexA == 3 && StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
-                StreamAnimWater.GoToIdle();
-                StreamAnimFire.GetComponent<SpriteRenderer>().enabled = false;
-            }
+            if (pepperIndexA != 8) {
+                if (pepperIndexA == 1 && StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                    StreamAnimFire.GoToIdle();
+                    StreamAnimWater.GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else if (pepperIndexA == 3 && StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                    StreamAnimWater.GoToIdle();
+                    StreamAnimFire.GetComponent<SpriteRenderer>().enabled = false;
+                }
 
-            int tempIndex = pepperIndexA;
-            pepperIndexA = pepperIndexB;
-            pepperIndexB = tempIndex;
-
+                int tempIndex = pepperIndexA;
+                pepperIndexA = pepperIndexB;
+                pepperIndexB = tempIndex;
+            }
         }
     }
 
