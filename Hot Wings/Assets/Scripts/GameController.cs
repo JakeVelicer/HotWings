@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     [HideInInspector] public bool GoSpawn;
     [HideInInspector] public bool PepperWait;
     public static System.Action<int> OnWaveIncremented;
+    public Image healthBar;
     
     //private Text inventoryDisplay;
 
@@ -32,7 +33,6 @@ public class GameController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
         waveDisplay = GameObject.Find("Wave").GetComponent<Text>();
-        healthDisplay = GameObject.Find("Health").GetComponent<Text>();
         //inventoryDisplay = GameObject.Find("Inventory").GetComponent<Text>();
         //player.GetComponent<playerControls>().pepperB = " ";
         //inventoryDisplay.text = "Inventory:" + "\n"+ player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
@@ -50,7 +50,6 @@ public class GameController : MonoBehaviour
         inventoryDisplay.text = "Inventory:" + "\n" + player.GetComponent<playerControls>().
             pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
         */
-        healthDisplay.text = "Health: " + player.GetComponent<playerControls>().health;
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
 
@@ -114,4 +113,10 @@ public class GameController : MonoBehaviour
         }
         PepperWait = false;
     }
+
+    private void HealthUpdate()
+    {
+       
+    }
+
 }
