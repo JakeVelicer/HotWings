@@ -34,6 +34,7 @@ public class BasicEnemyControls : MonoBehaviour {
     private bool CanChase;
 	public bool TouchStop;
 	private bool Freeze;
+	private bool Dead;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	public bool ToTheRight;
@@ -146,30 +147,16 @@ public class BasicEnemyControls : MonoBehaviour {
 					Vector2 myVel = Rigidbody.velocity;
                 	myVel.x = -MovementSpeed;
 					Rigidbody.velocity = myVel;
+					anim.SetInteger("Near", 1);
 				}
-                if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
-                {
-
-                }
-                if ((anim.GetInteger("Near") == 1))
-                {
-                    anim.SetInteger("Near", 0);
-                }
 			}
 			else if (ToTheRight == true) {
      			if (TouchStop && CanAttack) {
 					Vector2 myVel = Rigidbody.velocity;
                 	myVel.x = MovementSpeed;
 					Rigidbody.velocity = myVel;
+					anim.SetInteger("Near", 1);
 				}
-                if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
-                {
-
-                }
-                if(anim.GetInteger("Near") == 1)
-                {
-                    anim.SetInteger("Near", 0);
-                }
             }
 		}
 	}
@@ -193,30 +180,30 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// This switch assigns the proper cooldown and attack phase for each enemy type.
 			if (CanAttack) {
-				if (TouchStop) {
+				if (TouchStop && !Dead) {
 					switch (AlienType) {
 						// Roly Poly Alien
 						case 1:
 							CanAttack = false;
-							anim.SetInteger("Near", 1);
+							anim.SetTrigger("Attack");
 							StartCoroutine(DashAttack());
 							break;
 						// Blob Alien
 						case 2:
 							CanAttack = false;
-							anim.SetInteger("Near", 1);
+							anim.SetTrigger("Attack");
 							StartCoroutine(BombAttack());
 							break;
 						// Beefy Alien
 						case 3:
 							CanAttack = false;
-							anim.SetInteger("Near", 1);
+							anim.SetTrigger("Attack");
 							StartCoroutine(JumpSmashAttack());
 							break;
 						// Armored Alien
 						case 4:
                             CanAttack = false;
-                            anim.SetInteger("Near", 1);
+                            anim.SetTrigger("Attack");
                             StartCoroutine(GunAttack());
 							break;
 					}
@@ -305,25 +292,27 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		Rigidbody.velocity = Vector2.zero;
         SoundCall(machineGunRev, enemyAmbient);
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.7f);
 
-        if (AlienType == 4) {
-            SoundCall(enemyRapidFire, enemyAttacks);
-        }
-        if (ToTheRight == true)
-        {
-            GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(1.0f, .10f, 0),
-            Quaternion.identity) as GameObject;
-            Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
-        }
-        else if (ToTheRight == false)
-        {
-			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-1.0f, .10f, 0), 
-			Quaternion.identity) as GameObject;
-			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
+		for (int i = 0; i < 3; i++) {
+			if (AlienType == 4) {
+				SoundCall(enemyRapidFire, enemyAttacks);
+			}
+			if (ToTheRight == true)
+			{
+				GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(1.0f, .10f, 0),
+				Quaternion.identity) as GameObject;
+				Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
+			}
+			else if (ToTheRight == false)
+			{
+				GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-1.0f, .10f, 0), 
+				Quaternion.identity) as GameObject;
+				Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
+			}
+			yield return new WaitForSeconds(0.4f);
 		}
 		StartCoroutine(shootWait());
-	
 	}
 
 	// Instantiates a chosen projectile in the scene and propels it forward and up like a thrown bomb
@@ -356,7 +345,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
 		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
         yield return new WaitForSeconds(.5f);
-        anim.SetInteger("Near", 2);
+        anim.SetTrigger("Slam");
         yield return new WaitForSeconds(.2f);
         AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
@@ -392,7 +381,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			}
 		}
 		yield return new WaitForSeconds(0.6f);
-		anim.SetInteger("Near", 2);
+		anim.SetTrigger("Untuck");
 		Rigidbody.velocity = Vector2.zero;
 		Rigidbody.angularVelocity = 0.0f;
 		AttackCollider.enabled = false;
@@ -419,18 +408,20 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Cooldown before allowed to attack again
     private IEnumerator shootWait()
 	{
-    	// anim.SetInteger("Near", 0);
+    	anim.SetInteger("Near", 2);
     	yield return new WaitForSeconds(CoolDown);
         CanAttack = true;
     }
 
 	void EnemyDeathSequence () {
 
+		Dead = true;
 		DestroyEnemySequence = null;
-		Rigidbody.velocity = Vector2.zero;
 		Freeze = true;
+		Rigidbody.velocity = Vector2.zero;
 		MainController.score += enemyValue;
 		MainController.EnemiesLeft--;
+		anim.SetTrigger("Die");
 
 		if (AlienType == 1)
 		{
@@ -483,7 +474,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 		else
 		{
-			Destroy(gameObject, 0.3f);
+			Destroy(gameObject, 0.5f);
 		}
 	}
 
@@ -606,19 +597,21 @@ public class BasicEnemyControls : MonoBehaviour {
 	}
 
 	private IEnumerator HitByAttack (int xSpeed, int ySpeed, float Seconds) {
-		Freeze = true;
-		GetComponent<SpriteRenderer>().material = HotFlash;
-		Rigidbody.AddForce(Vector3.up * ySpeed);
-		if (Player.facingRight) {
-			Rigidbody.AddForce(Vector3.right * xSpeed);
+		if (!Dead) {
+			Freeze = true;
+			GetComponent<SpriteRenderer>().material = HotFlash;
+			Rigidbody.AddForce(Vector3.up * ySpeed);
+			if (Player.facingRight) {
+				Rigidbody.AddForce(Vector3.right * xSpeed);
+			}
+			else if (!Player.facingRight) {
+				Rigidbody.AddForce(Vector3.left * xSpeed);
+			}
+			yield return new WaitForSeconds(0.1f);
+			GetComponent<SpriteRenderer>().material = DefaultMaterial;
+			yield return new WaitForSeconds(Seconds);
+			Freeze = false;
 		}
-		else if (!Player.facingRight) {
-			Rigidbody.AddForce(Vector3.left * xSpeed);
-		}
-		yield return new WaitForSeconds(0.1f);
-		GetComponent<SpriteRenderer>().material = DefaultMaterial;
-		yield return new WaitForSeconds(Seconds);
-		Freeze = false;
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
