@@ -12,12 +12,13 @@ public class GameController : MonoBehaviour
     public int EnemiesLeft = 0;
     public int WaveCount;
     public int score;
+    private bool InitialPickup;
+    private bool PepperWait;
     private GameObject player;
     private GameObject[] PeppersInScene;
     public System.Action SpawnTheEnemies;
     public System.Action SpawnPeppers;
     [HideInInspector] public bool GoSpawn;
-    [HideInInspector] public bool PepperWait;
     public static System.Action<int> OnWaveIncremented;
     public Image healthBar;
     
@@ -37,10 +38,9 @@ public class GameController : MonoBehaviour
         //player.GetComponent<playerControls>().pepperB = " ";
         //inventoryDisplay.text = "Inventory:" + "\n"+ player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
 
+        WaveCount = 0;
         score = 0;
         scoreDisplay.text = "Score: " + score;
-
-        WaveCount = 0;
         
     }
 
@@ -53,8 +53,14 @@ public class GameController : MonoBehaviour
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
 
+        // Stops first wave from starting before they pickup a pepper
+        if (player.GetComponent<playerControls>().pepperIndexA == 1 ||
+        player.GetComponent<playerControls>().pepperIndexA == 2) {
+            InitialPickup = true;
+        }
+
         // New Wave
-        if (EnemiesLeft <= 0 && !GoSpawn) {
+        if (EnemiesLeft <= 0 && !GoSpawn && InitialPickup) {
             GoSpawn = true;
             StartCoroutine(NextWave());
         }
@@ -75,11 +81,13 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(4f);
         }
         WaveCount += 1;
-        if (OnWaveIncremented != null) {
-            OnWaveIncremented(WaveCount);
-        }
-        if (SpawnPeppers != null) {
-            SpawnPeppers();
+        if (WaveCount != 1) {
+            if (OnWaveIncremented != null) {
+                OnWaveIncremented(WaveCount);
+            }
+            if (SpawnPeppers != null) {
+                SpawnPeppers();
+            }            
         }
         StartCoroutine(SpawnerAnims());
         yield return new WaitForSeconds(6f);

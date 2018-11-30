@@ -137,7 +137,7 @@ public class AlienSpawner : MonoBehaviour {
 	}
 
 	void SpawnAttackSaucer () {
-		GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, -2.24f, 0), Quaternion.identity) as GameObject;
+		GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, 4.26f, 0), Quaternion.identity) as GameObject;
 		//Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Midground2";
 	}
 }
