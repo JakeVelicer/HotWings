@@ -31,7 +31,8 @@ public class playerControls : MonoBehaviour
     public int pepperIndexB;
 
     public int health;
-    [HideInInspector] public int BuffTimer;
+    //[HideInInspector] 
+    public int BuffTimer;
     [HideInInspector] public int HealthTimer;
     private int DashDirection;
 
@@ -345,7 +346,7 @@ public class playerControls : MonoBehaviour
                             BuffAudioHandler();
                         }
                     }
-                    if (Input.GetKeyDown(KeyCode.Space)) {
+                    if (Input.GetKeyUp(KeyCode.Space)) {
                         anim.SetBool("isAttacking", false);
                     }
                     if (BuffTimer <= 0) {
