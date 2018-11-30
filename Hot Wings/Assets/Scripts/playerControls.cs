@@ -93,7 +93,7 @@ public class playerControls : MonoBehaviour
     public GameObject shitBrick;
     public Sprite[] IceSprites;
     public int AnimChecker;
-    
+  
     // Use this for initialization
     void Start()
     {
