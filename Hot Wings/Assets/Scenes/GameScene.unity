@@ -7659,11 +7659,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114988748533390192, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1831385776}
     - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: healthBar
@@ -7689,6 +7684,11 @@ Prefab:
       propertyPath: backgrounds.Array.data[3]
       value: 
       objectReference: {fileID: 852133744}
+    - target: {fileID: 114988748533390192, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1831385776}
     - target: {fileID: 114472545421719894, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: m_playerControls
