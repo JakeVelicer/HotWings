@@ -25,6 +25,7 @@ public class playerControls : MonoBehaviour
     public int shotSpeed;
     public int DashSpeed;
     private bool Healing;
+    private bool Dead;
     private float horizontalInput;
     private float ChargeTime = 1;
 
@@ -33,8 +34,7 @@ public class playerControls : MonoBehaviour
     public int pepperIndexB;
 
     public int health;
-    //[HideInInspector] 
-    public int BuffTimer;
+    [HideInInspector] public int BuffTimer;
     [HideInInspector] public int HealthTimer;
     private int DashDirection;
 
@@ -116,61 +116,65 @@ public class playerControls : MonoBehaviour
 
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         AnimChecker = anim.GetInteger("Speed");
-        if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
-        {
-            anim.SetBool("isJumping", true);
-            anim.SetBool("isIdle", false);
-            isJumping = true;
-            PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
+        if (!Dead) {
+            if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
+            {
+                anim.SetBool("isJumping", true);
+                anim.SetBool("isIdle", false);
+                isJumping = true;
+                PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
 
-        horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
-        if (horizontalInput > 0)
-        {
-            anim.SetBool("isRunning", true);
-            anim.SetBool("isIdle", false);
-            transform.localScale = new Vector3(1, 1, 1);
-            facingRight = true;
-        }
-        else if (horizontalInput < 0)
-        {
-            anim.SetBool("isRunning", true);
-            anim.SetBool("isIdle", false);
-            transform.localScale = new Vector3(-1, 1, 1);
-            facingRight = false;
-        }
-        else if (horizontalInput == 0)
-        {
-            anim.SetBool("isIdle", true);
-            anim.SetBool("isRunning", false);
-        }
+            horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
+            if (horizontalInput > 0)
+            {
+                anim.SetBool("isRunning", true);
+                anim.SetBool("isIdle", false);
+                transform.localScale = new Vector3(1, 1, 1);
+                facingRight = true;
+            }
+            else if (horizontalInput < 0)
+            {
+                anim.SetBool("isRunning", true);
+                anim.SetBool("isIdle", false);
+                transform.localScale = new Vector3(-1, 1, 1);
+                facingRight = false;
+            }
+            else if (horizontalInput == 0)
+            {
+                anim.SetBool("isIdle", true);
+                anim.SetBool("isRunning", false);
+            }
 
-        if (pepperIndexA != 1) {
-            playerFireShot.GetComponent<Collider2D>().enabled = false;
-            //playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
-        }
-        if (pepperIndexA != 3) {
-            playerWaterShot.GetComponent<Collider2D>().enabled = false;
-            //playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
-        }
-        if (PlayerRigidbody.velocity.y < -0.1)
-        {
-            anim.SetBool("isFalling", true);
-        }
-        else
-        {
-            anim.SetBool("isFalling", false);
-        }
-        if (PlayerRigidbody.velocity.y > 0.1)
-        {
-            anim.SetBool("isJumping", true);
-        }
-        else
-        {
-            anim.SetBool("isJumping", false);
-        }
-        if (health == 0) {
-            anim.SetBool("isDead", true);
+            if (pepperIndexA != 1) {
+                playerFireShot.GetComponent<Collider2D>().enabled = false;
+                //playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            if (pepperIndexA != 3) {
+                playerWaterShot.GetComponent<Collider2D>().enabled = false;
+                //playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            if (PlayerRigidbody.velocity.y < -0.1)
+            {
+                anim.SetBool("isFalling", true);
+            }
+            else
+            {
+                anim.SetBool("isFalling", false);
+            }
+            if (PlayerRigidbody.velocity.y > 0.1)
+            {
+                anim.SetBool("isJumping", true);
+            }
+            else
+            {
+                anim.SetBool("isJumping", false);
+            }
+            if (health <= 0) {
+                anim.SetBool("isDead", true);
+                PlayerRigidbody.velocity = Vector2.zero;
+                Dead = true;
+            }
         }
 
     }
@@ -178,7 +182,7 @@ public class playerControls : MonoBehaviour
     void FixedUpdate() {
 
         // Movement
-        if (!Dashing) {
+        if (!Dashing && !Dead) {
             velocity = PlayerRigidbody.velocity;
             velocity.y += Physics2D.gravity.y * 0.05f;
             velocity.x = horizontalInput * Speed;
@@ -189,7 +193,7 @@ public class playerControls : MonoBehaviour
 
     void PepAttacks() {
 
-        if (canShoot)
+        if (canShoot && !Dead)
         {
             GameObject shot;
             switch (pepperIndexA)
@@ -587,15 +591,11 @@ public class playerControls : MonoBehaviour
             anim.SetBool("isAttacking", false);
             anim.SetBool("isWind", false);
             yield return new WaitForSeconds(1.8f);
-           
-
         }
         else if (pepperIndexA == 2) { 
-
             ChargeTime = 0;
             yield return new WaitForSeconds(0.4f);
             anim.SetBool("isAttacking", false);
-
         }
         else {
             yield return new WaitForSeconds(0.5f);
