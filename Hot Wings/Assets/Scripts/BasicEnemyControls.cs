@@ -34,6 +34,7 @@ public class BasicEnemyControls : MonoBehaviour {
     private bool CanChase;
 	public bool TouchStop;
 	private bool Freeze;
+	private bool Dead;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	public bool ToTheRight;
@@ -146,30 +147,36 @@ public class BasicEnemyControls : MonoBehaviour {
 					Vector2 myVel = Rigidbody.velocity;
                 	myVel.x = -MovementSpeed;
 					Rigidbody.velocity = myVel;
-				}
-                if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
-                {
+					anim.SetInteger("Near", 1);
+					/*
+					if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
+					{
 
-                }
-                if ((anim.GetInteger("Near") == 1))
-                {
-                    anim.SetInteger("Near", 0);
-                }
+					}
+					if ((anim.GetInteger("Near") == 1))
+					{
+						anim.SetInteger("Near", 1);
+					}
+					*/
+				}
 			}
 			else if (ToTheRight == true) {
      			if (TouchStop && CanAttack) {
 					Vector2 myVel = Rigidbody.velocity;
                 	myVel.x = MovementSpeed;
 					Rigidbody.velocity = myVel;
-				}
-                if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
-                {
+					anim.SetInteger("Near", 1);
+					/*
+					if (anim.GetInteger("Near") != 0 && anim.GetInteger("Near") != 1)
+					{
 
-                }
-                if(anim.GetInteger("Near") == 1)
-                {
-                    anim.SetInteger("Near", 0);
-                }
+					}
+					if ((anim.GetInteger("Near") == 1))
+					{
+						anim.SetInteger("Near", 1);
+					}
+					*/
+				}
             }
 		}
 	}
@@ -198,25 +205,25 @@ public class BasicEnemyControls : MonoBehaviour {
 						// Roly Poly Alien
 						case 1:
 							CanAttack = false;
-							anim.SetInteger("Near", 1);
+							anim.SetTrigger("Attack");
 							StartCoroutine(DashAttack());
 							break;
 						// Blob Alien
 						case 2:
 							CanAttack = false;
-							anim.SetInteger("Near", 1);
+							anim.SetTrigger("Attack");
 							StartCoroutine(BombAttack());
 							break;
 						// Beefy Alien
 						case 3:
 							CanAttack = false;
-							anim.SetInteger("Near", 1);
+							anim.SetTrigger("Attack");
 							StartCoroutine(JumpSmashAttack());
 							break;
 						// Armored Alien
 						case 4:
                             CanAttack = false;
-                            anim.SetInteger("Near", 1);
+                            anim.SetTrigger("Attack");
                             StartCoroutine(GunAttack());
 							break;
 					}
@@ -356,7 +363,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
 		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
         yield return new WaitForSeconds(.5f);
-        anim.SetInteger("Near", 2);
+        anim.SetTrigger("Slam");
         yield return new WaitForSeconds(.2f);
         AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
@@ -392,7 +399,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			}
 		}
 		yield return new WaitForSeconds(0.6f);
-		anim.SetInteger("Near", 2);
+		anim.SetTrigger("Untuck");
 		Rigidbody.velocity = Vector2.zero;
 		Rigidbody.angularVelocity = 0.0f;
 		AttackCollider.enabled = false;
@@ -419,7 +426,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Cooldown before allowed to attack again
     private IEnumerator shootWait()
 	{
-    	// anim.SetInteger("Near", 0);
+    	anim.SetInteger("Near", 2);
     	yield return new WaitForSeconds(CoolDown);
         CanAttack = true;
     }
@@ -427,10 +434,12 @@ public class BasicEnemyControls : MonoBehaviour {
 	void EnemyDeathSequence () {
 
 		DestroyEnemySequence = null;
-		Rigidbody.velocity = Vector2.zero;
 		Freeze = true;
+		Rigidbody.velocity = Vector2.zero;
 		MainController.score += enemyValue;
 		MainController.EnemiesLeft--;
+		ChaseDirection();
+		anim.SetTrigger("Die");
 
 		if (AlienType == 1)
 		{
@@ -483,7 +492,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		}
 		else
 		{
-			Destroy(gameObject, 0.3f);
+			Destroy(gameObject, 0.5f);
 		}
 	}
 
