@@ -61,7 +61,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1634015094940242
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853898952368290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.16, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4614665329343630}
@@ -763,17 +763,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1ca8670596a42a2b323e649eb65851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NormalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  HotFlash: {fileID: 2100000, guid: 94bd7192e150b4d47ae088456bd874a7, type: 2}
   Speed: 11
   jumpForce: 15
   isJumping: 0
   canShoot: 1
   shotSpeed: 800
   DashSpeed: 60
-  pepperA: 
-  pepperB: 
   pepperIndexA: 0
   pepperIndexB: 0
   health: 500
+  BuffTimer: 0
+  HealthTimer: 0
   isImmune: 0
   facingRight: 0
   playerDashCollider: {fileID: 1195049990912626}
@@ -808,6 +810,7 @@ MonoBehaviour:
   playerWind: {fileID: 8300000, guid: 2fefdd0d8858b478aaf4ddd170425f24, type: 3}
   playerBuff: {fileID: 8300000, guid: d79c1fb67dc5c4ff28ccc72102d48907, type: 3}
   playerBuff2: {fileID: 8300000, guid: 559301dfc7fb84900a830d3e2640d8fc, type: 3}
+  brick: {fileID: 8300000, guid: bb59d5c37372e434f8b9f7c4edb6c162, type: 3}
   playerDash: {fileID: 8300000, guid: 90db93abe013a4175a2765922f6ec99f, type: 3}
   playerHeal: {fileID: 8300000, guid: 4f9566aca3c2b4eb3b56f8e5c4db729c, type: 3}
   pepperCollect: {fileID: 8300000, guid: 4a5058eefa32b4dcc85fbc4586584859, type: 3}

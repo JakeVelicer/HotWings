@@ -12,6 +12,8 @@ public class playerControls : MonoBehaviour
     public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
     private StreamAttackAnimationWater StreamAnimWater;
+	public Material NormalMaterial;
+	public Material HotFlash;
 
     public int Speed;
     private int moveSpeed;
@@ -91,6 +93,7 @@ public class playerControls : MonoBehaviour
     public GameObject shitBrick;
     public Sprite[] IceSprites;
     public int AnimChecker;
+    
     // Use this for initialization
     void Start()
     {
@@ -601,9 +604,13 @@ public class playerControls : MonoBehaviour
 
     private IEnumerator iFrames()
     {
+        //for (int i = 0; i < 2; i++) {
+        GetComponent<SpriteRenderer>().material = HotFlash;
         yield return new WaitForSeconds(0.2f);
         anim.SetBool("isHit", false);
-        yield return new WaitForSeconds(0.9f);
+        GetComponent<SpriteRenderer>().material = NormalMaterial;
+        yield return new WaitForSeconds(0.6f);
+        //}
         isImmune = false;
     }
 
