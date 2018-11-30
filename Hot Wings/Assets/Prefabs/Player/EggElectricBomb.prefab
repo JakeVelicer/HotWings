@@ -145,8 +145,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 2e28e313ccad748aaaba3274396e230a, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -261,7 +261,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: 1
-  playerBomb: {fileID: 8300000, guid: a9c4b248558644c43b9e0c60d9fcd2bd, type: 3}
+  fireBomb: {fileID: 8300000, guid: af4df14d6c5a54fccaecaac3a946e43e, type: 3}
+  waterBomb: {fileID: 0}
+  shockBomb: {fileID: 8300000, guid: 2e28e313ccad748aaaba3274396e230a, type: 3}
+  iceBomb: {fileID: 0}
 --- !u!212 &212565616942477406
 SpriteRenderer:
   m_ObjectHideFlags: 1

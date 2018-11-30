@@ -66,6 +66,7 @@ public class playerControls : MonoBehaviour
     public AudioClip playerWind;
     public AudioClip playerBuff;
     public AudioClip playerBuff2;
+    public AudioClip brick;
     private bool buffPunch1 = true;
 
     public AudioClip playerDash;
@@ -77,6 +78,9 @@ public class playerControls : MonoBehaviour
     public AudioClip playerDeath;
     public AudioClip shockLoop;
     private bool shockLoopPlaying = false;
+    private bool waterLoopPlaying = false;
+    private bool fireLoopPlaying = false;
+    private bool buffSoundPlaying = false;
 
     public GameObject eggFire;
     public GameObject eggWater;
@@ -89,7 +93,7 @@ public class playerControls : MonoBehaviour
     public int AnimChecker;
     // Use this for initialization
     void Start()
-    { 
+    {
 
         anim = GetComponent<Animator>();
         anim.SetBool("isIdle", true);
@@ -163,7 +167,7 @@ public class playerControls : MonoBehaviour
         }
         if (health == 0) {
             anim.SetBool("isDead", true);
-        } 
+        }
 
     }
 
@@ -178,7 +182,7 @@ public class playerControls : MonoBehaviour
         }
 
     }
-    
+
     void PepAttacks() {
 
         if (canShoot)
@@ -230,16 +234,16 @@ public class playerControls : MonoBehaviour
                         else if (ChargeTime >= 1) {
                             SoundCall(playerShock2, playerSounds);
                             ElectricShotToUse = playerShockShot2;
-                           
+
                         }
                         else if (ChargeTime < 1) {
                             SoundCall(playerShock1, playerSounds);
                             ElectricShotToUse = playerShockShot1;
-                           
+
                         }
                         anim.SetBool("isAttacking", true);
-                        shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
+                        shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0),
+                        Quaternion.identity) as GameObject;
                         if (facingRight)
                         {
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
@@ -293,8 +297,8 @@ public class playerControls : MonoBehaviour
                         if (facingRight)
                         {
                             anim.SetBool("isAttacking", true);
-                            shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0), 
-			                Quaternion.identity) as GameObject;
+                            shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0),
+                            Quaternion.identity) as GameObject;
                             shot.GetComponent<WindBehavior>().GoRight = true;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
@@ -302,9 +306,9 @@ public class playerControls : MonoBehaviour
                         else if (!facingRight)
                         {
                             anim.SetBool("isAttacking", true);
-                            shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0), 
-			                Quaternion.identity) as GameObject;
-                        	shot.GetComponent<WindBehavior>().GoRight = false;
+                            shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0),
+                            Quaternion.identity) as GameObject;
+                            shot.GetComponent<WindBehavior>().GoRight = false;
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
                         }
@@ -334,14 +338,8 @@ public class playerControls : MonoBehaviour
                         if (OnPunch != null) {
                             anim.SetBool("isAttacking", true);
                             OnPunch();
-                            if (buffPunch1) {
-                                SoundCall(playerBuff, playerSounds);
-                            }
-                            else {
-                                SoundCall(playerBuff2, playerSounds);
-                            }
-                            buffPunch1 = !buffPunch1;
-						}
+                            BuffAudioHandler();
+                        }
                     }
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         anim.SetBool("isAttacking", false);
@@ -359,8 +357,8 @@ public class playerControls : MonoBehaviour
                     {
                         SoundCall(playerEarth, playerSounds);
                         canShoot = false;
-                        shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0), 
-			            Quaternion.identity) as GameObject;
+                        shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0),
+                        Quaternion.identity) as GameObject;
                         ConsumableOverA();
                         StartCoroutine(shootWait());
                     }
@@ -368,7 +366,18 @@ public class playerControls : MonoBehaviour
             }
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
-        {   
+        {
+            if (shockLoopPlaying == true)
+            {
+                shockLoopPlaying = false;
+                playerAmbient.Stop();
+            }
+            if (fireLoopPlaying == true || waterLoopPlaying == true)
+            {
+                fireLoopPlaying = false;
+                waterLoopPlaying = false;
+                playerSounds.Stop();
+            }
             if (pepperIndexA != 8) {
                 if (pepperIndexA == 1 && StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
                     StreamAnimFire.GoToIdle();
@@ -386,6 +395,23 @@ public class playerControls : MonoBehaviour
         }
     }
 
+    private IEnumerator BuffAudioHandler()
+    {
+        if (buffPunch1 == true & buffSoundPlaying == false)
+        {
+            buffSoundPlaying = true;
+            SoundCall(playerBuff, playerSounds);
+            buffSoundPlaying = false;
+        }
+        else if (buffPunch1 == false & buffSoundPlaying == false)
+        {
+            buffSoundPlaying = true;
+            SoundCall(playerBuff2, playerSounds);
+            buffSoundPlaying = false;
+        }
+        buffPunch1 = !buffPunch1;
+        yield return new WaitForSeconds(0.5f);
+    }
     void SlotBCleanup () {
 
         switch (pepperIndexB) {
@@ -411,6 +437,17 @@ public class playerControls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.RightAlt))
         {
+            if (shockLoopPlaying == true)
+            {
+                shockLoopPlaying = false;
+                playerAmbient.Stop();
+            }
+            if (fireLoopPlaying == true || waterLoopPlaying == true)
+            {
+                fireLoopPlaying = false;
+                waterLoopPlaying = false;
+                playerSounds.Stop();
+            }
             switch (pepperIndexA)
             {
                 case 1:
@@ -589,6 +626,7 @@ public class playerControls : MonoBehaviour
         pepperIndexB = 0;
         GameObject shot = Instantiate(shitBrick, transform.position + new Vector3(0, 0, 0), 
 		    Quaternion.identity) as GameObject;
+        SoundCall(brick, playerAmbient);
     }
 
     private void ConsumableOverB()
@@ -596,6 +634,7 @@ public class playerControls : MonoBehaviour
         pepperIndexB = 0;
         GameObject shot = Instantiate(shitBrick, transform.position + new Vector3(0, 0, 0), 
 		    Quaternion.identity) as GameObject;
+        SoundCall(brick, playerAmbient);
     }
 
     void OnCollisionEnter2D(Collision2D collider)
@@ -741,11 +780,11 @@ public class playerControls : MonoBehaviour
 
     void PepperCollision(int pepperNumber) {
         if (pepperIndexA == 0) {
-            SoundCall(pepperCollect, playerAmbient);
+            SoundCall(pepperCollect, playerSounds);
             pepperIndexA = pepperNumber;
         }
         else if (pepperIndexB == 0) {
-            SoundCall(pepperCollect, playerAmbient);
+            SoundCall(pepperCollect, playerSounds);
             pepperIndexB = pepperNumber;
         }
     }
