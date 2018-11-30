@@ -6938,6 +6938,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4112435717184990, guid: 9f3e7ec2d11a54f2eaa41b1d4bcabae6,
     type: 2}
   m_PrefabInternal: {fileID: 1831268530}
+--- !u!20 &1831385776 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 20438628060111648, guid: 6accb243cfe4141a4a2fcedf9eca0eb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 910062626}
 --- !u!1 &1883971668
 GameObject:
   m_ObjectHideFlags: 0
@@ -7654,6 +7659,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114988748533390192, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1831385776}
+    - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1070194418}
     - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: backgrounds.Array.data[0]
@@ -7709,11 +7724,6 @@ Prefab:
       propertyPath: Waves.Array.data[4]
       value: 
       objectReference: {fileID: 135550442}
-    - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 1070194418}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
   m_IsPrefabAsset: 0

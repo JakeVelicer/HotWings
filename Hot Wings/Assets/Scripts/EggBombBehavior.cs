@@ -50,6 +50,7 @@ public class EggBombBehavior : MonoBehaviour {
 			ExplodeAnim.SetTrigger("Boom");
 			Collider.enabled = true;
             bombSound.Play();
+		    GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.2f);
 			gameObject.GetComponent<SpriteRenderer>().enabled = false;
 			Destroy(gameObject, 0.6f);
 		}

@@ -350,6 +350,7 @@ public class BasicEnemyControls : MonoBehaviour {
         AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
         yield return new WaitForSeconds(0.4f);
+		GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.25f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
         SoundCall(beefySmash, enemyAttacks);

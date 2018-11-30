@@ -27,6 +27,7 @@ public class BombBehavior : MonoBehaviour {
 		ExplodeAnim.SetTrigger("Boom");
 		yield return new WaitForSeconds(1);
 		Collider.enabled = true;
+		GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.25f);
 		bombSound.Play();
 		transform.parent.GetComponent<SpriteRenderer>().enabled = false;
 		yield return new WaitForSeconds(0.5f);
