@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 58088665065693258}
   - component: {fileID: 95592753194580452}
   m_Layer: 10
-  m_Name: ExplosionHitBox
+  m_Name: LightningBullet(Clone)
   m_TagString: Electric
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ Transform:
   m_GameObject: {fileID: 1015601028142574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 2.1, y: 2.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4253528275481962}
   m_RootOrder: 0
@@ -240,7 +240,7 @@ Animator:
   m_GameObject: {fileID: 1015601028142574}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f010f78e9b1b346e58b38b7cae868c9a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 94029d20f37174d14840e8601281fcaa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -346,7 +346,7 @@ SpriteRenderer:
   m_SortingLayerID: 719109109
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0c3a45e6422b14425b739fa64af53f4d, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -354,6 +354,6 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

@@ -18,19 +18,19 @@ public class EggBombBehavior : MonoBehaviour {
     void Start () {
 
         bombSound = gameObject.GetComponent<AudioSource>();
-        if(gameObject.name == "EggElectricBomb")
+        if(gameObject.name == "EggElectricBomb(Clone)")
         {
             bombSound.clip = shockBomb;
         }
-        else if (gameObject.name == "EggFireBomb")
+        else if (gameObject.name == "EggFireBomb(Clone)")
         {
             bombSound.clip = fireBomb;
         }
-        else if (gameObject.name == "EggIceBomb")
+        else if (gameObject.name == "EggIceBomb(Clone)")
         {
             bombSound.clip = iceBomb;
         }
-        else if (gameObject.name == "EggWaterBomb")
+        else if (gameObject.name == "EggWaterBomb(Clone)")
         {
             bombSound.clip = waterBomb;
         }

@@ -365,7 +365,7 @@ public class playerControls : MonoBehaviour
                     {
                         SoundCall(playerEarth, playerSounds);
                         canShoot = false;
-                        shot = Instantiate(playerEarthShot, transform.position + new Vector3(0, -1, 0),
+                        shot = Instantiate(playerEarthShot, new Vector3 (transform.position.x, -2.55f, 0),
                         Quaternion.identity) as GameObject;
                         ConsumableOverA();
                         StartCoroutine(shootWait());
@@ -501,8 +501,10 @@ public class playerControls : MonoBehaviour
 			            Quaternion.identity) as GameObject;
                     break;
             }
-            pepperIndexA = pepperIndexB;
-            pepperIndexB = 0;
+            if (pepperIndexA != 7 && pepperIndexA != 8 && pepperIndexA != 9) {
+                pepperIndexA = pepperIndexB;
+                pepperIndexB = 0;
+            }
         }
     }
 
