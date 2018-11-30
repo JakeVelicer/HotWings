@@ -12,6 +12,7 @@ public class AchievementManager : MonoBehaviour
     private int m_maxHealth;
 
     private Dictionary<int, int> m_alienDeathDictionary = new Dictionary<int, int>();
+        private Dictionary<int, int> m_pepperUsedDictionary = new Dictionary<int, int>();
 
     public int enemiesKilled;
 
@@ -73,6 +74,16 @@ public class AchievementManager : MonoBehaviour
         Debug.Log("We have killed " + m_alienDeathDictionary[alienNumber] + " of Alien #" + alienNumber);
         Debug.Log("We have killed the most of Alien #" + GetMostKilledAlienNumber());
     }
+     public void OnPepperUse(int pepperNumber)
+    {
+        if (!m_pepperUsedDictionary.ContainsKey(pepperNumber))
+        {
+            m_pepperUsedDictionary.Add(pepperNumber, 0);
+        }
+        m_pepperUsedDictionary[pepperNumber] += 1;
+        Debug.Log("We have used " + m_pepperUsedDictionary[pepperNumber] + " of pepper #" + pepperNumber);
+        Debug.Log("We have used the most of Pepper #" + PeppersUsed());
+    }
 
     public int GetMostKilledAlienNumber()
     {
@@ -89,6 +100,22 @@ public class AchievementManager : MonoBehaviour
             }
         }
         return mostKilledAlien;
+    }
+     public int PeppersUsed()
+    {
+        int MostUsed = -1;
+        int a_Used = -1;
+        foreach (int key in m_pepperUsedDictionary.Keys)
+        {
+            int pepperNumber = key;
+            int used = m_pepperUsedDictionary[pepperNumber];
+            if (used > a_Used)
+            {
+                MostUsed = pepperNumber;
+                a_Used = used;
+            }
+        }
+        return MostUsed;
     }
 
 
