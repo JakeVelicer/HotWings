@@ -192,6 +192,7 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        fireLoopPlaying = true;
                         anim.SetBool("isAttacking", true);
                         SoundCall(playerFire, playerSounds);
                         playerFireShot.GetComponent<Collider2D>().enabled = true;
@@ -199,6 +200,7 @@ public class playerControls : MonoBehaviour
                         StreamAnimFire.StartBeam();
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
+                        fireLoopPlaying = false;
                         anim.SetBool("isAttacking", false);
                         canShoot = false;
                         StreamAnimFire.GoToIdle();
@@ -257,6 +259,7 @@ public class playerControls : MonoBehaviour
                     break;
                 case 3: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
+                        waterLoopPlaying = true;
                         anim.SetBool("isAttacking", true);
                         SoundCall(playerWater, playerSounds);
                         playerWaterShot.GetComponent<Collider2D>().enabled = true;
@@ -264,6 +267,7 @@ public class playerControls : MonoBehaviour
                         StreamAnimWater.StartBeam();
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
+                        waterLoopPlaying = false;
                         anim.SetBool("isAttacking", false);
                         canShoot = false;
                         StreamAnimWater.GoToIdle();
