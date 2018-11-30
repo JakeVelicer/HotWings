@@ -548,7 +548,7 @@ MonoBehaviour:
   FireRange: 6
   ProjectileSpeed: 500
   ProjectileHeight: 0
-  CoolDown: 0.5
+  CoolDown: 1
   TouchStop: 0
   ToTheRight: 0
   BulletObject: {fileID: 1425322878777434, guid: 0daed4243734e46e5ae7326cea281dd4,
