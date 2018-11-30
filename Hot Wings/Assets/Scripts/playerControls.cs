@@ -172,6 +172,8 @@ public class playerControls : MonoBehaviour
             }
             if (health <= 0) {
                 anim.SetBool("isDead", true);
+                StreamAnimFire.GetComponent<SpriteRenderer>().enabled = false;
+                StreamAnimWater.GetComponent<SpriteRenderer>().enabled = false;
                 PlayerRigidbody.velocity = Vector2.zero;
                 Dead = true;
             }
@@ -723,7 +725,7 @@ public class playerControls : MonoBehaviour
                 } 
             }
         }
-        if (collider.gameObject.tag == "enemyShotT1") {
+        if (collider.gameObject.tag == "enemyShotT1" && !Dead) {
             if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
@@ -737,7 +739,7 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyShotT2") {
+        if (collider.gameObject.tag == "enemyShotT2" && !Dead) {
             if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
@@ -751,7 +753,7 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyExplosion") {
+        if (collider.gameObject.tag == "enemyExplosion" && !Dead) {
             if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
@@ -765,7 +767,7 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyFist") {
+        if (collider.gameObject.tag == "enemyFist" && !Dead) {
             if (!isImmune) {
                 if (!playerSounds.isPlaying)
                 {
@@ -779,7 +781,7 @@ public class playerControls : MonoBehaviour
                 StartCoroutine(iFrames());
             }
         }
-        if (collider.gameObject.tag == "enemyDeathRay") {
+        if (collider.gameObject.tag == "enemyDeathRay" && !Dead) {
             //SaucerColliding = true;
             InvokeRepeating("CollidingDeathRay", 0, 0.4f);
         }
