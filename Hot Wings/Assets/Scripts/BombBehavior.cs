@@ -5,8 +5,7 @@ using UnityEngine;
 public class BombBehavior : MonoBehaviour {
 
 	private Animator ExplodeAnim;
-	public float Timer;
-	private bool PlayAnim;
+	public int Timer;
 	private Collider2D Collider;
     private AudioSource bombSound;
     public AudioClip enemyBomb;
@@ -17,21 +16,21 @@ public class BombBehavior : MonoBehaviour {
         bombSound = gameObject.GetComponent<AudioSource>();
         bombSound.clip = enemyBomb;
 		ExplodeAnim = gameObject.GetComponent<Animator>();
-		PlayAnim = true;
 		Collider = gameObject.GetComponent<Collider2D>();
+		StartCoroutine(Countdown());
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-		Timer -= Time.deltaTime;
-		if (Timer <= 0 && PlayAnim == true) {
-			ExplodeAnim.SetTrigger("Boom");
-			Collider.enabled = true;
-			PlayAnim = false;
-            bombSound.PlayDelayed(1.0f);
-			Destroy(transform.parent.gameObject, 2.0f);
-		}
+	IEnumerator Countdown () {
+		yield return new WaitForSeconds(Timer);
+		ExplodeAnim.SetTrigger("Boom");
+		yield return new WaitForSeconds(1);
+		Collider.enabled = true;
+		bombSound.Play();
+		transform.parent.GetComponent<SpriteRenderer>().enabled = false;
+		yield return new WaitForSeconds(0.5f);
+		Collider.enabled = false;
+		Destroy(transform.parent.gameObject, 1);
 	}
 }
