@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212850888047313984}
   - component: {fileID: 114026104665357134}
   - component: {fileID: 50791620570517026}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BigCloud2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

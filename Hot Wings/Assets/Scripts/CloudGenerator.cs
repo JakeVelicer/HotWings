@@ -5,7 +5,9 @@ using UnityEngine;
 public class CloudGenerator : MonoBehaviour {
     public GameObject[] Clouds;
     //public Rigidbody[] Clouds2;
-    public float waitTime; 
+    public float waitTime;
+    public float delayTime;
+
     public float moveSpeed;
     public Rigidbody Cloud;
     public Rigidbody Clone;  
@@ -14,7 +16,7 @@ public class CloudGenerator : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        InvokeRepeating("cloudCreate", 2.0f, waitTime);
+        InvokeRepeating("cloudCreate", delayTime, waitTime);
     }
 
     // Update is called once per frame
