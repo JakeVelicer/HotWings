@@ -13,8 +13,8 @@ public class DeathMenu : MonoBehaviour {
 	private playerControls PlayerHealth;
 	private GameController Controller;
 	
-	  public Text waveText;
-   	 public Text scoreText;
+	public Text waveText;
+	public Text scoreText;
 	
 	void Start () {
 
@@ -28,10 +28,8 @@ public class DeathMenu : MonoBehaviour {
 			Dead();
 		}
 
-
-        
-		
 	}
+
 	void OnEnable ()
 	{
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();

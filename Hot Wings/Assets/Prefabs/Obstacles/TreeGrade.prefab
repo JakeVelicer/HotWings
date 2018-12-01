@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114237922309843322}
   - component: {fileID: 61731280340027668}
   - component: {fileID: 114847470474523238}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tree Branch 1
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114595773677911466}
   - component: {fileID: 61745935521814440}
   - component: {fileID: 114554099477202902}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tree Branch 2
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4266764057876646}
   - component: {fileID: 212389640874577130}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TreeGrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906256386828598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.19, y: 1.85, z: 0}
+  m_LocalPosition: {x: 12.91, y: 1.87, z: 0}
   m_LocalScale: {x: 0.28, y: 0.28, z: 1}
   m_Children:
   - {fileID: 4804781866389506}
@@ -238,8 +238,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -213000463
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 111d79fc559a949e980d90e53774e7c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

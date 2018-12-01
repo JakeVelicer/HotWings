@@ -350,6 +350,7 @@ public class BasicEnemyControls : MonoBehaviour {
         AttackCollider.enabled = true;
 		Rigidbody.gravityScale = 12;
         yield return new WaitForSeconds(0.4f);
+		GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.2f);
 		Rigidbody.gravityScale = 2;
 		AttackCollider.enabled = false;
         SoundCall(beefySmash, enemyAttacks);
@@ -420,6 +421,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		Freeze = true;
 		Rigidbody.velocity = Vector2.zero;
 		MainController.score += enemyValue;
+		GameObject.Find("Score").GetComponent<Animator>().SetTrigger("Bulge");
 		MainController.EnemiesLeft--;
 		anim.SetTrigger("Die");
 

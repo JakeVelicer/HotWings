@@ -22,8 +22,6 @@ public class GameController : MonoBehaviour
     public static System.Action<int> OnWaveIncremented;
     public Image healthBar;
     private playerControls currentHealth;
-    
-    //private Text inventoryDisplay;
 
     void Awake() {
 
@@ -36,9 +34,6 @@ public class GameController : MonoBehaviour
         scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
         waveDisplay = GameObject.Find("Wave").GetComponent<Text>();
         currentHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
-        //inventoryDisplay = GameObject.Find("Inventory").GetComponent<Text>();
-        //player.GetComponent<playerControls>().pepperB = " ";
-        //inventoryDisplay.text = "Inventory:" + "\n"+ player.GetComponent<playerControls>().pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
 
         WaveCount = 0;
         score = 0;
@@ -48,12 +43,10 @@ public class GameController : MonoBehaviour
 
     void Update() {
 
-        /*
-        inventoryDisplay.text = "Inventory:" + "\n" + player.GetComponent<playerControls>().
-            pepperA + "\n" + player.GetComponent<playerControls>().pepperB;
-        */
         waveDisplay.text = "Wave: " + WaveCount;
         scoreDisplay.text = "Score: " + score;
+
+        // Updates the length of the health bar
         var healthBarRectTransform = healthBar.transform as RectTransform;
         healthBarRectTransform.sizeDelta = new Vector2(currentHealth.health/1.11f, healthBarRectTransform.sizeDelta.y);
 
@@ -81,20 +74,21 @@ public class GameController : MonoBehaviour
     // Sets all elements needed for the next wave to happen
     IEnumerator NextWave() {
 
-        if (WaveCount != 0) {
-            yield return new WaitForSeconds(4f);
-        }
+        yield return new WaitForSeconds(2f);
+        GameObject.Find("Wave").GetComponent<Animator>().SetTrigger("Zoom");
+        yield return new WaitForSeconds(1.5f);
         WaveCount += 1;
+
         if (WaveCount != 1) {
             if (OnWaveIncremented != null) {
                 OnWaveIncremented(WaveCount);
             }
             if (SpawnPeppers != null) {
                 SpawnPeppers();
-            }            
+            }
         }
         StartCoroutine(SpawnerAnims());
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(7f);
         if (SpawnTheEnemies != null) {
             SpawnTheEnemies();
         }
@@ -104,7 +98,7 @@ public class GameController : MonoBehaviour
     // Plays UFO swooping down animations
     private IEnumerator SpawnerAnims() {
 
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(5.5f);
 
         GameObject.Find("AlienSpawner1").GetComponent<Animator>().Play("SwoopSpawning1");
         if (WaveCount >=2) {
