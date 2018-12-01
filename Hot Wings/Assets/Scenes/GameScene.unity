@@ -157,7 +157,7 @@ MonoBehaviour:
   - {fileID: 1990858237400458, guid: 9e3334ab79f584a598174f7d8a365a49, type: 2}
   - {fileID: 1365346369394326, guid: 2c1dae5c28f204c049e10fac3db4e635, type: 2}
   - {fileID: 1268089244473626, guid: 0fda72505660a440e8e53a7ae0478d47, type: 2}
-  waitTime: 9
+  waitTime: 15
   moveSpeed: 3
   Cloud: {fileID: 0}
   Clone: {fileID: 0}
