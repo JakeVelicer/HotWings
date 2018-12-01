@@ -8,8 +8,9 @@ public class ScreenWrap : MonoBehaviour {
 
     private float rotationSpeed;
     private float thrustForce;
-    private Rigidbody2D rb2D; 
-
+    private Rigidbody2D rb2D;
+    public GameObject Player;
+    //public float PlayerFall;
     private float horizontal;
     private float vertical;
     private Renderer[] renderers;
@@ -19,9 +20,12 @@ public class ScreenWrap : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         rb2D = GetComponent<Rigidbody2D>();
-        renderers = GetComponentsInChildren<Renderer>(); 
+        renderers = GetComponentsInChildren<Renderer>();
+        //PlayerFall = Player.GetComponent<playerControls>().PlayerRigidbody.velocity.y; 
+
 	}
 	
 	// Update is called once per frame
@@ -41,7 +45,7 @@ public class ScreenWrap : MonoBehaviour {
 
         bool isVisible = CheckRenderers(); 
 
-        if(isVisible) {
+        if(isVisible ) {
 
             isWrappingX = false;
             isWrappingY = false;
@@ -49,13 +53,22 @@ public class ScreenWrap : MonoBehaviour {
             mainCamera.GetComponent<CameraFollow>().smoothTimeY = .5f;
             return; 
         }
-        if(isWrappingX && isWrappingY) {
+       /* if (isVisible)
+        {
+
+            isWrappingX = false;
+            isWrappingY = false;
+            mainCamera.GetComponent<CameraFollow>().smoothTimeX = .2f;
+            mainCamera.GetComponent<CameraFollow>().smoothTimeY = .2f;
+            return;
+        }*/
+        if (isWrappingX && isWrappingY) {
             return;
         }
 
-        Vector3 newPostion = transform.position; 
+        Vector3 newPostion = transform.position;
 
-        if(newPostion.x>1 || newPostion.x <0) {
+        if (newPostion.x>1 || newPostion.x <0) {
             mainCamera.GetComponent<CameraFollow>().smoothTimeX = 0f;
             mainCamera.GetComponent<CameraFollow>().smoothTimeY = 0f;
             newPostion.x = -newPostion.x;
@@ -75,9 +88,9 @@ public class ScreenWrap : MonoBehaviour {
 
     bool CheckRenderers() {
 
-        foreach(Renderer renderer in renderers) {
+        foreach(Renderer renderer in renderers ) {
 
-            if (renderer.isVisible) {
+            if (Player.transform.position.x > -57 && Player.transform.position.x < 57) {
 
                 return true;
             }

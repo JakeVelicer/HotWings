@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{480E9E93-7BD3-781C-06EC-DC4E5679A5C3}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/playerControls.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CloudGenerator.cs">
     <Files>
       <File FileName="Assets/Scripts/FloatingTextController.cs" Line="25" Column="2" />
       <File FileName="../../Desktop/Damage Indication Testing/Assets/Assets/Scripts/FloatingText.cs" Line="11" Column="17" />
@@ -9,9 +9,12 @@
       <File FileName="Assets/Scripts/Enemy.cs" Line="21" Column="8" />
       <File FileName="Assets/Scripts/BeefyBoi.cs" Line="14" Column="3" />
       <File FileName="Assets/Scripts/CriticalFloatingTextController.cs" Line="23" Column="54" />
-      <File FileName="Assets/Scripts/playerControls.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/playerControls.cs" Line="568" Column="32" />
       <File FileName="Assets/Scripts/ArmBehavior.cs" Line="30" Column="1" />
       <File FileName="Assets/Scripts/ParalaxCamera.cs" Line="40" Column="1" />
+      <File FileName="Assets/Scripts/ScreenWrap.cs" Line="13" Column="7" />
+      <File FileName="Assets/Scripts/CloudMovement.cs" Line="6" Column="17" />
+      <File FileName="Assets/Scripts/CloudGenerator.cs" Line="29" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
