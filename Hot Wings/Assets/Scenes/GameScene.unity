@@ -5410,6 +5410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aaa9d16673b4afcbd92cba6e113320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  badge: {fileID: 0}
   m_badgeContainer: {fileID: 717876782}
   m_noDmgDuringTutorialBadge: {fileID: 21300000, guid: d998b33db1c1245aebe0a775b8d1d7ea,
     type: 3}
@@ -5418,4 +5419,5 @@ MonoBehaviour:
   m_alien3Killed: {fileID: 21300000, guid: 334e1c88b034a4400aa335b85959ce2a, type: 3}
   m_alien4Killed: {fileID: 21300000, guid: e1dc0694044a74730ad11e899ddc8b2a, type: 3}
   m_alien5Killed: {fileID: 21300000, guid: 901efec0a588744b08c6d63e28144cb2, type: 3}
+  m_badgePopup1: {fileID: 0}
   m_achievementManager: {fileID: 1361458061}
