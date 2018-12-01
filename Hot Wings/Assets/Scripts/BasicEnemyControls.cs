@@ -421,6 +421,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		Freeze = true;
 		Rigidbody.velocity = Vector2.zero;
 		MainController.score += enemyValue;
+		GameObject.Find("Score").GetComponent<Animator>().SetTrigger("Bulge");
 		MainController.EnemiesLeft--;
 		anim.SetTrigger("Die");
 
