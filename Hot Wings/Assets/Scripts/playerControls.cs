@@ -7,7 +7,7 @@ public class playerControls : MonoBehaviour
 {
 
     private Animator anim;
-    public Rigidbody2D PlayerRigidbody;
+    private Rigidbody2D PlayerRigidbody;
     private Vector2 velocity;
     public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
