@@ -18,7 +18,7 @@ public class DeathMenu : MonoBehaviour {
 	
 	void Start () {
 
-		PlayerHealth = GameObject.FindWithTag ("Player").GetComponent<playerControls> ();
+		PlayerHealth = GameObject.Find("Player").GetComponent<playerControls> ();
 
 	}
 

@@ -30,10 +30,10 @@ public class GameController : MonoBehaviour
 
     void Start() {
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player");
         scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
         waveDisplay = GameObject.Find("Wave").GetComponent<Text>();
-        currentHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+        currentHealth = GameObject.Find("Player").GetComponent<playerControls>();
 
         WaveCount = 0;
         score = 0;

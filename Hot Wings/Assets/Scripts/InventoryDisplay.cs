@@ -26,7 +26,7 @@ public class InventoryDisplay : MonoBehaviour {
 			MaxBarLength = 80;
 		}
 
-		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+		Player = GameObject.Find("Player").GetComponent<playerControls>();
 		PepperDisplayImage = this.gameObject.GetComponent<Image>();
 		MaxHealthCounter = 5;
 		MaxBuffCounter = 20;

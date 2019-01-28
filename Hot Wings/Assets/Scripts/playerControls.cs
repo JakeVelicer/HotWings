@@ -6,26 +6,25 @@ using UnityEngine.Animations;
 public class playerControls : MonoBehaviour
 {
 
-    private Animator anim;
     private Rigidbody2D PlayerRigidbody;
     private Vector2 velocity;
     public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
     private StreamAttackAnimationWater StreamAnimWater;
+    [HideInInspector] public Animator anim;
 	public Material NormalMaterial;
 	public Material HotFlash;
 
-    public int Speed;
-    private int moveSpeed;
+    public int moveSpeed;
     public int jumpForce;
     public bool isJumping;
     private bool Dashing;
     private bool isBuff;
     public bool canShoot = true;
+    [HideInInspector] public bool Dead;
     public int shotSpeed;
     public int DashSpeed;
     private bool Healing;
-    private bool Dead;
     private float horizontalInput;
     private float ChargeTime = 1;
 
@@ -98,13 +97,12 @@ public class playerControls : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
         anim = GetComponent<Animator>();
         anim.SetBool("isIdle", true);
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
-        moveSpeed = Speed;
+		gameObject.transform.GetChild(5).gameObject.SetActive(true);
     }
 
     // Update is called once per frame, movement, animations, attacks called
@@ -187,7 +185,7 @@ public class playerControls : MonoBehaviour
         if (!Dashing && !Dead) {
             velocity = PlayerRigidbody.velocity;
             velocity.y += Physics2D.gravity.y * 0.05f;
-            velocity.x = horizontalInput * Speed;
+            velocity.x = horizontalInput * moveSpeed;
             PlayerRigidbody.velocity = velocity;
         }
 
@@ -563,19 +561,6 @@ public class playerControls : MonoBehaviour
         StartCoroutine(shootWait());
     }
 
-    void CollidingDeathRay () {
-        if (!isImmune) {
-            if (!playerSounds.isPlaying)
-            {
-                SoundCall(playerHit, playerVocals);
-            }
-            anim.SetBool("isHit", true);
-            isImmune = true;
-            health -= 10;
-            StartCoroutine(iFrames());
-        }
-    }
-
     private IEnumerator shootWait() {
         
         //Debug.Log("Counting down...");
@@ -608,7 +593,7 @@ public class playerControls : MonoBehaviour
         canShoot = true;
     }
 
-    private IEnumerator iFrames()
+    public IEnumerator iFrames()
     {
         //for (int i = 0; i < 2; i++) {
         GetComponent<SpriteRenderer>().material = HotFlash;
@@ -654,148 +639,7 @@ public class playerControls : MonoBehaviour
         SoundCall(brick, playerAmbient);
     }
 
-    void OnCollisionEnter2D(Collision2D collider)
-    {
-        if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy") {
-            isJumping = false;
-            anim.SetBool("isJumping", false);
-            anim.SetBool("isFalling", false);
-
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (pepperIndexA == 0 || pepperIndexB == 0) {
-
-            if (collider.gameObject.name == "FirePepper(Clone)") {
-                if (pepperIndexA != 1 && pepperIndexB != 1) {
-                    PepperCollision(1);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "ShockPepper(Clone)") {
-                if (pepperIndexA != 2 && pepperIndexB != 2) {
-                    PepperCollision(2);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "WaterPepper(Clone)") {
-                if (pepperIndexA != 3 && pepperIndexB != 3) {
-                    PepperCollision(3);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "IcePepper(Clone)") {
-                if (pepperIndexA != 4 && pepperIndexB != 4) {
-                    PepperCollision(4);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "SpeedPepper(Clone)") {
-                if (pepperIndexA != 5 && pepperIndexB != 5) {
-                    PepperCollision(5);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "WindPepper(Clone)") {
-                if (pepperIndexA != 6 && pepperIndexB != 6) {
-                    PepperCollision(6);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "HealthPepper(Clone)") {
-                if (pepperIndexA != 7 && pepperIndexB != 7) {
-                    HealthTimer = 5;
-                    PepperCollision(7);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "BuffPepper(Clone)") {
-                if (pepperIndexA != 8 && pepperIndexB != 8) {
-                    anim.SetBool("isBuff", true);
-                    BuffTimer = 20;
-                    PepperCollision(8);
-                    Destroy(collider.gameObject);
-                }
-            }
-            if (collider.gameObject.name == "EarthPepper(Clone)") {
-                if (pepperIndexA != 9 && pepperIndexB != 9) {
-                    PepperCollision(9);
-                    Destroy(collider.gameObject);
-                } 
-            }
-        }
-        if (collider.gameObject.tag == "enemyShotT1" && !Dead) {
-            if (!isImmune) {
-                if (!playerSounds.isPlaying)
-                {
-                    playerSounds.clip = playerHit;
-                    playerSounds.loop = false;
-                    playerSounds.Play();
-                }
-                anim.SetBool("isHit", true);
-                isImmune = true;
-                health -= 5;
-                StartCoroutine(iFrames());
-            }
-        }
-        if (collider.gameObject.tag == "enemyShotT2" && !Dead) {
-            if (!isImmune) {
-                if (!playerSounds.isPlaying)
-                {
-                    playerSounds.clip = playerHit;
-                    playerSounds.loop = false;
-                    playerSounds.Play();
-                }
-                anim.SetBool("isHit", true);
-                isImmune = true;
-                health -= 10;
-                StartCoroutine(iFrames());
-            }
-        }
-        if (collider.gameObject.tag == "enemyExplosion" && !Dead) {
-            if (!isImmune) {
-                if (!playerSounds.isPlaying)
-                {
-                    playerSounds.clip = playerHit;
-                    playerSounds.loop = false;
-                    playerSounds.Play();
-                }
-                anim.SetBool("isHit", true);
-                isImmune = true;
-                health -= 10;
-                StartCoroutine(iFrames());
-            }
-        }
-        if (collider.gameObject.tag == "enemyFist" && !Dead) {
-            if (!isImmune) {
-                if (!playerSounds.isPlaying)
-                {
-                    playerSounds.clip = playerHit;
-                    playerSounds.loop = false;
-                    playerSounds.Play();
-                }
-                anim.SetBool("isHit", true);
-                isImmune = true;
-                health -= 7;
-                StartCoroutine(iFrames());
-            }
-        }
-        if (collider.gameObject.tag == "enemyDeathRay" && !Dead) {
-            //SaucerColliding = true;
-            InvokeRepeating("CollidingDeathRay", 0, 0.4f);
-        }
-    }
-    
-    void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.gameObject.tag == "enemyDeathRay") {
-            CancelInvoke("CollidingDeathRay");
-        }
-    }
-
-    void PepperCollision(int pepperNumber) {
+    public void PepperCollision(int pepperNumber) {
         if (pepperIndexA == 0) {
             SoundCall(pepperCollect, playerSounds);
             pepperIndexA = pepperNumber;
@@ -806,7 +650,7 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    void SoundCall (AudioClip clip, AudioSource source) {
+    public void SoundCall (AudioClip clip, AudioSource source) {
         source.clip = clip;
         source.loop = false;
         source.loop |= (clip == playerFire || clip == playerWater || clip == shockLoop);

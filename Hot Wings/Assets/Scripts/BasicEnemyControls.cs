@@ -91,7 +91,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		Collider = gameObject.GetComponent<Collider2D> ();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
-		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<playerControls>();
+		Player = GameObject.Find("Player").GetComponent<playerControls>();
 
 		// Setting elements to their proper states
 		InvokeRepeating ("Roam", 0, 1.5f);

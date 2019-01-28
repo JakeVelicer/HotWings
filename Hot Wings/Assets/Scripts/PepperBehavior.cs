@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PepperBehavior : MonoBehaviour {
 
+	public int PepperType;
 	private bool CanDestroy = false;
 	private playerControls Player;
 
 	// Use this for initialization
 	void Start () {
 
-		Player = GameObject.FindWithTag("Player").GetComponent<playerControls>();
+		Player = GameObject.Find("Player").GetComponent<playerControls>();
 		StartCoroutine(Activation());
 		this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 		
@@ -27,6 +28,22 @@ public class PepperBehavior : MonoBehaviour {
 			if (CanDestroy == true) {
 				Destroy(gameObject);
 			}
+		}
+        if (Player.pepperIndexA == 0 || Player.pepperIndexB == 0) {
+
+            if (collision.gameObject.tag == "Player") {
+                if (Player.pepperIndexA != PepperType && Player.pepperIndexB != PepperType) {
+					if (PepperType == 7) {
+						Player.HealthTimer = 5;
+					}
+					if (PepperType == 8) {
+						Player.anim.SetBool("isBuff", true);
+						Player.BuffTimer = 20;
+					}
+                    Player.PepperCollision(PepperType);
+                    Destroy(gameObject);
+                }
+            }
 		}
 		
 	}
