@@ -293,24 +293,20 @@ public class BasicEnemyControls : MonoBehaviour {
 		Rigidbody.velocity = Vector2.zero;
         SoundCall(machineGunRev, enemyAmbient);
         yield return new WaitForSeconds(0.7f);
-
-		for (int i = 0; i < 3; i++) {
-			if (AlienType == 4) {
-				SoundCall(enemyRapidFire, enemyAttacks);
-			}
-			if (ToTheRight == true)
-			{
-				GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(1.0f, .10f, 0),
-				Quaternion.identity) as GameObject;
-				Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
-			}
-			else if (ToTheRight == false)
-			{
-				GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-1.0f, .10f, 0), 
-				Quaternion.identity) as GameObject;
-				Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
-			}
-			yield return new WaitForSeconds(0.4f);
+		if (AlienType == 4) {
+			SoundCall(enemyRapidFire, enemyAttacks);
+		}
+		if (ToTheRight == true)
+		{
+			GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(1.0f, .10f, 0),
+			Quaternion.identity) as GameObject;
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
+		}
+		else if (ToTheRight == false)
+		{
+			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-1.0f, .10f, 0), 
+			Quaternion.identity) as GameObject;
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
 		}
 		StartCoroutine(shootWait());
 	}
