@@ -35,6 +35,8 @@ public class playerControls : MonoBehaviour
     public int health;
     [HideInInspector] public int BuffTimer;
     [HideInInspector] public int HealthTimer;
+    [HideInInspector] public float FireCoolDown;
+    [HideInInspector] public float WaterCoolDown;
     private int DashDirection;
 
     public bool isImmune = false;
@@ -103,10 +105,13 @@ public class playerControls : MonoBehaviour
         StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
 		gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        FireCoolDown = 5;
     }
 
     // Update is called once per frame, movement, animations, attacks called
     void Update() {
+
+        Debug.Log(FireCoolDown);
 
         PepAttacks();
         EggBombs();
@@ -200,21 +205,34 @@ public class playerControls : MonoBehaviour
             {
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        fireLoopPlaying = true;
-                        anim.SetBool("isAttacking", true);
-                        SoundCall(playerFire, playerSounds);
-                        playerFireShot.GetComponent<Collider2D>().enabled = true;
-                        playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
-                        StreamAnimFire.StartBeam();
+                        if (FireCoolDown > 0) {
+                            fireLoopPlaying = true;
+                            anim.SetBool("isAttacking", true);
+                            SoundCall(playerFire, playerSounds);
+                            playerFireShot.GetComponent<Collider2D>().enabled = true;
+                            playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
+                            StreamAnimFire.StartBeam();
+                            Debug.Log("Called");
+                        }
                     }
+                    if (Input.GetKey(KeyCode.Space))
+                        FireCoolDown = FireCoolDown - Time.deltaTime;
+                        if (FireCoolDown <= 0) {
+                            fireLoopPlaying = false;
+                            anim.SetBool("isAttacking", false);
+                            StreamAnimFire.Idle();
+                            playerSounds.Stop();
+                        }
                     if (Input.GetKeyUp(KeyCode.Space)) {
                         fireLoopPlaying = false;
                         anim.SetBool("isAttacking", false);
-                        canShoot = false;
                         StreamAnimFire.GoToIdle();
-                        StartCoroutine(shootWait());
                         playerSounds.Stop();
                     }
+                    if (fireLoopPlaying == false && FireCoolDown < 5) {
+                        FireCoolDown = FireCoolDown + Time.deltaTime;
+                    }
+
                     break;
                 case 2: // Electric Shock Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
@@ -235,7 +253,6 @@ public class playerControls : MonoBehaviour
                         if (ChargeTime >= 3) {
                             SoundCall(playerShock4, playerSounds);
                             ElectricShotToUse = playerShockShot4;
-
                         }
                         else if (ChargeTime >= 2) {
                             SoundCall(playerShock3, playerSounds);
@@ -244,12 +261,10 @@ public class playerControls : MonoBehaviour
                         else if (ChargeTime >= 1) {
                             SoundCall(playerShock2, playerSounds);
                             ElectricShotToUse = playerShockShot2;
-
                         }
                         else if (ChargeTime < 1) {
                             SoundCall(playerShock1, playerSounds);
                             ElectricShotToUse = playerShockShot1;
-
                         }
                         anim.SetBool("isAttacking", true);
                         shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0),
@@ -511,6 +526,11 @@ public class playerControls : MonoBehaviour
                 pepperIndexB = 0;
             }
         }
+    }
+
+    private IEnumerator FireAttackHandler() {
+
+        yield return new WaitForSeconds(1);
     }
 
     private IEnumerator SpeedDash() {

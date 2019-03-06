@@ -30,4 +30,8 @@ public class StreamAttackAnimationFire : MonoBehaviour {
 		Anim.Play("Finish");
 	}
 
+	public void Idle() {
+		Anim.Play("StreamIdle");
+	}
+
 }
