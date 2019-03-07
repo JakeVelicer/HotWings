@@ -16,9 +16,15 @@ public class StreamAttackAnimationWater : MonoBehaviour {
 	}
 
 	void Update() {
- 		if (this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Finish")) {
+
+		if (this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+			gameObject.GetComponent<Collider2D>().enabled = true;
+		}
+		else {
 			gameObject.GetComponent<Collider2D>().enabled = false;
-            //gameObject.GetComponent<SpriteRenderer>().enabled = false;
+		}
+		if (PlayerScript.pepperIndexA != 3 && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle")) {
+			Idle();
 		}
 	}
 
@@ -28,6 +34,10 @@ public class StreamAttackAnimationWater : MonoBehaviour {
 
 	public void GoToIdle() {
 		Anim.Play("Finish");
+	}
+
+	public void Idle() {
+		Anim.Play("StreamIdle");
 	}
 
 }

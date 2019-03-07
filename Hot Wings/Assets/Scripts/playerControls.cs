@@ -105,13 +105,12 @@ public class playerControls : MonoBehaviour
         StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
 		gameObject.transform.GetChild(5).gameObject.SetActive(true);
-        FireCoolDown = 5;
     }
 
     // Update is called once per frame, movement, animations, attacks called
     void Update() {
 
-        Debug.Log(FireCoolDown);
+        Debug.Log(WaterCoolDown);
 
         PepAttacks();
         EggBombs();
@@ -148,15 +147,6 @@ public class playerControls : MonoBehaviour
                 anim.SetBool("isIdle", true);
                 anim.SetBool("isRunning", false);
             }
-
-            if (pepperIndexA != 1) {
-                playerFireShot.GetComponent<Collider2D>().enabled = false;
-                //playerFireShot.GetComponent<SpriteRenderer>().enabled = false;
-            }
-            if (pepperIndexA != 3) {
-                playerWaterShot.GetComponent<Collider2D>().enabled = false;
-                //playerWaterShot.GetComponent<SpriteRenderer>().enabled = false;
-            }
             if (PlayerRigidbody.velocity.y < -0.1)
             {
                 anim.SetBool("isFalling", true);
@@ -179,6 +169,12 @@ public class playerControls : MonoBehaviour
                 StreamAnimWater.GetComponent<SpriteRenderer>().enabled = false;
                 PlayerRigidbody.velocity = Vector2.zero;
                 Dead = true;
+            }
+            if (pepperIndexA != 1 && !fireLoopPlaying && FireCoolDown < 4) {
+                FireCoolDown = (FireCoolDown + 0.03f) + Time.deltaTime;
+            }
+            if (pepperIndexA != 3 && !waterLoopPlaying && WaterCoolDown < 4) {
+                WaterCoolDown = (WaterCoolDown + 0.03f) + Time.deltaTime;
             }
         }
 
@@ -206,33 +202,21 @@ public class playerControls : MonoBehaviour
                 case 1: // Fire Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
                         if (FireCoolDown > 0) {
-                            fireLoopPlaying = true;
-                            anim.SetBool("isAttacking", true);
-                            SoundCall(playerFire, playerSounds);
-                            playerFireShot.GetComponent<Collider2D>().enabled = true;
-                            playerFireShot.GetComponent<SpriteRenderer>().enabled = true;
-                            StreamAnimFire.StartBeam();
-                            Debug.Log("Called");
+                            FireAttackStart();
                         }
                     }
-                    if (Input.GetKey(KeyCode.Space))
-                        FireCoolDown = FireCoolDown - Time.deltaTime;
-                        if (FireCoolDown <= 0) {
-                            fireLoopPlaying = false;
-                            anim.SetBool("isAttacking", false);
-                            StreamAnimFire.Idle();
-                            playerSounds.Stop();
-                        }
                     if (Input.GetKeyUp(KeyCode.Space)) {
-                        fireLoopPlaying = false;
-                        anim.SetBool("isAttacking", false);
-                        StreamAnimFire.GoToIdle();
-                        playerSounds.Stop();
+                        FireAttackStop();
                     }
-                    if (fireLoopPlaying == false && FireCoolDown < 5) {
-                        FireCoolDown = FireCoolDown + Time.deltaTime;
+                    if (FireCoolDown <= 0) {
+                        FireAttackStop();
                     }
-
+                    if (Input.GetKey(KeyCode.Space) && fireLoopPlaying) {
+                        FireCoolDown = FireCoolDown - Time.deltaTime;
+                    }
+                    if (!fireLoopPlaying && FireCoolDown < 4 && !Input.GetKey(KeyCode.Space)) {
+                        FireCoolDown = (FireCoolDown + 0.03f) + Time.deltaTime;
+                    }
                     break;
                 case 2: // Electric Shock Pepper Power Attack
                     if (Input.GetKey(KeyCode.Space))
@@ -282,20 +266,21 @@ public class playerControls : MonoBehaviour
                     break;
                 case 3: // Water Pepper Power Attack
                     if (Input.GetKeyDown(KeyCode.Space)) {
-                        waterLoopPlaying = true;
-                        anim.SetBool("isAttacking", true);
-                        SoundCall(playerWater, playerSounds);
-                        playerWaterShot.GetComponent<Collider2D>().enabled = true;
-                        playerWaterShot.GetComponent<SpriteRenderer>().enabled = true;
-                        StreamAnimWater.StartBeam();
+                        if (WaterCoolDown > 0) {
+                            WaterAttackStart();
+                        }
                     }
                     if (Input.GetKeyUp(KeyCode.Space)) {
-                        waterLoopPlaying = false;
-                        anim.SetBool("isAttacking", false);
-                        canShoot = false;
-                        StreamAnimWater.GoToIdle();
-                        StartCoroutine(shootWait());
-                        playerSounds.Stop();
+                        WaterAttackStop();
+                    }
+                    if (WaterCoolDown <= 0) {
+                        WaterAttackStop();
+                    }
+                    if (Input.GetKey(KeyCode.Space) && waterLoopPlaying) {
+                        WaterCoolDown = WaterCoolDown - Time.deltaTime;
+                    }
+                    if (!waterLoopPlaying && WaterCoolDown < 4 && !Input.GetKey(KeyCode.Space)) {
+                        WaterCoolDown = (WaterCoolDown + 0.03f) + Time.deltaTime;
                     }
                     break;
                 case 4: // CALLS Ice Pepper Power Attack
@@ -395,27 +380,17 @@ public class playerControls : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
-            if (shockLoopPlaying == true)
-            {
+            if (shockLoopPlaying) {
                 shockLoopPlaying = false;
                 playerAmbient.Stop();
             }
-            if (fireLoopPlaying == true || waterLoopPlaying == true)
-            {
-                fireLoopPlaying = false;
-                waterLoopPlaying = false;
-                playerSounds.Stop();
+            if (fireLoopPlaying) {
+                FireAttackStop();
+            }
+            if (waterLoopPlaying) {
+                WaterAttackStop();
             }
             if (pepperIndexA != 8) {
-                if (pepperIndexA == 1 && StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
-                    StreamAnimFire.GoToIdle();
-                    StreamAnimWater.GetComponent<SpriteRenderer>().enabled = false;
-                }
-                else if (pepperIndexA == 3 && StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
-                    StreamAnimWater.GoToIdle();
-                    StreamAnimFire.GetComponent<SpriteRenderer>().enabled = false;
-                }
-
                 int tempIndex = pepperIndexA;
                 pepperIndexA = pepperIndexB;
                 pepperIndexB = tempIndex;
@@ -528,9 +503,40 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    private IEnumerator FireAttackHandler() {
+    private void FireAttackStart() {
 
-        yield return new WaitForSeconds(1);
+        fireLoopPlaying = true;
+        anim.SetBool("isAttacking", true);
+        SoundCall(playerFire, playerSounds);
+        StreamAnimFire.StartBeam();
+    }
+
+    private void FireAttackStop() {
+
+        if (fireLoopPlaying) {
+            fireLoopPlaying = false;
+            anim.SetBool("isAttacking", false);
+            StreamAnimFire.GoToIdle();
+            playerSounds.Stop();
+        }
+    }
+
+    private void WaterAttackStart() {
+
+        waterLoopPlaying = true;
+        anim.SetBool("isAttacking", true);
+        SoundCall(playerWater, playerSounds);
+        StreamAnimWater.StartBeam();
+    }
+
+    private void WaterAttackStop() {
+
+        if (waterLoopPlaying) {
+            waterLoopPlaying = false;
+            anim.SetBool("isAttacking", false);
+            StreamAnimWater.GoToIdle();
+            playerSounds.Stop();
+        }
     }
 
     private IEnumerator SpeedDash() {

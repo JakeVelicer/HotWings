@@ -16,9 +16,15 @@ public class StreamAttackAnimationFire : MonoBehaviour {
 	}
 
 	void Update() {
- 		if (this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Finish")) {
+
+		if (this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+			gameObject.GetComponent<Collider2D>().enabled = true;
+		}
+		else {
 			gameObject.GetComponent<Collider2D>().enabled = false;
-            //gameObject.GetComponent<SpriteRenderer>().enabled = false;
+		}
+		if (PlayerScript.pepperIndexA != 1 && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Idle")) {
+			Idle();
 		}
 	}
 
