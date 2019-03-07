@@ -110,8 +110,6 @@ public class playerControls : MonoBehaviour
     // Update is called once per frame, movement, animations, attacks called
     void Update() {
 
-        Debug.Log(WaterCoolDown);
-
         PepAttacks();
         EggBombs();
         SlotBCleanup();
