@@ -127,7 +127,6 @@ GameObject:
   - component: {fileID: 4508693116825596}
   - component: {fileID: 212630945530540418}
   - component: {fileID: 114521986171018460}
-  - component: {fileID: 114252273296168062}
   - component: {fileID: 50358536106252440}
   - component: {fileID: 82558382875807298}
   - component: {fileID: 95088745545128228}
@@ -160,7 +159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1853898952368290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.16, z: 0}
+  m_LocalPosition: {x: 0, y: -2.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4559604096962534}
@@ -735,18 +734,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114252273296168062
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1853898952368290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83a0f43c4b1b44f4fbab8ea9138c8ed9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
 --- !u!114 &114253957246688186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,6 +806,8 @@ MonoBehaviour:
   health: 500
   BuffTimer: 0
   HealthTimer: 0
+  FireCoolDown: 0
+  WaterCoolDown: 0
   isImmune: 0
   facingRight: 0
   playerDashCollider: {fileID: 1195049990912626}
