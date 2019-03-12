@@ -10,11 +10,9 @@ public class BasicEnemyControls : MonoBehaviour {
 	private GameController MainController;
 	private EnemyDamageValues DamageValues;
     private GameObject gameController;
-	private DeathRayAnimation BeamAnimation;
     private Animator anim;
 	private System.Action DestroyEnemySequence;
 	public System.Action OnPunch;
-	private System.Action ActivateDeathBeam;
     public static System.Action<int> OnEnemyDeath;
 
 	// Number Elements
@@ -36,7 +34,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	private bool Freeze;
 	private bool Dead;
 	private bool CanAttack = true;
-	private bool CanFireRay = true;
 	public bool ToTheRight;
 	private bool CanSpawnIceBlock = true;
 
@@ -73,7 +70,6 @@ public class BasicEnemyControls : MonoBehaviour {
     public AudioClip blobSpit;
     public AudioClip beefySmash;
     public AudioClip machineGunRev;
-    public AudioClip laserCharge;
 
     public AudioClip hitDamage;
     public AudioClip criticalDamage;
@@ -85,6 +81,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
         FloatingTextController.Initialize();
         CriticalFloatingTextController.Initialize();
+		
         // Assignment Calls
         anim = GetComponent<Animator>();
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -104,10 +101,6 @@ public class BasicEnemyControls : MonoBehaviour {
 			AttackCollider = gameObject.transform.GetChild(0).GetComponent<Collider2D>();
 			AttackCollider.enabled = false;
 		}
-		if (AlienType == 5) {
-			TouchStop = true;
-			BeamAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
-		}
 		
 	}
 	
@@ -126,10 +119,10 @@ public class BasicEnemyControls : MonoBehaviour {
 			}
 		}
 
-		if (transform.position.y <= -1.5 && AlienType != 5) {
+		if (transform.position.y <= -1.5) {
 			TouchStop = true;
 		}
-		else if (transform.position.y > -1.5 && AlienType != 5) {
+		else if (transform.position.y > -1.5) {
 			TouchStop = false;
 		}
 
@@ -167,13 +160,13 @@ public class BasicEnemyControls : MonoBehaviour {
 		float DistX = Mathf.Abs(Target.position.x - transform.position.x);
 
 		// Determines if the range of the player is close enough to be chased
-		if (Dist <= ChaseRange && Dist > FireRange && AlienType != 5 && !Freeze) {
+		if (Dist <= ChaseRange && Dist > FireRange && !Freeze) {
 			CanChase = true;
 			CanRoam = false;
 			ChaseDirection();
 		}
 		// Tells the player to attack if close enough
-		else if (Dist <= FireRange && AlienType != 5 && !Freeze) {
+		else if (Dist <= FireRange && !Freeze) {
 			CanChase = false;
 			CanRoam = false;
 			ChaseDirection();
@@ -210,34 +203,10 @@ public class BasicEnemyControls : MonoBehaviour {
 				}
 			}
 		}
-		// Saucer Chase Check
-		else if (DistX <= FireRange && DistX > 0.5 && AlienType == 5) {
-			CanChase = true;
-			CanRoam = false;
-			ChaseDirection();
-			if (CanFireRay == true) {
-				SaucerRay.GetComponent<Collider2D>().enabled = true;
-				StartCoroutine(RayTime());
-			}
-		}
-		// Saucer Attack Check
-		else if (DistX <= 0.5 && AlienType == 5) {
-			CanChase = false;
-			Rigidbody.velocity = Vector2.zero;
-			ChaseDirection();
-			if (CanFireRay == true) {
-				SaucerRay.GetComponent<Collider2D>().enabled = true;
-				StartCoroutine(RayTime());
-			}
-		}
 		// Roams out of range of chasing and attacking
 		else {
 			CanChase = false;
 			CanRoam = true;
-			if (AlienType == 5) {
-				SaucerRay.GetComponent<Collider2D>().enabled = false;
-				SaucerRay.SetActive(false);
-			}
 			CoolDownTimer = 0;
             enemyAttacks.Stop();
             soundPlaying = false;
@@ -385,23 +354,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		StartCoroutine(shootWait());
 	}
 
-	// Saucer attack cycle
-	private IEnumerator RayTime () {
-		
-		CanFireRay = false;
-        SoundCall(laserCharge, enemyAmbient);
-        yield return new WaitForSeconds(2.5f);
-		SaucerRay.SetActive(true);
-		BeamAnimation.PlayBeamAnim();
-        SoundCall(enemyLaser, enemyAttacks);
-        yield return new WaitForSeconds(3);
-		BeamAnimation.PlayRetractAnim();
-		yield return new WaitForSeconds(0.2f);
-        enemyAttacks.Stop();
-		SaucerRay.SetActive(false);
-		CanFireRay = true;
-	}
-
 	// Cooldown before allowed to attack again
     private IEnumerator shootWait()
 	{
@@ -453,27 +405,12 @@ public class BasicEnemyControls : MonoBehaviour {
                 soundPlaying = true;
 			}
 		}
-		else if (AlienType == 5)
-		{
-			if (soundPlaying == false)
-			{
-                SoundCall(enemyDeath3, enemyVocals);
-                soundPlaying = true;
-			}
-		}
 		if (OnEnemyDeath != null)
 		{
 			OnEnemyDeath(AlienType);
 		}
 
-		if (AlienType == 5)
-		{
-			Destroy(gameObject, 1.0f);
-		}
-		else
-		{
-			Destroy(gameObject, 0.5f);
-		}
+		Destroy(gameObject, 0.5f);
 	}
 
     void OnTriggerEnter2D(Collider2D collision) {

@@ -133,11 +133,10 @@ public class AlienSpawner : MonoBehaviour {
         }
 		Controller.GoSpawn = false;
 		//Controller.SpawnTheEnemies = null;
-		//Destroy(gameObject, 2);
 	}
 
 	void SpawnAttackSaucer () {
-		GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, 4.26f, 0), Quaternion.identity) as GameObject;
+		GameObject Saucer = Instantiate (MotherShip, new Vector3 (0, 3.01f, 0), Quaternion.identity) as GameObject;
 		//Saucer.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Midground2";
 	}
 }

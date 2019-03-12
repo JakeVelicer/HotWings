@@ -5,21 +5,24 @@ using UnityEngine;
 public class DeathRayAnimation : MonoBehaviour {
 
 	private Animator DeathRay;
+	private Collider2D BeamCollider;
 
 	// Use this for initialization
 	void Start () {
 
+		DeathRay = gameObject.GetComponent<Animator>();
+		BeamCollider = gameObject.GetComponent<Collider2D>();
 	}
 
-	public void PlayBeamAnim() {
-		DeathRay = gameObject.GetComponent<Animator>();
-		//DeathRay.SetBool("Retract", false);
+	public void TurnOnBeam() {
+
+		BeamCollider.enabled = true;
 		DeathRay.Play("LaserShoot");
 	}
 	
-	public void PlayRetractAnim() {
-		DeathRay = gameObject.GetComponent<Animator>();
-		//DeathRay.SetBool("Retract", true);
+	public void TurnOffBeam() {
+
+		BeamCollider.enabled = false;
 		DeathRay.Play("LaserRetract");
 	}
 

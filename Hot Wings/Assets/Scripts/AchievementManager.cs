@@ -32,6 +32,7 @@ public class AchievementManager : MonoBehaviour
     {
         GameController.OnWaveIncremented += OnWaveIncremented;
         BasicEnemyControls.OnEnemyDeath += OnEnemyDeath;
+        AttackUFOBehavior.OnEnemyDeath += OnEnemyDeath;
        
     }
 
@@ -39,6 +40,7 @@ public class AchievementManager : MonoBehaviour
     {
         GameController.OnWaveIncremented -= OnWaveIncremented;
         BasicEnemyControls.OnEnemyDeath -= OnEnemyDeath;
+        AttackUFOBehavior.OnEnemyDeath -= OnEnemyDeath;
     }
 
     private void Start()

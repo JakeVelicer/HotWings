@@ -18,54 +18,8 @@ public class EnemyDamageValues : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Enemy = gameObject.GetComponent<BasicEnemyControls> ();
+		if (gameObject.name == "Mothership(Clone)" || gameObject.name == "Mothership") {
 
-		// Roly Poly Alien
-		if (Enemy.AlienType == 1) {
-			FireDamage = 15;
-			WaterDamage = 8;
-			ElectricDamage = 7;
-			SpeedDamage = 8;
-			IceDamage = 12;
-			EarthDamage = 100;
-			WindDamage = 3;
-			JackedDamage = 20;
-		}
-		// Blob Alien
-		if (Enemy.AlienType == 2) {
-			FireDamage = 10;
-			WaterDamage = 20;
-			ElectricDamage = 15;
-			SpeedDamage = 7;
-			IceDamage = 5;
-			EarthDamage = 100;
-			WindDamage = 5;
-			JackedDamage = 20;
-		}
-		// Beefy Alien
-		if (Enemy.AlienType == 3) {
-			FireDamage = 10;
-			WaterDamage = 5;
-			ElectricDamage = 10;
-			SpeedDamage = 6;
-			IceDamage = 20;
-			EarthDamage = 100;
-			WindDamage = 5;
-			JackedDamage = 20;
-		}
-		// Armored Alien
-		if (Enemy.AlienType == 4) {
-			FireDamage = 8;
-			WaterDamage = 4;
-			ElectricDamage = 25;
-			SpeedDamage = 5;
-			IceDamage = 20;
-			EarthDamage = 100;
-			WindDamage = 10;
-			JackedDamage = 20;
-		}
-		// Saucer
-		if (Enemy.AlienType == 5) {
 			FireDamage = 5;
 			WaterDamage = 5;
 			ElectricDamage = 10;
@@ -74,6 +28,66 @@ public class EnemyDamageValues : MonoBehaviour {
 			EarthDamage = 100;
 			WindDamage = 30;
 			JackedDamage = 30;
+		}
+		else {
+
+			Enemy = gameObject.GetComponent<BasicEnemyControls> ();
+
+			// Roly Poly Alien
+			if (Enemy.AlienType == 1) {
+				FireDamage = 15;
+				WaterDamage = 8;
+				ElectricDamage = 7;
+				SpeedDamage = 8;
+				IceDamage = 12;
+				EarthDamage = 100;
+				WindDamage = 3;
+				JackedDamage = 20;
+			}
+			// Blob Alien
+			if (Enemy.AlienType == 2) {
+				FireDamage = 10;
+				WaterDamage = 20;
+				ElectricDamage = 15;
+				SpeedDamage = 7;
+				IceDamage = 5;
+				EarthDamage = 100;
+				WindDamage = 5;
+				JackedDamage = 20;
+			}
+			// Beefy Alien
+			if (Enemy.AlienType == 3) {
+				FireDamage = 10;
+				WaterDamage = 5;
+				ElectricDamage = 10;
+				SpeedDamage = 6;
+				IceDamage = 20;
+				EarthDamage = 100;
+				WindDamage = 5;
+				JackedDamage = 20;
+			}
+			// Armored Alien
+			if (Enemy.AlienType == 4) {
+				FireDamage = 8;
+				WaterDamage = 4;
+				ElectricDamage = 25;
+				SpeedDamage = 5;
+				IceDamage = 20;
+				EarthDamage = 100;
+				WindDamage = 10;
+				JackedDamage = 20;
+			}
+			// Saucer
+			if (Enemy.AlienType == 5) {
+				FireDamage = 5;
+				WaterDamage = 5;
+				ElectricDamage = 10;
+				SpeedDamage = 4;
+				IceDamage = 10;
+				EarthDamage = 100;
+				WindDamage = 30;
+				JackedDamage = 30;
+			}
 		}
 	}
 }

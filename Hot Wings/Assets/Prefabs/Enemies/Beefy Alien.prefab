@@ -75,7 +75,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1543632953322894}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.7, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4723615221902398}
@@ -632,7 +632,6 @@ MonoBehaviour:
   blobSpit: {fileID: 8300000, guid: 790d39b615a7c4e129330d546b0d3fe0, type: 3}
   beefySmash: {fileID: 8300000, guid: 5a9dada1fb7cc4a3688339af3b891d83, type: 3}
   machineGunRev: {fileID: 8300000, guid: c20041a7397634b26ad01e8211b49b0f, type: 3}
-  laserCharge: {fileID: 8300000, guid: 4f9d6d00709c84600b3926a9b92318d4, type: 3}
   hitDamage: {fileID: 8300000, guid: f08277a209648409ba657323afc4e9d0, type: 3}
   criticalDamage: {fileID: 8300000, guid: f8ddc2dbc63ff4f1c9f0bc9b00be8d4a, type: 3}
 --- !u!212 &212440769785492296
