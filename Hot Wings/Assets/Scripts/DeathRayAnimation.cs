@@ -16,8 +16,10 @@ public class DeathRayAnimation : MonoBehaviour {
 
 	public void TurnOnBeam() {
 
-		BeamCollider.enabled = true;
-		DeathRay.Play("LaserShoot");
+		if (!GetComponentInParent<AttackUFOBehavior>().Dead) {
+			BeamCollider.enabled = true;
+			DeathRay.Play("LaserShoot");
+		}
 	}
 	
 	public void TurnOffBeam() {

@@ -28,7 +28,7 @@ public class AttackUFOBehavior : MonoBehaviour {
     private bool CanChase;
 	public bool TouchStop;
 	private bool Freeze;
-	private bool Dead;
+	[HideInInspector] public bool Dead;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
 	public bool ToTheRight;

@@ -4197,7 +4197,7 @@ Transform:
   - {fileID: 1549481859}
   - {fileID: 1376600210}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1376600210 stripped
 Transform:
@@ -4596,7 +4596,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4498842079753790, guid: fd4f25e1b4a1141a0a268e401a022a74, type: 2}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd4f25e1b4a1141a0a268e401a022a74, type: 2}
@@ -5205,6 +5205,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114988748533390192, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1831385776}
     - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: healthBar
@@ -5230,11 +5235,6 @@ Prefab:
       propertyPath: backgrounds.Array.data[3]
       value: 
       objectReference: {fileID: 852133744}
-    - target: {fileID: 114988748533390192, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1831385776}
     - target: {fileID: 114472545421719894, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: m_playerControls
