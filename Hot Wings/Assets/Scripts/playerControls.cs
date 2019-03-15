@@ -117,7 +117,7 @@ public class playerControls : MonoBehaviour
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         AnimChecker = anim.GetInteger("Speed");
         if (!Dead) {
-            if (Input.GetKeyDown(KeyCode.UpArrow) && !isJumping || Input.GetKeyDown(KeyCode.W) && !isJumping)
+            if (Input.GetAxis("Jump") == 1 && !isJumping)
             {
                 anim.SetBool("isJumping", true);
                 anim.SetBool("isIdle", false);
@@ -198,26 +198,26 @@ public class playerControls : MonoBehaviour
             switch (pepperIndexA)
             {
                 case 1: // Fire Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space)) {
+                    if (Input.GetButtonDown("Fire1")) {
                         if (FireCoolDown > 0) {
                             FireAttackStart();
                         }
                     }
-                    if (Input.GetKeyUp(KeyCode.Space)) {
+                    if (Input.GetButtonUp("Fire1")) {
                         FireAttackStop();
                     }
                     if (FireCoolDown <= 0) {
                         FireAttackStop();
                     }
-                    if (Input.GetKey(KeyCode.Space) && fireLoopPlaying) {
+                    if (Input.GetButton("Fire1") && fireLoopPlaying) {
                         FireCoolDown = FireCoolDown - Time.deltaTime;
                     }
-                    if (!fireLoopPlaying && FireCoolDown < 4 && !Input.GetKey(KeyCode.Space)) {
+                    if (!fireLoopPlaying && FireCoolDown < 4 && !Input.GetButton("Fire1")) {
                         FireCoolDown = (FireCoolDown + 0.03f) + Time.deltaTime;
                     }
                     break;
                 case 2: // Electric Shock Pepper Power Attack
-                    if (Input.GetKey(KeyCode.Space))
+                    if (Input.GetButton("Fire1"))
                     {
                         if (!shockLoopPlaying)
                         {
@@ -227,7 +227,7 @@ public class playerControls : MonoBehaviour
                         ChargeTime = ChargeTime + Time.deltaTime;
                         //Debug.Log(ChargeTime);
                     }
-                    if (Input.GetKeyUp(KeyCode.Space))
+                    if (Input.GetButtonUp("Fire1"))
                     {
                         shockLoopPlaying = false;
                         playerAmbient.Stop();
@@ -263,26 +263,26 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 3: // Water Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space)) {
+                    if (Input.GetButtonDown("Fire1")) {
                         if (WaterCoolDown > 0) {
                             WaterAttackStart();
                         }
                     }
-                    if (Input.GetKeyUp(KeyCode.Space)) {
+                    if (Input.GetButtonUp("Fire1")) {
                         WaterAttackStop();
                     }
                     if (WaterCoolDown <= 0) {
                         WaterAttackStop();
                     }
-                    if (Input.GetKey(KeyCode.Space) && waterLoopPlaying) {
+                    if (Input.GetButton("Fire1") && waterLoopPlaying) {
                         WaterCoolDown = WaterCoolDown - Time.deltaTime;
                     }
-                    if (!waterLoopPlaying && WaterCoolDown < 4 && !Input.GetKey(KeyCode.Space)) {
+                    if (!waterLoopPlaying && WaterCoolDown < 4 && !Input.GetButton("Fire1")) {
                         WaterCoolDown = (WaterCoolDown + 0.03f) + Time.deltaTime;
                     }
                     break;
                 case 4: // CALLS Ice Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space)) {
+                    if (Input.GetButtonDown("Fire1")) {
                         anim.SetBool("isAttacking", true);
                         SoundCall(playerIce, playerSounds);
                         canShoot = false;
@@ -290,7 +290,7 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 5: // CALLS Speed Dash Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space)) {
+                    if (Input.GetButtonDown("Fire1")) {
                         SoundCall(playerDash, playerSounds);
                         canShoot = false;
                         if (DashDirection == 0) {
@@ -299,7 +299,7 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 6: // Wind Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space))
+                    if (Input.GetButtonDown("Fire1"))
                     {
                         anim.SetBool("isWind", true);
                         SoundCall(playerWind, playerSounds);
@@ -326,7 +326,7 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 7: // CALLS Health Pepper Power heal
-                    if (Input.GetKeyDown(KeyCode.Space) && !Healing) {
+                    if (Input.GetButtonDown("Fire1") && !Healing) {
                         SoundCall(playerHeal, playerAmbient);
                         Healing = true;
                         StartCoroutine(HealThePlayer());
@@ -343,7 +343,7 @@ public class playerControls : MonoBehaviour
                         isBuff = true;
                         StartCoroutine(BuffTime());
                     }
-                    if (Input.GetKeyDown(KeyCode.Space)) {
+                    if (Input.GetButtonDown("Fire1")) {
                         //canShoot = false;
                         if (OnPunch != null) {
                             anim.SetBool("isAttacking", true);
@@ -351,7 +351,7 @@ public class playerControls : MonoBehaviour
                             BuffAudioHandler();
                         }
                     }
-                    if (Input.GetKeyUp(KeyCode.Space)) {
+                    if (Input.GetButtonUp("Fire1")) {
                         anim.SetBool("isAttacking", false);
                     }
                     if (BuffTimer <= 0) {
@@ -363,7 +363,7 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 9: // Earth Pepper Power Attack
-                    if (Input.GetKeyDown(KeyCode.Space))
+                    if (Input.GetButtonDown("Fire1"))
                     {
                         SoundCall(playerEarth, playerSounds);
                         canShoot = false;
@@ -376,7 +376,7 @@ public class playerControls : MonoBehaviour
                     break;
             }
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+        if (Input.GetButtonUp("Switch") || Input.GetKeyUp(KeyCode.RightShift))
         {
             if (shockLoopPlaying) {
                 shockLoopPlaying = false;
@@ -436,7 +436,7 @@ public class playerControls : MonoBehaviour
 
         GameObject shot;
 
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.RightAlt))
+        if (Input.GetButtonDown("Drop Pepper") || Input.GetKeyDown(KeyCode.RightAlt))
         {
             if (shockLoopPlaying == true)
             {
