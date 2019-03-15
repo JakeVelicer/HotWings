@@ -117,7 +117,7 @@ public class playerControls : MonoBehaviour
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         AnimChecker = anim.GetInteger("Speed");
         if (!Dead) {
-            if (Input.GetAxis("Jump") == 1 && !isJumping)
+            if (Input.GetButtonDown("Jump") && !isJumping)
             {
                 anim.SetBool("isJumping", true);
                 anim.SetBool("isIdle", false);
