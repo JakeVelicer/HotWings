@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Animations;
+
 public class playerControls : MonoBehaviour
 {
 
@@ -26,7 +27,7 @@ public class playerControls : MonoBehaviour
     public int DashSpeed;
     private bool Healing;
     private float horizontalInput;
-    private float ChargeTime = 1;
+    [HideInInspector] public float ChargeTime;
 
     //Pepper references
     public int pepperIndexA;

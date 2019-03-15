@@ -36,9 +36,12 @@ public class PepperBehavior : MonoBehaviour {
 					if (PepperType == 7) {
 						Player.HealthTimer = 5;
 					}
-					if (PepperType == 8) {
+					else if (PepperType == 8) {
 						Player.anim.SetBool("isBuff", true);
 						Player.BuffTimer = 20;
+					}
+					else if (PepperType == 2) {
+						Player.ChargeTime = 0;
 					}
                     Player.PepperCollision(PepperType);
                     Destroy(gameObject);
