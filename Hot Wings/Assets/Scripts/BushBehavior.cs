@@ -14,11 +14,16 @@ public class BushBehavior : MonoBehaviour {
 
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 		Controller.SpawnPeppers += CallSpawn;
+		if (BushType == 7) {
+			transform.GetComponent<SpriteRenderer>().enabled = false;
+			transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+		}
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		
 	}
 
@@ -182,6 +187,8 @@ public class BushBehavior : MonoBehaviour {
 					SpawnPepper();
 					break;
 				case 7:
+					transform.GetComponent<SpriteRenderer>().enabled = true;
+					transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 					ChosenPepper = PepperDrops[Random.Range(6,9)];
 					SpawnPepper();
 					break;
@@ -190,8 +197,14 @@ public class BushBehavior : MonoBehaviour {
 	}
 
 	void SpawnPepper () {
-		GameObject shot = Instantiate(ChosenPepper, transform.position + new Vector3 (0, 0, 0),
-		Quaternion.identity) as GameObject;
-		shot.GetComponent<SpriteRenderer>().sortingLayerName = "Midground2";
+
+		if (BushType == 7) {
+			GameObject shot = Instantiate(ChosenPepper, transform.position + new Vector3 (0, 0.37f, 0),
+			Quaternion.identity) as GameObject;
+		}
+		else {
+			GameObject shot = Instantiate(ChosenPepper, transform.position + new Vector3 (0, 0, 0),
+			Quaternion.identity) as GameObject;
+		}
 	}
 }
