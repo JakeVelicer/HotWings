@@ -532,12 +532,14 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (!Dead) {
 			Freeze = true;
 			GetComponent<SpriteRenderer>().material = HotFlash;
-			Rigidbody.AddForce(Vector3.up * ySpeed);
-			if (Player.facingRight) {
-				Rigidbody.AddForce(Vector3.right * xSpeed);
-			}
-			else if (!Player.facingRight) {
-				Rigidbody.AddForce(Vector3.left * xSpeed);
+			if (TouchStop) {
+				Rigidbody.AddForce(Vector3.up * ySpeed);
+				if (Player.facingRight) {
+					Rigidbody.AddForce(Vector3.right * xSpeed);
+				}
+				else if (!Player.facingRight) {
+					Rigidbody.AddForce(Vector3.left * xSpeed);
+				}
 			}
 			yield return new WaitForSeconds(0.1f);
 			GetComponent<SpriteRenderer>().material = DefaultMaterial;
