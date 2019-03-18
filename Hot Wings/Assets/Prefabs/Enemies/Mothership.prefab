@@ -628,7 +628,10 @@ MonoBehaviour:
   ChaseRange: 15
   FireRange: 10
   CoolDown: 0
+  MaximumDistanceRight: 65
+  MaximumDistanceLeft: -65
   TouchStop: 0
+  Dead: 0
   ToTheRight: 0
   CanSpawnIceBlock: 1
   IceBlock: {fileID: 1277225917556578, guid: fe7cacf7d94904c0885608adf4b8cd89, type: 2}

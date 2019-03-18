@@ -20,6 +20,8 @@ public class AttackUFOBehavior : MonoBehaviour {
 	public float ChaseRange;
 	public float FireRange;
 	public float CoolDown;
+	public float MaximumDistanceRight;
+	public float MaximumDistanceLeft;
 	private float CoolDownTimer = 0;
 	private int DashDirection;
 
@@ -59,7 +61,6 @@ public class AttackUFOBehavior : MonoBehaviour {
     public AudioClip laserCharge;
     public AudioClip hitDamage;
     public AudioClip criticalDamage;
-    private bool soundPlaying = false;
 
     // Use this for initialization
     void Start () {
@@ -78,7 +79,7 @@ public class AttackUFOBehavior : MonoBehaviour {
 		DeathRayAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
 
 		// Setting elements to their proper states
-		InvokeRepeating ("Roam", 0, 1.5f);
+		//InvokeRepeating ("Roam", 0, 4);
 		TouchStop = false;
 		GetComponent<SpriteRenderer>().material = DefaultMaterial;
 		SpriteRender.sprite = NormalAppearance;
@@ -149,13 +150,23 @@ public class AttackUFOBehavior : MonoBehaviour {
 				StartCoroutine(RayTime());
 			}
 		}
+		else if (DistX <= FireRange * 2 && DistX > 0.5 && !Freeze) {
+			CanChase = true;
+			CanRoam = false;
+			ChaseDirection();
+			CoolDownTimer = 0;
+		}
 		// Roams out of range of chasing and attacking
 		else if (!Freeze) {
 			CanChase = false;
 			CanRoam = true;
-			SaucerRay.GetComponent<Collider2D>().enabled = false;
+			if (transform.position.x > MaximumDistanceRight) {
+				ChaseDirection();
+			}
+			else if (transform.position.x < MaximumDistanceLeft) {
+				ChaseDirection();
+			}
 			CoolDownTimer = 0;
-            soundPlaying = false;
 		}
 	}
 
@@ -211,7 +222,6 @@ public class AttackUFOBehavior : MonoBehaviour {
 		DeathRayAnimation.TurnOffBeam();
 		enemyAttacks.Stop();
 		SoundCall(enemyDeath, enemyVocals);
-		soundPlaying = true;
 		SaucerRay.GetComponent<SpriteRenderer>().enabled = false;
 		SaucerRay.GetComponent<Collider2D>().enabled = false;
 		Instantiate(ExplodingSaucer, transform.position, Quaternion.identity);

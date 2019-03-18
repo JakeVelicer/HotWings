@@ -11,7 +11,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	private EnemyDamageValues DamageValues;
     private GameObject gameController;
     private Animator anim;
-	private System.Action DestroyEnemySequence;
 	public System.Action OnPunch;
     public static System.Action<int> OnEnemyDeath;
 
@@ -95,7 +94,6 @@ public class BasicEnemyControls : MonoBehaviour {
 		TouchStop = false;
 		GetComponent<SpriteRenderer>().material = DefaultMaterial;
 		MainController.EnemiesLeft++;
-		DestroyEnemySequence += EnemyDeathSequence;
 		
 		if (AlienType == 1 || AlienType == 3) {
 			AttackCollider = gameObject.transform.GetChild(0).GetComponent<Collider2D>();
@@ -114,8 +112,8 @@ public class BasicEnemyControls : MonoBehaviour {
 		//TrackOtherEnemies();
 
 		if (EnemyHealth <= 0) {
-			if (DestroyEnemySequence != null) {
-				DestroyEnemySequence();
+			if (!Dead) {
+				EnemyDeathSequence();
 			}
 		}
 
@@ -365,7 +363,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	void EnemyDeathSequence () {
 
 		Dead = true;
-		DestroyEnemySequence = null;
 		Freeze = true;
 		Rigidbody.velocity = Vector2.zero;
 		MainController.score += enemyValue;
