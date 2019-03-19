@@ -108,7 +108,7 @@ public class AttackUFOBehavior : MonoBehaviour {
 	void FixedUpdate() {
 
 		// Checks if it is allowed to chase the player
-		if (CanChase || CanRoam && !Freeze) {
+		if (CanChase && !Freeze || CanRoam && !Freeze) {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
@@ -226,6 +226,10 @@ public class AttackUFOBehavior : MonoBehaviour {
 		SaucerRay.GetComponent<Collider2D>().enabled = false;
 		Instantiate(ExplodingSaucer, transform.position, Quaternion.identity);
 		gameObject.GetComponent<SpriteRenderer>().enabled = false;
+		for (int i = 0; i < transform.childCount; i++) {
+			if (transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>() != null)
+				transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+		}
 		MainController.score += enemyValue;
 		GameObject.Find("Score").GetComponent<Animator>().SetTrigger("Bulge");
 		MainController.EnemiesLeft--;
@@ -278,17 +282,18 @@ public class AttackUFOBehavior : MonoBehaviour {
 
 	public IEnumerator TakeIceDamage() {
 
+		CanSpawnIceBlock = false;
 		StartCoroutine(HitByAttack(0, 0, 3));
 		Rigidbody.velocity = Vector2.zero;
 		GameObject Projectile = Instantiate (IceBlock, transform.position + new Vector3(0, 0, 0), 
 		Quaternion.identity) as GameObject;
 		Projectile.transform.parent = this.gameObject.transform;
 		for (int i = 0; i < 3; i++) {
-			TakeDamage(DamageValues.IceDamage);
 			EnemyHealth -= DamageValues.IceDamage;
+			TakeDamage(DamageValues.IceDamage);
 			yield return new WaitForSeconds(1);
-			CanSpawnIceBlock = true;
 		}
+		CanSpawnIceBlock = true;
     }
 
 	private void Roam () {

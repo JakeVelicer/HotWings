@@ -63,8 +63,7 @@ public class AttackSaucerCollision : MonoBehaviour {
             AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
 		else if (collision.gameObject.tag == "Ice") {
-			if (AttackUFOScript.CanSpawnIceBlock) {
-				AttackUFOScript.CanSpawnIceBlock = false;
+			if (AttackUFOScript.CanSpawnIceBlock == true) {
 				StartCoroutine(AttackUFOScript.TakeIceDamage());
 			}
             AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);

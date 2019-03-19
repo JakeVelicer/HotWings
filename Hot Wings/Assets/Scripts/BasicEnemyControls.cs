@@ -111,6 +111,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		ChaseTarget();
 		//TrackOtherEnemies();
 
+		// Triggers Death
 		if (EnemyHealth <= 0) {
 			if (!Dead) {
 				EnemyDeathSequence();
@@ -130,7 +131,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	void FixedUpdate() {
 
 		// Checks if it is allowed to chase the player
-		if (CanChase || CanRoam && !Freeze) {
+		if (CanChase && !Freeze || CanRoam && !Freeze) {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
@@ -497,7 +498,6 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		else if (collision.gameObject.tag == "Ice") {
 			if (CanSpawnIceBlock) {
-				CanSpawnIceBlock = false;
 				StartCoroutine(TakeIceDamage());
 			}
             if (AlienType == 3) {
@@ -593,22 +593,26 @@ public class BasicEnemyControls : MonoBehaviour {
     }
 
 	private IEnumerator TakeIceDamage() {
+
+		CanSpawnIceBlock = false;
+		anim.Play("RolyPolyIdle");
 		StartCoroutine(HitByAttack(0, 0, 3));
 		Rigidbody.velocity = Vector2.zero;
+		transform.rotation = Quaternion.Euler (transform.rotation.x, transform.rotation.y, 0);
 		GameObject Projectile = Instantiate (IceBlock, transform.position + new Vector3(0, 0, 0), 
 		Quaternion.identity) as GameObject;
 		Projectile.transform.parent = this.gameObject.transform;
 		for (int i = 0; i < 3; i++) {
+			EnemyHealth -= DamageValues.IceDamage;
 			if (AlienType == 3) {
 				CriticalTakeDamage(DamageValues.IceDamage);
 			}
 			else {
 				TakeDamage(DamageValues.IceDamage);
 			}
-			EnemyHealth -= DamageValues.IceDamage;
 			yield return new WaitForSeconds(1);
-			CanSpawnIceBlock = true;
 		}
+		CanSpawnIceBlock = true;
     }
 
 	private void Roam () {
