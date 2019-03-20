@@ -417,6 +417,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
+			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage;
 			StartCoroutine(HitByAttack(100, 200, 0.3f));
             if (AlienType == 4)
@@ -429,10 +430,9 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage);
                 SoundCall(hitDamage, enemyDamage);
             }
-			Destroy(collision.gameObject);
-
         }
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
+			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
 			StartCoroutine(HitByAttack(200, 200, 0.5f));
             if (AlienType == 4)
@@ -445,9 +445,9 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage * 1.2f);
                 SoundCall(hitDamage, enemyDamage);
             }
-			Destroy(collision.gameObject);
         }
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
+			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
 			StartCoroutine(HitByAttack(300, 200, 1));
             if (AlienType == 4)
@@ -460,9 +460,9 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage * 1.5f);
                 SoundCall(hitDamage, enemyDamage);
             }
-			Destroy(collision.gameObject);
         }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
+			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
 			StartCoroutine(HitByAttack(400, 200, 1.5f));
             if (AlienType == 4)
@@ -475,7 +475,6 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage * 2.0f);
                 SoundCall(hitDamage, enemyDamage);
             }
-			Destroy(collision.gameObject);
         }
 		else if (collision.gameObject.tag == "Earth") {
 			StartCoroutine(HitByAttack(0, 400, 2));
@@ -504,8 +503,8 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		else if (collision.gameObject.tag == "Ice") {
 			if (CanSpawnIceBlock) {
-				StartCoroutine(TakeIceDamage());
 				Destroy(collision.gameObject);
+				StartCoroutine(TakeIceDamage());
 			}
             if (AlienType == 3) {
                 SoundCall(criticalDamage, enemyDamage);

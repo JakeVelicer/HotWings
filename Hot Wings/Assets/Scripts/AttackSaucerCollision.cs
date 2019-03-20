@@ -18,25 +18,28 @@ public class AttackSaucerCollision : MonoBehaviour {
 
 			// Takes damage from burst attacks
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
+			Destroy(collision.gameObject);
 			AttackUFOScript.EnemyHealth -= DamageValues.ElectricDamage;
 			StartCoroutine(AttackUFOScript.HitByAttack(100, 200, 0.3f));
 			AttackUFOScript.TakeDamage(DamageValues.ElectricDamage);
 			AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
-
         }
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
+			Destroy(collision.gameObject);
 			AttackUFOScript.EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
 			StartCoroutine(AttackUFOScript.HitByAttack(200, 200, 0.5f));
 			AttackUFOScript.TakeDamage(DamageValues.ElectricDamage * 1.2f);
 			AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
+			Destroy(collision.gameObject);
 			AttackUFOScript.EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
 			StartCoroutine(AttackUFOScript.HitByAttack(300, 200, 1));
 			AttackUFOScript.TakeDamage(DamageValues.ElectricDamage * 1.5f);
 			AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
+			Destroy(collision.gameObject);
 			AttackUFOScript.EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
 			StartCoroutine(AttackUFOScript.HitByAttack(400, 200, 1.5f));
 			AttackUFOScript.TakeDamage(DamageValues.ElectricDamage * 2.0f);
@@ -64,6 +67,7 @@ public class AttackSaucerCollision : MonoBehaviour {
         }
 		else if (collision.gameObject.tag == "Ice") {
 			if (AttackUFOScript.CanSpawnIceBlock == true) {
+				Destroy(collision.gameObject);
 				StartCoroutine(AttackUFOScript.TakeIceDamage());
 			}
             AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
