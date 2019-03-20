@@ -27,10 +27,7 @@ public class BasicBullet : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D collision) {
 		
-		if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Enemy") {
-			Destroy (gameObject);
-		}
-		if (gameObject.tag == "Ice" && collision.gameObject.tag == "IceBlock") {
+		if (collision.gameObject.tag == "Wall") {
 			Destroy (gameObject);
 		}
 	}

@@ -226,7 +226,6 @@ public class playerControls : MonoBehaviour
                             shockLoopPlaying = true;
                         }
                         ChargeTime = ChargeTime + Time.deltaTime;
-                        //Debug.Log(ChargeTime);
                     }
                     if (Input.GetButtonUp("Fire1"))
                     {

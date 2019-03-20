@@ -429,6 +429,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage);
                 SoundCall(hitDamage, enemyDamage);
             }
+			Destroy(collision.gameObject);
 
         }
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
@@ -444,6 +445,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage * 1.2f);
                 SoundCall(hitDamage, enemyDamage);
             }
+			Destroy(collision.gameObject);
         }
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
@@ -458,6 +460,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage * 1.5f);
                 SoundCall(hitDamage, enemyDamage);
             }
+			Destroy(collision.gameObject);
         }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
@@ -472,6 +475,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				TakeDamage(DamageValues.ElectricDamage * 2.0f);
                 SoundCall(hitDamage, enemyDamage);
             }
+			Destroy(collision.gameObject);
         }
 		else if (collision.gameObject.tag == "Earth") {
 			StartCoroutine(HitByAttack(0, 400, 2));
@@ -501,6 +505,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.tag == "Ice") {
 			if (CanSpawnIceBlock) {
 				StartCoroutine(TakeIceDamage());
+				Destroy(collision.gameObject);
 			}
             if (AlienType == 3) {
                 SoundCall(criticalDamage, enemyDamage);
