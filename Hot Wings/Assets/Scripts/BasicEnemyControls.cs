@@ -9,7 +9,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	private Transform Target;
 	private GameController MainController;
 	private EnemyDamageValues DamageValues;
-    private GameObject gameController;
     private Animator anim;
 	public System.Action OnPunch;
     public static System.Action<int> OnEnemyDeath;
@@ -29,6 +28,7 @@ public class BasicEnemyControls : MonoBehaviour {
 	// Boolean Elements
 	private bool CanRoam;
     private bool CanChase;
+	private bool CanTakeDamage = true;
 	public bool TouchStop;
 	private bool Freeze;
 	private bool Dead;
@@ -41,7 +41,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	public GameObject BulletObject;
 	public GameObject BombObject;
 	public GameObject IceBlock;
-	public GameObject SaucerRay;
 	public Material DefaultMaterial;
 	public Material HotFlash;
 	public GameObject[] OtherEnemies;
@@ -493,13 +492,15 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
-			InvokeRepeating("TakeFireDamage", 0, 0.5f);
-            if (AlienType == 1) {
-                SoundCall(criticalDamage, enemyDamage);
-            }
-            if (AlienType != 1) {
-                SoundCall(hitDamage, enemyDamage);
-            }
+			if (CanTakeDamage) {
+				InvokeRepeating("TakeFireDamage", 0, 0.5f);
+				if (AlienType == 1) {
+					SoundCall(criticalDamage, enemyDamage);
+				}
+				if (AlienType != 1) {
+					SoundCall(hitDamage, enemyDamage);
+				}
+			}
         }
 		else if (collision.gameObject.tag == "Ice") {
 			if (CanSpawnIceBlock) {
@@ -514,23 +515,27 @@ public class BasicEnemyControls : MonoBehaviour {
             }
         }
 		else if (collision.gameObject.tag == "Water") {
-			InvokeRepeating("TakeWaterDamage", 0, 0.5f);
-            if (AlienType == 2) {
-                SoundCall(criticalDamage, enemyDamage);
-            }
-            if (AlienType != 2) {
-                SoundCall(hitDamage, enemyDamage);
-            }
+			if (CanTakeDamage) {
+				InvokeRepeating("TakeWaterDamage", 0, 0.5f);
+				if (AlienType == 2) {
+					SoundCall(criticalDamage, enemyDamage);
+				}
+				if (AlienType != 2) {
+					SoundCall(hitDamage, enemyDamage);
+				}
+			}
         }
 		else if (collision.gameObject.tag == "Wind") {
-			InvokeRepeating("TakeWindDamage", 0, 0.5f);
-			StartCoroutine(HitByAttack(300, 600, 2));
-            if (AlienType == 5) {
-                SoundCall(criticalDamage, enemyDamage);
-            }
-            if (AlienType != 5) {
-                SoundCall(hitDamage, enemyDamage);
-            }
+			if (CanTakeDamage) {
+				InvokeRepeating("TakeWindDamage", 0, 0.5f);
+				StartCoroutine(HitByAttack(300, 600, 2));
+				if (AlienType == 5) {
+					SoundCall(criticalDamage, enemyDamage);
+				}
+				if (AlienType != 5) {
+					SoundCall(hitDamage, enemyDamage);
+				}
+			}
 		}
 	}
 
@@ -557,12 +562,15 @@ public class BasicEnemyControls : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D collider) {
 		if (collider.gameObject.tag == "Fire") {
 			CancelInvoke("TakeFireDamage");
+			StartCoroutine(DamageWait());
 		}
 		else if (collider.gameObject.tag == "Water") {
 			CancelInvoke("TakeWaterDamage");
+			StartCoroutine(DamageWait());
 		}
 		else if (collider.gameObject.tag == "Wind") {
 			CancelInvoke("TakeWindDamage");
+			StartCoroutine(DamageWait());
 		}
 	}
 
@@ -621,18 +629,24 @@ public class BasicEnemyControls : MonoBehaviour {
 		CanSpawnIceBlock = true;
     }
 
-	private void Roam () {
+	private void Roam() {
 		if (CanRoam) {
 			ChaseDirection();
 		}
     }
-  
+
+	private IEnumerator DamageWait() {
+		CanTakeDamage = false;
+		yield return new WaitForSeconds(0.6f);
+		CanTakeDamage = true;
+	}
 
     void TakeDamage(float amount)
     {
         FloatingTextController.CreateFloatingText(amount.ToString(), this.transform);
        // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
     }
+
     void CriticalTakeDamage(float amount)
     {
         CriticalFloatingTextController.CreateFloatingText(amount.ToString(), this.transform);

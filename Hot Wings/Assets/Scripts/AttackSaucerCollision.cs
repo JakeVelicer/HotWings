@@ -6,6 +6,7 @@ public class AttackSaucerCollision : MonoBehaviour {
 
 	private AttackUFOBehavior AttackUFOScript;
 	private EnemyDamageValues DamageValues;
+	private bool CanTakeDamage = true;
 
 	void Start() {
 
@@ -60,10 +61,11 @@ public class AttackSaucerCollision : MonoBehaviour {
 			AttackUFOScript.EnemyHealth -= DamageValues.JackedDamage;
             AttackUFOScript.TakeDamage(DamageValues.JackedDamage);
         }
-			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
-			AttackUFOScript.StartTheInvokes("TakeFireDamage", 0.5f);
-            AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
+			if (CanTakeDamage) {
+				AttackUFOScript.StartTheInvokes("TakeFireDamage", 0.5f);
+				AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
+			}
         }
 		else if (collision.gameObject.tag == "Ice") {
 			if (AttackUFOScript.CanSpawnIceBlock == true) {
@@ -73,25 +75,38 @@ public class AttackSaucerCollision : MonoBehaviour {
             AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
 		else if (collision.gameObject.tag == "Water") {
-			AttackUFOScript.StartTheInvokes("TakeWaterDamage", 0.5f);
-            AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
+			if (CanTakeDamage) {
+				AttackUFOScript.StartTheInvokes("TakeWaterDamage", 0.5f);
+				AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);				
+			}
         }
 		else if (collision.gameObject.tag == "Wind") {
-			AttackUFOScript.StartTheInvokes("TakeWindDamage", 0.5f);
-			StartCoroutine(AttackUFOScript.HitByAttack(300, 600, 2));
-            AttackUFOScript.SoundCall(AttackUFOScript.criticalDamage, AttackUFOScript.enemyDamage);
+			if (CanTakeDamage) {
+				AttackUFOScript.StartTheInvokes("TakeWindDamage", 0.5f);
+				StartCoroutine(AttackUFOScript.HitByAttack(300, 600, 2));
+				AttackUFOScript.SoundCall(AttackUFOScript.criticalDamage, AttackUFOScript.enemyDamage);
+			}
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
 		if (collider.gameObject.tag == "Fire") {
 			AttackUFOScript.StopTheInvokes("TakeFireDamage");
+			StartCoroutine(DamageWait());
 		}
 		else if (collider.gameObject.tag == "Water") {
 			AttackUFOScript.StopTheInvokes("TakeWaterDamage");
+			StartCoroutine(DamageWait());
 		}
 		else if (collider.gameObject.tag == "Wind") {
 			AttackUFOScript.StopTheInvokes("TakeWindDamage");
+			StartCoroutine(DamageWait());
 		}
+	}
+
+	private IEnumerator DamageWait() {
+		CanTakeDamage = false;
+		yield return new WaitForSeconds(0.6f);
+		CanTakeDamage = true;
 	}
 }
