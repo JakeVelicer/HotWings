@@ -261,16 +261,16 @@ public class BasicEnemyControls : MonoBehaviour {
 		Rigidbody.velocity = Vector2.zero;
         SoundCall(machineGunRev, enemyAmbient);
         yield return new WaitForSeconds(0.7f);
-		if (AlienType == 4) {
+		if (AlienType == 4 && !Freeze) {
 			SoundCall(enemyRapidFire, enemyAttacks);
 		}
-		if (ToTheRight == true)
+		if (ToTheRight == true && !Freeze)
 		{
 			GameObject Projectile = Instantiate(BulletObject, transform.position + new Vector3(1.0f, .10f, 0),
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
-		else if (ToTheRight == false)
+		else if (ToTheRight == false && !Freeze)
 		{
 			GameObject Projectile = Instantiate (BulletObject, transform.position + new Vector3(-1.0f, .10f, 0), 
 			Quaternion.identity) as GameObject;
@@ -285,13 +285,13 @@ public class BasicEnemyControls : MonoBehaviour {
 		Rigidbody.velocity = Vector2.zero;
 		yield return new WaitForSeconds(0.2f);
         SoundCall(blobSpit, enemyAttacks);
-        if (ToTheRight == true) {
+        if (ToTheRight == true && !Freeze) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
 		}
-		else if (ToTheRight == false) {
+		else if (ToTheRight == false && !Freeze) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(-0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
 			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
@@ -305,9 +305,11 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		Rigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.2f);
-        gameObject.GetComponent<Rigidbody2D>().AddForce
-			(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
-		GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
+		if (!Freeze) {
+			gameObject.GetComponent<Rigidbody2D>().AddForce
+				(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
+			GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
+		}
         yield return new WaitForSeconds(.5f);
         anim.SetTrigger("Slam");
         yield return new WaitForSeconds(.2f);
