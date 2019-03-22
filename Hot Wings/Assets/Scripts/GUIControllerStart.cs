@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GUIControllerStart : MonoBehaviour {
 
+	public Button StartButton;
 	public Button BackButtonHelp;
 	public Button BackButtonCredits;
 
@@ -34,5 +35,9 @@ public class GUIControllerStart : MonoBehaviour {
 
 	public void CreditsClicked() {
 		BackButtonCredits.Select();
+	}
+
+	public void BackClicked() {
+		StartButton.Select();
 	}
 }
