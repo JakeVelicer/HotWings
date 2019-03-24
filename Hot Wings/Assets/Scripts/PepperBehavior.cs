@@ -5,30 +5,21 @@ using UnityEngine;
 public class PepperBehavior : MonoBehaviour {
 
 	public int PepperType;
-	private bool CanDestroy = false;
 	private playerControls Player;
+	private GameController Controller;
 
 	// Use this for initialization
 	void Start () {
 
 		Player = GameObject.Find("Player").GetComponent<playerControls>();
-		StartCoroutine(Activation());
 		this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+		Controller = GameObject.Find("Controller").GetComponent<GameController>();
+		GameController.OnWaveIncremented += DestroyPepper;
 		
 	}
 
-	void OnTriggerStay2D(Collider2D collision) {
+	void OnTriggerEnter2D(Collider2D collision) {
 
-		if (collision.gameObject.name == "FirePepper(Clone)" || collision.gameObject.name == "WaterPepper(Clone)" ||
-			collision.gameObject.name == "IcePepper(Clone)" || collision.gameObject.name == "SpeedPepper(Clone)" ||
-			collision.gameObject.name == "ShockPepper(Clone)" || collision.gameObject.name == "WindPepper(Clone)" ||
-			collision.gameObject.name == "EarthPepper(Clone)" || collision.gameObject.name == "HealhPepper(Clone)" ||
-			collision.gameObject.name == "BuffPepper(Clone)") {
-
-			if (CanDestroy == true) {
-				Destroy(gameObject);
-			}
-		}
         if (Player.pepperIndexA == 0 || Player.pepperIndexB == 0) {
 
             if (collision.gameObject.tag == "Player") {
@@ -44,6 +35,7 @@ public class PepperBehavior : MonoBehaviour {
 						Player.ChargeTime = 0;
 					}
                     Player.PepperCollision(PepperType);
+					GameController.OnWaveIncremented -= DestroyPepper;
                     Destroy(gameObject);
                 }
             }
@@ -51,9 +43,11 @@ public class PepperBehavior : MonoBehaviour {
 		
 	}
 
-	private IEnumerator Activation () {
-		yield return new WaitForSeconds(1);
-		CanDestroy = true;
+	private void DestroyPepper(int waveCount) {
+
+		GameController.OnWaveIncremented -= DestroyPepper;
+		Destroy(gameObject);
+
 	}
 
 }
