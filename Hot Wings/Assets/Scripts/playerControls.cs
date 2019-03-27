@@ -36,6 +36,7 @@ public class playerControls : MonoBehaviour
     public int health;
     [HideInInspector] public int BuffTimer;
     [HideInInspector] public int HealthTimer;
+    [HideInInspector] public int DashCount;
     [HideInInspector] public float FireCoolDown;
     [HideInInspector] public float WaterCoolDown;
     private int DashDirection;
@@ -297,6 +298,9 @@ public class playerControls : MonoBehaviour
                             StartCoroutine(SpeedDash());
                         }
                     }
+                    if (DashCount <= 0) {
+                        ConsumableOverA();
+                    }
                     break;
                 case 6: // Wind Pepper Power Attack
                     if (Input.GetButtonDown("Fire1"))
@@ -416,7 +420,12 @@ public class playerControls : MonoBehaviour
     void SlotBCleanup () {
 
         switch (pepperIndexB) {
-            case 7:
+            case 5: // Dash Pepper Clean Up
+                if (DashCount <= 0) {
+                    ConsumableOverB();
+                }
+                break;
+            case 7: // Health Pepper Clean up
                 if (HealthTimer <= 0) {
                     Healing = false;
                     ConsumableOverB();
@@ -477,6 +486,7 @@ public class playerControls : MonoBehaviour
                     shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
+                /*
                 case 5:
                     SoundCall(eggDrop, playerSounds);
                     shot = Instantiate(eggSpeed, transform.position + new Vector3(0, 0, 0), 
@@ -488,13 +498,14 @@ public class playerControls : MonoBehaviour
                             shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                         }
                     break;
+                */
                 case 6:
                     SoundCall(eggDrop, playerSounds);
                     shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
 			            Quaternion.identity) as GameObject;
                     break;
             }
-            if (pepperIndexA != 7 && pepperIndexA != 8 && pepperIndexA != 9) {
+            if (pepperIndexA != 5 && pepperIndexA != 7 && pepperIndexA != 8 && pepperIndexA != 9) {
                 pepperIndexA = pepperIndexB;
                 pepperIndexB = 0;
             }
@@ -540,6 +551,7 @@ public class playerControls : MonoBehaviour
     private IEnumerator SpeedDash() {
 
         Dashing = true;
+        DashCount--;
         playerDashCollider.GetComponent<Collider2D>().enabled = true;
         if (facingRight) {
             DashDirection = 1;

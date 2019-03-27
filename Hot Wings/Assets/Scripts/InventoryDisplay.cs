@@ -9,10 +9,11 @@ public class InventoryDisplay : MonoBehaviour {
 	private Image PepperDisplayImage;
 	public Image CountdownImage;
 	private playerControls Player;
-	private int MaxHealthCounter;
-	private int MaxBuffCounter;
-	private float MaxFireCapacity;
-	private float MaxWaterCapacity;
+	private readonly int MaxHealthCounter = 5;
+	private readonly int MaxBuffCounter = 20;
+	private readonly int MaxDashCounter = 7;
+	private readonly float MaxFireCapacity = 4;
+	private readonly float MaxWaterCapacity = 4;
 	private float BarLength;
 	private float MaxBarLength;
 
@@ -30,10 +31,6 @@ public class InventoryDisplay : MonoBehaviour {
 
 		Player = GameObject.Find("Player").GetComponent<playerControls>();
 		PepperDisplayImage = this.gameObject.GetComponent<Image>();
-		MaxHealthCounter = 5;
-		MaxBuffCounter = 20;
-		MaxFireCapacity = 4;
-		MaxWaterCapacity = 4;
 		
 	}
 	
@@ -84,7 +81,11 @@ public class InventoryDisplay : MonoBehaviour {
 				break;
 			case 5:
 				PepperDisplayImage.sprite = PepperImages[5];
-				CountdownImage.enabled = false;
+				CountdownImage.enabled = true;
+				CountdownImage.color = new Color32(152,42,143,200);
+
+				BarLength = MaxBarLength * Player.DashCount / MaxDashCounter;
+				theBarRectTransform.sizeDelta = new Vector2 (theBarRectTransform.sizeDelta.x, BarLength);
 				break;
 			case 6:
 				PepperDisplayImage.sprite = PepperImages[6];
@@ -149,7 +150,11 @@ public class InventoryDisplay : MonoBehaviour {
 				break;
 			case 5:
 				PepperDisplayImage.sprite = PepperImages[5];
-				CountdownImage.enabled = false;
+				CountdownImage.enabled = true;
+				CountdownImage.color = new Color32(152,42,143,200);
+
+				BarLength = MaxBarLength * Player.DashCount / MaxDashCounter;
+				theBarRectTransform.sizeDelta = new Vector2 (theBarRectTransform.sizeDelta.x, BarLength);
 				break;
 			case 6:
 				PepperDisplayImage.sprite = PepperImages[6];

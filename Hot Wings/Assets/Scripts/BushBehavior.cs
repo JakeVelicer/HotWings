@@ -36,124 +36,124 @@ public class BushBehavior : MonoBehaviour {
 				case 0:
 
 					switch(BushType) {
-					case 1:
-						ChosenPepper = PepperDrops[0];
-						SpawnPepper();
-						break;
-					case 2:
-						ChosenPepper = PepperDrops[1];
-						SpawnPepper();
-						break;
+						case 1:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
+						case 2:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
 					}
 					break;
 
 				case 1:
 
 					switch(BushType) {
-					case 1:
-						ChosenPepper = PepperDrops[0];
-						SpawnPepper();
-						break;
-					case 2:
-						ChosenPepper = PepperDrops[1];
-						SpawnPepper();
-						break;
+						case 1:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
+						case 2:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
 					}
 					break;
 
 				case 2:
 
 					switch(BushType) {
-					case 1:
-						ChosenPepper = PepperDrops[0];
-						SpawnPepper();
-						break;
-					case 2:
-						ChosenPepper = PepperDrops[1];
-						SpawnPepper();
-						break;
-					case 3:
-						ChosenPepper = PepperDrops[2];
-						SpawnPepper();
-						break;
+						case 1:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
+						case 2:
+							ChosenPepper = PepperDrops[1];
+							SpawnPepper();
+							break;
+						case 3:
+							ChosenPepper = PepperDrops[1];
+							SpawnPepper();
+							break;
 					}
 					break;
 				
 				case 3:
 
 					switch(BushType) {
-					case 1:
-						ChosenPepper = PepperDrops[0];
-						SpawnPepper();
-						break;
-					case 2:
-						ChosenPepper = PepperDrops[1];
-						SpawnPepper();
-						break;
-					case 3:
-						ChosenPepper = PepperDrops[2];
-						SpawnPepper();
-						break;
-					case 4:
-						ChosenPepper = PepperDrops[3];
-						SpawnPepper();
-						break;
+						case 1:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
+						case 2:
+							ChosenPepper = PepperDrops[2];
+							SpawnPepper();
+							break;
+						case 3:
+							ChosenPepper = PepperDrops[1];
+							SpawnPepper();
+							break;
+						case 4:
+							ChosenPepper = PepperDrops[2];
+							SpawnPepper();
+							break;
 					}
 					break;
 
 				case 4:
 
 					switch(BushType) {
-					case 1:
-						ChosenPepper = PepperDrops[0];
-						SpawnPepper();
-						break;
-					case 2:
-						ChosenPepper = PepperDrops[1];
-						SpawnPepper();
-						break;
-					case 3:
-						ChosenPepper = PepperDrops[2];
-						SpawnPepper();
-						break;
-					case 4:
-						ChosenPepper = PepperDrops[3];
-						SpawnPepper();
-						break;
-					case 5:
-						ChosenPepper = PepperDrops[4];
-						SpawnPepper();
-						break;
+						case 1:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
+						case 2:
+							ChosenPepper = PepperDrops[3];
+							SpawnPepper();
+							break;
+						case 3:
+							ChosenPepper = PepperDrops[1];
+							SpawnPepper();
+							break;
+						case 4:
+							ChosenPepper = PepperDrops[2];
+							SpawnPepper();
+							break;
+						case 5:
+							ChosenPepper = PepperDrops[3];
+							SpawnPepper();
+							break;
 					}
 					break;
 
 				case 5:
 
 					switch(BushType) {
-					case 1:
-						ChosenPepper = PepperDrops[0];
-						SpawnPepper();
-						break;
-					case 2:
-						ChosenPepper = PepperDrops[1];
-						SpawnPepper();
-						break;
-					case 3:
-						ChosenPepper = PepperDrops[2];
-						SpawnPepper();
-						break;
-					case 4:
-						ChosenPepper = PepperDrops[3];
-						SpawnPepper();
-						break;
-					case 5:
-						ChosenPepper = PepperDrops[4];
-						SpawnPepper();
-						break;
-					case 6:
-						ChosenPepper = PepperDrops[5];
-						SpawnPepper();
-						break;
+						case 1:
+							ChosenPepper = PepperDrops[0];
+							SpawnPepper();
+							break;
+						case 2:
+							ChosenPepper = PepperDrops[4];
+							SpawnPepper();
+							break;
+						case 3:
+							ChosenPepper = PepperDrops[1];
+							SpawnPepper();
+							break;
+						case 4:
+							ChosenPepper = PepperDrops[2];
+							SpawnPepper();
+							break;
+						case 5:
+							ChosenPepper = PepperDrops[3];
+							SpawnPepper();
+							break;
+						case 6:
+							ChosenPepper = PepperDrops[4];
+							SpawnPepper();
+							break;
 					}
 					break;
 			}
@@ -163,33 +163,33 @@ public class BushBehavior : MonoBehaviour {
 			switch(BushType) {
 
 				case 1:
-					ChosenPepper = PepperDrops[Random.Range(0,6)];
+					ChosenPepper = PepperDrops[Random.Range(0,5)];
 					SpawnPepper();
 					break;
 				case 2:
-					ChosenPepper = PepperDrops[Random.Range(0,6)];
+					ChosenPepper = PepperDrops[Random.Range(0,5)];
 					SpawnPepper();
 					break;
 				case 3:
-					ChosenPepper = PepperDrops[Random.Range(0,6)];
+					ChosenPepper = PepperDrops[Random.Range(0,5)];
 					SpawnPepper();
 					break;
 				case 4:
-					ChosenPepper = PepperDrops[Random.Range(0,6)];
+					ChosenPepper = PepperDrops[Random.Range(0,5)];
 					SpawnPepper();
 					break;
 				case 5:
-					ChosenPepper = PepperDrops[Random.Range(0,6)];
+					ChosenPepper = PepperDrops[Random.Range(0,5)];
 					SpawnPepper();
 					break;
 				case 6:
-					ChosenPepper = PepperDrops[Random.Range(0,6)];
+					ChosenPepper = PepperDrops[Random.Range(0,5)];
 					SpawnPepper();
 					break;
 				case 7:
 					transform.GetComponent<SpriteRenderer>().enabled = true;
 					transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-					ChosenPepper = PepperDrops[Random.Range(6,9)];
+					ChosenPepper = PepperDrops[Random.Range(0,4)];
 					SpawnPepper();
 					break;
 			}

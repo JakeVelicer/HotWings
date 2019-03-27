@@ -23,6 +23,7 @@ public class PepperBehavior : MonoBehaviour {
         if (Player.pepperIndexA == 0 || Player.pepperIndexB == 0) {
 
             if (collision.gameObject.tag == "Player") {
+				
                 if (Player.pepperIndexA != PepperType && Player.pepperIndexB != PepperType) {
 					if (PepperType == 7) {
 						Player.HealthTimer = 5;
@@ -30,6 +31,9 @@ public class PepperBehavior : MonoBehaviour {
 					else if (PepperType == 8) {
 						Player.anim.SetBool("isBuff", true);
 						Player.BuffTimer = 20;
+					}
+					else if (PepperType == 5) {
+						Player.DashCount = 7;
 					}
 					else if (PepperType == 2) {
 						Player.ChargeTime = 0;
