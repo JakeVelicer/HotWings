@@ -23,7 +23,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			FireDamage = 5;
 			WaterDamage = 5;
 			ElectricDamage = 10;
-			SpeedDamage = 4;
+			SpeedDamage = 25;
 			IceDamage = 10;
 			EarthDamage = 100;
 			WindDamage = 30;
@@ -38,7 +38,7 @@ public class EnemyDamageValues : MonoBehaviour {
 				FireDamage = 15;
 				WaterDamage = 8;
 				ElectricDamage = 7;
-				SpeedDamage = 8;
+				SpeedDamage = 15;
 				IceDamage = 12;
 				EarthDamage = 100;
 				WindDamage = 3;
@@ -49,7 +49,7 @@ public class EnemyDamageValues : MonoBehaviour {
 				FireDamage = 10;
 				WaterDamage = 20;
 				ElectricDamage = 15;
-				SpeedDamage = 7;
+				SpeedDamage = 15;
 				IceDamage = 5;
 				EarthDamage = 100;
 				WindDamage = 5;
@@ -60,7 +60,7 @@ public class EnemyDamageValues : MonoBehaviour {
 				FireDamage = 10;
 				WaterDamage = 5;
 				ElectricDamage = 10;
-				SpeedDamage = 6;
+				SpeedDamage = 25;
 				IceDamage = 20;
 				EarthDamage = 100;
 				WindDamage = 5;
@@ -71,22 +71,11 @@ public class EnemyDamageValues : MonoBehaviour {
 				FireDamage = 8;
 				WaterDamage = 4;
 				ElectricDamage = 25;
-				SpeedDamage = 5;
+				SpeedDamage = 30;
 				IceDamage = 20;
 				EarthDamage = 100;
 				WindDamage = 10;
 				JackedDamage = 20;
-			}
-			// Saucer
-			if (Enemy.AlienType == 5) {
-				FireDamage = 5;
-				WaterDamage = 5;
-				ElectricDamage = 10;
-				SpeedDamage = 4;
-				IceDamage = 10;
-				EarthDamage = 100;
-				WindDamage = 30;
-				JackedDamage = 30;
 			}
 		}
 	}

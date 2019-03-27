@@ -504,7 +504,9 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 		else if (collision.gameObject.tag == "Ice") {
 			if (CanSpawnIceBlock) {
-				Destroy(collision.gameObject);
+				if (collision.gameObject.name != "ExplosionHitBox") {
+					Destroy(collision.gameObject);
+				}
 				StartCoroutine(TakeIceDamage());
 			}
             if (AlienType == 3) {
