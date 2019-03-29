@@ -22,11 +22,13 @@ public class playerControls : MonoBehaviour
     private bool Dashing;
     private bool isBuff;
     public bool canShoot = true;
+    private bool isAxisInUse;
     [HideInInspector] public bool Dead;
     public int shotSpeed;
     public int DashSpeed;
     private bool Healing;
     private float horizontalInput;
+    private float FireControls;
     [HideInInspector] public float ChargeTime;
 
     //Pepper references
@@ -119,6 +121,7 @@ public class playerControls : MonoBehaviour
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         AnimChecker = anim.GetInteger("Speed");
         if (!Dead) {
+            
             if (Input.GetButtonDown("Jump") && !isJumping)
             {
                 anim.SetBool("isJumping", true);
@@ -128,6 +131,7 @@ public class playerControls : MonoBehaviour
             }
 
             horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
+            
             if (horizontalInput > 0)
             {
                 anim.SetBool("isRunning", true);
@@ -194,33 +198,42 @@ public class playerControls : MonoBehaviour
 
     void PepAttacks() {
 
+        FireControls = Input.GetAxisRaw("FireControls");
+        bool ControllerConnected;
+
+        if (Input.GetJoystickNames().Length >= 1)
+            ControllerConnected = true;
+        else 
+            ControllerConnected = false;
+
         if (canShoot && !Dead)
         {
-            GameObject shot;
             switch (pepperIndexA)
             {
                 case 1: // Fire Pepper Power Attack
-                    if (Input.GetButtonDown("Fire1")) {
-                        if (FireCoolDown > 0) {
+                    if (FireControls >= 1) {
+                        if (FireCoolDown > 0 && !isAxisInUse) {
+                            isAxisInUse = true;
                             FireAttackStart();
                         }
                     }
-                    if (Input.GetButtonUp("Fire1")) {
+                    if (FireControls <= 0 && isAxisInUse) {
+                        isAxisInUse = false;
                         FireAttackStop();
                     }
                     if (FireCoolDown <= 0) {
                         FireAttackStop();
                     }
-                    if (Input.GetButton("Fire1") && fireLoopPlaying) {
+                    if (FireControls >= 1 && fireLoopPlaying) {
                         FireCoolDown = FireCoolDown - Time.deltaTime;
                     }
-                    if (!fireLoopPlaying && FireCoolDown < 4 && !Input.GetButton("Fire1")) {
+                    if (!fireLoopPlaying && FireCoolDown < 4 && FireControls != 1) {
                         FireCoolDown = (FireCoolDown + 0.03f) + Time.deltaTime;
                     }
                     break;
                 case 2: // Electric Shock Pepper Power Attack
-                    if (Input.GetButton("Fire1"))
-                    {
+                    if (FireControls >= 1) {
+                        isAxisInUse = true;
                         if (!shockLoopPlaying)
                         {
                             SoundCall(shockLoop, playerAmbient);
@@ -228,71 +241,41 @@ public class playerControls : MonoBehaviour
                         }
                         ChargeTime = ChargeTime + Time.deltaTime;
                     }
-                    if (Input.GetButtonUp("Fire1"))
-                    {
-                        shockLoopPlaying = false;
-                        playerAmbient.Stop();
+                    if (FireControls <= 0 && isAxisInUse) {
                         canShoot = false;
-                        if (ChargeTime >= 3) {
-                            SoundCall(playerShock4, playerSounds);
-                            ElectricShotToUse = playerShockShot4;
-                        }
-                        else if (ChargeTime >= 2) {
-                            SoundCall(playerShock3, playerSounds);
-                            ElectricShotToUse = playerShockShot3;
-                        }
-                        else if (ChargeTime >= 1) {
-                            SoundCall(playerShock2, playerSounds);
-                            ElectricShotToUse = playerShockShot2;
-                        }
-                        else if (ChargeTime < 1) {
-                            SoundCall(playerShock1, playerSounds);
-                            ElectricShotToUse = playerShockShot1;
-                        }
-                        anim.SetBool("isAttacking", true);
-                        shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0),
-                        Quaternion.identity) as GameObject;
-                        if (facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        }
-                        else if (!facingRight)
-                        {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-                        }
-                        StartCoroutine(shootWait());
+                        isAxisInUse = false;
+                        ShockAttack();
                     }
                     break;
-                case 3: // Water Pepper Power Attack
-                    if (Input.GetButtonDown("Fire1")) {
-                        if (WaterCoolDown > 0) {
+                case 3: // Water Pepper Power
+                    if (FireControls >= 1) {
+                        if (WaterCoolDown > 0 && !isAxisInUse) {
+                            isAxisInUse = true;
                             WaterAttackStart();
                         }
                     }
-                    if (Input.GetButtonUp("Fire1")) {
+                    if (FireControls <= 0 && isAxisInUse) {
+                        isAxisInUse = false;
                         WaterAttackStop();
                     }
                     if (WaterCoolDown <= 0) {
                         WaterAttackStop();
                     }
-                    if (Input.GetButton("Fire1") && waterLoopPlaying) {
+                    if (FireControls >= 1 && waterLoopPlaying) {
                         WaterCoolDown = WaterCoolDown - Time.deltaTime;
                     }
-                    if (!waterLoopPlaying && WaterCoolDown < 4 && !Input.GetButton("Fire1")) {
+                    if (!waterLoopPlaying && WaterCoolDown < 4 && FireControls != 1) {
                         WaterCoolDown = (WaterCoolDown + 0.03f) + Time.deltaTime;
                     }
                     break;
                 case 4: // CALLS Ice Pepper Power Attack
-                    if (Input.GetButtonDown("Fire1")) {
-                        anim.SetBool("isAttacking", true);
-                        SoundCall(playerIce, playerSounds);
+                    if (FireControls >= 1) {
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
                     break;
                 case 5: // CALLS Speed Dash Pepper Power Attack
-                    if (Input.GetButtonDown("Fire1")) {
-                        SoundCall(playerDash, playerSounds);
+                    if (FireControls >= 1) {
                         canShoot = false;
                         if (DashDirection == 0) {
                             StartCoroutine(SpeedDash());
@@ -302,36 +285,14 @@ public class playerControls : MonoBehaviour
                         ConsumableOverA();
                     }
                     break;
-                case 6: // Wind Pepper Power Attack
-                    if (Input.GetButtonDown("Fire1"))
-                    {
-                        anim.SetBool("isWind", true);
-                        SoundCall(playerWind, playerSounds);
+                case 6: // CALLS Wind Pepper Power Attack
+                    if (FireControls >= 1) {
                         canShoot = false;
-                        if (facingRight)
-                        {
-                            anim.SetBool("isAttacking", true);
-                            shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0),
-                            Quaternion.identity) as GameObject;
-                            shot.GetComponent<WindBehavior>().GoRight = true;
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
-                        }
-                        else if (!facingRight)
-                        {
-                            anim.SetBool("isAttacking", true);
-                            shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0),
-                            Quaternion.identity) as GameObject;
-                            shot.GetComponent<WindBehavior>().GoRight = false;
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
-                        }
-                        StartCoroutine(shootWait());
+                        WindAttack();
                     }
                     break;
                 case 7: // CALLS Health Pepper Power heal
-                    if (Input.GetButtonDown("Fire1") && !Healing) {
-                        SoundCall(playerHeal, playerAmbient);
+                    if (FireControls >= 1 && !Healing) {
                         Healing = true;
                         StartCoroutine(HealThePlayer());
                     }
@@ -347,7 +308,7 @@ public class playerControls : MonoBehaviour
                         isBuff = true;
                         StartCoroutine(BuffTime());
                     }
-                    if (Input.GetButtonDown("Fire1")) {
+                    if (FireControls >= 1) {
                         //canShoot = false;
                         if (OnPunch != null) {
                             anim.SetBool("isAttacking", true);
@@ -355,7 +316,7 @@ public class playerControls : MonoBehaviour
                             BuffAudioHandler();
                         }
                     }
-                    if (Input.GetButtonUp("Fire1")) {
+                    if (FireControls <= 0) {
                         anim.SetBool("isAttacking", false);
                     }
                     if (BuffTimer <= 0) {
@@ -366,16 +327,10 @@ public class playerControls : MonoBehaviour
                         ConsumableOverA();
                     }
                     break;
-                case 9: // Earth Pepper Power Attack
-                    if (Input.GetButtonDown("Fire1"))
-                    {
-                        SoundCall(playerEarth, playerSounds);
+                case 9: // CALLS Earth Pepper Power Attack
+                    if (FireControls >= 1) {
                         canShoot = false;
-                        shot = Instantiate(playerEarthShot, new Vector3 (transform.position.x, -2.55f, 0),
-                        Quaternion.identity) as GameObject;
-                        GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.6f);
-                        ConsumableOverA();
-                        StartCoroutine(shootWait());
+                        EarthAttack();
                     }
                     break;
             }
@@ -445,7 +400,7 @@ public class playerControls : MonoBehaviour
 
         GameObject shot;
 
-        if (Input.GetButtonDown("Drop Pepper") || Input.GetKeyDown(KeyCode.RightAlt))
+        if (Input.GetButtonDown("Drop Pepper"))
         {
             if (shockLoopPlaying == true)
             {
@@ -548,11 +503,94 @@ public class playerControls : MonoBehaviour
         }
     }
 
+    private IEnumerator IceBurst() {
+
+        anim.SetBool("isAttacking", true);
+        SoundCall(playerIce, playerSounds);
+        for (int i = 0; i < 3; i++) {
+            GameObject shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
+			Quaternion.identity) as GameObject;
+            shot.GetComponent<SpriteRenderer>().sprite = IceSprites[i];
+            if (facingRight) {
+                shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+            }
+            else if (!facingRight) {
+                shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+            }
+
+            yield return new WaitForSeconds(0.3f);
+        }
+        anim.SetBool("isAttacking", false);
+        StartCoroutine(shootWait());
+    }
+
+    private void ShockAttack() {
+
+        shockLoopPlaying = false;
+        playerAmbient.Stop();
+        if (ChargeTime >= 3) {
+            SoundCall(playerShock4, playerSounds);
+            ElectricShotToUse = playerShockShot4;
+        }
+        else if (ChargeTime >= 2) {
+            SoundCall(playerShock3, playerSounds);
+            ElectricShotToUse = playerShockShot3;
+        }
+        else if (ChargeTime >= 1) {
+            SoundCall(playerShock2, playerSounds);
+            ElectricShotToUse = playerShockShot2;
+        }
+        else if (ChargeTime < 1) {
+            SoundCall(playerShock1, playerSounds);
+            ElectricShotToUse = playerShockShot1;
+        }
+        anim.SetBool("isAttacking", true);
+        GameObject shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0),
+        Quaternion.identity) as GameObject;
+        if (facingRight)
+        {
+            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
+        }
+        else if (!facingRight)
+        {
+            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
+        }
+        StartCoroutine(shootWait());
+    }
+
+    private void WindAttack() {
+        
+        anim.SetBool("isWind", true);
+        SoundCall(playerWind, playerSounds);
+        GameObject shot;
+        if (facingRight)
+        {
+            anim.SetBool("isAttacking", true);
+            shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0),
+            Quaternion.identity) as GameObject;
+            shot.GetComponent<WindBehavior>().GoRight = true;
+            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * 600);
+            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
+        }
+        else if (!facingRight)
+        {
+            anim.SetBool("isAttacking", true);
+            shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0),
+            Quaternion.identity) as GameObject;
+            shot.GetComponent<WindBehavior>().GoRight = false;
+            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * 600);
+            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.up * 120);
+        }
+        StartCoroutine(shootWait());
+    }
+
     private IEnumerator SpeedDash() {
 
         Dashing = true;
         DashCount--;
         playerDashCollider.GetComponent<Collider2D>().enabled = true;
+        SoundCall(playerDash, playerSounds);
+
         if (facingRight) {
             DashDirection = 1;
         }
@@ -578,22 +616,12 @@ public class playerControls : MonoBehaviour
         StartCoroutine(shootWait());
     }
 
-    private IEnumerator IceBurst() {
+    private void EarthAttack() {
 
-        for (int i = 0; i < 3; i++) {
-            GameObject shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
-			Quaternion.identity) as GameObject;
-            shot.GetComponent<SpriteRenderer>().sprite = IceSprites[i];
-            if (facingRight) {
-                shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-            }
-            else if (!facingRight) {
-                shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-            }
-
-            yield return new WaitForSeconds(0.3f);
-        }
-        anim.SetBool("isAttacking", false);
+        SoundCall(playerEarth, playerSounds);
+        Instantiate(playerEarthShot, new Vector3 (transform.position.x, -2.55f, 0), Quaternion.identity);
+        GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.6f);
+        ConsumableOverA();
         StartCoroutine(shootWait());
     }
 
@@ -629,8 +657,8 @@ public class playerControls : MonoBehaviour
         canShoot = true;
     }
 
-    public IEnumerator iFrames()
-    {
+    public IEnumerator iFrames() {
+        
         //for (int i = 0; i < 2; i++) {
         GetComponent<SpriteRenderer>().material = HotFlash;
         yield return new WaitForSeconds(0.2f);
@@ -641,8 +669,9 @@ public class playerControls : MonoBehaviour
         isImmune = false;
     }
 
-    private IEnumerator HealThePlayer()
-    {
+    private IEnumerator HealThePlayer() {
+
+        SoundCall(playerHeal, playerAmbient);
         for (int i = 0; i < 5; i++) {
             HealthTimer = HealthTimer - 1;
             health = health + 20;
