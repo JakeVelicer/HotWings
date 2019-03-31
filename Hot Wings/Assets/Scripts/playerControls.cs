@@ -28,6 +28,7 @@ public class playerControls : MonoBehaviour
     public int DashSpeed;
     private bool Healing;
     private float horizontalInput;
+    private float currentMoveSpeed;
     private float FireControls;
     [HideInInspector] public float ChargeTime;
 
@@ -131,9 +132,11 @@ public class playerControls : MonoBehaviour
             }
 
             horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
+            currentMoveSpeed = Mathf.Clamp (currentMoveSpeed, 0f, moveSpeed);
             
             if (horizontalInput > 0)
             {
+                currentMoveSpeed += 32 * Time.fixedDeltaTime;
                 anim.SetBool("isRunning", true);
                 anim.SetBool("isIdle", false);
                 transform.localScale = new Vector3(1, 1, 1);
@@ -141,6 +144,7 @@ public class playerControls : MonoBehaviour
             }
             else if (horizontalInput < 0)
             {
+                currentMoveSpeed += 32 * Time.fixedDeltaTime;
                 anim.SetBool("isRunning", true);
                 anim.SetBool("isIdle", false);
                 transform.localScale = new Vector3(-1, 1, 1);
@@ -148,6 +152,9 @@ public class playerControls : MonoBehaviour
             }
             else if (horizontalInput == 0)
             {
+                if (currentMoveSpeed > 0) {
+                    currentMoveSpeed = 0;
+                }
                 anim.SetBool("isIdle", true);
                 anim.SetBool("isRunning", false);
             }
@@ -190,7 +197,7 @@ public class playerControls : MonoBehaviour
         if (!Dashing && !Dead) {
             velocity = PlayerRigidbody.velocity;
             velocity.y += Physics2D.gravity.y * 0.05f;
-            velocity.x = horizontalInput * moveSpeed;
+            velocity.x = horizontalInput * currentMoveSpeed;
             PlayerRigidbody.velocity = velocity;
         }
 
