@@ -7,59 +7,64 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
 
-    public static bool GameIsPaused = false;
-
-    private AudioSource menuSounds;
     public AudioClip clickSound;
     public AudioClip pauseSound;
-
     public GameObject pauseMenuUI;
+	private AudioSource menuSounds;
+	private TutorialPopups tutPopups;
+
+    public static bool GameIsPaused = false;
+
     // Use this for initialization
     private void Start()
     {
         menuSounds = gameObject.GetComponent<AudioSource>();
+		tutPopups = GameObject.Find("Controller").GetComponent<TutorialPopups>();
     }
 
 
     // Update is called once per frame
     void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-        
-			if (GameIsPaused)
-			{
-				Resume();
-			} else
-			{
-				Pause();
-			
-			}
-			 menuSounds.clip = pauseSound;
-            menuSounds.loop = false;
-            menuSounds.Play();
-			}
 
+		if (Input.GetButtonDown("Pause")) {
+        
+			if (GameIsPaused) {
+				Resume();
+			}
+			else {
+				Pause();
+			}
 		}
 
-	public void Resume()
-	{
+	}
+	
+	public void Pause() {
+
+		pauseMenuUI.SetActive(true);
+		menuSounds.clip = pauseSound;
+		menuSounds.loop = false;
+		menuSounds.Play();
+		Time.timeScale = 0f;
+		GameIsPaused = true;
+	}
+
+	public void Resume() {
+
 		pauseMenuUI.SetActive(false);
-		Time.timeScale = 1f;
+		menuSounds.clip = clickSound;
+		menuSounds.loop = false;
+		menuSounds.Play();
+		if (!tutPopups.TutorialPopupPause) {
+			Time.timeScale = 1f;
+		}
 		GameIsPaused = false;
+	}
 
-	}
-	public void Pause()
-	{
-pauseMenuUI.SetActive(true);
-Time.timeScale = 0f;
-GameIsPaused = true;
-	}
-	public void LoadMenu()
-	{
+	public void LoadMenu() {
+
 		Time.timeScale = 1f;
+		pauseMenuUI.SetActive(false);
 		SceneManager.LoadScene("StartMenu");
-	pauseMenuUI.SetActive(false);
-
 	}
 }
 

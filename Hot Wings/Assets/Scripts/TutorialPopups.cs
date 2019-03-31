@@ -8,6 +8,7 @@ public class TutorialPopups : MonoBehaviour
     private GameController Controller;
     public GameObject TutorialCanvas;
     public GameObject[] Waves;
+    public bool TutorialPopupPause;
 
     void Awake () {
 
@@ -45,11 +46,13 @@ public class TutorialPopups : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1f;
+        TutorialPopupPause = false;
     }
 
     public void Pause()
     {
         Time.timeScale = 0f;
+        TutorialPopupPause = true;
     }
 
 }

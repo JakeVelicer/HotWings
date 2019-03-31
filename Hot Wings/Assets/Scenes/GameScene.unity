@@ -176,7 +176,6 @@ GameObject:
   - component: {fileID: 68355336}
   - component: {fileID: 68355335}
   - component: {fileID: 68355334}
-  - component: {fileID: 68355333}
   m_Layer: 5
   m_Name: pausebutton
   m_TagString: Untagged
@@ -184,20 +183,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &68355333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 68355332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bf05ba141001493b8e1fc79f18527eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clickSound: {fileID: 0}
-  pauseSound: {fileID: 0}
-  pauseMenuUI: {fileID: 592334540}
 --- !u!114 &68355334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +222,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 68355333}
+      - m_Target: {fileID: 929102825}
         m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
@@ -1037,7 +1022,6 @@ GameObject:
   - component: {fileID: 412591596}
   - component: {fileID: 412591595}
   - component: {fileID: 412591594}
-  - component: {fileID: 412591593}
   m_Layer: 5
   m_Name: quit
   m_TagString: Untagged
@@ -1063,17 +1047,6 @@ RectTransform:
   m_AnchoredPosition: {x: 296, y: -142}
   m_SizeDelta: {x: 283, y: 397}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &412591593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 412591591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a9759672ccac44388bb8da46297058c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &412591594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1113,9 +1086,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 412591593}
-        m_MethodName: LoadByIndex
-        m_Mode: 3
+      - m_Target: {fileID: 929102825}
+        m_MethodName: LoadMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2387,7 +2360,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929102820
 GameObject:
@@ -2401,6 +2374,7 @@ GameObject:
   - component: {fileID: 929102822}
   - component: {fileID: 929102821}
   - component: {fileID: 929102825}
+  - component: {fileID: 929102826}
   m_Layer: 5
   m_Name: PauseCanvas
   m_TagString: Untagged
@@ -2478,7 +2452,7 @@ RectTransform:
   - {fileID: 68355337}
   - {fileID: 592334541}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2499,6 +2473,101 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: e161b04aef7e44e419a68773e6fceea6, type: 3}
   pauseSound: {fileID: 8300000, guid: 22d3e6cc1f8c641e0a13f534211581e0, type: 3}
   pauseMenuUI: {fileID: 592334540}
+--- !u!82 &929102826
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 929102820}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &964111022
 Prefab:
   m_ObjectHideFlags: 0
@@ -3524,7 +3593,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180713056 stripped
 GameObject:
@@ -4331,19 +4400,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 592334540}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
-          type: 2}
+      - m_Target: {fileID: 929102825}
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
