@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour {
 	public Button QuitButton;
 	private AudioSource menuSounds;
 	private TutorialPopups tutPopups;
+	private playerControls playerScript;
 
     [HideInInspector] public bool GameIsPaused = false;
 
@@ -22,13 +23,14 @@ public class PauseMenu : MonoBehaviour {
     {
         menuSounds = gameObject.GetComponent<AudioSource>();
 		tutPopups = GameObject.Find("Controller").GetComponent<TutorialPopups>();
+		playerScript = GameObject.Find("Player").GetComponent<playerControls>();
     }
 
 
     // Update is called once per frame
     void Update () {
 
-		if (Input.GetButtonDown("Pause")) {
+		if (Input.GetButtonDown("Pause") && !playerScript.Dead) {
         
 			if (GameIsPaused) {
 				Resume();
