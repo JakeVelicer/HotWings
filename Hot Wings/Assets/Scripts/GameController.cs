@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     void Awake() {
 
         Time.timeScale = 1;
+        OnWaveIncremented = null;
     }
 
     void Start() {

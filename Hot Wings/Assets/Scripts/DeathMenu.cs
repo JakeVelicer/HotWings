@@ -9,6 +9,7 @@ public class DeathMenu : MonoBehaviour {
 
 	public GameObject DeathMenuUI;
 	public GameObject PauseButton;
+	public Button MenuContinue;
 
 	private playerControls PlayerHealth;
 	private GameController Controller;
@@ -65,6 +66,7 @@ public class DeathMenu : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
         DeathMenuUI.SetActive(true);
 		PauseButton.SetActive(false);
+		MenuContinue.Select();
         Time.timeScale = 0f;
 
 		waveText.text = "" + Controller.WaveCount;

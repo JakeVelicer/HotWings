@@ -91,6 +91,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  ScreenTint: {fileID: 0}
+  TutorialPopupPause: 0
+  currentButton: {fileID: 0}
 --- !u!114 &114472545421719894
 MonoBehaviour:
   m_ObjectHideFlags: 1
