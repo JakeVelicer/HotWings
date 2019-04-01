@@ -10,10 +10,12 @@ public class PauseMenu : MonoBehaviour {
     public AudioClip clickSound;
     public AudioClip pauseSound;
     public GameObject pauseMenuUI;
+	public Button ResumeButton;
+	public Button QuitButton;
 	private AudioSource menuSounds;
 	private TutorialPopups tutPopups;
 
-    public static bool GameIsPaused = false;
+    [HideInInspector] public bool GameIsPaused = false;
 
     // Use this for initialization
     private void Start()
@@ -46,6 +48,7 @@ public class PauseMenu : MonoBehaviour {
 		menuSounds.Play();
 		Time.timeScale = 0f;
 		GameIsPaused = true;
+		ResumeButton.Select();
 	}
 
 	public void Resume() {
@@ -56,6 +59,9 @@ public class PauseMenu : MonoBehaviour {
 		menuSounds.Play();
 		if (!tutPopups.TutorialPopupPause) {
 			Time.timeScale = 1f;
+		}
+		if (tutPopups.TutorialPopupPause) {
+			tutPopups.currentButton.Select();
 		}
 		GameIsPaused = false;
 	}

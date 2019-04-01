@@ -8,18 +8,31 @@ public class TutorialPopups : MonoBehaviour
     private GameController Controller;
     public GameObject TutorialCanvas;
     public GameObject[] Waves;
-    public bool TutorialPopupPause;
+    private PauseMenu pauseMenu;
+    private int currentTutPop = 0;
+    public Image ScreenTint;
+    [HideInInspector] public bool TutorialPopupPause;
+    [HideInInspector] public Button currentButton;
 
     void Awake () {
 
         TutorialCanvas = GameObject.Find("TutorialCanvas");
+        pauseMenu = GameObject.Find("PauseCanvas").GetComponent<PauseMenu>();
         
     }
 
     void Start() {
 
         Waves[0].SetActive(true);
-        Pause();
+        currentButton = Waves[currentTutPop].transform.GetChild(0).GetComponent<Button>();
+        PauseForTut();
+    }
+
+    void Update() {
+
+        if (TutorialPopupPause && !pauseMenu.GameIsPaused) {
+            currentButton.Select();
+        }
     }
 
     void OnEnable()
@@ -35,24 +48,31 @@ public class TutorialPopups : MonoBehaviour
     private void OnWaveIncremented(int waveCount)
     {
         //Debug.Log("Tutorial Popup knows that the wave was incremented to " + waveCount);
-        
-        if (waveCount <= Waves.Length)
+        if (waveCount <= 5)
         {
-            Waves[waveCount - 1].SetActive(true);
-            Pause();
+            Waves[currentTutPop].SetActive(true);
+            PauseForTut();
         }
     }
 
-    public void Resume()
+    public void TutorialDone()
     {
         Time.timeScale = 1f;
+        ScreenTint.enabled = false;
         TutorialPopupPause = false;
     }
 
-    public void Pause()
+    public void PauseForTut()
     {
         Time.timeScale = 0f;
+        ScreenTint.enabled = true;
         TutorialPopupPause = true;
+    }
+
+    public void NextPopUp()
+    {
+        currentTutPop ++;
+        currentButton = Waves[currentTutPop].transform.GetChild(0).GetComponent<Button>();
     }
 
 }
