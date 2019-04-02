@@ -37,6 +37,9 @@ public class ShockChargeVisual : MonoBehaviour {
 			}
 
 		}
+		else {
+			Anim.Play("ChargeUpIdle");
+		}
 		
 	}
 }

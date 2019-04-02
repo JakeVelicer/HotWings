@@ -344,15 +344,19 @@ public class playerControls : MonoBehaviour
         }
         if (Input.GetButtonUp("Switch") || Input.GetKeyUp(KeyCode.RightShift))
         {
-            if (shockLoopPlaying) {
-                shockLoopPlaying = false;
-                playerAmbient.Stop();
-            }
             if (fireLoopPlaying) {
                 FireAttackStop();
             }
             if (waterLoopPlaying) {
                 WaterAttackStop();
+            }
+            if (shockLoopPlaying) {
+                shockLoopPlaying = false;
+                playerAmbient.Stop();
+            }
+            if (pepperIndexA == 2) {
+                isAxisInUse = false;
+                ChargeTime = 0;
             }
             if (pepperIndexA != 8) {
                 int tempIndex = pepperIndexA;
