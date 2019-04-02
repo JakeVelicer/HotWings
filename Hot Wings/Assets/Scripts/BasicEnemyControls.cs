@@ -169,32 +169,27 @@ public class BasicEnemyControls : MonoBehaviour {
 			CanRoam = false;
 			ChaseDirection();
 
-			// This switch assigns the proper cooldown and attack phase for each enemy type.
 			if (CanAttack) {
-				if (TouchStop && !Dead) {
+				if (TouchStop && !Dead && !Freeze) {
+					CanAttack = false;
+					anim.SetTrigger("Attack");
+
+					// This switch assigns the proper and attack phase for each enemy type.
 					switch (AlienType) {
 						// Roly Poly Alien
 						case 1:
-							CanAttack = false;
-							anim.SetTrigger("Attack");
 							StartCoroutine(DashAttack());
 							break;
 						// Blob Alien
 						case 2:
-							CanAttack = false;
-							anim.SetTrigger("Attack");
 							StartCoroutine(BombAttack());
 							break;
 						// Beefy Alien
 						case 3:
-							CanAttack = false;
-							anim.SetTrigger("Attack");
 							StartCoroutine(JumpSmashAttack());
 							break;
 						// Armored Alien
 						case 4:
-                            CanAttack = false;
-                            anim.SetTrigger("Attack");
                             StartCoroutine(GunAttack());
 							break;
 					}
@@ -202,7 +197,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			}
 		}
 		// Roams out of range of chasing and attacking
-		else {
+		else if (!Freeze) {
 			CanChase = false;
 			CanRoam = true;
 			CoolDownTimer = 0;
@@ -260,8 +255,8 @@ public class BasicEnemyControls : MonoBehaviour {
 		Rigidbody.velocity = Vector2.zero;
         SoundCall(machineGunRev, enemyAmbient);
         yield return new WaitForSeconds(0.7f);
-		if (AlienType == 4 && !Freeze) {
-			SoundCall(enemyRapidFire, enemyAttacks);
+		if (!Freeze) {
+			SoundCall(enemyPistol, enemyAttacks);
 		}
 		if (ToTheRight == true && !Freeze)
 		{
@@ -418,7 +413,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (collision.gameObject.name == "LightningBullet(Clone)") {
 			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage;
-			StartCoroutine(HitByAttack(100, 200, 0.3f));
+			StartCoroutine(HitByAttack(100, 205, 0.3f));
             if (AlienType == 4)
             {
 				CriticalTakeDamage(DamageValues.ElectricDamage);
@@ -433,7 +428,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
 			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
-			StartCoroutine(HitByAttack(200, 200, 0.5f));
+			StartCoroutine(HitByAttack(200, 210, 0.5f));
             if (AlienType == 4)
             {
 				CriticalTakeDamage(DamageValues.ElectricDamage * 1.2f);
@@ -448,7 +443,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
 			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
-			StartCoroutine(HitByAttack(300, 200, 1));
+			StartCoroutine(HitByAttack(300, 215, 1));
             if (AlienType == 4)
             {
 				CriticalTakeDamage(DamageValues.ElectricDamage * 1.5f);
@@ -463,7 +458,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
 			Destroy(collision.gameObject);
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
-			StartCoroutine(HitByAttack(400, 200, 1.5f));
+			StartCoroutine(HitByAttack(400, 220, 1.5f));
             if (AlienType == 4)
             {
 				CriticalTakeDamage(DamageValues.ElectricDamage * 2.0f);
@@ -492,6 +487,7 @@ public class BasicEnemyControls : MonoBehaviour {
         }
 			// Takes damage from stream attacks
 		else if (collision.gameObject.tag == "Fire") {
+			Debug.Log("FireEnter");
 			if (CanTakeDamage) {
 				InvokeRepeating("TakeFireDamage", 0, 0.5f);
 				if (AlienType == 1) {
@@ -517,6 +513,7 @@ public class BasicEnemyControls : MonoBehaviour {
             }
         }
 		else if (collision.gameObject.tag == "Water") {
+			Debug.Log("WaterEnter");
 			if (CanTakeDamage) {
 				InvokeRepeating("TakeWaterDamage", 0, 0.5f);
 				if (AlienType == 2) {
@@ -546,6 +543,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			Freeze = true;
 			GetComponent<SpriteRenderer>().material = HotFlash;
 			if (TouchStop) {
+				Rigidbody.velocity = Vector2.zero;
 				Rigidbody.AddForce(Vector3.up * ySpeed);
 				if (Player.facingRight) {
 					Rigidbody.AddForce(Vector3.right * xSpeed);
@@ -584,7 +582,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			TakeDamage(DamageValues.FireDamage);
 		}
 		EnemyHealth -= DamageValues.FireDamage;
-		StartCoroutine(HitByAttack(100, 100, 0.5f));
+		StartCoroutine(HitByAttack(100, 100, 0.7f));
 	}
 
 	void TakeWaterDamage() {
@@ -595,7 +593,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			TakeDamage(DamageValues.WaterDamage);
 		}
 		EnemyHealth -= DamageValues.WaterDamage;
-		StartCoroutine(HitByAttack(100, 100, 0.5f));
+		StartCoroutine(HitByAttack(100, 100, 0.7f));
 	}
 
 	void TakeWindDamage() {

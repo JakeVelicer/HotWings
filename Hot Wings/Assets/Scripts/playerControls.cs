@@ -136,7 +136,7 @@ public class playerControls : MonoBehaviour
             
             if (horizontalInput > 0)
             {
-                currentMoveSpeed += 32 * Time.fixedDeltaTime;
+                currentMoveSpeed += 30 * Time.fixedDeltaTime;
                 anim.SetBool("isRunning", true);
                 anim.SetBool("isIdle", false);
                 transform.localScale = new Vector3(1, 1, 1);
@@ -144,7 +144,7 @@ public class playerControls : MonoBehaviour
             }
             else if (horizontalInput < 0)
             {
-                currentMoveSpeed += 32 * Time.fixedDeltaTime;
+                currentMoveSpeed += 30 * Time.fixedDeltaTime;
                 anim.SetBool("isRunning", true);
                 anim.SetBool("isIdle", false);
                 transform.localScale = new Vector3(-1, 1, 1);
@@ -182,10 +182,10 @@ public class playerControls : MonoBehaviour
                 Dead = true;
             }
             if (pepperIndexA != 1 && !fireLoopPlaying && FireCoolDown < 4) {
-                FireCoolDown = (FireCoolDown + 0.03f) + Time.deltaTime;
+                FireCoolDown = (FireCoolDown + 0.03f) + Time.fixedDeltaTime;
             }
             if (pepperIndexA != 3 && !waterLoopPlaying && WaterCoolDown < 4) {
-                WaterCoolDown = (WaterCoolDown + 0.03f) + Time.deltaTime;
+                WaterCoolDown = (WaterCoolDown + 0.03f) + Time.fixedDeltaTime;
             }
         }
 
@@ -232,10 +232,10 @@ public class playerControls : MonoBehaviour
                         FireAttackStop();
                     }
                     if (FireControls >= 1 && fireLoopPlaying) {
-                        FireCoolDown = FireCoolDown - Time.deltaTime;
+                        FireCoolDown = FireCoolDown - Time.fixedDeltaTime;
                     }
                     if (!fireLoopPlaying && FireCoolDown < 4 && FireControls != 1) {
-                        FireCoolDown = (FireCoolDown + 0.03f) + Time.deltaTime;
+                        FireCoolDown = (FireCoolDown + 0.03f) + Time.fixedDeltaTime;
                     }
                     break;
                 case 2: // Electric Shock Pepper Power Attack
@@ -246,7 +246,7 @@ public class playerControls : MonoBehaviour
                             SoundCall(shockLoop, playerAmbient);
                             shockLoopPlaying = true;
                         }
-                        ChargeTime = ChargeTime + Time.deltaTime;
+                        ChargeTime = ChargeTime + Time.fixedDeltaTime;
                     }
                     if (FireControls <= 0 && isAxisInUse) {
                         canShoot = false;
@@ -269,10 +269,10 @@ public class playerControls : MonoBehaviour
                         WaterAttackStop();
                     }
                     if (FireControls >= 1 && waterLoopPlaying) {
-                        WaterCoolDown = WaterCoolDown - Time.deltaTime;
+                        WaterCoolDown = WaterCoolDown - Time.fixedDeltaTime;
                     }
                     if (!waterLoopPlaying && WaterCoolDown < 4 && FireControls != 1) {
-                        WaterCoolDown = (WaterCoolDown + 0.03f) + Time.deltaTime;
+                        WaterCoolDown = (WaterCoolDown + 0.03f) + Time.fixedDeltaTime;
                     }
                     break;
                 case 4: // CALLS Ice Pepper Power Attack

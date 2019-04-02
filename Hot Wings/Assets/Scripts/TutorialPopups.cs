@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class TutorialPopups : MonoBehaviour
 {
     private GameController Controller;
-    public GameObject TutorialCanvas;
     public GameObject[] Waves;
     private PauseMenu pauseMenu;
     private int currentTutPop = 0;
@@ -14,17 +13,11 @@ public class TutorialPopups : MonoBehaviour
     [HideInInspector] public bool TutorialPopupPause;
     [HideInInspector] public Button currentButton;
 
-    void Awake () {
-
-        TutorialCanvas = GameObject.Find("TutorialCanvas");
-        pauseMenu = GameObject.Find("PauseCanvas").GetComponent<PauseMenu>();
-        
-    }
-
     void Start() {
 
-        Waves[0].SetActive(true);
+        pauseMenu = GameObject.Find("PauseCanvas").GetComponent<PauseMenu>();
         currentButton = Waves[currentTutPop].transform.GetChild(0).GetComponent<Button>();
+        Waves[0].SetActive(true);
         PauseForTut();
     }
 
