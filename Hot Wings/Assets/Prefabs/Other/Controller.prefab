@@ -72,8 +72,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7b82e6102374cd29fddebd3dd1e692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TutorialCanvas: {fileID: 0}
   Waves:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

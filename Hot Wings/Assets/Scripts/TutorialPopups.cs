@@ -8,10 +8,10 @@ public class TutorialPopups : MonoBehaviour
     private GameController Controller;
     public GameObject[] Waves;
     private PauseMenu pauseMenu;
-    private int currentTutPop = 0;
-    public Image ScreenTint;
+    public GameObject ScreenTint;
     [HideInInspector] public bool TutorialPopupPause;
     [HideInInspector] public Button currentButton;
+    private int currentTutPop = 0;
 
     void Start() {
 
@@ -51,14 +51,14 @@ public class TutorialPopups : MonoBehaviour
     public void TutorialDone()
     {
         Time.timeScale = 1f;
-        ScreenTint.enabled = false;
+        ScreenTint.SetActive(false);
         TutorialPopupPause = false;
     }
 
     public void PauseForTut()
     {
         Time.timeScale = 0f;
-        ScreenTint.enabled = true;
+        ScreenTint.SetActive(true);
         TutorialPopupPause = true;
     }
 
