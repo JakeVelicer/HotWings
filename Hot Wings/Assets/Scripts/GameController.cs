@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
     void Update() {
 
         waveDisplay.text = "Wave: " + WaveCount;
-        scoreDisplay.text = "Score: " + score;
+        scoreDisplay.text = "Score:" + "\n" + score;
 
         // Updates the length of the health bar
         var healthBarRectTransform = healthBar.transform as RectTransform;
