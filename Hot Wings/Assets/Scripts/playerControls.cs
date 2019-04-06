@@ -23,6 +23,7 @@ public class playerControls : MonoBehaviour
     private bool isBuff;
     public bool canShoot = true;
     private bool isAxisInUse;
+    private bool switchAxisInUse;
     [HideInInspector] public bool Dead;
     public int shotSpeed;
     public int DashSpeed;
@@ -30,6 +31,7 @@ public class playerControls : MonoBehaviour
     private float horizontalInput;
     private float currentMoveSpeed;
     private float FireControls;
+    private float SwitchControl;
     [HideInInspector] public float ChargeTime;
 
     //Pepper references
@@ -206,6 +208,7 @@ public class playerControls : MonoBehaviour
     void PepAttacks() {
 
         FireControls = Input.GetAxisRaw("FireControls");
+        SwitchControl = Input.GetAxisRaw("Switch");
         bool ControllerConnected;
 
         if (Input.GetJoystickNames().Length >= 1)
@@ -342,8 +345,9 @@ public class playerControls : MonoBehaviour
                     break;
             }
         }
-        if (Input.GetButtonUp("Switch") || Input.GetKeyUp(KeyCode.RightShift))
+        if (SwitchControl >= 1 && !switchAxisInUse)
         {
+            switchAxisInUse = true;
             if (fireLoopPlaying) {
                 FireAttackStop();
             }
@@ -353,8 +357,6 @@ public class playerControls : MonoBehaviour
             if (shockLoopPlaying) {
                 shockLoopPlaying = false;
                 playerAmbient.Stop();
-            }
-            if (pepperIndexA == 2) {
                 isAxisInUse = false;
                 ChargeTime = 0;
             }
@@ -363,6 +365,9 @@ public class playerControls : MonoBehaviour
                 pepperIndexA = pepperIndexB;
                 pepperIndexB = tempIndex;
             }
+        }
+        if (SwitchControl <= 0 && switchAxisInUse) {
+             switchAxisInUse = false;
         }
     }
 
