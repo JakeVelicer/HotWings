@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public GameObject player;
+    private GameObject player;
     private Rigidbody2D playerRb2D;
     private Renderer[] renderers;
     private Vector3 velocity;
     private float smoothTimeY;
     private float smoothTimeX;
     public bool bounds;
-    public Vector3 minCameraPosition; 
+    public Vector3 minCameraPosition;
     public Vector3 maxCameraPosition;
 
     private AudioSource bgm;

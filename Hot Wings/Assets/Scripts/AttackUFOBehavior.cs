@@ -262,21 +262,21 @@ public class AttackUFOBehavior : MonoBehaviour {
 
 	void TakeFireDamage() {
 
-		TakeDamage(DamageValues.FireDamage);
+		DisplayDamage(DamageValues.FireDamage);
 		EnemyHealth -= DamageValues.FireDamage;
 		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
 
 	void TakeWaterDamage() {
 
-		TakeDamage(DamageValues.WaterDamage);
+		DisplayDamage(DamageValues.WaterDamage);
 		EnemyHealth -= DamageValues.WaterDamage;
 		StartCoroutine(HitByAttack(100, 100, 0.5f));
 	}
 
 	void TakeWindDamage() {
 
-        CriticalTakeDamage(DamageValues.WindDamage);
+    	DisplayCriticalDamage(DamageValues.WindDamage);
         EnemyHealth -= DamageValues.WindDamage;
     }
 
@@ -290,7 +290,7 @@ public class AttackUFOBehavior : MonoBehaviour {
 		Projectile.transform.parent = this.gameObject.transform;
 		for (int i = 0; i < 3; i++) {
 			EnemyHealth -= DamageValues.IceDamage;
-			TakeDamage(DamageValues.IceDamage);
+			DisplayDamage(DamageValues.IceDamage);
 			yield return new WaitForSeconds(1);
 		}
 		CanSpawnIceBlock = true;
@@ -303,14 +303,14 @@ public class AttackUFOBehavior : MonoBehaviour {
     }
   
 
-    public void TakeDamage(float amount)
+    public void DisplayDamage(float amount)
     {
-        FloatingTextController.CreateFloatingText(amount.ToString(), this.transform);
+        FloatingTextController.CreateFloatingText("-" + amount.ToString(), this.transform);
        // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
     }
-    public void CriticalTakeDamage(float amount)
+    public void DisplayCriticalDamage(float amount)
     {
-        CriticalFloatingTextController.CreateFloatingText(amount.ToString(), this.transform);
+        CriticalFloatingTextController.CreateFloatingText("-" + amount.ToString(), this.transform);
         // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
     }
 
