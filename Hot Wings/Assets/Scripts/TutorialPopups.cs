@@ -12,6 +12,7 @@ public class TutorialPopups : MonoBehaviour
     [HideInInspector] public bool TutorialPopupPause;
     [HideInInspector] public Button currentButton;
     private int currentTutPop = 0;
+    private bool noPopups;
 
     void Start() {
 
@@ -23,7 +24,8 @@ public class TutorialPopups : MonoBehaviour
 
     void Update() {
 
-        if (TutorialPopupPause && !pauseMenu.GameIsPaused) {
+        if (TutorialPopupPause && !pauseMenu.GameIsPaused ) {
+            if (!Waves[1].activeSelf)
             currentButton.Select();
         }
     }
@@ -41,7 +43,7 @@ public class TutorialPopups : MonoBehaviour
     private void OnWaveIncremented(int waveCount)
     {
         //Debug.Log("Tutorial Popup knows that the wave was incremented to " + waveCount);
-        if (waveCount <= 5)
+        if (waveCount <= 5 && !noPopups)
         {
             Waves[currentTutPop].SetActive(true);
             PauseForTut();
@@ -66,6 +68,10 @@ public class TutorialPopups : MonoBehaviour
     {
         currentTutPop ++;
         currentButton = Waves[currentTutPop].transform.GetChild(0).GetComponent<Button>();
+    }
+
+    public void NoPopups() {
+        noPopups = true;
     }
 
 }

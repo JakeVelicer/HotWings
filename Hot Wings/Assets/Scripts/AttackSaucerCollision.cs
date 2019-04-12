@@ -62,10 +62,8 @@ public class AttackSaucerCollision : MonoBehaviour {
             AttackUFOScript.DisplayDamage(DamageValues.JackedDamage);
         }
 		else if (collision.gameObject.tag == "Fire") {
-			if (CanTakeDamage) {
-				AttackUFOScript.StartTheInvokes("TakeFireDamage", 0.5f);
-				AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
-			}
+			AttackUFOScript.StartTheInvokes("TakeFireDamage", 0.5f);
+			AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
 		else if (collision.gameObject.tag == "Ice") {
 			if (AttackUFOScript.CanSpawnIceBlock == true) {
@@ -75,17 +73,13 @@ public class AttackSaucerCollision : MonoBehaviour {
             AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
 		else if (collision.gameObject.tag == "Water") {
-			if (CanTakeDamage) {
-				AttackUFOScript.StartTheInvokes("TakeWaterDamage", 0.5f);
-				AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);				
-			}
+			AttackUFOScript.StartTheInvokes("TakeWaterDamage", 0.5f);
+			AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
 		else if (collision.gameObject.tag == "Wind") {
-			if (CanTakeDamage) {
-				AttackUFOScript.StartTheInvokes("TakeWindDamage", 0.5f);
-				StartCoroutine(AttackUFOScript.HitByAttack(300, 600, 2));
-				AttackUFOScript.SoundCall(AttackUFOScript.criticalDamage, AttackUFOScript.enemyDamage);
-			}
+			AttackUFOScript.StartTheInvokes("TakeWindDamage", 0.5f);
+			StartCoroutine(AttackUFOScript.HitByAttack(300, 600, 2));
+			AttackUFOScript.SoundCall(AttackUFOScript.criticalDamage, AttackUFOScript.enemyDamage);
 		}
 	}
 
@@ -105,8 +99,10 @@ public class AttackSaucerCollision : MonoBehaviour {
 	}
 
 	private IEnumerator DamageWait() {
-		CanTakeDamage = false;
-		yield return new WaitForSeconds(0.6f);
-		CanTakeDamage = true;
+		if (CanTakeDamage) {
+			CanTakeDamage = false;
+			yield return new WaitForSeconds(0.6f);
+			CanTakeDamage = true;
+		}
 	}
 }

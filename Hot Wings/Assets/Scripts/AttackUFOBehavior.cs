@@ -30,6 +30,7 @@ public class AttackUFOBehavior : MonoBehaviour {
     private bool CanChase;
 	public bool TouchStop;
 	private bool Freeze;
+	private bool CanTakeDamage = true;
 	[HideInInspector] public bool Dead;
 	private bool CanAttack = true;
 	private bool CanFireRay = true;
@@ -262,22 +263,28 @@ public class AttackUFOBehavior : MonoBehaviour {
 
 	void TakeFireDamage() {
 
-		DisplayDamage(DamageValues.FireDamage);
-		EnemyHealth -= DamageValues.FireDamage;
-		StartCoroutine(HitByAttack(100, 100, 0.5f));
+		if (CanTakeDamage) {
+			DisplayDamage(DamageValues.FireDamage);
+			EnemyHealth -= DamageValues.FireDamage;
+			StartCoroutine(HitByAttack(100, 100, 0.5f));
+		}
 	}
 
 	void TakeWaterDamage() {
 
-		DisplayDamage(DamageValues.WaterDamage);
-		EnemyHealth -= DamageValues.WaterDamage;
-		StartCoroutine(HitByAttack(100, 100, 0.5f));
+		if (CanTakeDamage) {
+			DisplayDamage(DamageValues.WaterDamage);
+			EnemyHealth -= DamageValues.WaterDamage;
+			StartCoroutine(HitByAttack(100, 100, 0.5f));
+		}
 	}
 
 	void TakeWindDamage() {
 
-    	DisplayCriticalDamage(DamageValues.WindDamage);
-        EnemyHealth -= DamageValues.WindDamage;
+		if (CanTakeDamage) {
+			DisplayCriticalDamage(DamageValues.WindDamage);
+			EnemyHealth -= DamageValues.WindDamage;
+		}
     }
 
 	public IEnumerator TakeIceDamage() {
@@ -321,5 +328,13 @@ public class AttackUFOBehavior : MonoBehaviour {
         source.loop |= (source.clip == enemyLaser);
         source.Play();
     }
+
+	private IEnumerator DamageWait() {
+		if (CanTakeDamage) {
+			CanTakeDamage = false;
+			yield return new WaitForSeconds(0.6f);
+			CanTakeDamage = true;
+		}
+	}
 
 }
