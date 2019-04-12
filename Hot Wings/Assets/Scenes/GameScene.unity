@@ -1144,15 +1144,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224244540561453644, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4386939587855998, guid: 39be1709bb3644ee8ad8eb544fd54ac8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39be1709bb3644ee8ad8eb544fd54ac8, type: 2}
   m_IsPrefabAsset: 0
@@ -4774,11 +4765,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: Waves.Array.size
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 4800849916176994, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4908,14 +4894,14 @@ Prefab:
       objectReference: {fileID: 135550442}
     - target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
-      propertyPath: ScreenTint
-      value: 
-      objectReference: {fileID: 1992644612}
-    - target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
       propertyPath: Waves.Array.data[12]
       value: 
       objectReference: {fileID: 1689518057}
+    - target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: ScreenTint
+      value: 
+      objectReference: {fileID: 1992644612}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
   m_IsPrefabAsset: 0
