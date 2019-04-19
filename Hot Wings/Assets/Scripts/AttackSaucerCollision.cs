@@ -62,9 +62,15 @@ public class AttackSaucerCollision : MonoBehaviour {
             AttackUFOScript.DisplayDamage(DamageValues.JackedDamage);
         }
 		else if (collision.gameObject.tag == "Fire") {
-			AttackUFOScript.StartTheInvokes("TakeFireDamage", 0.5f);
-			AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
+			AttackUFOScript.takingFireDamage = true;
         }
+		else if (collision.gameObject.tag == "Water") {
+			AttackUFOScript.takingWaterDamage = true;
+        }
+		else if (collision.gameObject.tag == "Wind") {
+			AttackUFOScript.takingWindDamage = true;
+			StartCoroutine(AttackUFOScript.HitByAttack(300, 600, 2));
+		}
 		else if (collision.gameObject.tag == "Ice") {
 			if (AttackUFOScript.CanSpawnIceBlock == true) {
 				Destroy(collision.gameObject);
@@ -72,37 +78,18 @@ public class AttackSaucerCollision : MonoBehaviour {
 			}
             AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
         }
-		else if (collision.gameObject.tag == "Water") {
-			AttackUFOScript.StartTheInvokes("TakeWaterDamage", 0.5f);
-			AttackUFOScript.SoundCall(AttackUFOScript.hitDamage, AttackUFOScript.enemyDamage);
-        }
-		else if (collision.gameObject.tag == "Wind") {
-			AttackUFOScript.StartTheInvokes("TakeWindDamage", 0.5f);
-			StartCoroutine(AttackUFOScript.HitByAttack(300, 600, 2));
-			AttackUFOScript.SoundCall(AttackUFOScript.criticalDamage, AttackUFOScript.enemyDamage);
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D collider) {
 		if (collider.gameObject.tag == "Fire") {
-			AttackUFOScript.StopTheInvokes("TakeFireDamage");
-			StartCoroutine(DamageWait());
+			AttackUFOScript.takingFireDamage = false;
 		}
 		else if (collider.gameObject.tag == "Water") {
-			AttackUFOScript.StopTheInvokes("TakeWaterDamage");
-			StartCoroutine(DamageWait());
+			AttackUFOScript.takingWaterDamage = false;
 		}
 		else if (collider.gameObject.tag == "Wind") {
-			AttackUFOScript.StopTheInvokes("TakeWindDamage");
-			StartCoroutine(DamageWait());
+			AttackUFOScript.takingWindDamage = false;
 		}
 	}
 
-	private IEnumerator DamageWait() {
-		if (CanTakeDamage) {
-			CanTakeDamage = false;
-			yield return new WaitForSeconds(0.6f);
-			CanTakeDamage = true;
-		}
-	}
 }

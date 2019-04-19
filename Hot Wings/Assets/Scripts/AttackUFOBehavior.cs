@@ -30,6 +30,9 @@ public class AttackUFOBehavior : MonoBehaviour {
     private bool CanChase;
 	public bool TouchStop;
 	private bool Freeze;
+	[HideInInspector] public bool takingFireDamage;
+	[HideInInspector] public bool takingWaterDamage;
+	[HideInInspector] public bool takingWindDamage;
 	private bool CanTakeDamage = true;
 	[HideInInspector] public bool Dead;
 	private bool CanAttack = true;
@@ -101,6 +104,16 @@ public class AttackUFOBehavior : MonoBehaviour {
 			if (!Dead) {
 				EnemyDeathSequence();
 			}
+		}
+
+		if (takingFireDamage && CanTakeDamage) {
+			StartCoroutine(TakeFireDamage());
+		}
+		if (takingWaterDamage && CanTakeDamage) {
+			StartCoroutine(TakeWaterDamage());
+		}
+		if (takingWindDamage && CanTakeDamage) {
+			StartCoroutine(TakeWindDamage());
 		}
 
 	}
@@ -242,14 +255,6 @@ public class AttackUFOBehavior : MonoBehaviour {
 		SaucerRay.GetComponent<Collider2D>().enabled = false;
 	}
 
-	public void StartTheInvokes(string DamageToTake, float AmountPerSecond) {
-		InvokeRepeating(DamageToTake, 0, AmountPerSecond);
-	}
-
-	public void StopTheInvokes(string DamageToStop) {
-		CancelInvoke(DamageToStop);
-	}
-
 	public IEnumerator HitByAttack (int xSpeed, int ySpeed, float Seconds) {
 		if (!Dead) {
 			Freeze = true;
@@ -261,30 +266,33 @@ public class AttackUFOBehavior : MonoBehaviour {
 		}
 	}
 
-	void TakeFireDamage() {
-
-		if (CanTakeDamage) {
-			DisplayDamage(DamageValues.FireDamage);
-			EnemyHealth -= DamageValues.FireDamage;
-			StartCoroutine(HitByAttack(100, 100, 0.5f));
-		}
+	private IEnumerator TakeFireDamage() {
+		CanTakeDamage = false;
+		DisplayDamage(DamageValues.FireDamage);
+		SoundCall(hitDamage, enemyDamage);
+		EnemyHealth -= DamageValues.FireDamage;
+		StartCoroutine(HitByAttack(100, 100, 0.7f));
+		yield return new WaitForSeconds(0.6f);
+		CanTakeDamage = true;
 	}
 
-	void TakeWaterDamage() {
-
-		if (CanTakeDamage) {
-			DisplayDamage(DamageValues.WaterDamage);
-			EnemyHealth -= DamageValues.WaterDamage;
-			StartCoroutine(HitByAttack(100, 100, 0.5f));
-		}
+	private IEnumerator TakeWaterDamage() {
+		CanTakeDamage = false;
+		DisplayDamage(DamageValues.WaterDamage);
+		SoundCall(hitDamage, enemyDamage);
+		EnemyHealth -= DamageValues.WaterDamage;
+		StartCoroutine(HitByAttack(100, 100, 0.7f));
+		yield return new WaitForSeconds(0.6f);
+		CanTakeDamage = true;
 	}
 
-	void TakeWindDamage() {
-
-		if (CanTakeDamage) {
-			DisplayCriticalDamage(DamageValues.WindDamage);
-			EnemyHealth -= DamageValues.WindDamage;
-		}
+	private IEnumerator TakeWindDamage() {
+		CanTakeDamage = false;
+		DisplayCriticalDamage(DamageValues.WindDamage);
+		SoundCall(criticalDamage, enemyDamage);
+		EnemyHealth -= DamageValues.WindDamage;
+		yield return new WaitForSeconds(0.6f);
+		CanTakeDamage = true;
     }
 
 	public IEnumerator TakeIceDamage() {
@@ -308,7 +316,6 @@ public class AttackUFOBehavior : MonoBehaviour {
 			ChaseDirection();
 		}
     }
-  
 
     public void DisplayDamage(float amount)
     {
