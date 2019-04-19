@@ -38,7 +38,7 @@ public class PlayerCollision : MonoBehaviour {
                 }
                 Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
-                Player.health -= 5;
+                Player.health -= 10;
                 StartCoroutine(Player.iFrames());
             }
         }
@@ -52,7 +52,7 @@ public class PlayerCollision : MonoBehaviour {
                 }
                 Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
-                Player.health -= 10;
+                Player.health -= 20;
                 StartCoroutine(Player.iFrames());
             }
         }
@@ -66,7 +66,7 @@ public class PlayerCollision : MonoBehaviour {
                 }
                 Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
-                Player.health -= 10;
+                Player.health -= 12;
                 StartCoroutine(Player.iFrames());
             }
         }
@@ -80,7 +80,7 @@ public class PlayerCollision : MonoBehaviour {
                 }
                 Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
-                Player.health -= 7;
+                Player.health -= 15;
                 StartCoroutine(Player.iFrames());
             }
         }

@@ -44,15 +44,24 @@ public class EggBombBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		Timer -= Time.deltaTime;
+		Timer -= Time.fixedDeltaTime;
 		if (Timer <= 0 && PlayAnim == true) {
-			PlayAnim = false;
-			ExplodeAnim.SetTrigger("Boom");
-			Collider.enabled = true;
-            bombSound.Play();
-		    GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.2f);
-			gameObject.GetComponent<SpriteRenderer>().enabled = false;
-			Destroy(gameObject, 0.6f);
+            StartCoroutine(Explosion());
 		}
 	}
+
+    private IEnumerator Explosion() {
+
+        PlayAnim = false;
+        ExplodeAnim.SetTrigger("Boom");
+        Collider.enabled = true;
+        bombSound.Play();
+        GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.2f);
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(0.6f);
+        if (Collider != null) {
+            Collider.enabled = false;
+        }
+        Destroy(gameObject);
+    }
 }

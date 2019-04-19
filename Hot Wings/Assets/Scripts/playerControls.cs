@@ -675,7 +675,7 @@ public class playerControls : MonoBehaviour
         SoundCall(playerHeal, playerAmbient);
         for (int i = 0; i < 5; i++) {
             HealthTimer = HealthTimer - 1;
-            health = health + 20;
+            health = health + 10;
             yield return new WaitForSeconds(1);
         }
     }

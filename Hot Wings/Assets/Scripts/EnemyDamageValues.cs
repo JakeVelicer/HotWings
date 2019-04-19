@@ -27,7 +27,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			IceDamage = 10;
 			EarthDamage = 100;
 			WindDamage = 30;
-			JackedDamage = 30;
+			JackedDamage = 40;
 		}
 		else {
 
@@ -61,7 +61,7 @@ public class EnemyDamageValues : MonoBehaviour {
 				WaterDamage = 5;
 				ElectricDamage = 10;
 				SpeedDamage = 25;
-				IceDamage = 20;
+				IceDamage = 18;
 				EarthDamage = 100;
 				WindDamage = 5;
 				JackedDamage = 20;
@@ -72,7 +72,7 @@ public class EnemyDamageValues : MonoBehaviour {
 				WaterDamage = 4;
 				ElectricDamage = 25;
 				SpeedDamage = 30;
-				IceDamage = 20;
+				IceDamage = 12;
 				EarthDamage = 100;
 				WindDamage = 10;
 				JackedDamage = 20;
