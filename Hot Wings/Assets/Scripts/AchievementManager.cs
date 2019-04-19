@@ -12,7 +12,7 @@ public class AchievementManager : MonoBehaviour
     private int m_maxHealth;
 
     private Dictionary<int, int> m_alienDeathDictionary = new Dictionary<int, int>();
-        private Dictionary<int, int> m_pepperUsedDictionary = new Dictionary<int, int>();
+    private Dictionary<int, int> m_pepperUsedDictionary = new Dictionary<int, int>();
 
     public int enemiesKilled;
 
@@ -73,8 +73,8 @@ public class AchievementManager : MonoBehaviour
             m_alienDeathDictionary.Add(alienNumber, 0);
         }
         m_alienDeathDictionary[alienNumber] += 1;
-        Debug.Log("We have killed " + m_alienDeathDictionary[alienNumber] + " of Alien #" + alienNumber);
-        Debug.Log("We have killed the most of Alien #" + GetMostKilledAlienNumber());
+        //Debug.Log("We have killed " + m_alienDeathDictionary[alienNumber] + " of Alien #" + alienNumber);
+        //Debug.Log("We have killed the most of Alien #" + GetMostKilledAlienNumber());
     }
      public void OnPepperUse(int pepperNumber)
     {
@@ -83,8 +83,8 @@ public class AchievementManager : MonoBehaviour
             m_pepperUsedDictionary.Add(pepperNumber, 0);
         }
         m_pepperUsedDictionary[pepperNumber] += 1;
-        Debug.Log("We have used " + m_pepperUsedDictionary[pepperNumber] + " of pepper #" + pepperNumber);
-        Debug.Log("We have used the most of Pepper #" + PeppersUsed());
+        //Debug.Log("We have used " + m_pepperUsedDictionary[pepperNumber] + " of pepper #" + pepperNumber);
+        //Debug.Log("We have used the most of Pepper #" + PeppersUsed());
     }
 
     public int GetMostKilledAlienNumber()

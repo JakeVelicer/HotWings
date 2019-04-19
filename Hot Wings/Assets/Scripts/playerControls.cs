@@ -209,12 +209,6 @@ public class playerControls : MonoBehaviour
 
         FireControls = Input.GetAxisRaw("FireControls");
         SwitchControl = Input.GetAxisRaw("Switch");
-        bool ControllerConnected;
-
-        if (Input.GetJoystickNames().Length >= 1)
-            ControllerConnected = true;
-        else 
-            ControllerConnected = false;
 
         if (canShoot && !Dead)
         {
@@ -285,11 +279,9 @@ public class playerControls : MonoBehaviour
                     }
                     break;
                 case 5: // CALLS Speed Dash Pepper Power Attack
-                    if (FireControls >= 1) {
+                    if (FireControls >= 1 && !Dashing) {
                         canShoot = false;
-                        if (DashDirection == 0) {
-                            StartCoroutine(SpeedDash());
-                        }
+                        StartCoroutine(SpeedDash());
                     }
                     if (DashCount <= 0) {
                         ConsumableOverA();
@@ -627,9 +619,9 @@ public class playerControls : MonoBehaviour
                 PlayerRigidbody.velocity = Vector2.zero;
                 playerDashCollider.GetComponent<Collider2D>().enabled = false;
                 Dashing = false;
+                StartCoroutine(shootWait());
             }
         }
-        StartCoroutine(shootWait());
     }
 
     private void EarthAttack() {
@@ -642,14 +634,12 @@ public class playerControls : MonoBehaviour
     }
 
     private IEnumerator shootWait() {
-        
-        //Debug.Log("Counting down...");
-        if (pepperIndexA == 1) {
-            //yield return new WaitForSeconds(0.5f);
-        }
-        else if (pepperIndexA == 3) {
-            //yield return new WaitForSeconds(1f);
-        }
+
+        if (pepperIndexA == 2) { 
+            ChargeTime = 0;
+            yield return new WaitForSeconds(0.4f);
+            anim.SetBool("isAttacking", false);
+        }      
         else if (pepperIndexA == 5) {
             yield return new WaitForSeconds(0.4f);
             DashDirection = 0;
@@ -659,11 +649,6 @@ public class playerControls : MonoBehaviour
             anim.SetBool("isAttacking", false);
             anim.SetBool("isWind", false);
             yield return new WaitForSeconds(1.8f);
-        }
-        else if (pepperIndexA == 2) { 
-            ChargeTime = 0;
-            yield return new WaitForSeconds(0.4f);
-            anim.SetBool("isAttacking", false);
         }
         else {
             yield return new WaitForSeconds(0.5f);
