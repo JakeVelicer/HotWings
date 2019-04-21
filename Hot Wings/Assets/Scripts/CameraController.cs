@@ -10,18 +10,20 @@ public class CameraController : MonoBehaviour {
     private Vector3 velocity;
     private float smoothTimeY;
     private float smoothTimeX;
-    public bool bounds;
+
     public Vector3 minCameraPosition;
     public Vector3 maxCameraPosition;
 
     private AudioSource bgm;
     public AudioClip gameplaySong;
+    private Vector3 newPostion;
 
     private float horizontal;
     private float vertical;
 
     private bool isWrappingX = false;
     private bool isWrappingY = false;
+    private bool isVisible;
 
     void Start () {
 
@@ -47,17 +49,36 @@ public class CameraController : MonoBehaviour {
         float posY = Mathf.SmoothDamp(transform.position.y, player.transform.position.y, ref velocity.y, smoothTimeY);
         transform.position = new Vector3(posX, posY, transform.position.z);
 
-        if (bounds) {
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, minCameraPosition.x, maxCameraPosition.x),
+                                            Mathf.Clamp(transform.position.y, minCameraPosition.y, maxCameraPosition.y),
+                                            Mathf.Clamp(transform.position.z, minCameraPosition.z, maxCameraPosition.z));
+    }
 
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, minCameraPosition.x, maxCameraPosition.x),
-                                             Mathf.Clamp(transform.position.y, minCameraPosition.y, maxCameraPosition.y),
-                                             Mathf.Clamp(transform.position.z, minCameraPosition.z, maxCameraPosition.z));
+    void Update() {
+
+        if(player.transform.position.x < (maxCameraPosition.x + 8) && player.transform.position.x > (minCameraPosition.x - 8)) {
+            isVisible = true;
         }
+        else {
+            isVisible = false;
+        }
+
+        if (player.transform.position.x >= (maxCameraPosition.x + 9)) {
+            player.transform.position = new Vector3
+            (minCameraPosition.x - 8.5f, player.transform.position.y, player.transform.position.z);
+            newPostion = new Vector3 (minCameraPosition.x, player.transform.position.y, Quaternion.identity.z);
+        }
+        else if (player.transform.position.x <= (minCameraPosition.x - 9)) {
+            player.transform.position = new Vector3
+            (maxCameraPosition.x + 8.5f, player.transform.position.y, player.transform.position.z);
+            newPostion = new Vector3 (maxCameraPosition.x, player.transform.position.y, Quaternion.identity.z);
+        }
+        
     }
 
     void ScreenWrapping() {
 
-        bool isVisible = CheckRenderers();
+        newPostion = player.transform.position; 
 
         if(isVisible) {
 
@@ -70,8 +91,6 @@ public class CameraController : MonoBehaviour {
         if(isWrappingX && isWrappingY) {
             return;
         }
-
-        Vector3 newPostion = player.transform.position; 
 
         if (newPostion.x > 1 || newPostion.x < 0) {
 
@@ -87,10 +106,10 @@ public class CameraController : MonoBehaviour {
             newPostion.y = +newPostion.y;
             isWrappingY = true;
         } 
-        player.transform.position = newPostion;
 
     }
 
+    /*
     bool CheckRenderers() {
 
         foreach (Renderer renderer in renderers) {
@@ -101,5 +120,6 @@ public class CameraController : MonoBehaviour {
         }
         return false;
     }
+    */
 
 }

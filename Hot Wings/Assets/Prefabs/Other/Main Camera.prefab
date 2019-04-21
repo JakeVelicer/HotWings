@@ -197,8 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d8328bcf697048059cbb33360b9ce7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  bounds: 1
   minCameraPosition: {x: -47.5, y: 0, z: -10}
   maxCameraPosition: {x: 47.5, y: 8, z: -10}
   gameplaySong: {fileID: 8300000, guid: f21cc4edfec6c471ea8d5d36e94df2ce, type: 3}
