@@ -5,6 +5,7 @@ using UnityEngine;
 public class BasicBullet : MonoBehaviour {
 
 	public Animator Anim;
+	[HideInInspector] public int passedThroughToKill;
 
 	// Use this for initialization
 	void Start () {

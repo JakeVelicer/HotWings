@@ -442,7 +442,12 @@ public class BasicEnemyControls : MonoBehaviour {
             }
         }
 		if (collision.gameObject.name == "LightningBullet2(Clone)") {
-			Destroy(collision.gameObject);
+			if (collision.gameObject.GetComponent<BasicBullet>().passedThroughToKill < 1) {
+				collision.gameObject.GetComponent<BasicBullet>().passedThroughToKill++;
+			}
+			else {
+				Destroy(collision.gameObject);
+			}
 			EnemyHealth -= DamageValues.ElectricDamage * 1.2f;
 			StartCoroutine(HitByAttack(200, 210, 0.5f));
             if (AlienType == 4)
@@ -457,7 +462,12 @@ public class BasicEnemyControls : MonoBehaviour {
             }
         }
 		if (collision.gameObject.name == "LightningBullet3(Clone)") {
-			Destroy(collision.gameObject);
+			if (collision.gameObject.GetComponent<BasicBullet>().passedThroughToKill < 1) {
+				collision.gameObject.GetComponent<BasicBullet>().passedThroughToKill++;
+			}
+			else {
+				Destroy(collision.gameObject);
+			}
 			EnemyHealth -= DamageValues.ElectricDamage * 1.5f;
 			StartCoroutine(HitByAttack(300, 215, 1));
             if (AlienType == 4)
@@ -472,7 +482,12 @@ public class BasicEnemyControls : MonoBehaviour {
             }
         }
 		if (collision.gameObject.name == "LightningBullet4(Clone)") {
-			Destroy(collision.gameObject);
+			if (collision.gameObject.GetComponent<BasicBullet>().passedThroughToKill < 2) {
+				collision.gameObject.GetComponent<BasicBullet>().passedThroughToKill++;
+			}
+			else {
+				Destroy(collision.gameObject);
+			}
 			EnemyHealth -= DamageValues.ElectricDamage * 2.0f;
 			StartCoroutine(HitByAttack(400, 220, 1.5f));
             if (AlienType == 4)
