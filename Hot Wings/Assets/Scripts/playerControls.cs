@@ -243,7 +243,9 @@ public class playerControls : MonoBehaviour
                             SoundCall(shockLoop, playerAmbient);
                             shockLoopPlaying = true;
                         }
-                        ChargeTime = ChargeTime + Time.fixedDeltaTime;
+                        if (ChargeTime < 3) {
+                            ChargeTime = ChargeTime + Time.fixedDeltaTime;
+                        }
                     }
                     if (FireControls <= 0 && isAxisInUse) {
                         canShoot = false;
