@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AttackUFOBehavior : MonoBehaviour {
 
@@ -319,12 +320,12 @@ public class AttackUFOBehavior : MonoBehaviour {
 
     public void DisplayDamage(float amount)
     {
-        FloatingTextController.CreateFloatingText("-" + amount.ToString(), this.transform);
+        FloatingTextController.CreateFloatingText("-" + (Math.Truncate((decimal)(amount))).ToString(), this.transform);
        // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
     }
     public void DisplayCriticalDamage(float amount)
     {
-        CriticalFloatingTextController.CreateFloatingText("-" + amount.ToString(), this.transform);
+        CriticalFloatingTextController.CreateFloatingText("-" + (Math.Truncate((decimal)(amount))).ToString(), this.transform);
         // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
     }
 

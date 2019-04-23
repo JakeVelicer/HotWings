@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BasicEnemyControls : MonoBehaviour {
 
@@ -653,16 +654,12 @@ public class BasicEnemyControls : MonoBehaviour {
 
     void DisplayDamage(float amount)
     {
-    	FloatingTextController.CreateFloatingText("-" + amount.ToString(), this.transform);
-		Debug.Log("DisplayDamage");
-       // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
+    	FloatingTextController.CreateFloatingText("-" + (Math.Truncate((decimal)(amount))).ToString(), this.transform);
     }
 
     void DisplayCriticalDamage(float amount)
     {
-    	CriticalFloatingTextController.CreateFloatingText("-" + amount.ToString(), this.transform);
-		Debug.Log("CriticalDamage");
-        // Debug.LogFormat("{0} was dealt {1} damage", gameObject.name, amount);
+    	CriticalFloatingTextController.CreateFloatingText("-" + (Math.Truncate((decimal)(amount))).ToString(), this.transform);
     }
 
     void SoundCall(AudioClip clip, AudioSource source)
