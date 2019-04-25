@@ -5,10 +5,11 @@ using UnityEngine;
 public class BombBehavior : MonoBehaviour {
 
 	private Animator ExplodeAnim;
-	public int Timer;
 	private Collider2D Collider;
     private AudioSource bombSound;
     public AudioClip enemyBomb;
+	public bool Exploding;
+	private bool Called;
 
 	// Use this for initialization
 	void Start () {
@@ -17,21 +18,36 @@ public class BombBehavior : MonoBehaviour {
         bombSound.clip = enemyBomb;
 		ExplodeAnim = gameObject.GetComponent<Animator>();
 		Collider = gameObject.GetComponent<Collider2D>();
-		StartCoroutine(Countdown());
+		StartCoroutine(Regardless());
 		
 	}
-	
-	// Update is called once per frame
-	IEnumerator Countdown () {
-		yield return new WaitForSeconds(Timer);
-		ExplodeAnim.SetTrigger("Boom");
-		yield return new WaitForSeconds(1);
-		Collider.enabled = true;
-		GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.2f);
-		bombSound.Play();
-		transform.parent.GetComponent<SpriteRenderer>().enabled = false;
-		yield return new WaitForSeconds(0.5f);
-		Collider.enabled = false;
-		Destroy(transform.parent.gameObject, 1);
+
+	void Update() {
+		
+		if (Exploding == true) {
+			StartCoroutine(Countdown());
+		}
+	}
+
+	private IEnumerator Regardless() {
+		
+		yield return new WaitForSeconds(5);
+		Exploding = true;
+	}
+
+	public IEnumerator Countdown () {
+		if (!Called) {
+			Called = true;
+			Exploding = false;
+			yield return new WaitForSeconds(0.1f);
+			ExplodeAnim.SetTrigger("Boom");
+			transform.parent.GetComponent<SpriteRenderer>().enabled = false;
+			Collider.enabled = true;
+			GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.2f);
+			bombSound.Play();
+			yield return new WaitForSeconds(0.5f);
+			Collider.enabled = false;
+			Destroy(transform.parent.gameObject, 1);
+		}
 	}
 }

@@ -602,8 +602,8 @@ MonoBehaviour:
   MovementSpeed: 5
   ChaseRange: 10
   FireRange: 7
-  ProjectileSpeed: 0
-  ProjectileHeight: 0
+  ProjectileSpeed: 43
+  ProjectileHeight: 750
   CoolDown: 2
   TouchStop: 0
   ToTheRight: 0

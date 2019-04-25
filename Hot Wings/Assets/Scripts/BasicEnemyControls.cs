@@ -299,14 +299,14 @@ public class BasicEnemyControls : MonoBehaviour {
         if (ToTheRight == true && !Freeze) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
-			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
-			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.right * ProjectileSpeed);
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileHeight);
+			Projectile.GetComponent<Rigidbody2D>().AddForce(new Vector3 (Target.position.x - transform.position.x, 0, 0) * ProjectileSpeed);
 		}
 		else if (ToTheRight == false && !Freeze) {
 			GameObject Projectile = Instantiate (BombObject, transform.position + new Vector3(-0.5f, 0.5f, 0), 
 			Quaternion.identity) as GameObject;
-			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileSpeed);
-			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.left * ProjectileSpeed);
+			Projectile.GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileHeight);
+			Projectile.GetComponent<Rigidbody2D>().AddForce(new Vector3 (Target.position.x - transform.position.x, 0, 0) * ProjectileSpeed);
 		}
         StartCoroutine(shootWait());
 	}
@@ -318,8 +318,8 @@ public class BasicEnemyControls : MonoBehaviour {
         yield return new WaitForSeconds(0.2f);
 		if (!Freeze) {
 			gameObject.GetComponent<Rigidbody2D>().AddForce
-				(new Vector3 (Target.position.x - transform.position.x, 0, 0) * 43);
-			GetComponent<Rigidbody2D>().AddForce(Vector3.up * 750);
+				(new Vector3 (Target.position.x - transform.position.x, 0, 0) * ProjectileSpeed);
+			GetComponent<Rigidbody2D>().AddForce(Vector3.up * ProjectileHeight);
 		}
         yield return new WaitForSeconds(.5f);
         anim.SetTrigger("Slam");
