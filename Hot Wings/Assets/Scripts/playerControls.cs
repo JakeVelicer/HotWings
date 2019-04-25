@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Animations;
+using System;
 
 public class playerControls : MonoBehaviour
 {
@@ -112,6 +113,7 @@ public class playerControls : MonoBehaviour
         StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
 		gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        HealTextPopup.Initialize();
     }
 
     // Update is called once per frame, movement, animations, attacks called
@@ -676,9 +678,12 @@ public class playerControls : MonoBehaviour
 
         SoundCall(playerHeal, playerAmbient);
         for (int i = 0; i < 5; i++) {
-            HealthTimer = HealthTimer - 1;
-            health = health + 10;
-            yield return new WaitForSeconds(1);
+            if (!Dead) {
+                HealthTimer = HealthTimer - 1;
+                health = health + 10;
+                DisplayHeal(10);
+                yield return new WaitForSeconds(1);
+            }
         }
     }
 
@@ -716,6 +721,11 @@ public class playerControls : MonoBehaviour
             SoundCall(pepperCollect, playerSounds);
             pepperIndexB = pepperNumber;
         }
+    }
+
+    private void DisplayHeal(float amount)
+    {
+    	HealTextPopup.CreateFloatingText("+" + (Math.Truncate((decimal)(amount))).ToString(), this.transform);
     }
 
     public void SoundCall (AudioClip clip, AudioSource source) {

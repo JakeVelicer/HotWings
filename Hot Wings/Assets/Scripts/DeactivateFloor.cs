@@ -16,7 +16,7 @@ public class DeactivateFloor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetAxis("Vertical") < 0 && Collider.IsTouching(PlayerCollider)) {
+		if (Input.GetAxis("Vertical") < -0.7 && Collider.IsTouching(PlayerCollider)) {
 			Collider.isTrigger = true;
 		}
 
