@@ -65,11 +65,11 @@ public class BushBehavior : MonoBehaviour {
 
 					switch(BushType) {
 						case 1:
-							ChosenPepper = PepperDrops[0];
+							ChosenPepper = PepperDrops[1];
 							SpawnPepper();
 							break;
 						case 2:
-							ChosenPepper = PepperDrops[1];
+							ChosenPepper = PepperDrops[0];
 							SpawnPepper();
 							break;
 						case 3:
@@ -109,7 +109,7 @@ public class BushBehavior : MonoBehaviour {
 							SpawnPepper();
 							break;
 						case 2:
-							ChosenPepper = PepperDrops[3];
+							ChosenPepper = PepperDrops[2];
 							SpawnPepper();
 							break;
 						case 3:
@@ -117,11 +117,11 @@ public class BushBehavior : MonoBehaviour {
 							SpawnPepper();
 							break;
 						case 4:
-							ChosenPepper = PepperDrops[2];
+							ChosenPepper = PepperDrops[3];
 							SpawnPepper();
 							break;
 						case 5:
-							ChosenPepper = PepperDrops[3];
+							ChosenPepper = PepperDrops[2];
 							SpawnPepper();
 							break;
 					}

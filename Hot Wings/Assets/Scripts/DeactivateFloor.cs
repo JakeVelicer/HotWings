@@ -9,6 +9,7 @@ public class DeactivateFloor : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 		PlayerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
 		Collider = gameObject.GetComponent<Collider2D>();
 	}
@@ -16,7 +17,7 @@ public class DeactivateFloor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetAxis("Vertical") < -0.7 && Collider.IsTouching(PlayerCollider)) {
+		if (Input.GetAxis("Vertical") < -0.5 && Collider.IsTouching(PlayerCollider)) {
 			Collider.isTrigger = true;
 		}
 
