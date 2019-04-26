@@ -23,6 +23,15 @@ public class PlayerCollision : MonoBehaviour {
             !Player.animator.GetCurrentAnimatorStateInfo(0).IsName("HotWingsBuffJumpIni")) {
                 Player.isJumping = false;
             }
+            if (Player.animator.GetCurrentAnimatorStateInfo(0).IsName("HotWingsFall") ||
+            Player.animator.GetCurrentAnimatorStateInfo(0).IsName("HotWingsBuffJumpFall")) {
+                if (!Player.isBuff)
+                    Player.animator.Play("HotWingsIdle2");
+                    Debug.Log("Called");
+                if (Player.isBuff) {
+                    Player.animator.Play("HotWingsBuffIdle");
+                }
+            }
 
         }
     }

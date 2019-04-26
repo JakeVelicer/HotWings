@@ -21,7 +21,7 @@ public class playerControls : MonoBehaviour
     public int jumpForce;
     public bool isJumping;
     private bool Dashing;
-    private bool isBuff;
+    [HideInInspector] public bool isBuff;
     public bool canShoot = true;
     private bool isAxisInUse;
     private bool switchAxisInUse;
