@@ -143,11 +143,11 @@ public class BushBehavior : MonoBehaviour {
 							SpawnPepper();
 							break;
 						case 4:
-							ChosenPepper = PepperDrops[2];
+							ChosenPepper = PepperDrops[3];
 							SpawnPepper();
 							break;
 						case 5:
-							ChosenPepper = PepperDrops[3];
+							ChosenPepper = PepperDrops[2];
 							SpawnPepper();
 							break;
 						case 6:

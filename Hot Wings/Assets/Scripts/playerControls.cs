@@ -13,7 +13,7 @@ public class playerControls : MonoBehaviour
     public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
     private StreamAttackAnimationWater StreamAnimWater;
-    [HideInInspector] public Animator anim;
+    [HideInInspector] public Animator animator;
 	public Material NormalMaterial;
 	public Material HotFlash;
 
@@ -107,8 +107,7 @@ public class playerControls : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        anim = GetComponent<Animator>();
-        anim.SetBool("isIdle", true);
+        animator = GetComponent<Animator>();
         PlayerRigidbody = GetComponent<Rigidbody2D>();
         StreamAnimFire = playerFireShot.GetComponent<StreamAttackAnimationFire>();
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
@@ -123,63 +122,54 @@ public class playerControls : MonoBehaviour
         EggBombs();
         SlotBCleanup();
 
-        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        AnimChecker = anim.GetInteger("Speed");
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        
         if (!Dead) {
             
-            if (Input.GetButtonDown("Jump") && !isJumping)
-            {
-                anim.SetBool("isJumping", true);
-                anim.SetBool("isIdle", false);
+            if (Input.GetButtonDown("Jump") && !isJumping) {
                 isJumping = true;
+                if (isBuff)
+                    animator.Play("HotWingsBuffJumpIni");
+                else
+                    animator.Play("HotWingsJump");
                 PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
 
             horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
             currentMoveSpeed = Mathf.Clamp (currentMoveSpeed, 0f, moveSpeed);
             
-            if (horizontalInput > 0)
-            {
+            if (horizontalInput > 0) {
                 currentMoveSpeed += 30 * Time.fixedDeltaTime;
-                anim.SetBool("isRunning", true);
-                anim.SetBool("isIdle", false);
+                animator.SetBool("isRunning", true);
+                animator.SetBool("isIdle", false);
                 transform.localScale = new Vector3(1, 1, 1);
                 facingRight = true;
             }
-            else if (horizontalInput < 0)
-            {
+            else if (horizontalInput < 0) {
                 currentMoveSpeed += 30 * Time.fixedDeltaTime;
-                anim.SetBool("isRunning", true);
-                anim.SetBool("isIdle", false);
+                animator.SetBool("isRunning", true);
+                animator.SetBool("isIdle", false);
                 transform.localScale = new Vector3(-1, 1, 1);
                 facingRight = false;
             }
-            else if (horizontalInput == 0)
-            {
+            else if (horizontalInput == 0) {
                 if (currentMoveSpeed > 0) {
                     currentMoveSpeed = 0;
                 }
-                anim.SetBool("isIdle", true);
-                anim.SetBool("isRunning", false);
+                animator.SetBool("isIdle", true);
+                animator.SetBool("isRunning", false);
             }
-            if (PlayerRigidbody.velocity.y < -0.1)
-            {
-                anim.SetBool("isFalling", true);
+
+            if (isJumping && PlayerRigidbody.velocity.y <= 1) {
+                animator.SetBool("isFalling", true);
             }
-            else
-            {
-                anim.SetBool("isFalling", false);
+            if (!isJumping && PlayerRigidbody.velocity.y >= 0) {
+                animator.SetBool("isFalling", false);
             }
-            if (PlayerRigidbody.velocity.y > 0.1)
-            {
-                anim.SetBool("isJumping", true);
-            }
-            else
-            {
-                anim.SetBool("isJumping", false);
-            }
+
             if (health <= 0) {
-                anim.SetBool("isDead", true);
+                animator.SetBool("isDead", true);
+                animator.Play("HotWingsDeath");
                 StreamAnimFire.GetComponent<SpriteRenderer>().enabled = false;
                 StreamAnimWater.GetComponent<SpriteRenderer>().enabled = false;
                 PlayerRigidbody.velocity = Vector2.zero;
@@ -309,26 +299,31 @@ public class playerControls : MonoBehaviour
                     break;
                 case 8: // Buff Arms Pepper Power Attack
                     playerBuffShot.SetActive(true);
-                    anim.SetBool("isBuff", true);
+                    animator.SetBool("isBuff", true);
                     if (!isBuff) {
-                        isBuff = true;
                         StartCoroutine(BuffTime());
                     }
                     if (FireControls >= 1) {
                         //canShoot = false;
                         if (OnPunch != null) {
-                            anim.SetBool("isAttacking", true);
+                            //animator.SetBool("isIdle", false);
+                            animator.SetBool("isAttacking", true);
                             OnPunch();
                             BuffAudioHandler();
                         }
                     }
+                    if (FireControls <= 0 && horizontalInput == 0 && !isJumping) {
+                        animator.Play("HotWingsBuffIdle");
+                        animator.SetBool("isIdle", true);
+                    }
                     if (FireControls <= 0) {
-                        anim.SetBool("isAttacking", false);
+                        animator.SetBool("isAttacking", false);
                     }
                     if (BuffTimer <= 0) {
                         playerBuffShot.SetActive(false);
-                        anim.SetBool("isBuff", false);
-                        anim.SetBool("isAttacking", false);
+                        animator.SetBool("isBuff", false);
+                        animator.SetBool("isAttacking", false);
+                        animator.Play("HotWingsIdle2");
                         isBuff = false;
                         ConsumableOverA();
                     }
@@ -341,7 +336,7 @@ public class playerControls : MonoBehaviour
                     break;
             }
         }
-        if (SwitchControl >= 1 && !switchAxisInUse)
+        if (SwitchControl >= 1 && !switchAxisInUse && !Dead)
         {
             switchAxisInUse = true;
             if (fireLoopPlaying) {
@@ -362,7 +357,7 @@ public class playerControls : MonoBehaviour
                 pepperIndexB = tempIndex;
             }
         }
-        if (SwitchControl <= 0 && switchAxisInUse) {
+        if (SwitchControl <= 0 && switchAxisInUse && !Dead) {
              switchAxisInUse = false;
         }
     }
@@ -482,7 +477,7 @@ public class playerControls : MonoBehaviour
     private void FireAttackStart() {
 
         fireLoopPlaying = true;
-        anim.SetBool("isAttacking", true);
+        animator.SetBool("isAttacking", true);
         SoundCall(playerFire, playerSounds);
         StreamAnimFire.StartBeam();
     }
@@ -491,7 +486,7 @@ public class playerControls : MonoBehaviour
 
         if (fireLoopPlaying) {
             fireLoopPlaying = false;
-            anim.SetBool("isAttacking", false);
+            animator.SetBool("isAttacking", false);
             StreamAnimFire.GoToIdle();
             playerSounds.Stop();
         }
@@ -500,7 +495,7 @@ public class playerControls : MonoBehaviour
     private void WaterAttackStart() {
 
         waterLoopPlaying = true;
-        anim.SetBool("isAttacking", true);
+        animator.SetBool("isAttacking", true);
         SoundCall(playerWater, playerSounds);
         StreamAnimWater.StartBeam();
     }
@@ -509,7 +504,7 @@ public class playerControls : MonoBehaviour
 
         if (waterLoopPlaying) {
             waterLoopPlaying = false;
-            anim.SetBool("isAttacking", false);
+            animator.SetBool("isAttacking", false);
             StreamAnimWater.GoToIdle();
             playerSounds.Stop();
         }
@@ -517,7 +512,7 @@ public class playerControls : MonoBehaviour
 
     private IEnumerator IceBurst() {
 
-        anim.SetBool("isAttacking", true);
+        animator.SetBool("isAttacking", true);
         SoundCall(playerIce, playerSounds);
         for (int i = 0; i < 3; i++) {
             GameObject shot = Instantiate(playerIceShot, transform.position + new Vector3(0, 0, 0), 
@@ -532,7 +527,7 @@ public class playerControls : MonoBehaviour
 
             yield return new WaitForSeconds(0.3f);
         }
-        anim.SetBool("isAttacking", false);
+        animator.SetBool("isAttacking", false);
         StartCoroutine(shootWait());
     }
 
@@ -556,7 +551,7 @@ public class playerControls : MonoBehaviour
             SoundCall(playerShock1, playerSounds);
             ElectricShotToUse = playerShockShot1;
         }
-        anim.SetBool("isAttacking", true);
+        animator.SetBool("isAttacking", true);
         GameObject shot = Instantiate(ElectricShotToUse, transform.position + new Vector3(0, 0, 0),
         Quaternion.identity) as GameObject;
         if (facingRight)
@@ -572,12 +567,12 @@ public class playerControls : MonoBehaviour
 
     private void WindAttack() {
         
-        anim.SetBool("isWind", true);
+        animator.SetBool("isAttacking", true);
+        animator.Play("HotWingsWingAttack");
         SoundCall(playerWind, playerSounds);
         GameObject shot;
         if (facingRight)
         {
-            anim.SetBool("isAttacking", true);
             shot = Instantiate(playerWindShot, transform.position + new Vector3(1.5f, 0.32f, 0),
             Quaternion.identity) as GameObject;
             shot.GetComponent<WindBehavior>().GoRight = true;
@@ -586,7 +581,6 @@ public class playerControls : MonoBehaviour
         }
         else if (!facingRight)
         {
-            anim.SetBool("isAttacking", true);
             shot = Instantiate(playerWindShot, transform.position + new Vector3(-1.5f, 0.32f, 0),
             Quaternion.identity) as GameObject;
             shot.GetComponent<WindBehavior>().GoRight = false;
@@ -642,7 +636,7 @@ public class playerControls : MonoBehaviour
         if (pepperIndexA == 2) { 
             ChargeTime = 0;
             yield return new WaitForSeconds(0.4f);
-            anim.SetBool("isAttacking", false);
+            animator.SetBool("isAttacking", false);
         }      
         else if (pepperIndexA == 5) {
             yield return new WaitForSeconds(0.4f);
@@ -650,13 +644,13 @@ public class playerControls : MonoBehaviour
         }
         else if (pepperIndexA == 6) {
             yield return new WaitForSeconds(0.2f);
-            anim.SetBool("isAttacking", false);
-            anim.SetBool("isWind", false);
+            animator.SetBool("isAttacking", false);
             yield return new WaitForSeconds(1.8f);
+            
         }
         else {
             yield return new WaitForSeconds(0.5f);
-            anim.SetBool("isAttacking", false);
+            animator.SetBool("isAttacking", false);
             yield return new WaitForSeconds(0.5f);
         }
         canShoot = true;
@@ -664,14 +658,16 @@ public class playerControls : MonoBehaviour
 
     public IEnumerator iFrames() {
         
-        //for (int i = 0; i < 2; i++) {
-        GetComponent<SpriteRenderer>().material = HotFlash;
-        yield return new WaitForSeconds(0.2f);
-        anim.SetBool("isHit", false);
-        GetComponent<SpriteRenderer>().material = NormalMaterial;
-        yield return new WaitForSeconds(0.6f);
-        //}
-        isImmune = false;
+        if (!Dead) {
+            //for (int i = 0; i < 2; i++) {
+            GetComponent<SpriteRenderer>().material = HotFlash;
+            yield return new WaitForSeconds(0.2f);
+            animator.Play("HotWingsDamage");
+            GetComponent<SpriteRenderer>().material = NormalMaterial;
+            yield return new WaitForSeconds(0.6f);
+            //}
+            isImmune = false;
+        }
     }
 
     private IEnumerator HealThePlayer() {
@@ -687,8 +683,9 @@ public class playerControls : MonoBehaviour
         }
     }
 
-    private IEnumerator BuffTime()
-    {
+    private IEnumerator BuffTime() {
+        isBuff = true;
+        animator.Play("HotWingsBuffIdle");
         for (int i = 0; i < 20; i++) {
             BuffTimer = BuffTimer - 1;
             yield return new WaitForSeconds(1);

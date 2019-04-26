@@ -20,7 +20,7 @@ public class PlayerArmBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void OnPunch () {
-		PunchAnim.SetTrigger("PlayerPunches");
+		PunchAnim.Play("PlayerPunch");
 		//Collider.enabled = true;
 	}
 

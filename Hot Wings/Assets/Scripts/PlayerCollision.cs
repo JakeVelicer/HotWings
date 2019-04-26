@@ -16,12 +16,13 @@ public class PlayerCollision : MonoBehaviour {
 		
 	}
 
-    void OnCollisionEnter2D(Collision2D collider)
+    void OnCollisionStay2D(Collision2D collider)
     {
         if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Enemy") {
-            Player.isJumping = false;
-            Player.anim.SetBool("isJumping", false);
-            Player.anim.SetBool("isFalling", false);
+            if (!Player.animator.GetCurrentAnimatorStateInfo(0).IsName("HotWingsJump") &&
+            !Player.animator.GetCurrentAnimatorStateInfo(0).IsName("HotWingsBuffJumpIni")) {
+                Player.isJumping = false;
+            }
 
         }
     }
@@ -36,7 +37,6 @@ public class PlayerCollision : MonoBehaviour {
                     Player.playerSounds.loop = false;
                     Player.playerSounds.Play();
                 }
-                Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
                 Player.health -= 10;
                 StartCoroutine(Player.iFrames());
@@ -50,7 +50,6 @@ public class PlayerCollision : MonoBehaviour {
                     Player.playerSounds.loop = false;
                     Player.playerSounds.Play();
                 }
-                Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
                 Player.health -= 20;
                 StartCoroutine(Player.iFrames());
@@ -64,7 +63,6 @@ public class PlayerCollision : MonoBehaviour {
                     Player.playerSounds.loop = false;
                     Player.playerSounds.Play();
                 }
-                Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
                 Player.health -= 12;
                 StartCoroutine(Player.iFrames());
@@ -78,7 +76,6 @@ public class PlayerCollision : MonoBehaviour {
                     Player.playerSounds.loop = false;
                     Player.playerSounds.Play();
                 }
-                Player.anim.SetBool("isHit", true);
                 Player.isImmune = true;
                 Player.health -= 15;
                 StartCoroutine(Player.iFrames());
@@ -102,7 +99,6 @@ public class PlayerCollision : MonoBehaviour {
             {
                 Player.SoundCall(Player.playerHit, Player.playerVocals);
             }
-            Player.anim.SetBool("isHit", true);
             Player.isImmune = true;
             Player.health -= 10;
             StartCoroutine(Player.iFrames());

@@ -29,7 +29,6 @@ public class PepperBehavior : MonoBehaviour {
 						Player.HealthTimer = 5;
 					}
 					else if (PepperType == 8) {
-						Player.anim.SetBool("isBuff", true);
 						Player.BuffTimer = 20;
 					}
 					else if (PepperType == 5) {
