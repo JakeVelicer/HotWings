@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4197848480469866}
   - component: {fileID: 212837323038784830}
-  - component: {fileID: 60368136097903494}
   - component: {fileID: 114623388133377910}
+  - component: {fileID: 61601476920983880}
   - component: {fileID: 50067507330427708}
+  - component: {fileID: 95935001527140568}
   m_Layer: 0
   m_Name: WaterPepper
   m_TagString: Pepper
@@ -54,8 +55,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1457251003203642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.537, y: -1.95, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children:
   - {fileID: 4314842680922544}
   m_Father: {fileID: 0}
@@ -69,7 +70,7 @@ Transform:
   m_GameObject: {fileID: 1809613531323070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.36747, y: 1.36747, z: 1}
+  m_LocalScale: {x: 5.5, y: 5.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4197848480469866}
   m_RootOrder: 0
@@ -81,7 +82,7 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1457251003203642}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -94,8 +95,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!60 &60368136097903494
-PolygonCollider2D:
+--- !u!61 &61601476920983880
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -106,28 +107,37 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.12, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.45, y: 0.77}
+    pivot: {x: 0.54, y: 0.44}
+    oldSize: {x: 3.81, y: 3.49}
     newSize: {x: 0.45, y: 0.77}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.225, y: 0.385}
-      - {x: 0.055, y: 0.385}
-      - {x: -0.015, y: 0.36499998}
-      - {x: -0.125, y: 0.205}
-      - {x: -0.225, y: -0.255}
-      - {x: -0.225, y: -0.385}
-      - {x: -0.105, y: -0.385}
-      - {x: 0.13499999, y: -0.225}
-      - {x: 0.21499999, y: -0.035}
-      - {x: 0.225, y: 0.095}
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 3}
+  m_EdgeRadius: 0
+--- !u!95 &95935001527140568
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1457251003203642}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 526b25b153cdd4147ac6e15a9c3f848e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95958259481231074
 Animator:
   serializedVersion: 3
@@ -137,7 +147,7 @@ Animator:
   m_GameObject: {fileID: 1809613531323070}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: db2cf38790a0542fbba2a2a4ac9df930, type: 2}
+  m_Controller: {fileID: 9100000, guid: 54800699841414971a27ab6f4bebeaf3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -239,7 +249,7 @@ SpriteRenderer:
   m_SortingLayerID: 889142871
   m_SortingLayer: 2
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 2e28d4a776f9546a3a04cf9266afdca3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d488f4e30b7e4c14ad5fb477d226589, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -515,7 +515,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		else if (collision.gameObject.name == "AnchorArms") {
 			StartCoroutine(HitByAttack(200, 300, 1));
 			EnemyHealth -= DamageValues.JackedDamage;
-            DisplayDamage(DamageValues.JackedDamage);
+            DisplayKO("KO");
         }
 		else if (collision.gameObject.tag == "Fire") {
 			takingFireDamage = true;
@@ -650,6 +650,11 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (CanRoam) {
 			ChaseDirection();
 		}
+    }
+
+    void DisplayKO(string Word)
+    {
+		CriticalFloatingTextController.CreateFloatingText(Word, this.transform);
     }
 
     void DisplayDamage(float amount)

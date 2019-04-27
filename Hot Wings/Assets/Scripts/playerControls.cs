@@ -24,7 +24,6 @@ public class playerControls : MonoBehaviour
     [HideInInspector] public bool isBuff;
     public bool canShoot = true;
     private bool isAxisInUse;
-    private bool switchAxisInUse;
     [HideInInspector] public bool Dead;
     public int shotSpeed;
     public int DashSpeed;
@@ -336,9 +335,8 @@ public class playerControls : MonoBehaviour
                     break;
             }
         }
-        if (SwitchControl >= 1 && !switchAxisInUse && !Dead)
+        if (Input.GetButtonDown("Switch") && !Dead)
         {
-            switchAxisInUse = true;
             if (fireLoopPlaying) {
                 FireAttackStop();
             }
@@ -356,9 +354,6 @@ public class playerControls : MonoBehaviour
                 pepperIndexA = pepperIndexB;
                 pepperIndexB = tempIndex;
             }
-        }
-        if (SwitchControl <= 0 && switchAxisInUse && !Dead) {
-             switchAxisInUse = false;
         }
     }
 

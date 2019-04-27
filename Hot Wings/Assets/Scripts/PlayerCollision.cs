@@ -60,7 +60,7 @@ public class PlayerCollision : MonoBehaviour {
                     Player.playerSounds.Play();
                 }
                 Player.isImmune = true;
-                Player.health -= 20;
+                Player.health -= 25;
                 StartCoroutine(Player.iFrames());
             }
         }
@@ -73,7 +73,7 @@ public class PlayerCollision : MonoBehaviour {
                     Player.playerSounds.Play();
                 }
                 Player.isImmune = true;
-                Player.health -= 12;
+                Player.health -= 20;
                 StartCoroutine(Player.iFrames());
             }
         }
@@ -86,7 +86,7 @@ public class PlayerCollision : MonoBehaviour {
                     Player.playerSounds.Play();
                 }
                 Player.isImmune = true;
-                Player.health -= 15;
+                Player.health -= 20;
                 StartCoroutine(Player.iFrames());
             }
         }

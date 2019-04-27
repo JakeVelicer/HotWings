@@ -27,7 +27,7 @@ public class EnemyDamageValues : MonoBehaviour {
 			IceDamage = 10;
 			EarthDamage = 100;
 			WindDamage = 30;
-			JackedDamage = 40;
+			JackedDamage = 30;
 		}
 		else {
 
@@ -39,10 +39,10 @@ public class EnemyDamageValues : MonoBehaviour {
 				WaterDamage = 8;
 				ElectricDamage = 7;
 				SpeedDamage = 15;
-				IceDamage = 12;
+				IceDamage = 7;
 				EarthDamage = 100;
 				WindDamage = 3;
-				JackedDamage = 20;
+				JackedDamage = 50;
 			}
 			// Blob Alien
 			if (Enemy.AlienType == 2) {
@@ -53,7 +53,7 @@ public class EnemyDamageValues : MonoBehaviour {
 				IceDamage = 5;
 				EarthDamage = 100;
 				WindDamage = 5;
-				JackedDamage = 20;
+				JackedDamage = 50;
 			}
 			// Beefy Alien
 			if (Enemy.AlienType == 3) {
@@ -64,7 +64,7 @@ public class EnemyDamageValues : MonoBehaviour {
 				IceDamage = 18;
 				EarthDamage = 100;
 				WindDamage = 5;
-				JackedDamage = 20;
+				JackedDamage = 50;
 			}
 			// Armored Alien
 			if (Enemy.AlienType == 4) {
@@ -72,10 +72,10 @@ public class EnemyDamageValues : MonoBehaviour {
 				WaterDamage = 4;
 				ElectricDamage = 25;
 				SpeedDamage = 30;
-				IceDamage = 12;
+				IceDamage = 8;
 				EarthDamage = 100;
 				WindDamage = 10;
-				JackedDamage = 20;
+				JackedDamage = 50;
 			}
 		}
 	}
