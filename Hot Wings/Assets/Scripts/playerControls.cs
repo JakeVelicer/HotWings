@@ -48,6 +48,7 @@ public class playerControls : MonoBehaviour
 
     public bool isImmune = false;
     public bool facingRight = true;
+    private bool buffPunch1 = true;
 
     public GameObject playerDashCollider;
     public GameObject playerFireShot;
@@ -78,7 +79,6 @@ public class playerControls : MonoBehaviour
     public AudioClip playerBuff;
     public AudioClip playerBuff2;
     public AudioClip brick;
-    private bool buffPunch1 = true;
 
     public AudioClip playerDash;
     public AudioClip playerHeal;
@@ -134,7 +134,7 @@ public class playerControls : MonoBehaviour
                 PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
 
-            horizontalInput = Input.GetAxis("Horizontal"); //a,d, left, and right
+            horizontalInput = Input.GetAxis("Horizontal");
             currentMoveSpeed = Mathf.Clamp (currentMoveSpeed, 0f, moveSpeed);
             
             if (horizontalInput > 0) {
