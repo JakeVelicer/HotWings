@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VirtualJoystick : MonoBehaviour {
+public class VirtualController : MonoBehaviour {
 
-	private bool Touching;
-	private Vector2 PointA;
-	private Vector2 PointB;
-	private Touch firstTouch;
+	private playerControls playerScript;
 	private GameObject joystickOutline;
 	private GameObject joystickFinger;
+	private Touch firstTouch;
+	private Vector2 PointA;
+	private Vector2 PointB;
 	private Vector3 outlineImageStart;
 	private Vector3 fingerImageStart;
+	private Vector2 Offset;
+	private bool Touching;
+	private float Direction;
+	public int joystickDeadspace;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +25,7 @@ public class VirtualJoystick : MonoBehaviour {
 		joystickFinger = GameObject.Find("JoystickFinger");
 		outlineImageStart = joystickOutline.transform.position;
 		fingerImageStart = joystickFinger.transform.position;
+		playerScript = GameObject.Find("Player").GetComponent<playerControls>();
 	}
 	
 	// Update is called once per frame
@@ -29,16 +34,18 @@ public class VirtualJoystick : MonoBehaviour {
 		if (Input.touchCount > 0) {
 
 			firstTouch = Input.GetTouch(0);
+			//Debug.Log("Offset: " + Offset);
+			//Debug.Log("Hor: " + Direction);
 			
 			// Handle finger movements based on TouchPhase
-			switch (firstTouch.phase)
-			{
+			switch (firstTouch.phase) {
+
 				// When a touch has first been detected, change the message and record the starting position
 				case TouchPhase.Began:
 
 					// Record initial touch position.
-					joystickOutline.transform.position = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
-					PointA = Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y));
+					PointA = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
+					joystickOutline.transform.position = PointA;
 					break;
 
 				//Determine if the touch is a moving touch
@@ -46,8 +53,8 @@ public class VirtualJoystick : MonoBehaviour {
 
 					// Determine direction by comparing the current touch position with the initial one
 					Touching = true;
-					joystickFinger.transform.position = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
-					PointA = Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y));
+					PointB = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
+					joystickFinger.transform.position = PointB;
 					break;
 
 				case TouchPhase.Ended:
@@ -64,10 +71,15 @@ public class VirtualJoystick : MonoBehaviour {
 	private void FixedUpdate() {
 		
 		if (Touching) {
-			
-			Vector2 offset = PointB - PointA;
-			Vector2 direction = Vector2.ClampMagnitude(offset, 1.0f);
-			direction *= -1;
+
+			Offset = PointB - PointA;
+			Offset /= joystickDeadspace;
+			Direction = Mathf.Clamp(Offset.x, -1, 1);
+			playerScript.virtualHorizontalAxis = Direction;
+		}
+		else {
+
+			playerScript.virtualHorizontalAxis = 0;
 		}
 
 	}

@@ -29,6 +29,7 @@ public class playerControls : MonoBehaviour
     public int DashSpeed;
     private bool Healing;
     private float horizontalInput;
+    [HideInInspector] public float virtualHorizontalAxis;
     private float currentMoveSpeed;
     private float FireControls;
     private float SwitchControl;
@@ -133,8 +134,14 @@ public class playerControls : MonoBehaviour
                     animator.Play("HotWingsJump");
                 PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
-
-            horizontalInput = Input.GetAxis("Horizontal");
+            
+            if (Application.platform == RuntimePlatform.IPhonePlayer
+            || Application.platform == RuntimePlatform.Android) {
+                horizontalInput = virtualHorizontalAxis;
+            }
+            else {
+                horizontalInput = Input.GetAxis("Horizontal");
+            }
             currentMoveSpeed = Mathf.Clamp (currentMoveSpeed, 0f, moveSpeed);
             
             if (horizontalInput > 0) {

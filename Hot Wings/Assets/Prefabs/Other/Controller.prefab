@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114054046426134130}
   - component: {fileID: 114472545421719894}
   - component: {fileID: 114988748533390192}
+  - component: {fileID: 114993242390968992}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -134,3 +135,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+--- !u!114 &114993242390968992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204508181842710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4537dacdaa6444e52af678ddd1fe25b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystickDeadspace: 40
