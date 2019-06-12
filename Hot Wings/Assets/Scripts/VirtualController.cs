@@ -13,7 +13,6 @@ public class VirtualController : MonoBehaviour {
 	private Vector2 PointB;
 	private Vector3 outlineImageStart;
 	private Vector3 fingerImageStart;
-	private Vector2 Offset;
 	private bool Touching;
 	private float Direction;
 	public int joystickDeadspace;
@@ -34,7 +33,6 @@ public class VirtualController : MonoBehaviour {
 		if (Input.touchCount > 0) {
 
 			firstTouch = Input.GetTouch(0);
-			//Debug.Log("Offset: " + Offset);
 			//Debug.Log("Hor: " + Direction);
 			
 			// Handle finger movements based on TouchPhase
@@ -72,13 +70,13 @@ public class VirtualController : MonoBehaviour {
 		
 		if (Touching) {
 
-			Offset = PointB - PointA;
-			Offset /= joystickDeadspace;
-			Direction = Mathf.Clamp(Offset.x, -1, 1);
+			Vector2 offset = PointB - PointA;
+			offset /= joystickDeadspace;
+			Direction = Mathf.Clamp(offset.x, -1, 1);
 			playerScript.virtualHorizontalAxis = Direction;
 		}
 		else {
-
+			
 			playerScript.virtualHorizontalAxis = 0;
 		}
 
