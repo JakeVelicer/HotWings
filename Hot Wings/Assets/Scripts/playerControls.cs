@@ -30,9 +30,9 @@ public class playerControls : MonoBehaviour
     private bool Healing;
     private float horizontalInput;
     [HideInInspector] public float virtualHorizontalAxis;
+    [HideInInspector] public int virtualAttackAxis;
     private float currentMoveSpeed;
     private float FireControls;
-    private float SwitchControl;
     [HideInInspector] public float ChargeTime;
 
     //Pepper references
@@ -126,15 +126,7 @@ public class playerControls : MonoBehaviour
         
         if (!Dead) {
             
-            if (Input.GetButtonDown("Jump") && !isJumping) {
-                isJumping = true;
-                if (isBuff)
-                    animator.Play("HotWingsBuffJumpIni");
-                else
-                    animator.Play("HotWingsJump");
-                PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            }
-            
+            // Horizontal movement assignments
             if (Application.platform == RuntimePlatform.IPhonePlayer
             || Application.platform == RuntimePlatform.Android) {
                 horizontalInput = virtualHorizontalAxis;
@@ -166,6 +158,10 @@ public class playerControls : MonoBehaviour
                 animator.SetBool("isRunning", false);
             }
 
+            // Jumping assignments
+            if (Input.GetButtonDown("Jump")) {
+                Jump();
+            }
             if (isJumping && PlayerRigidbody.velocity.y <= 1) {
                 animator.SetBool("isFalling", true);
             }
@@ -173,6 +169,7 @@ public class playerControls : MonoBehaviour
                 animator.SetBool("isFalling", false);
             }
 
+            // Death
             if (health <= 0) {
                 animator.SetBool("isDead", true);
                 animator.Play("HotWingsDeath");
@@ -181,6 +178,8 @@ public class playerControls : MonoBehaviour
                 PlayerRigidbody.velocity = Vector2.zero;
                 Dead = true;
             }
+
+            // Recharges Fire and Water amount
             if (pepperIndexA != 1 && !fireLoopPlaying && FireCoolDown < 4) {
                 FireCoolDown = (FireCoolDown + 0.03f) + Time.fixedDeltaTime;
             }
@@ -203,10 +202,27 @@ public class playerControls : MonoBehaviour
 
     }
 
+    public void Jump() {
+
+        if (!isJumping) {
+            isJumping = true;
+            if (isBuff)
+                animator.Play("HotWingsBuffJumpIni");
+            else
+                animator.Play("HotWingsJump");
+            PlayerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
     void PepAttacks() {
 
-        FireControls = Input.GetAxisRaw("FireControls");
-        SwitchControl = Input.GetAxisRaw("Switch");
+        if (Application.platform == RuntimePlatform.IPhonePlayer
+        || Application.platform == RuntimePlatform.Android) {
+            FireControls = virtualAttackAxis;
+        }
+        else {
+            FireControls = Input.GetAxisRaw("FireControls");
+        }
 
         if (canShoot && !Dead)
         {

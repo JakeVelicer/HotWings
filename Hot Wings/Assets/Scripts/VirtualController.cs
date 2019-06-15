@@ -81,4 +81,15 @@ public class VirtualController : MonoBehaviour {
 		}
 
 	}
+
+	public void AttackOnPress ()
+	{
+		playerScript.virtualAttackAxis = 1;
+	}
+
+	public void AttackOnRelease ()
+	{
+		playerScript.virtualAttackAxis = 0;
+	}
+
 }
