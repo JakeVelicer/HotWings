@@ -89,7 +89,7 @@ public class BasicEnemyControls : MonoBehaviour {
         Rigidbody = GetComponent<Rigidbody2D>();
 		DamageValues = gameObject.GetComponent<EnemyDamageValues> ();
 		Collider = gameObject.GetComponent<Collider2D> ();
-		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
+		MainController = GameObject.Find ("Controller").GetComponent<GameController>();
 		Player = GameObject.Find("Player").GetComponent<playerControls>();
 
 		// Setting elements to their proper states
