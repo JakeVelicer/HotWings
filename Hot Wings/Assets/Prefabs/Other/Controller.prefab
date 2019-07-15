@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114472545421719894}
   - component: {fileID: 114988748533390192}
   - component: {fileID: 114993242390968992}
+  - component: {fileID: 114965606829080572}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -91,6 +92,20 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  Buttons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ScreenTint: {fileID: 0}
   TutorialPopupPause: 0
   currentButton: {fileID: 0}
@@ -123,6 +138,19 @@ MonoBehaviour:
   score: 0
   GoSpawn: 0
   healthBar: {fileID: 0}
+--- !u!114 &114965606829080572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1204508181842710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2b25575e970b3488fb004b9ab6bdaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventoryButton: {fileID: 0}
+  GameplayButtons: {fileID: 0}
 --- !u!114 &114988748533390192
 MonoBehaviour:
   m_ObjectHideFlags: 1

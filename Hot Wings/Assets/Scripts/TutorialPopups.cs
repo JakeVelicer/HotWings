@@ -7,6 +7,7 @@ public class TutorialPopups : MonoBehaviour
 {
     private GameController Controller;
     public GameObject[] Waves;
+    public Button[] Buttons;
     private PauseMenu pauseMenu;
     public GameObject ScreenTint;
     [HideInInspector] public bool TutorialPopupPause;
@@ -17,17 +18,19 @@ public class TutorialPopups : MonoBehaviour
     void Start() {
 
         pauseMenu = GameObject.Find("PauseCanvas").GetComponent<PauseMenu>();
-        currentButton = Waves[currentTutPop].transform.GetChild(0).GetComponent<Button>();
+        currentButton = Buttons[currentTutPop];
         Waves[0].SetActive(true);
         PauseForTut();
     }
 
     void Update() {
 
+        /*
         if (TutorialPopupPause && !pauseMenu.GameIsPaused ) {
             if (!Waves[1].activeSelf)
             currentButton.Select();
         }
+        */
     }
 
     void OnEnable()
@@ -62,12 +65,14 @@ public class TutorialPopups : MonoBehaviour
         Time.timeScale = 0f;
         ScreenTint.SetActive(true);
         TutorialPopupPause = true;
+        currentButton.Select();
     }
 
     public void NextPopUp()
     {
         currentTutPop ++;
-        currentButton = Waves[currentTutPop].transform.GetChild(0).GetComponent<Button>();
+        currentButton = Buttons[currentTutPop];
+        currentButton.Select();
     }
 
     public void NoPopups() {

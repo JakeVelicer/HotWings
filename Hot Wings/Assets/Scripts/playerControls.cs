@@ -169,6 +169,12 @@ public class playerControls : MonoBehaviour
                 animator.SetBool("isFalling", false);
             }
 
+            // Pepper switch call
+            if (Input.GetButtonDown("Switch"))
+            {
+                SwitchPepper();
+            }
+
             // Death
             if (health <= 0) {
                 animator.SetBool("isDead", true);
@@ -358,25 +364,26 @@ public class playerControls : MonoBehaviour
                     break;
             }
         }
-        if (Input.GetButtonDown("Switch") && !Dead)
-        {
-            if (fireLoopPlaying) {
-                FireAttackStop();
-            }
-            if (waterLoopPlaying) {
-                WaterAttackStop();
-            }
-            if (shockLoopPlaying) {
-                shockLoopPlaying = false;
-                playerAmbient.Stop();
-                isAxisInUse = false;
-                ChargeTime = 0;
-            }
-            if (pepperIndexA != 8) {
-                int tempIndex = pepperIndexA;
-                pepperIndexA = pepperIndexB;
-                pepperIndexB = tempIndex;
-            }
+    }
+
+    public void SwitchPepper() {
+
+        if (fireLoopPlaying) {
+            FireAttackStop();
+        }
+        if (waterLoopPlaying) {
+            WaterAttackStop();
+        }
+        if (shockLoopPlaying) {
+            shockLoopPlaying = false;
+            playerAmbient.Stop();
+            isAxisInUse = false;
+            ChargeTime = 0;
+        }
+        if (pepperIndexA != 8) {
+            int tempIndex = pepperIndexA;
+            pepperIndexA = pepperIndexB;
+            pepperIndexB = tempIndex;
         }
     }
 
