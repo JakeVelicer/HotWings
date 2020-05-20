@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class VirtualController : MonoBehaviour {
 
-	private playerControls playerScript;
+	private PlayerControls playerScript;
 	private GameObject joystickOutline;
 	private GameObject joystickFinger;
 	private Touch firstTouch;
@@ -24,7 +24,7 @@ public class VirtualController : MonoBehaviour {
 		joystickFinger = GameObject.Find("JoystickFinger");
 		outlineImageStart = joystickOutline.transform.position;
 		fingerImageStart = joystickFinger.transform.position;
-		playerScript = GameObject.Find("Player").GetComponent<playerControls>();
+		playerScript = GameObject.Find("Player").GetComponent<PlayerControls>();
 	}
 	
 	// Update is called once per frame

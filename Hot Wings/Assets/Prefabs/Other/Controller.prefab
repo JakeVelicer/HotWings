@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 114472545421719894}
   - component: {fileID: 114988748533390192}
   - component: {fileID: 114993242390968992}
-  - component: {fileID: 114965606829080572}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -40,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1204508181842710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.05, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,15 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b37c23815916a4455a2ab1f1e5c60486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgrounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  backgrounds: []
   smoothing: 0.5
 --- !u!114 &114359089860403696
 MonoBehaviour:
@@ -73,7 +64,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1204508181842710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf7b82e6102374cd29fddebd3dd1e692, type: 3}
   m_Name: 
@@ -115,7 +106,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1204508181842710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74ab2906830c1489d861f1ee350b6cdc, type: 3}
   m_Name: 
@@ -133,24 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d315bd91c42c4cb698009c28f697c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemiesLeft: 0
+  EnemiesLeft: 1
   WaveCount: 0
   score: 0
   GoSpawn: 0
   healthBar: {fileID: 0}
---- !u!114 &114965606829080572
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1204508181842710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a2b25575e970b3488fb004b9ab6bdaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InventoryButton: {fileID: 0}
-  GameplayButtons: {fileID: 0}
 --- !u!114 &114988748533390192
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     [HideInInspector] public bool GoSpawn;
     public static System.Action<int> OnWaveIncremented;
     public Image healthBar;
-    private playerControls currentHealth;
+    private PlayerControls currentHealth;
 
     void Awake() {
 
@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
         player = GameObject.Find("Player");
         scoreDisplay = GameObject.Find("Score").GetComponent<Text>();
         waveDisplay = GameObject.Find("Wave").GetComponent<Text>();
-        currentHealth = GameObject.Find("Player").GetComponent<playerControls>();
+        currentHealth = GameObject.Find("Player").GetComponent<PlayerControls>();
 
         WaveCount = 0;
         score = 0;
@@ -52,8 +52,8 @@ public class GameController : MonoBehaviour
         healthBarRectTransform.sizeDelta = new Vector2(currentHealth.health/1.11f, healthBarRectTransform.sizeDelta.y);
 
         // Stops first wave from starting before they pickup a pepper
-        if (player.GetComponent<playerControls>().pepperIndexA == 1 ||
-        player.GetComponent<playerControls>().pepperIndexA == 2) {
+        if (player.GetComponent<PlayerControls>().pepperIndexA == 1 ||
+        player.GetComponent<PlayerControls>().pepperIndexA == 2) {
             InitialPickup = true;
         }
 

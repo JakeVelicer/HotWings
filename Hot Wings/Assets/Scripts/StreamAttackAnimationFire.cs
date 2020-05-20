@@ -5,13 +5,13 @@ using UnityEngine;
 public class StreamAttackAnimationFire : MonoBehaviour {
 
 	[HideInInspector] public Animator Anim;
-	private playerControls PlayerScript;
+	private PlayerControls PlayerScript;
 
 	// Use this for initialization
 	void Start () {
 
 		Anim = gameObject.GetComponent<Animator>();
-		PlayerScript = transform.GetComponentInParent<playerControls>();
+		PlayerScript = transform.GetComponentInParent<PlayerControls>();
 		
 	}
 

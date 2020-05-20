@@ -11,7 +11,7 @@ public class DeathMenu : MonoBehaviour {
 	public GameObject PauseButton;
 	public Button MenuContinue;
 
-	private playerControls PlayerHealth;
+	private PlayerControls PlayerHealth;
 	private GameController Controller;
 	
 	public Text waveText;
@@ -19,7 +19,7 @@ public class DeathMenu : MonoBehaviour {
 	
 	void Start () {
 
-		PlayerHealth = GameObject.Find("Player").GetComponent<playerControls> ();
+		PlayerHealth = GameObject.Find("Player").GetComponent<PlayerControls> ();
 
 	}
 

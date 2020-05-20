@@ -42,7 +42,7 @@ public class AttackUFOBehavior : MonoBehaviour {
 	[HideInInspector] public bool CanSpawnIceBlock = true;
 
 	// Attack Objects and Elements
-	private playerControls Player;
+	private PlayerControls Player;
 	public GameObject IceBlock;
 	public GameObject SaucerRay;
 	public GameObject ExplodingSaucer;
@@ -80,7 +80,7 @@ public class AttackUFOBehavior : MonoBehaviour {
 		Collider = gameObject.GetComponent<Collider2D> ();
 		SpriteRender = gameObject.GetComponent<SpriteRenderer>();
 		MainController = GameObject.Find ("Controller").GetComponent<GameController> ();
-		Player = GameObject.Find("Player").GetComponent<playerControls>();
+		Player = GameObject.Find("Player").GetComponent<PlayerControls>();
 		DeathRayAnimation = SaucerRay.GetComponent<DeathRayAnimation>();
 
 		// Setting elements to their proper states

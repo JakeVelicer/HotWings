@@ -12,14 +12,16 @@ public class ActivateForPhone : MonoBehaviour {
 	void Start () {
 
 		if (Application.platform == RuntimePlatform.IPhonePlayer
-		|| Application.platform == RuntimePlatform.Android) {
+		|| Application.platform == RuntimePlatform.Android)
+		{
 			
 			InventoryButton.enabled = true;
 			GameplayButtons.SetActive(true);
 		}
-		else {
+		else
+		{
 			InventoryButton.enabled = false;
-			GameplayButtons.SetActive(false);	
+			GameplayButtons.SetActive(false);
 		}
 	}
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AchievementManager : MonoBehaviour
 {
     [SerializeField]
-    private playerControls m_playerControls;
+    private PlayerControls m_playerControls;
     private GameController Controller;
 
     private int m_maxHealth;

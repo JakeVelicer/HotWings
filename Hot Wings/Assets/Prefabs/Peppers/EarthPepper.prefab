@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4906818890973354}
   - component: {fileID: 212693856457694086}
-  - component: {fileID: 60772876118649482}
   - component: {fileID: 114162124073219232}
+  - component: {fileID: 61763248939888620}
   - component: {fileID: 50857069177778912}
   m_Layer: 0
   m_Name: EarthPepper
@@ -94,8 +94,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!60 &60772876118649482
-PolygonCollider2D:
+--- !u!61 &61763248939888620
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -116,16 +116,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.005, y: 0.38}
-      - {x: -0.085, y: 0.26999998}
-      - {x: -0.225, y: -0.32999998}
-      - {x: -0.225, y: -0.38}
-      - {x: -0.085, y: -0.38}
-      - {x: 0.155, y: -0.21}
-      - {x: 0.225, y: 0.02}
-      - {x: 0.225, y: 0.38}
+  serializedVersion: 2
+  m_Size: {x: 0.45, y: 0.76}
+  m_EdgeRadius: 0
 --- !u!95 &95867178556259480
 Animator:
   serializedVersion: 3

@@ -10,7 +10,7 @@ public class InventoryDisplay : MonoBehaviour {
 	private Image PepperDisplayImage;
 	public Image CountdownImage;
 	public Text ShockChargeText;
-	private playerControls Player;
+	private PlayerControls Player;
 	private readonly int MaxHealthCounter = 5;
 	private readonly int MaxBuffCounter = 20;
 	private readonly int MaxDashCounter = 7;
@@ -32,7 +32,7 @@ public class InventoryDisplay : MonoBehaviour {
 			MaxBarLength = 80;
 		}
 
-		Player = GameObject.Find("Player").GetComponent<playerControls>();
+		Player = GameObject.Find("Player").GetComponent<PlayerControls>();
 		PepperDisplayImage = this.gameObject.GetComponent<Image>();
 		
 	}

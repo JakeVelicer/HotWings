@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ShockChargeVisual : MonoBehaviour {
 
-	private playerControls PlayerScript;
+	private PlayerControls PlayerScript;
 	private Animator Anim;
 
 	// Use this for initialization
 	void Start () {
 		
-		PlayerScript = GetComponentInParent<playerControls>();
+		PlayerScript = GetComponentInParent<PlayerControls>();
 		Anim = GetComponentInParent<Animator>();
 
 	}

@@ -5,12 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.Animations;
 using System;
 
-public class playerControls : MonoBehaviour
+public class PlayerControls : MonoBehaviour
 {
 
     private Rigidbody2D PlayerRigidbody;
     private Vector2 velocity;
-    public System.Action OnPunch;
     private StreamAttackAnimationFire StreamAnimFire;
     private StreamAttackAnimationWater StreamAnimWater;
     [HideInInspector] public Animator animator;
@@ -23,6 +22,7 @@ public class playerControls : MonoBehaviour
     private bool Dashing;
     [HideInInspector] public bool isBuff;
     public bool canShoot = true;
+    private bool canArmAttack = true;
     private bool isAxisInUse;
     [HideInInspector] public bool Dead;
     public int shotSpeed;
@@ -223,10 +223,12 @@ public class playerControls : MonoBehaviour
     void PepAttacks() {
 
         if (Application.platform == RuntimePlatform.IPhonePlayer
-        || Application.platform == RuntimePlatform.Android) {
+        || Application.platform == RuntimePlatform.Android)
+        {
             FireControls = virtualAttackAxis;
         }
-        else {
+        else
+        {
             FireControls = Input.GetAxisRaw("FireControls");
         }
 
@@ -332,20 +334,26 @@ public class playerControls : MonoBehaviour
                         StartCoroutine(BuffTime());
                     }
                     if (FireControls >= 1) {
-                        //canShoot = false;
-                        if (OnPunch != null) {
-                            //animator.SetBool("isIdle", false);
+                        //animator.SetBool("isIdle", false);
+                        if (canArmAttack)
+                        {
+                            StartCoroutine(BuffAttack());
                             animator.SetBool("isAttacking", true);
-                            OnPunch();
                             BuffAudioHandler();
                         }
                     }
                     if (FireControls <= 0 && horizontalInput == 0 && !isJumping) {
-                        animator.Play("HotWingsBuffIdle");
-                        animator.SetBool("isIdle", true);
+                        if (!canArmAttack)
+                        {
+                            animator.Play("HotWingsBuffIdle");
+                            animator.SetBool("isIdle", true);
+                        }
                     }
                     if (FireControls <= 0) {
-                        animator.SetBool("isAttacking", false);
+                        if (!canArmAttack)
+                        {
+                            animator.SetBool("isAttacking", false);
+                        }
                     }
                     if (BuffTimer <= 0) {
                         playerBuffShot.SetActive(false);
@@ -404,8 +412,9 @@ public class playerControls : MonoBehaviour
         buffPunch1 = !buffPunch1;
         yield return new WaitForSeconds(0.5f);
     }
-    void SlotBCleanup () {
 
+    void SlotBCleanup ()
+    {
         switch (pepperIndexB) {
             case 5: // Dash Pepper Clean Up
                 if (DashCount <= 0) {
@@ -706,6 +715,14 @@ public class playerControls : MonoBehaviour
                 yield return new WaitForSeconds(1);
             }
         }
+    }
+
+    private IEnumerator BuffAttack()
+    {
+        canArmAttack = false;
+        playerBuffShot.GetComponent<PlayerArmBehavior>().OnPunch();
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length+animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        canArmAttack = true;
     }
 
     private IEnumerator BuffTime() {

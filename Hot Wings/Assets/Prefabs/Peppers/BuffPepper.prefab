@@ -38,8 +38,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4717192569889684}
   - component: {fileID: 212185535523748518}
-  - component: {fileID: 60742240122119068}
   - component: {fileID: 114237543444107238}
+  - component: {fileID: 61008855187012738}
   - component: {fileID: 50835300413650768}
   m_Layer: 0
   m_Name: BuffPepper
@@ -95,8 +95,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!60 &60742240122119068
-PolygonCollider2D:
+--- !u!61 &61008855187012738
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -117,38 +117,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.35999998, y: 0.03}
-      - {x: 0.35999998, y: 0.29}
-      - {x: 0.31, y: 0.38}
-      - {x: 0, y: 0.38}
-      - {x: -0.07, y: 0.34}
-      - {x: -0.13, y: 0.29}
-      - {x: -0.14, y: 0.25}
-      - {x: -0.14, y: 0.26999998}
-      - {x: -0.17, y: 0.37}
-      - {x: -0.26, y: 0.38}
-      - {x: -0.29, y: 0.38}
-      - {x: -0.35999998, y: 0.28}
-      - {x: -0.35999998, y: 0.01}
-      - {x: -0.17, y: -0.02}
-      - {x: -0.29, y: -0.31}
-      - {x: -0.29999998, y: -0.38}
-      - {x: -0.16, y: -0.38}
-      - {x: -0.04, y: -0.34}
-      - {x: 0.22, y: -0.01}
-      - {x: 0.35, y: 0.02}
-    - - {x: 0.17, y: 0.22999999}
-      - {x: 0.16, y: 0.26}
-      - {x: 0.099999994, y: 0.32}
-      - {x: 0.099999994, y: 0.31}
-      - {x: 0.14, y: 0.31}
-      - {x: 0.14, y: 0.29999998}
-      - {x: 0.17999999, y: 0.26}
-      - {x: 0.17999999, y: 0.21}
-      - {x: 0.14999999, y: 0.19}
-      - {x: 0.16, y: 0.19}
+  serializedVersion: 2
+  m_Size: {x: 0.72, y: 0.76}
+  m_EdgeRadius: 0
 --- !u!95 &95255268334469000
 Animator:
   serializedVersion: 3

@@ -5,13 +5,13 @@ using UnityEngine;
 public class PepperBehavior : MonoBehaviour {
 
 	public int PepperType;
-	private playerControls Player;
+	private PlayerControls Player;
 	private GameController Controller;
 
 	// Use this for initialization
 	void Start () {
 
-		Player = GameObject.Find("Player").GetComponent<playerControls>();
+		Player = GameObject.Find("Player").GetComponent<PlayerControls>();
 		this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 		Controller = GameObject.Find("Controller").GetComponent<GameController>();
 		GameController.OnWaveIncremented += DestroyPepper;
@@ -29,7 +29,7 @@ public class PepperBehavior : MonoBehaviour {
 						Player.HealthTimer = 5;
 					}
 					else if (PepperType == 8) {
-						Player.BuffTimer = 20;
+						Player.BuffTimer = 1000;
 					}
 					else if (PepperType == 5) {
 						Player.DashCount = 7;

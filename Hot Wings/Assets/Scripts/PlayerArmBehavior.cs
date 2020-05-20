@@ -5,30 +5,30 @@ using UnityEngine;
 public class PlayerArmBehavior : MonoBehaviour {
 
 	private Animator PunchAnim;
-	private PolygonCollider2D Collider;
-	private playerControls Player;
+	public Collider2D Collider;
+	private PlayerControls Player;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+	{
 		PunchAnim = gameObject.GetComponent<Animator>();
-		Collider = gameObject.GetComponent<PolygonCollider2D>();
-		Player = transform.parent.GetComponent<playerControls>();
-		Player.OnPunch += OnPunch;
-		
+		Player = transform.parent.GetComponent<PlayerControls>();
 	}
 	
-	// Update is called once per frame
-	void OnPunch () {
+	public void OnPunch ()
+	{
 		PunchAnim.Play("PlayerPunch");
-		//Collider.enabled = true;
+		Debug.Log("Punch");
 	}
 
-	void Update () {
-		if (PunchAnim.GetCurrentAnimatorStateInfo(0).IsName("PlayerPunch")) {
+	void Update ()
+	{
+		if (PunchAnim.GetCurrentAnimatorStateInfo(0).IsName("PlayerPunch"))
+		{
 			Collider.enabled = true;
 		}
-		else if (PunchAnim.GetCurrentAnimatorStateInfo(0).IsName("PlayerArmsIdle")) {
+		else if (PunchAnim.GetCurrentAnimatorStateInfo(0).IsName("PlayerArmsIdle"))
+		{
 			Collider.enabled = false;
 		}
 	}

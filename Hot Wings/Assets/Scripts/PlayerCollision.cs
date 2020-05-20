@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour {
 
-	private playerControls Player;
+	private PlayerControls Player;
 
 	void Start () {
 
-		Player = gameObject.GetComponentInParent<playerControls>();
+		Player = gameObject.GetComponentInParent<PlayerControls>();
 		
 	}
 	
