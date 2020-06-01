@@ -1,2 +1,2 @@
-# cfa353fa18
+# HotWings
 This is the readme for the Hot Wings!!!
