@@ -28,9 +28,6 @@ public class PepperBehavior : MonoBehaviour {
 					if (PepperType == 7) {
 						Player.HealthTimer = 5;
 					}
-					else if (PepperType == 8) {
-						Player.BuffTimer = 1000;
-					}
 					else if (PepperType == 5) {
 						Player.DashCount = 7;
 					}

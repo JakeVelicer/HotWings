@@ -12,7 +12,7 @@ public class InventoryDisplay : MonoBehaviour {
 	public Text ShockChargeText;
 	private PlayerControls Player;
 	private readonly int MaxHealthCounter = 5;
-	private readonly int MaxBuffCounter = 20;
+	private int MaxBuffCounter = 20;
 	private readonly int MaxDashCounter = 7;
 	private readonly float MaxFireCapacity = 4;
 	private readonly float MaxWaterCapacity = 4;
@@ -21,8 +21,8 @@ public class InventoryDisplay : MonoBehaviour {
 	private float MaxBarLength;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+	{
 		if (gameObject.name == "SlotA") {
 			BarLength = 102;
 			MaxBarLength = 102;
@@ -34,19 +34,18 @@ public class InventoryDisplay : MonoBehaviour {
 
 		Player = GameObject.Find("Player").GetComponent<PlayerControls>();
 		PepperDisplayImage = this.gameObject.GetComponent<Image>();
-		
+		MaxBuffCounter = Player.MaxBuffTime;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+	{
 		if (gameObject.name == "SlotA") {
 			PepperAArt();
 		}
 		if (gameObject.name == "SlotB") {
 			PepperBArt();
 		}
-		
 	}
 
 	private void PepperAArt() {

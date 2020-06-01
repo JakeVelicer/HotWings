@@ -40,6 +40,7 @@ public class PlayerControls : MonoBehaviour
     public int pepperIndexB;
 
     public int health;
+    public int MaxBuffTime = 20;
     [HideInInspector] public int BuffTimer;
     [HideInInspector] public int HealthTimer;
     [HideInInspector] public int DashCount;
@@ -113,6 +114,7 @@ public class PlayerControls : MonoBehaviour
         StreamAnimWater = playerWaterShot.GetComponent<StreamAttackAnimationWater>();
 		gameObject.transform.GetChild(5).gameObject.SetActive(true);
         HealTextPopup.Initialize();
+        BuffTimer = MaxBuffTime;
     }
 
     // Update is called once per frame, movement, animations, attacks called
@@ -220,8 +222,8 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void PepAttacks() {
-
+    void PepAttacks()
+    {
         if (Application.platform == RuntimePlatform.IPhonePlayer
         || Application.platform == RuntimePlatform.Android)
         {
@@ -237,135 +239,148 @@ public class PlayerControls : MonoBehaviour
             switch (pepperIndexA)
             {
                 case 1: // Fire Pepper Power Attack
-                    if (FireControls >= 1) {
-                        if (FireCoolDown > 0 && !isAxisInUse) {
+                    if (FireControls >= 1)
+                    {
+                        if (FireCoolDown > 0 && !isAxisInUse)
+                        {
                             isAxisInUse = true;
                             FireAttackStart();
                         }
                     }
-                    if (FireControls <= 0 && isAxisInUse) {
+                    if (FireControls <= 0 && isAxisInUse)
+                    {
                         isAxisInUse = false;
                         FireAttackStop();
                     }
-                    if (FireCoolDown <= 0) {
+                    if (FireCoolDown <= 0)
+                    {
                         FireAttackStop();
                     }
-                    if (FireControls >= 1 && fireLoopPlaying) {
+                    if (FireControls >= 1 && fireLoopPlaying)
+                    {
                         FireCoolDown = FireCoolDown - Time.fixedDeltaTime;
                     }
-                    if (!fireLoopPlaying && FireCoolDown < 4 && FireControls != 1) {
+                    if (!fireLoopPlaying && FireCoolDown < 4 && FireControls != 1)
+                    {
                         FireCoolDown = (FireCoolDown + 0.03f) + Time.fixedDeltaTime;
                     }
                     break;
                 case 2: // Electric Shock Pepper Power Attack
-                    if (FireControls >= 1) {
+                    if (FireControls >= 1)
+                    {
                         isAxisInUse = true;
                         if (!shockLoopPlaying)
                         {
                             SoundCall(shockLoop, playerAmbient);
                             shockLoopPlaying = true;
                         }
-                        if (ChargeTime < 3) {
+                        if (ChargeTime < 3)
+                        {
                             ChargeTime = ChargeTime + Time.fixedDeltaTime;
                         }
                     }
-                    if (FireControls <= 0 && isAxisInUse) {
+                    if (FireControls <= 0 && isAxisInUse)
+                    {
                         canShoot = false;
                         isAxisInUse = false;
                         ShockAttack();
                     }
                     break;
                 case 3: // Water Pepper Power
-                    if (FireControls >= 1) {
-                        if (WaterCoolDown > 0 && !isAxisInUse) {
+                    if (FireControls >= 1)
+                    {
+                        if (WaterCoolDown > 0 && !isAxisInUse)
+                        {
                             isAxisInUse = true;
                             WaterAttackStart();
                         }
                     }
-                    if (FireControls <= 0 && isAxisInUse) {
+                    if (FireControls <= 0 && isAxisInUse)
+                    {
                         isAxisInUse = false;
                         WaterAttackStop();
                     }
-                    if (WaterCoolDown <= 0) {
+                    if (WaterCoolDown <= 0)
+                    {
                         WaterAttackStop();
                     }
-                    if (FireControls >= 1 && waterLoopPlaying) {
+                    if (FireControls >= 1 && waterLoopPlaying)
+                    {
                         WaterCoolDown = WaterCoolDown - Time.fixedDeltaTime;
                     }
-                    if (!waterLoopPlaying && WaterCoolDown < 4 && FireControls != 1) {
+                    if (!waterLoopPlaying && WaterCoolDown < 4 && FireControls != 1)
+                    {
                         WaterCoolDown = (WaterCoolDown + 0.03f) + Time.fixedDeltaTime;
                     }
                     break;
                 case 4: // CALLS Ice Pepper Power Attack
-                    if (FireControls >= 1) {
+                    if (FireControls >= 1)
+                    {
                         canShoot = false;
                         StartCoroutine(IceBurst());
                     }
                     break;
                 case 5: // CALLS Speed Dash Pepper Power Attack
-                    if (FireControls >= 1 && !Dashing) {
+                    if (FireControls >= 1 && !Dashing)
+                    {
                         canShoot = false;
                         StartCoroutine(SpeedDash());
                     }
-                    if (DashCount <= 0) {
+                    if (DashCount <= 0)
+                    {
                         ConsumableOverA();
                     }
                     break;
                 case 6: // CALLS Wind Pepper Power Attack
-                    if (FireControls >= 1) {
+                    if (FireControls >= 1)
+                    {
                         canShoot = false;
                         WindAttack();
                     }
                     break;
                 case 7: // CALLS Health Pepper Power heal
-                    if (FireControls >= 1 && !Healing) {
+                    if (FireControls >= 1 && !Healing)
+                    {
                         Healing = true;
                         StartCoroutine(HealThePlayer());
                     }
-                    if (HealthTimer <= 0) {
+                    if (HealthTimer <= 0)
+                    {
                         Healing = false;
                         ConsumableOverA();
                     }
                     break;
                 case 8: // Buff Arms Pepper Power Attack
-                    playerBuffShot.SetActive(true);
-                    animator.SetBool("isBuff", true);
-                    if (!isBuff) {
+                    if (!isBuff)
+                    {
                         StartCoroutine(BuffTime());
                     }
-                    if (FireControls >= 1) {
-                        //animator.SetBool("isIdle", false);
+                    if (FireControls >= 1)
+                    {
                         if (canArmAttack)
                         {
                             StartCoroutine(BuffAttack());
-                            animator.SetBool("isAttacking", true);
-                            BuffAudioHandler();
                         }
                     }
-                    if (FireControls <= 0 && horizontalInput == 0 && !isJumping) {
-                        if (!canArmAttack)
+                    if (FireControls <= 0.2f && horizontalInput == 0 && !isJumping)
+                    {
+                        if (canArmAttack)
                         {
                             animator.Play("HotWingsBuffIdle");
                             animator.SetBool("isIdle", true);
                         }
                     }
-                    if (FireControls <= 0) {
-                        if (!canArmAttack)
+                    if (FireControls <= 0.2f)
+                    {
+                        if (canArmAttack)
                         {
                             animator.SetBool("isAttacking", false);
                         }
                     }
-                    if (BuffTimer <= 0) {
-                        playerBuffShot.SetActive(false);
-                        animator.SetBool("isBuff", false);
-                        animator.SetBool("isAttacking", false);
-                        animator.Play("HotWingsIdle2");
-                        isBuff = false;
-                        ConsumableOverA();
-                    }
                     break;
                 case 9: // CALLS Earth Pepper Power Attack
-                    if (FireControls >= 1) {
+                    if (FireControls >= 1)
+                    {
                         canShoot = false;
                         EarthAttack();
                     }
@@ -624,8 +639,8 @@ public class PlayerControls : MonoBehaviour
         StartCoroutine(shootWait());
     }
 
-    private IEnumerator SpeedDash() {
-
+    private IEnumerator SpeedDash()
+    {
         Dashing = true;
         DashCount--;
         playerDashCollider.GetComponent<Collider2D>().enabled = true;
@@ -656,8 +671,8 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    private void EarthAttack() {
-
+    private void EarthAttack()
+    {
         SoundCall(playerEarth, playerSounds);
         Instantiate(playerEarthShot, new Vector3 (transform.position.x, -2.55f, 0), Quaternion.identity);
         GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.6f);
@@ -665,8 +680,40 @@ public class PlayerControls : MonoBehaviour
         StartCoroutine(shootWait());
     }
 
-    private IEnumerator shootWait() {
+    private IEnumerator BuffAttack()
+    {
+        canArmAttack = false;
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isAttacking", true);
+        playerBuffShot.GetComponent<PlayerArmBehavior>().OnPunch();
+        BuffAudioHandler();
+        yield return new WaitForSeconds(0.6f);
+        //yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length+animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        canArmAttack = true;
+    }
 
+    private IEnumerator BuffTime()
+    {
+        BuffTimer = MaxBuffTime;
+        isBuff = true;
+        playerBuffShot.SetActive(true);
+        animator.SetBool("isBuff", true);
+        animator.Play("HotWingsBuffIdle");
+        for (int i = MaxBuffTime; i > 0; i--)
+        {
+            BuffTimer = BuffTimer - 1;
+            yield return new WaitForSeconds(1);
+        }
+        playerBuffShot.SetActive(false);
+        animator.SetBool("isBuff", false);
+        animator.SetBool("isAttacking", false);
+        animator.Play("HotWingsIdle2");
+        isBuff = false;
+        ConsumableOverA();
+    }
+
+    private IEnumerator shootWait() 
+    {
         if (pepperIndexA == 2) { 
             ChargeTime = 0;
             yield return new WaitForSeconds(0.4f);
@@ -690,9 +737,10 @@ public class PlayerControls : MonoBehaviour
         canShoot = true;
     }
 
-    public IEnumerator iFrames() {
-        
-        if (!Dead) {
+    public IEnumerator iFrames()
+    {    
+        if (!Dead)
+        {
             //for (int i = 0; i < 2; i++) {
             GetComponent<SpriteRenderer>().material = HotFlash;
             yield return new WaitForSeconds(0.2f);
@@ -704,33 +752,18 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    private IEnumerator HealThePlayer() {
-
+    private IEnumerator HealThePlayer()
+    {
         SoundCall(playerHeal, playerAmbient);
-        for (int i = 0; i < 5; i++) {
-            if (!Dead) {
+        for (int i = 0; i < 5; i++)
+        {
+            if (!Dead)
+            {
                 HealthTimer = HealthTimer - 1;
                 health = health + 10;
                 DisplayHeal(10);
                 yield return new WaitForSeconds(1);
             }
-        }
-    }
-
-    private IEnumerator BuffAttack()
-    {
-        canArmAttack = false;
-        playerBuffShot.GetComponent<PlayerArmBehavior>().OnPunch();
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length+animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-        canArmAttack = true;
-    }
-
-    private IEnumerator BuffTime() {
-        isBuff = true;
-        animator.Play("HotWingsBuffIdle");
-        for (int i = 0; i < 20; i++) {
-            BuffTimer = BuffTimer - 1;
-            yield return new WaitForSeconds(1);
         }
     }
 
@@ -751,12 +784,15 @@ public class PlayerControls : MonoBehaviour
         SoundCall(brick, playerAmbient);
     }
 
-    public void PepperCollision(int pepperNumber) {
-        if (pepperIndexA == 0) {
+    public void PepperCollision(int pepperNumber)
+    {
+        if (pepperIndexA == 0)
+        {
             SoundCall(pepperCollect, playerSounds);
             pepperIndexA = pepperNumber;
         }
-        else if (pepperIndexB == 0) {
+        else if (pepperIndexB == 0)
+        {
             SoundCall(pepperCollect, playerSounds);
             pepperIndexB = pepperNumber;
         }
@@ -767,7 +803,8 @@ public class PlayerControls : MonoBehaviour
     	HealTextPopup.CreateFloatingText("+" + (Math.Truncate((decimal)(amount))).ToString(), this.transform);
     }
 
-    public void SoundCall (AudioClip clip, AudioSource source) {
+    public void SoundCall (AudioClip clip, AudioSource source)
+    {
         source.clip = clip;
         source.loop = false;
         source.loop |= (clip == playerFire || clip == playerWater || clip == shockLoop);
