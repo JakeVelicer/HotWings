@@ -62,8 +62,8 @@ public class PlayerControls : MonoBehaviour
     public GameObject playerShockShot4;
     public GameObject playerEarthShot;
     public GameObject playerWindShot;
-    public GameObject playerBuffShot;
     private GameObject ElectricShotToUse;
+    public Collider2D BuffCollider;
 
     public AudioSource playerSounds;
     public AudioSource playerVocals;
@@ -115,6 +115,7 @@ public class PlayerControls : MonoBehaviour
 		gameObject.transform.GetChild(5).gameObject.SetActive(true);
         HealTextPopup.Initialize();
         BuffTimer = MaxBuffTime;
+        BuffCollider.enabled = false;
     }
 
     // Update is called once per frame, movement, animations, attacks called
@@ -444,7 +445,7 @@ public class PlayerControls : MonoBehaviour
                 break;
             case 8: // Buff Arms Pepper Power Attack
                 if (BuffTimer <= 0) {
-                    playerBuffShot.SetActive(false);
+                    BuffCollider.enabled = false;
                     isBuff = false;
                     ConsumableOverB();
                 }
@@ -685,9 +686,8 @@ public class PlayerControls : MonoBehaviour
         canArmAttack = false;
         animator.SetBool("isIdle", false);
         animator.SetBool("isAttacking", true);
-        playerBuffShot.GetComponent<PlayerArmBehavior>().OnPunch();
         BuffAudioHandler();
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
         //yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length+animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         canArmAttack = true;
     }
@@ -696,7 +696,6 @@ public class PlayerControls : MonoBehaviour
     {
         BuffTimer = MaxBuffTime;
         isBuff = true;
-        playerBuffShot.SetActive(true);
         animator.SetBool("isBuff", true);
         animator.Play("HotWingsBuffIdle");
         for (int i = MaxBuffTime; i > 0; i--)
@@ -704,10 +703,10 @@ public class PlayerControls : MonoBehaviour
             BuffTimer = BuffTimer - 1;
             yield return new WaitForSeconds(1);
         }
-        playerBuffShot.SetActive(false);
         animator.SetBool("isBuff", false);
         animator.SetBool("isAttacking", false);
         animator.Play("HotWingsIdle2");
+        BuffCollider.enabled = false;
         isBuff = false;
         ConsumableOverA();
     }

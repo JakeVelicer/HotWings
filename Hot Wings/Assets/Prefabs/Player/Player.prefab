@@ -125,8 +125,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4074582472859918}
   - component: {fileID: 212880517682494834}
-  - component: {fileID: 95801111395765528}
-  - component: {fileID: 114387424833028648}
   - component: {fileID: 61576276156148530}
   m_Layer: 10
   m_Name: AnchorArms
@@ -134,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1853898952368290
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +162,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635764463367764}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.55, y: -0.06, z: 0}
+  m_LocalPosition: {x: 0.28, y: -0.06, z: 0}
   m_LocalScale: {x: 1.3, y: 1.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4508693116825596}
@@ -742,24 +740,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!95 &95801111395765528
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1635764463367764}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 512dac28f16a4406dbc56fefe8de04c0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95929114822207524
 Animator:
   serializedVersion: 3
@@ -790,18 +770,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Anim: {fileID: 0}
---- !u!114 &114387424833028648
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1635764463367764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e262715f2da34885a06ceed5381ccf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Collider: {fileID: 61576276156148530}
 --- !u!114 &114389134572139604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -878,7 +846,7 @@ MonoBehaviour:
     type: 2}
   playerWindShot: {fileID: 1686227120266522, guid: 9df9119ef73d848538254fdfff1a2178,
     type: 2}
-  playerBuffShot: {fileID: 1635764463367764}
+  BuffCollider: {fileID: 61576276156148530}
   playerSounds: {fileID: 82558382875807298}
   playerVocals: {fileID: 82259636944294774}
   playerAmbient: {fileID: 82099953272754364}
