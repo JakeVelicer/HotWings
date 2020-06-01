@@ -1046,12 +1046,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &494666018 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114233430378670800, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
-    type: 2}
-  m_PrefabInternal: {fileID: 601647162}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &514268394 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1764831596616476, guid: 2dde0d5427908489eb102e193625e79f,
@@ -1329,26 +1323,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114051628101466690, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2064819698}
     - target: {fileID: 114222094446045388, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
         type: 2}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2064819698}
-    - target: {fileID: 114653114292174890, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
+    - target: {fileID: 114051628101466690, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
         type: 2}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2122533775}
-    - target: {fileID: 114653114292174890, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
-        type: 2}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2122533775}
+      objectReference: {fileID: 2064819698}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39be1709bb3644ee8ad8eb544fd54ac8, type: 2}
   m_IsPrefabAsset: 0
@@ -3971,11 +3955,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd4f25e1b4a1141a0a268e401a022a74, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1678455214 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1799071794332572, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
-    type: 2}
-  m_PrefabInternal: {fileID: 601647162}
 --- !u!1 &1689518057 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1821445380015490, guid: 2dde0d5427908489eb102e193625e79f,
@@ -4913,61 +4892,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114965606829080572, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: InventoryButton
-      value: 
-      objectReference: {fileID: 494666018}
-    - target: {fileID: 114965606829080572, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: GameplayButtons
-      value: 
-      objectReference: {fileID: 1678455214}
     - target: {fileID: 114988748533390192, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1831385776}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 632307290}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[1]
-      value: 
-      objectReference: {fileID: 227008708}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[2]
-      value: 
-      objectReference: {fileID: 628587833}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[3]
-      value: 
-      objectReference: {fileID: 1852147573}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[4]
-      value: 
-      objectReference: {fileID: 1254790370}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[5]
-      value: 
-      objectReference: {fileID: 763984999}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[6]
-      value: 
-      objectReference: {fileID: 253966231}
-    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
-        type: 2}
-      propertyPath: backgrounds.Array.data[7]
-      value: 
-      objectReference: {fileID: 825395836}
     - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
         type: 2}
       propertyPath: healthBar
@@ -5113,6 +5042,16 @@ Prefab:
       propertyPath: ScreenTint
       value: 
       objectReference: {fileID: 1992644612}
+    - target: {fileID: 114359089860403696, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114962278524806552, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: EnemiesLeft
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
   m_IsPrefabAsset: 0
@@ -5150,12 +5089,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1699755591}
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &2122533775 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114993242390968992, guid: 953c8306359a74d4aa7698353a386eed,
-    type: 2}
-  m_PrefabInternal: {fileID: 2056812730}
-  m_Script: {fileID: 11500000, guid: 4537dacdaa6444e52af678ddd1fe25b3, type: 3}
 --- !u!1 &2143385907
 GameObject:
   m_ObjectHideFlags: 0

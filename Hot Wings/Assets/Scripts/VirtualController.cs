@@ -6,25 +6,22 @@ using UnityEngine.UI;
 public class VirtualController : MonoBehaviour {
 
 	private PlayerControls playerScript;
-	private GameObject joystickOutline;
-	private GameObject joystickFinger;
+	public GameObject joystickOutline;
+	public GameObject joystickFinger;
 	private Touch firstTouch;
 	private Vector2 PointA;
 	private Vector2 PointB;
-	private Vector3 outlineImageStart;
 	private Vector3 fingerImageStart;
 	private bool Touching;
 	private float Direction;
 	public int joystickDeadspace;
 
 	// Use this for initialization
-	void Start () {
-
-		joystickOutline = GameObject.Find("JoystickOutline");
-		joystickFinger = GameObject.Find("JoystickFinger");
-		outlineImageStart = joystickOutline.transform.position;
-		fingerImageStart = joystickFinger.transform.position;
+	void Start ()
+	{
 		playerScript = GameObject.Find("Player").GetComponent<PlayerControls>();
+		fingerImageStart = joystickFinger.transform.position;
+		PointA = joystickOutline.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -42,8 +39,8 @@ public class VirtualController : MonoBehaviour {
 				case TouchPhase.Began:
 
 					// Record initial touch position.
-					PointA = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
-					joystickOutline.transform.position = PointA;
+					PointB = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
+					joystickFinger.transform.position = PointB;
 					break;
 
 				//Determine if the touch is a moving touch
@@ -59,7 +56,6 @@ public class VirtualController : MonoBehaviour {
 
 					// Report that the touch has ended when it ends
 					Touching = false;
-					joystickOutline.transform.position = outlineImageStart;
 					joystickFinger.transform.position = fingerImageStart;
 					break;
 			}
