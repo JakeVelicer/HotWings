@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
 
         // Updates the length of the health bar
         var healthBarRectTransform = healthBar.transform as RectTransform;
-        healthBarRectTransform.sizeDelta = new Vector2(currentHealth.health/1.11f, healthBarRectTransform.sizeDelta.y);
+        healthBarRectTransform.sizeDelta = new Vector2(currentHealth.health/1.29f, healthBarRectTransform.sizeDelta.y);
 
         // Stops first wave from starting before they pickup a pepper
         if (player.GetComponent<PlayerControls>().pepperIndexA == 1 ||
