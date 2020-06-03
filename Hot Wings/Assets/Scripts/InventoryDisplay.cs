@@ -23,15 +23,8 @@ public class InventoryDisplay : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		if (gameObject.name == "SlotA") {
-			BarLength = 102;
-			MaxBarLength = 102;
-		}
-		if (gameObject.name == "SlotB") {
-			BarLength = 80;
-			MaxBarLength = 80;
-		}
-
+		BarLength = CountdownImage.rectTransform.sizeDelta.y;
+		MaxBarLength = CountdownImage.rectTransform.sizeDelta.y;
 		Player = GameObject.Find("Player").GetComponent<PlayerControls>();
 		PepperDisplayImage = this.gameObject.GetComponent<Image>();
 		MaxBuffCounter = Player.MaxBuffTime;
