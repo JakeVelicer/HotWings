@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 
 public class PauseMenu : MonoBehaviour {
@@ -30,46 +31,65 @@ public class PauseMenu : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-		if (Input.GetButtonDown("Pause") && !playerScript.Dead) {
-        
-			if (GameIsPaused) {
+		if (Input.GetButtonDown("Pause") && !playerScript.Dead)
+		{
+			if (GameIsPaused)
+			{
 				Resume();
 			}
-			else {
+			else
+			{
 				Pause();
 			}
 		}
 
 	}
 	
-	public void Pause() {
-
-		pauseMenuUI.SetActive(true);
-		menuSounds.clip = pauseSound;
-		menuSounds.loop = false;
-		menuSounds.Play();
-		Time.timeScale = 0f;
-		GameIsPaused = true;
-		ResumeButton.Select();
+	public void Pause()
+	{
+		if (!playerScript.Dead)
+		{
+			pauseMenuUI.SetActive(true);
+			menuSounds.clip = pauseSound;
+			menuSounds.loop = false;
+			menuSounds.Play();
+			Time.timeScale = 0f;
+			GameIsPaused = true;
+			if (Application.platform == RuntimePlatform.IPhonePlayer
+			|| Application.platform == RuntimePlatform.Android)
+			{
+				EventSystem.current.SetSelectedGameObject(null);
+			}
+			else
+			{
+				ResumeButton.Select();
+			}
+		}
 	}
 
-	public void Resume() {
-
-		pauseMenuUI.SetActive(false);
-		menuSounds.clip = clickSound;
-		menuSounds.loop = false;
-		menuSounds.Play();
-		if (!tutPopups.TutorialPopupPause) {
-			Time.timeScale = 1f;
+	public void Resume()
+	{
+		if (!playerScript.Dead)
+		{
+			pauseMenuUI.SetActive(false);
+			menuSounds.clip = clickSound;
+			menuSounds.loop = false;
+			menuSounds.Play();
+			if (!tutPopups.TutorialPopupPause)
+			{
+				Time.timeScale = 1f;
+			}
+			if (tutPopups.TutorialPopupPause && Application.platform != RuntimePlatform.IPhonePlayer
+			&& Application.platform != RuntimePlatform.Android)
+			{
+				tutPopups.currentButton.Select();
+			}
+			GameIsPaused = false;
 		}
-		if (tutPopups.TutorialPopupPause) {
-			tutPopups.currentButton.Select();
-		}
-		GameIsPaused = false;
 	}
 
-	public void LoadMenu() {
-
+	public void LoadMenu()
+	{
 		Time.timeScale = 1f;
 		pauseMenuUI.SetActive(false);
 		SceneManager.LoadScene("StartMenu");

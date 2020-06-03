@@ -122,8 +122,12 @@ public class PlayerControls : MonoBehaviour
     void Update() {
 
         PepAttacks();
-        EggBombs();
         SlotBCleanup();
+
+        if (Input.GetButtonDown("Drop Pepper"))
+        {
+            EggBombs();
+        }
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         
@@ -211,9 +215,10 @@ public class PlayerControls : MonoBehaviour
 
     }
 
-    public void Jump() {
-
-        if (!isJumping) {
+    public void Jump()
+    {
+        if (!isJumping)
+        {
             isJumping = true;
             if (isBuff)
                 animator.Play("HotWingsBuffJumpIni");
@@ -223,7 +228,7 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void PepAttacks()
+    private void PepAttacks()
     {
         if (Application.platform == RuntimePlatform.IPhonePlayer
         || Application.platform == RuntimePlatform.Android)
@@ -390,21 +395,25 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    public void SwitchPepper() {
-
-        if (fireLoopPlaying) {
+    public void SwitchPepper()
+    {
+        if (fireLoopPlaying)
+        {
             FireAttackStop();
         }
-        if (waterLoopPlaying) {
+        if (waterLoopPlaying)
+        {
             WaterAttackStop();
         }
-        if (shockLoopPlaying) {
+        if (shockLoopPlaying)
+        {
             shockLoopPlaying = false;
             playerAmbient.Stop();
             isAxisInUse = false;
             ChargeTime = 0;
         }
-        if (pepperIndexA != 8) {
+        if (pepperIndexA != 8)
+        {
             int tempIndex = pepperIndexA;
             pepperIndexA = pepperIndexB;
             pepperIndexB = tempIndex;
@@ -429,7 +438,7 @@ public class PlayerControls : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    void SlotBCleanup ()
+    private void SlotBCleanup ()
     {
         switch (pepperIndexB) {
             case 5: // Dash Pepper Clean Up
@@ -453,74 +462,71 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void EggBombs() {
+    public void EggBombs() {
 
         GameObject shot;
 
-        if (Input.GetButtonDown("Drop Pepper"))
+        if (shockLoopPlaying == true)
         {
-            if (shockLoopPlaying == true)
-            {
-                shockLoopPlaying = false;
-                playerAmbient.Stop();
-            }
-            if (fireLoopPlaying == true || waterLoopPlaying == true)
-            {
-                fireLoopPlaying = false;
-                waterLoopPlaying = false;
-                playerSounds.Stop();
-            }
-            switch (pepperIndexA)
-            {
-                case 1:
-                    SoundCall(eggDrop, playerSounds);
-                    if (StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
-                        StreamAnimFire.GoToIdle();
+            shockLoopPlaying = false;
+            playerAmbient.Stop();
+        }
+        if (fireLoopPlaying == true || waterLoopPlaying == true)
+        {
+            fireLoopPlaying = false;
+            waterLoopPlaying = false;
+            playerSounds.Stop();
+        }
+        switch (pepperIndexA)
+        {
+            case 1:
+                SoundCall(eggDrop, playerSounds);
+                if (StreamAnimFire.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                    StreamAnimFire.GoToIdle();
+                }
+                shot = Instantiate(eggFire, transform.position + new Vector3(0, 0, 0), 
+                    Quaternion.identity) as GameObject;
+                break;
+            case 2:
+                SoundCall(eggDrop, playerSounds);
+                shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
+                    Quaternion.identity) as GameObject;
+                break;
+            case 3:
+                SoundCall(eggDrop, playerSounds);
+                if (StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
+                    StreamAnimWater.GoToIdle();
+                }
+                shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
+                    Quaternion.identity) as GameObject;
+                break;
+            case 4:
+                SoundCall(eggDrop, playerSounds);
+                shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
+                    Quaternion.identity) as GameObject;
+                break;
+            /*
+            case 5:
+                SoundCall(eggDrop, playerSounds);
+                shot = Instantiate(eggSpeed, transform.position + new Vector3(0, 0, 0), 
+                    Quaternion.identity) as GameObject;
+                    if (facingRight) {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
                     }
-                    shot = Instantiate(eggFire, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                    break;
-                case 2:
-                    SoundCall(eggDrop, playerSounds);
-                    shot = Instantiate(eggShock, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                    break;
-                case 3:
-                    SoundCall(eggDrop, playerSounds);
-                    if (StreamAnimWater.Anim.GetCurrentAnimatorStateInfo(0).IsName("Loop")) {
-                        StreamAnimWater.GoToIdle();
+                    else if (!facingRight) {
+                        shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
                     }
-                    shot = Instantiate(eggWater, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                    break;
-                case 4:
-                    SoundCall(eggDrop, playerSounds);
-                    shot = Instantiate(eggIce, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                    break;
-                /*
-                case 5:
-                    SoundCall(eggDrop, playerSounds);
-                    shot = Instantiate(eggSpeed, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                        if (facingRight) {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.left * shotSpeed);
-                        }
-                        else if (!facingRight) {
-                            shot.GetComponent<Rigidbody2D>().AddForce(Vector3.right * shotSpeed);
-                        }
-                    break;
-                */
-                case 6:
-                    SoundCall(eggDrop, playerSounds);
-                    shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
-			            Quaternion.identity) as GameObject;
-                    break;
-            }
-            if (pepperIndexA != 5 && pepperIndexA != 7 && pepperIndexA != 8 && pepperIndexA != 9) {
-                pepperIndexA = pepperIndexB;
-                pepperIndexB = 0;
-            }
+                break;
+            */
+            case 6:
+                SoundCall(eggDrop, playerSounds);
+                shot = Instantiate(eggWind, transform.position + new Vector3(0, 0, 0), 
+                    Quaternion.identity) as GameObject;
+                break;
+        }
+        if (pepperIndexA != 5 && pepperIndexA != 7 && pepperIndexA != 8 && pepperIndexA != 9) {
+            pepperIndexA = pepperIndexB;
+            pepperIndexB = 0;
         }
     }
 

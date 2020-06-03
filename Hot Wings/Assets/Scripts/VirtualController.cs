@@ -62,17 +62,17 @@ public class VirtualController : MonoBehaviour {
 		}
 	}
 
-	private void FixedUpdate() {
-		
-		if (Touching) {
-
+	private void FixedUpdate()
+	{	
+		if (Touching)
+		{
 			Vector2 offset = PointB - PointA;
 			offset /= joystickDeadspace;
 			Direction = Mathf.Clamp(offset.x, -1, 1);
 			playerScript.virtualHorizontalAxis = Direction;
 		}
-		else {
-			
+		else
+		{
 			playerScript.virtualHorizontalAxis = 0;
 		}
 
