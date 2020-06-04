@@ -660,7 +660,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickOutline: {fileID: 1270751483595226}
   joystickFinger: {fileID: 1669967679259484}
-  joystickDeadspace: 100
+  JoystickFillSpace: 110
+  JoystickDeadSpace: 0.25
+  deactivePlatformScripts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114168805351335102
 MonoBehaviour:
   m_ObjectHideFlags: 1

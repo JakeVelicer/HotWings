@@ -13,8 +13,11 @@ public class VirtualController : MonoBehaviour {
 	private Vector2 PointB;
 	private Vector3 fingerImageStart;
 	private bool Touching;
-	private float Direction;
-	public int joystickDeadspace;
+	private float Horizontal;
+	private float Vertical;
+	public int JoystickFillSpace;
+	public float JoystickDeadSpace;
+	public DeactivateFloor[] deactivePlatformScripts;
 
 	// Use this for initialization
 	void Start ()
@@ -67,9 +70,21 @@ public class VirtualController : MonoBehaviour {
 		if (Touching)
 		{
 			Vector2 offset = PointB - PointA;
-			offset /= joystickDeadspace;
-			Direction = Mathf.Clamp(offset.x, -1, 1);
-			playerScript.virtualHorizontalAxis = Direction;
+			offset /= JoystickFillSpace;
+			Horizontal = Mathf.Clamp(offset.x, -1, 1);
+			Vertical = Mathf.Clamp(offset.y, -1, 1);
+			if(Horizontal < JoystickDeadSpace && Horizontal > -JoystickDeadSpace)
+			{
+				playerScript.virtualHorizontalAxis = 0;
+			}
+			else
+			{
+				playerScript.virtualHorizontalAxis = Horizontal;
+			}
+			foreach (DeactivateFloor platform in deactivePlatformScripts)
+			{
+				platform.virtualVerticalAxis = Vertical;
+			}
 		}
 		else
 		{

@@ -6,6 +6,8 @@ public class DeactivateFloor : MonoBehaviour {
 
 	private Collider2D PlayerCollider;
 	private Collider2D Collider;
+	[HideInInspector] public float virtualVerticalAxis;
+	private float localAxis;
 
 	// Use this for initialization
 	void Start () {
@@ -17,14 +19,27 @@ public class DeactivateFloor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetAxis("Vertical") < -0.5 && Collider.IsTouching(PlayerCollider)) {
+		if (Application.platform == RuntimePlatform.IPhonePlayer
+		|| Application.platform == RuntimePlatform.Android)
+		{
+			localAxis = virtualVerticalAxis;
+		}
+		else
+		{
+			localAxis = Input.GetAxis("Vertical");
+		}
+
+		if (localAxis < -0.5f && Collider.IsTouching(PlayerCollider))
+		{
 			Collider.isTrigger = true;
 		}
 
 	}
 
-	void OnTriggerExit2D(Collider2D other) {
-		if (other.gameObject.tag == "Player") {
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
 			Collider.isTrigger = false;
 		}
 	}

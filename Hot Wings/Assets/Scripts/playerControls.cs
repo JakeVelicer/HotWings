@@ -124,41 +124,45 @@ public class PlayerControls : MonoBehaviour
         PepAttacks();
         SlotBCleanup();
 
-        if (Input.GetButtonDown("Drop Pepper"))
-        {
-            EggBombs();
-        }
-
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         
-        if (!Dead) {
-            
+        if (!Dead)
+        {
+            if (Input.GetButtonDown("Drop Pepper"))
+            {
+                EggBombs();
+            }
             // Horizontal movement assignments
             if (Application.platform == RuntimePlatform.IPhonePlayer
             || Application.platform == RuntimePlatform.Android) {
                 horizontalInput = virtualHorizontalAxis;
             }
-            else {
+            else
+            {
                 horizontalInput = Input.GetAxis("Horizontal");
             }
             currentMoveSpeed = Mathf.Clamp (currentMoveSpeed, 0f, moveSpeed);
             
-            if (horizontalInput > 0) {
+            if (horizontalInput > 0)
+            {
                 currentMoveSpeed += 30 * Time.fixedDeltaTime;
                 animator.SetBool("isRunning", true);
                 animator.SetBool("isIdle", false);
                 transform.localScale = new Vector3(1, 1, 1);
                 facingRight = true;
             }
-            else if (horizontalInput < 0) {
+            else if (horizontalInput < 0)
+            {
                 currentMoveSpeed += 30 * Time.fixedDeltaTime;
                 animator.SetBool("isRunning", true);
                 animator.SetBool("isIdle", false);
                 transform.localScale = new Vector3(-1, 1, 1);
                 facingRight = false;
             }
-            else if (horizontalInput == 0) {
-                if (currentMoveSpeed > 0) {
+            else if (horizontalInput == 0)
+            {
+                if (currentMoveSpeed > 0)
+                {
                     currentMoveSpeed = 0;
                 }
                 animator.SetBool("isIdle", true);
@@ -166,13 +170,16 @@ public class PlayerControls : MonoBehaviour
             }
 
             // Jumping assignments
-            if (Input.GetButtonDown("Jump")) {
+            if (Input.GetButtonDown("Jump"))
+            {
                 Jump();
             }
-            if (isJumping && PlayerRigidbody.velocity.y <= 1) {
+            if (isJumping && PlayerRigidbody.velocity.y <= 1)
+            {
                 animator.SetBool("isFalling", true);
             }
-            if (!isJumping && PlayerRigidbody.velocity.y >= 0) {
+            if (!isJumping && PlayerRigidbody.velocity.y >= 0)
+            {
                 animator.SetBool("isFalling", false);
             }
 
@@ -193,26 +200,27 @@ public class PlayerControls : MonoBehaviour
             }
 
             // Recharges Fire and Water amount
-            if (pepperIndexA != 1 && !fireLoopPlaying && FireCoolDown < 4) {
+            if (pepperIndexA != 1 && !fireLoopPlaying && FireCoolDown < 4)
+            {
                 FireCoolDown = (FireCoolDown + 0.03f) + Time.fixedDeltaTime;
             }
-            if (pepperIndexA != 3 && !waterLoopPlaying && WaterCoolDown < 4) {
+            if (pepperIndexA != 3 && !waterLoopPlaying && WaterCoolDown < 4)
+            {
                 WaterCoolDown = (WaterCoolDown + 0.03f) + Time.fixedDeltaTime;
             }
         }
-
     }
 
-    void FixedUpdate() {
-
+    void FixedUpdate()
+    {
         // Movement
-        if (!Dashing && !Dead) {
+        if (!Dashing && !Dead)
+        {
             velocity = PlayerRigidbody.velocity;
             velocity.y += Physics2D.gravity.y * 0.05f;
             velocity.x = horizontalInput * currentMoveSpeed;
             PlayerRigidbody.velocity = velocity;
         }
-
     }
 
     public void Jump()
