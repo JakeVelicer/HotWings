@@ -11,12 +11,17 @@ public class VirtualController : MonoBehaviour {
 	private Touch firstTouch;
 	private Vector2 PointA;
 	private Vector2 PointB;
+	private Vector2 ClampedPointB;
 	private Vector3 fingerImageStart;
-	private bool Touching;
+	private bool touching;
 	private float Horizontal;
 	private float Vertical;
+	private float distance;
+	private bool withinRange;
 	public int JoystickFillSpace;
 	public float JoystickDeadSpace;
+	public float limitTouchSideScreen = 800;
+	public float radius = 400;
 	public DeactivateFloor[] deactivePlatformScripts;
 
 	// Use this for initialization
@@ -28,51 +33,84 @@ public class VirtualController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		if (Input.touchCount > 0) {
-
+	void Update ()
+	{
+		if (Input.touchCount > 0)
+		{
 			firstTouch = Input.GetTouch(0);
-			//Debug.Log("Hor: " + Direction);
 			
 			// Handle finger movements based on TouchPhase
-			switch (firstTouch.phase) {
-
+			switch (firstTouch.phase)
+			{
 				// When a touch has first been detected, change the message and record the starting position
 				case TouchPhase.Began:
 
 					// Record initial touch position.
 					PointB = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
-					joystickFinger.transform.position = PointB;
+					if (withinRange)
+					{
+						touching = true;
+					}
 					break;
 
 				//Determine if the touch is a moving touch
 				case TouchPhase.Moved:
 
 					// Determine direction by comparing the current touch position with the initial one
-					Touching = true;
 					PointB = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
-					joystickFinger.transform.position = PointB;
+					if (withinRange)
+					{
+						touching = true;
+					}
 					break;
 
 				case TouchPhase.Ended:
 
 					// Report that the touch has ended when it ends
-					Touching = false;
+					touching = false;
+					withinRange = false;
 					joystickFinger.transform.position = fingerImageStart;
 					break;
 			}
+		}
+
+		if (PointB.x < limitTouchSideScreen)
+		{
+			withinRange = true;
+		}
+		else
+		{
+			withinRange = false;
+		}
+
+		// Controls placement of finger joystick image, clamps it's radius
+		distance = Vector3.Distance(PointB, PointA);
+		if (distance > radius)
+		{
+			Vector2 fromOriginToObject = PointB - PointA;
+			fromOriginToObject *= radius / distance;
+			ClampedPointB = PointA + fromOriginToObject;
+		}
+		else
+		{
+			ClampedPointB = PointB;
+		}
+
+		if (touching && withinRange)
+		{
+			joystickFinger.transform.position = ClampedPointB;
 		}
 	}
 
 	private void FixedUpdate()
 	{	
-		if (Touching)
+		if (touching && withinRange)
 		{
 			Vector2 offset = PointB - PointA;
 			offset /= JoystickFillSpace;
 			Horizontal = Mathf.Clamp(offset.x, -1, 1);
 			Vertical = Mathf.Clamp(offset.y, -1, 1);
+
 			if(Horizontal < JoystickDeadSpace && Horizontal > -JoystickDeadSpace)
 			{
 				playerScript.virtualHorizontalAxis = 0;
@@ -81,6 +119,7 @@ public class VirtualController : MonoBehaviour {
 			{
 				playerScript.virtualHorizontalAxis = Horizontal;
 			}
+
 			foreach (DeactivateFloor platform in deactivePlatformScripts)
 			{
 				platform.virtualVerticalAxis = Vertical;

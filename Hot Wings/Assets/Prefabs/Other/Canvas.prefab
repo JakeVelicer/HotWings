@@ -661,7 +661,9 @@ MonoBehaviour:
   joystickOutline: {fileID: 1270751483595226}
   joystickFinger: {fileID: 1669967679259484}
   JoystickFillSpace: 110
-  JoystickDeadSpace: 0.25
+  JoystickDeadSpace: 0.3
+  limitTouchSideScreen: 1000
+  radius: 250
   deactivePlatformScripts:
   - {fileID: 0}
   - {fileID: 0}
