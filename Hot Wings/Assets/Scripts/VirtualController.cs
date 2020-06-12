@@ -97,6 +97,13 @@ public class VirtualController : MonoBehaviour {
 
 			}
 		}
+		else
+		{
+			touching = false;
+			withinRange = false;
+			joystickFinger.transform.position = fingerImageStart;
+			fingerImageRenderer.sprite = fingerInactiveImage;
+		}
 
 		if (PointB.x < limitTouchSideScreen)
 		{

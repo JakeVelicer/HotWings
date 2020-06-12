@@ -29,23 +29,17 @@ public class EggDisplay : MonoBehaviour {
 			rectTransform.sizeDelta = specialEggSize;
 			if (dropBtn.interactable)
 			dropBtn.interactable = false;
-			if (!EggDisplayImageRenderer.enabled)
-			EggDisplayImageRenderer.enabled = true;
 		}
 		else if (Player.pepperIndexA == 0)
 		{
 			if (dropBtn.interactable)
 			dropBtn.interactable = false;
-			if (EggDisplayImageRenderer.enabled)
-			EggDisplayImageRenderer.enabled = false;
 		}
 		else
 		{
 			rectTransform.sizeDelta = defaultEggSize;
 			if (!dropBtn.interactable)
 			dropBtn.interactable = true;
-			if (!EggDisplayImageRenderer.enabled)
-			EggDisplayImageRenderer.enabled = true;
 		}
 		
 		switch (Player.pepperIndexA)
