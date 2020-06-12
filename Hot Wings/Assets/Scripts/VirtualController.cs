@@ -11,7 +11,7 @@ public class VirtualController : MonoBehaviour {
 	public Sprite fingerActiveImage;
 	public Sprite fingerInactiveImage;
 	public Image fingerImageRenderer;
-	private Touch firstTouch;
+	private Touch firstJoystickTouch;
 	private Vector2 PointA;
 	private Vector2 PointB;
 	private Vector2 ClampedPointB;
@@ -41,16 +41,23 @@ public class VirtualController : MonoBehaviour {
 	{
 		if (Input.touchCount > 0)
 		{
-			firstTouch = Input.GetTouch(0);
-			
+			// Only assigns a touch if the touch is on the joystick side
+			for (int i = 0; i < Input.touchCount; i++)
+			{
+				if (Input.GetTouch(i).position.x < limitTouchSideScreen)
+				{
+					firstJoystickTouch = Input.GetTouch(i);
+				}
+			}
+
 			// Handle finger movements based on TouchPhase
-			switch (firstTouch.phase)
+			switch (firstJoystickTouch.phase)
 			{
 				// When a touch has first been detected, change the message and record the starting position
 				case TouchPhase.Began:
 
 					// Record initial touch position.
-					PointB = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
+					PointB = new Vector2(firstJoystickTouch.position.x, firstJoystickTouch.position.y);
 					if (withinRange)
 					{
 						touching = true;
@@ -62,7 +69,7 @@ public class VirtualController : MonoBehaviour {
 				case TouchPhase.Moved:
 
 					// Determine direction by comparing the current touch position with the initial one
-					PointB = new Vector2(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y);
+					PointB = new Vector2(firstJoystickTouch.position.x, firstJoystickTouch.position.y);
 					if (withinRange)
 					{
 						touching = true;
@@ -78,6 +85,16 @@ public class VirtualController : MonoBehaviour {
 					joystickFinger.transform.position = fingerImageStart;
 					fingerImageRenderer.sprite = fingerInactiveImage;
 					break;
+
+				case TouchPhase.Canceled:
+
+					// Report that the touch has canceled
+					touching = false;
+					withinRange = false;
+					joystickFinger.transform.position = fingerImageStart;
+					fingerImageRenderer.sprite = fingerInactiveImage;
+					break;
+
 			}
 		}
 
