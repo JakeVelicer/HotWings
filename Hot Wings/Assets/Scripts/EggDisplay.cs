@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EggDisplay : MonoBehaviour {
 
+	public Button dropBtn;
 	public Sprite[] EggImages;
 	private Image EggDisplayImageRenderer;
 	private PlayerControls Player;
@@ -26,10 +27,25 @@ public class EggDisplay : MonoBehaviour {
 		if (Player.pepperIndexA == 5 || Player.pepperIndexA >= 7)
 		{
 			rectTransform.sizeDelta = specialEggSize;
+			if (dropBtn.interactable)
+			dropBtn.interactable = false;
+			if (!EggDisplayImageRenderer.enabled)
+			EggDisplayImageRenderer.enabled = true;
+		}
+		else if (Player.pepperIndexA == 0)
+		{
+			if (dropBtn.interactable)
+			dropBtn.interactable = false;
+			if (EggDisplayImageRenderer.enabled)
+			EggDisplayImageRenderer.enabled = false;
 		}
 		else
 		{
 			rectTransform.sizeDelta = defaultEggSize;
+			if (!dropBtn.interactable)
+			dropBtn.interactable = true;
+			if (!EggDisplayImageRenderer.enabled)
+			EggDisplayImageRenderer.enabled = true;
 		}
 		
 		switch (Player.pepperIndexA)

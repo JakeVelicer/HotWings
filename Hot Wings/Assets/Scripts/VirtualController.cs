@@ -135,6 +135,10 @@ public class VirtualController : MonoBehaviour {
 		else
 		{
 			playerScript.virtualHorizontalAxis = 0;
+			foreach (DeactivateFloor platform in deactivePlatformScripts)
+			{
+				platform.virtualVerticalAxis = 0;
+			}
 		}
 
 	}

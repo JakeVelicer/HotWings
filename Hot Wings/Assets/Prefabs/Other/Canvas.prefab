@@ -1367,7 +1367,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: eb3c27dffc18c46929a5cb428a63323e, type: 3}
   - {fileID: 21300000, guid: 648917d3bed8243cb82bcbb8b3247a92, type: 3}
   defaultPepperSize: {x: 30.9, y: 52.27}
-  buffPepperSize: {x: 30.9, y: 52.27}
+  buffPepperSize: {x: 44.8, y: 52.27}
   CountdownImage: {fileID: 114698216674610082}
   ShockChargeText: {fileID: 0}
 --- !u!114 &114557032669722522
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: eb3c27dffc18c46929a5cb428a63323e, type: 3}
   - {fileID: 21300000, guid: 648917d3bed8243cb82bcbb8b3247a92, type: 3}
   defaultPepperSize: {x: 47.14, y: 79.62}
-  buffPepperSize: {x: 47.14, y: 79.62}
+  buffPepperSize: {x: 70, y: 79.62}
   CountdownImage: {fileID: 114196962697024224}
   ShockChargeText: {fileID: 114600589905262576}
 --- !u!114 &114891135434906436
@@ -1739,19 +1739,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a46699538357e44b9458bf6196b5c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropBtn: {fileID: 114270327966853262}
   EggImages:
   - {fileID: 21300000, guid: 312c34277c743b246a2bfdc259cf35cc, type: 3}
   - {fileID: 21300000, guid: 1bc354af9326049f795bda9518fa6863, type: 3}
   - {fileID: 21300000, guid: 2820f682da74c405b812b04b8e971729, type: 3}
   - {fileID: 21300000, guid: 2a1527e03eb6d4685b452464b4a4d75a, type: 3}
   - {fileID: 21300000, guid: 6214a02bef2dd47498f297babb7b1705, type: 3}
-  - {fileID: 21300000, guid: 312c34277c743b246a2bfdc259cf35cc, type: 3}
+  - {fileID: 21300000, guid: 5166f53cb92f445f0ba7cbf7f2722d0e, type: 3}
   - {fileID: 21300000, guid: 37c42809514684a5b9fb816d734cd827, type: 3}
-  - {fileID: 21300000, guid: 312c34277c743b246a2bfdc259cf35cc, type: 3}
-  - {fileID: 21300000, guid: 312c34277c743b246a2bfdc259cf35cc, type: 3}
-  - {fileID: 21300000, guid: 312c34277c743b246a2bfdc259cf35cc, type: 3}
+  - {fileID: 21300000, guid: 5166f53cb92f445f0ba7cbf7f2722d0e, type: 3}
+  - {fileID: 21300000, guid: 5166f53cb92f445f0ba7cbf7f2722d0e, type: 3}
+  - {fileID: 21300000, guid: 5166f53cb92f445f0ba7cbf7f2722d0e, type: 3}
   defaultEggSize: {x: 66, y: 82}
-  specialEggSize: {x: 66, y: 82}
+  specialEggSize: {x: 83, y: 45}
 --- !u!114 &114938989405442544
 MonoBehaviour:
   m_ObjectHideFlags: 1
