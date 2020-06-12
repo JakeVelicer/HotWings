@@ -7,6 +7,8 @@ using System;
 public class InventoryDisplay : MonoBehaviour {
 
 	public Sprite[] PepperImages;
+	public Vector2 defaultPepperSize;
+	public Vector2 buffPepperSize;
 	private Image PepperDisplayImage;
 	public Image CountdownImage;
 	public Text ShockChargeText;
@@ -19,6 +21,7 @@ public class InventoryDisplay : MonoBehaviour {
 	private readonly float MaxShockCapacity = 3;
 	private float BarLength;
 	private float MaxBarLength;
+	private RectTransform rectTransform;
 
 	// Use this for initialization
 	void Start ()
@@ -28,16 +31,35 @@ public class InventoryDisplay : MonoBehaviour {
 		Player = GameObject.Find("Player").GetComponent<PlayerControls>();
 		PepperDisplayImage = this.gameObject.GetComponent<Image>();
 		MaxBuffCounter = Player.MaxBuffTime;
+		rectTransform = GetComponent<RectTransform>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		if (gameObject.name == "SlotA") {
+		if (gameObject.name == "SlotA")
+		{
 			PepperAArt();
+			if (Player.pepperIndexA == 8)
+			{
+				rectTransform.sizeDelta = buffPepperSize;
+			}
+			else
+			{
+				rectTransform.sizeDelta = defaultPepperSize;
+			}
 		}
-		if (gameObject.name == "SlotB") {
+		if (gameObject.name == "SlotB")
+		{
 			PepperBArt();
+			if (Player.pepperIndexB == 8)
+			{
+				rectTransform.sizeDelta = buffPepperSize;
+			}
+			else
+			{
+				rectTransform.sizeDelta = defaultPepperSize;
+			}
 		}
 	}
 

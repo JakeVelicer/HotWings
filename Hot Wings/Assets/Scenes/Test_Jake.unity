@@ -348,7 +348,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4256084275600770, guid: f10712301fefc4e95a227b1233a779a5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.25
+      value: -6.88
       objectReference: {fileID: 0}
     - target: {fileID: 4256084275600770, guid: f10712301fefc4e95a227b1233a779a5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -475,6 +475,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
+        type: 2}
+      propertyPath: MaxBuffTime
+      value: 9999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
@@ -487,7 +492,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4400959917754216, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -12.65
+      value: -19.75
       objectReference: {fileID: 0}
     - target: {fileID: 4400959917754216, guid: fe03fb8b3b2c54c1086c44e4bcc67295, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1408,6 +1413,16 @@ Prefab:
         type: 2}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114874527145291954, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
+        type: 2}
+      propertyPath: buffPepperSize.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 114540072355216326, guid: 39be1709bb3644ee8ad8eb544fd54ac8,
+        type: 2}
+      propertyPath: buffPepperSize.x
+      value: 44.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39be1709bb3644ee8ad8eb544fd54ac8, type: 2}

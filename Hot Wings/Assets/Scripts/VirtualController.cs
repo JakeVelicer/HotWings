@@ -8,6 +8,9 @@ public class VirtualController : MonoBehaviour {
 	private PlayerControls playerScript;
 	public GameObject joystickOutline;
 	public GameObject joystickFinger;
+	public Sprite fingerActiveImage;
+	public Sprite fingerInactiveImage;
+	public Image fingerImageRenderer;
 	private Touch firstTouch;
 	private Vector2 PointA;
 	private Vector2 PointB;
@@ -30,6 +33,7 @@ public class VirtualController : MonoBehaviour {
 		playerScript = GameObject.Find("Player").GetComponent<PlayerControls>();
 		fingerImageStart = joystickFinger.transform.position;
 		PointA = joystickOutline.transform.position;
+		fingerImageRenderer.sprite = fingerInactiveImage;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +54,7 @@ public class VirtualController : MonoBehaviour {
 					if (withinRange)
 					{
 						touching = true;
+						fingerImageRenderer.sprite = fingerActiveImage;
 					}
 					break;
 
@@ -61,6 +66,7 @@ public class VirtualController : MonoBehaviour {
 					if (withinRange)
 					{
 						touching = true;
+						fingerImageRenderer.sprite = fingerActiveImage;
 					}
 					break;
 
@@ -70,6 +76,7 @@ public class VirtualController : MonoBehaviour {
 					touching = false;
 					withinRange = false;
 					joystickFinger.transform.position = fingerImageStart;
+					fingerImageRenderer.sprite = fingerInactiveImage;
 					break;
 			}
 		}
