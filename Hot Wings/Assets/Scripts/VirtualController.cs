@@ -26,6 +26,7 @@ public class VirtualController : MonoBehaviour {
 	public float limitTouchSideScreen = 800;
 	public float radius = 400;
 	public DeactivateFloor[] deactivePlatformScripts;
+	private int joystickTouchNumber;
 
 	// Use this for initialization
 	void Start ()
@@ -44,10 +45,15 @@ public class VirtualController : MonoBehaviour {
 			// Only assigns a touch if the touch is on the joystick side
 			for (int i = 0; i < Input.touchCount; i++)
 			{
-				if (Input.GetTouch(i).position.x < limitTouchSideScreen)
+				if (Input.GetTouch(i).position.x < limitTouchSideScreen && !touching)
 				{
-					firstJoystickTouch = Input.GetTouch(i);
+					joystickTouchNumber = i;
 				}
+			}
+
+			if (joystickTouchNumber < Input.touchCount)
+			{
+				firstJoystickTouch = Input.GetTouch(joystickTouchNumber);
 			}
 
 			// Handle finger movements based on TouchPhase
@@ -84,6 +90,7 @@ public class VirtualController : MonoBehaviour {
 					withinRange = false;
 					joystickFinger.transform.position = fingerImageStart;
 					fingerImageRenderer.sprite = fingerInactiveImage;
+					joystickTouchNumber = 20;
 					break;
 
 				case TouchPhase.Canceled:
@@ -93,6 +100,7 @@ public class VirtualController : MonoBehaviour {
 					withinRange = false;
 					joystickFinger.transform.position = fingerImageStart;
 					fingerImageRenderer.sprite = fingerInactiveImage;
+					joystickTouchNumber = 20;
 					break;
 
 			}
