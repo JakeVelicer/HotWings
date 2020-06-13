@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour {
 	private PlayerControls playerScript;
 	public Button helpBackBtn;
 	private bool inHelp;
+	private bool onMobile;
 
     [HideInInspector] public bool GameIsPaused = false;
 
@@ -27,6 +28,11 @@ public class PauseMenu : MonoBehaviour {
         menuSounds = gameObject.GetComponent<AudioSource>();
 		tutPopups = GameObject.Find("Controller").GetComponent<TutorialPopups>();
 		playerScript = GameObject.Find("Player").GetComponent<PlayerControls>();
+		if (Application.platform == RuntimePlatform.IPhonePlayer
+		|| Application.platform == RuntimePlatform.Android)
+		{
+			onMobile = true;
+		}
     }
 
 
@@ -57,8 +63,7 @@ public class PauseMenu : MonoBehaviour {
 			menuSounds.Play();
 			Time.timeScale = 0f;
 			GameIsPaused = true;
-			if (Application.platform == RuntimePlatform.IPhonePlayer
-			|| Application.platform == RuntimePlatform.Android)
+			if (onMobile)
 			{
 				EventSystem.current.SetSelectedGameObject(null);
 			}
@@ -88,8 +93,7 @@ public class PauseMenu : MonoBehaviour {
 			{
 				Time.timeScale = 1f;
 			}
-			if (tutPopups.TutorialPopupPause && Application.platform != RuntimePlatform.IPhonePlayer
-			&& Application.platform != RuntimePlatform.Android)
+			if (tutPopups.TutorialPopupPause && !onMobile)
 			{
 				tutPopups.currentButton.Select();
 			}
@@ -102,8 +106,7 @@ public class PauseMenu : MonoBehaviour {
 		inHelp = true;
 		HelpPanel.SetActive(true);
 		pauseMenuUI.SetActive(false);
-		if (Application.platform == RuntimePlatform.IPhonePlayer
-		|| Application.platform == RuntimePlatform.Android)
+		if (onMobile)
 		{
 			EventSystem.current.SetSelectedGameObject(null);
 		}
@@ -121,8 +124,7 @@ public class PauseMenu : MonoBehaviour {
 		inHelp = false;
 		pauseMenuUI.SetActive(true);
 		HelpPanel.SetActive(false);
-		if (Application.platform == RuntimePlatform.IPhonePlayer
-		|| Application.platform == RuntimePlatform.Android)
+		if (onMobile)
 		{
 			EventSystem.current.SetSelectedGameObject(null);
 		}
@@ -138,6 +140,7 @@ public class PauseMenu : MonoBehaviour {
 	public void LoadMenu()
 	{
 		Time.timeScale = 1f;
+		HelpPanel.SetActive(false);
 		pauseMenuUI.SetActive(false);
 		SceneManager.LoadScene("StartMenu");
 	}

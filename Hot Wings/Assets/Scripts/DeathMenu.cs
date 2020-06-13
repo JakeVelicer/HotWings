@@ -42,11 +42,12 @@ public class DeathMenu : MonoBehaviour {
 		Time.timeScale = 1f;
 		SceneManager.LoadScene("StartMenu");
 	}
+	
 	public void QuitGame()
 	{
 		Application.Quit();
-		Debug.Log("Gamequit");
 	}
+
 	void Dead()
 	{
         if (!Death)
