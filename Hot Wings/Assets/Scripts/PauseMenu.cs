@@ -12,10 +12,12 @@ public class PauseMenu : MonoBehaviour {
     public AudioClip pauseSound;
     public GameObject pauseMenuUI;
 	public Button ResumeButton;
-	public Button QuitButton;
+	public GameObject HelpPanel;
 	private AudioSource menuSounds;
 	private TutorialPopups tutPopups;
 	private PlayerControls playerScript;
+	public Button helpBackBtn;
+	private bool inHelp;
 
     [HideInInspector] public bool GameIsPaused = false;
 
@@ -71,10 +73,17 @@ public class PauseMenu : MonoBehaviour {
 	{
 		if (!playerScript.Dead)
 		{
+			if (inHelp)
+			{
+				HideHelp();
+			}
+			else if(!inHelp)
+			{
+				menuSounds.clip = clickSound;
+				menuSounds.loop = false;
+				menuSounds.Play();
+			}
 			pauseMenuUI.SetActive(false);
-			menuSounds.clip = clickSound;
-			menuSounds.loop = false;
-			menuSounds.Play();
 			if (!tutPopups.TutorialPopupPause)
 			{
 				Time.timeScale = 1f;
@@ -86,6 +95,44 @@ public class PauseMenu : MonoBehaviour {
 			}
 			GameIsPaused = false;
 		}
+	}
+
+	public void ShowHelp()
+	{
+		inHelp = true;
+		HelpPanel.SetActive(true);
+		pauseMenuUI.SetActive(false);
+		if (Application.platform == RuntimePlatform.IPhonePlayer
+		|| Application.platform == RuntimePlatform.Android)
+		{
+			EventSystem.current.SetSelectedGameObject(null);
+		}
+		else
+		{
+			helpBackBtn.Select();
+		}
+		menuSounds.clip = clickSound;
+		menuSounds.loop = false;
+		menuSounds.Play();
+	}
+
+	public void HideHelp()
+	{
+		inHelp = false;
+		pauseMenuUI.SetActive(true);
+		HelpPanel.SetActive(false);
+		if (Application.platform == RuntimePlatform.IPhonePlayer
+		|| Application.platform == RuntimePlatform.Android)
+		{
+			EventSystem.current.SetSelectedGameObject(null);
+		}
+		else
+		{
+			ResumeButton.Select();
+		}
+		menuSounds.clip = clickSound;
+		menuSounds.loop = false;
+		menuSounds.Play();
 	}
 
 	public void LoadMenu()

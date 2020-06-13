@@ -1588,6 +1588,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlsPC: {fileID: 1861988721860826}
   controlsController: {fileID: 1981119551800184}
+  controlsMobile: {fileID: 0}
+  helpScreenMobile: {fileID: 0}
+  backBtn: {fileID: 0}
 --- !u!114 &114054362820547330
 MonoBehaviour:
   m_ObjectHideFlags: 1

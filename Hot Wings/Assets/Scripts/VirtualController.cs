@@ -45,7 +45,7 @@ public class VirtualController : MonoBehaviour {
 			// Only assigns a touch if the touch is on the joystick side
 			for (int i = 0; i < Input.touchCount; i++)
 			{
-				if (Input.GetTouch(i).position.x < limitTouchSideScreen && !touching)
+				if (Input.GetTouch(i).position.x < limitTouchSideScreen)
 				{
 					joystickTouchNumber = i;
 				}
@@ -134,7 +134,7 @@ public class VirtualController : MonoBehaviour {
 		{
 			ClampedPointB = PointB;
 		}
-
+		
 		if (touching && withinRange)
 		{
 			joystickFinger.transform.position = ClampedPointB;
