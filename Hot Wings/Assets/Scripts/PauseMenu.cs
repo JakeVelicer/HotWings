@@ -33,6 +33,10 @@ public class PauseMenu : MonoBehaviour {
 		{
 			onMobile = true;
 		}
+		else
+		{
+			onMobile = false;
+		}
     }
 
 

@@ -788,8 +788,8 @@ MonoBehaviour:
   fingerInactiveImage: {fileID: 21300000, guid: ff1d1777eb5f5c643a272911702d0975,
     type: 3}
   fingerImageRenderer: {fileID: 114257330564732462}
-  JoystickFillSpace: 110
-  JoystickDeadSpace: 0.3
+  JoystickFillSpace: 115
+  JoystickDeadSpace: 0.35
   limitTouchSideScreen: 900
   radius: 220
   deactivePlatformScripts:

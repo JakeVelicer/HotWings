@@ -3,32 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class DeathMenu : MonoBehaviour {
+public class DeathMenu : MonoBehaviour
+{
+
 	public static bool Death = false;
-
 	public GameObject DeathMenuUI;
 	public GameObject PauseButton;
 	public Button MenuContinue;
-
-	private PlayerControls PlayerHealth;
-	private GameController Controller;
-	
 	public Text waveText;
 	public Text scoreText;
+	private PlayerControls PlayerHealth;
+	private GameController Controller;
+	private bool onMobile;
+
 	
-	void Start () {
-
+	void Start ()
+	{
 		PlayerHealth = GameObject.Find("Player").GetComponent<PlayerControls> ();
-
+		if (Application.platform == RuntimePlatform.IPhonePlayer
+		|| Application.platform == RuntimePlatform.Android)
+		{
+			onMobile = true;
+		}
+		else
+		{
+			onMobile = false;
+		}
 	}
 
-	void Update () {
-
-		if (PlayerHealth.health <= 0) {
+	void Update ()
+	{
+		if (PlayerHealth.health <= 0)
+		{
 			Dead();
 		}
-
 	}
 
 	void OnEnable ()
@@ -63,13 +73,18 @@ public class DeathMenu : MonoBehaviour {
 	}
     private IEnumerator EndGame()
     {
-       
         yield return new WaitForSeconds(1.5f);
         DeathMenuUI.SetActive(true);
 		PauseButton.SetActive(false);
-		MenuContinue.Select();
         Time.timeScale = 0f;
-
+		if (onMobile)
+		{
+			EventSystem.current.SetSelectedGameObject(null);
+		}
+		else
+		{
+			MenuContinue.Select();
+		}
 		waveText.text = "" + Controller.WaveCount;
         scoreText.text = "" + Controller.score;
     }

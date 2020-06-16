@@ -94,6 +94,7 @@ public class PlayerControls : MonoBehaviour
     private bool waterLoopPlaying = false;
     private bool fireLoopPlaying = false;
     private bool buffSoundPlaying = false;
+    private bool onMobile;
 
     public GameObject eggFire;
     public GameObject eggWater;
@@ -116,6 +117,16 @@ public class PlayerControls : MonoBehaviour
         HealTextPopup.Initialize();
         BuffTimer = MaxBuffTime;
         BuffCollider.enabled = false;
+
+		if (Application.platform == RuntimePlatform.IPhonePlayer
+		|| Application.platform == RuntimePlatform.Android)
+		{
+			onMobile = true;
+		}
+		else
+		{
+			onMobile = false;
+		}
     }
 
     // Update is called once per frame, movement, animations, attacks called
@@ -133,8 +144,8 @@ public class PlayerControls : MonoBehaviour
                 EggBombs();
             }
             // Horizontal movement assignments
-            if (Application.platform == RuntimePlatform.IPhonePlayer
-            || Application.platform == RuntimePlatform.Android) {
+            if (onMobile)
+            {
                 horizontalInput = virtualHorizontalAxis;
             }
             else
@@ -238,8 +249,7 @@ public class PlayerControls : MonoBehaviour
 
     private void PepAttacks()
     {
-        if (Application.platform == RuntimePlatform.IPhonePlayer
-        || Application.platform == RuntimePlatform.Android)
+        if (onMobile)
         {
             FireControls = virtualAttackAxis;
         }
