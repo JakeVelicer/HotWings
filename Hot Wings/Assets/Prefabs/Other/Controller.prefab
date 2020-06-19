@@ -55,7 +55,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b37c23815916a4455a2ab1f1e5c60486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgrounds: []
+  backgrounds:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   smoothing: 0.5
 --- !u!114 &114359089860403696
 MonoBehaviour:
@@ -123,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d315bd91c42c4cb698009c28f697c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemiesLeft: 1
+  EnemiesLeft: 0
   WaveCount: 0
   score: 0
   GoSpawn: 0
