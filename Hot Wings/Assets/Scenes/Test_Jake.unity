@@ -458,11 +458,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
-    - target: {fileID: 114521986171018460, guid: ff40fe9b2d37a4cbdadd106150cb1550,
-        type: 2}
-      propertyPath: MaxBuffTime
-      value: 9999
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff40fe9b2d37a4cbdadd106150cb1550, type: 2}
   m_IsPrefabAsset: 0
@@ -557,6 +552,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114054046426134130, guid: 953c8306359a74d4aa7698353a386eed,
+        type: 2}
+      propertyPath: backgrounds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4800849916176994, guid: 953c8306359a74d4aa7698353a386eed, type: 2}
       propertyPath: m_LocalPosition.x
       value: -13.05
@@ -828,7 +828,7 @@ Transform:
   m_LocalScale: {x: 1.78, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1021868064
 GameObject:
@@ -984,7 +984,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4391577429631654, guid: e53ba94efc0b34241814698d4af376eb, type: 2}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 1911000877547620, guid: e53ba94efc0b34241814698d4af376eb, type: 2}
       propertyPath: m_IsActive

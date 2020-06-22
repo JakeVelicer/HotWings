@@ -11,6 +11,7 @@ public class VirtualController : MonoBehaviour {
 	public Sprite fingerActiveImage;
 	public Sprite fingerInactiveImage;
 	public Image fingerImageRenderer;
+	public PauseMenu pauseScript;
 	private Touch firstJoystickTouch;
 	private Vector2 PointA;
 	private Vector2 PointB;
@@ -40,7 +41,7 @@ public class VirtualController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.touchCount > 0)
+		if (Input.touchCount > 0 && !pauseScript.GameIsPaused)
 		{
 			// Only assigns a touch if the touch is on the joystick side
 			for (int i = 0; i < Input.touchCount; i++)

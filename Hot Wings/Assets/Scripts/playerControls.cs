@@ -699,7 +699,7 @@ public class PlayerControls : MonoBehaviour
     private void EarthAttack()
     {
         SoundCall(playerEarth, playerSounds);
-        Instantiate(playerEarthShot, new Vector3 (transform.position.x, -2.55f, 0), Quaternion.identity);
+        Instantiate(playerEarthShot, new Vector3 (transform.position.x, -1.67f, 0), Quaternion.identity);
         GameObject.Find("Controller").GetComponent<ScreenShake>().BombGoesOff(0.6f);
         ConsumableOverA();
         StartCoroutine(shootWait());
@@ -718,7 +718,6 @@ public class PlayerControls : MonoBehaviour
 
     private IEnumerator BuffTime()
     {
-        BuffTimer = MaxBuffTime;
         isBuff = true;
         animator.SetBool("isBuff", true);
         animator.Play("HotWingsBuffIdle");
