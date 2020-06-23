@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour {
 
     public Vector3 minCameraPosition;
     public Vector3 maxCameraPosition;
+    public GameObject[] arrows;
 
     private AudioSource bgm;
     public AudioClip gameplaySong;
@@ -24,6 +25,8 @@ public class CameraController : MonoBehaviour {
     private bool isWrappingX = false;
     private bool isWrappingY = false;
     private bool isVisible;
+    private bool wentRight;
+    private bool wentLeft;
 
     void Start () {
 
@@ -67,11 +70,27 @@ public class CameraController : MonoBehaviour {
             player.transform.position = new Vector3
             (minCameraPosition.x - 8.5f, player.transform.position.y, player.transform.position.z);
             newPostion = new Vector3 (minCameraPosition.x, player.transform.position.y, Quaternion.identity.z);
+            wentRight = true;
+            if (wentLeft && wentRight)
+            {
+                foreach (GameObject arrow in arrows)
+                {
+                    arrow.SetActive(false);
+                }
+            }
         }
         else if (player.transform.position.x <= (minCameraPosition.x - 9)) {
             player.transform.position = new Vector3
             (maxCameraPosition.x + 8.5f, player.transform.position.y, player.transform.position.z);
             newPostion = new Vector3 (maxCameraPosition.x, player.transform.position.y, Quaternion.identity.z);
+            wentLeft = true;
+            if (wentLeft && wentRight)
+            {
+                foreach (GameObject arrow in arrows)
+                {
+                    arrow.SetActive(false);
+                }
+            }
         }
         
     }
