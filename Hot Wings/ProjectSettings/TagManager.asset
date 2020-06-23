@@ -23,6 +23,7 @@ TagManager:
   - Checker
   - Speed
   - Pepper
+  - CloudRestart
   layers:
   - Default
   - TransparentFX
