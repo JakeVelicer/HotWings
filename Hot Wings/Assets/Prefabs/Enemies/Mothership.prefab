@@ -661,6 +661,9 @@ MonoBehaviour:
   MaximumDistanceRight: 65
   MaximumDistanceLeft: -65
   TouchStop: 0
+  takingFireDamage: 0
+  takingWaterDamage: 0
+  takingWindDamage: 0
   Dead: 0
   ToTheRight: 0
   CanSpawnIceBlock: 1
@@ -744,8 +747,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 719109109
-  m_SortingLayer: 3
+  m_SortingLayerID: 1720314129
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f5551ea6d987446dd9fa3133ca66faf4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -41,7 +41,7 @@ public class VirtualController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.touchCount > 0 && !pauseScript.GameIsPaused)
+		if (Input.touchCount > 0 && !pauseScript.GameIsPaused && !playerScript.Dead)
 		{
 			// Only assigns a touch if the touch is on the joystick side
 			for (int i = 0; i < Input.touchCount; i++)
