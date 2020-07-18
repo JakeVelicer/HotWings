@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 61171112654978256}
   - component: {fileID: 114573698971594108}
   - component: {fileID: 251709196328699330}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UFO Floor
   m_TagString: Ground
   m_Icon: {fileID: 0}

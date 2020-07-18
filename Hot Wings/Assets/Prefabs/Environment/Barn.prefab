@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 114965309312415334}
   - component: {fileID: 2560612000548245437}
   - component: {fileID: 2547087673244850673}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barn Collider 3
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 114384932735361588}
   - component: {fileID: 8929084480786738629}
   - component: {fileID: 6869769703546489197}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barn Collider 1
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 114159176231746920}
   - component: {fileID: 4681799504302925619}
   - component: {fileID: 4714716989662528731}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Barn Collider 2
   m_TagString: Ground
   m_Icon: {fileID: 0}

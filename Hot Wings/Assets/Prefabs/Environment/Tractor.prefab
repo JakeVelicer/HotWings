@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114689194723264074}
   - component: {fileID: 7114026284733518429}
   - component: {fileID: 1029300098451553903}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TractorTop
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 61263795664464310}
   - component: {fileID: 114965527511860684}
   - component: {fileID: 1269297664687234980}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TractorBottom
   m_TagString: Ground
   m_Icon: {fileID: 0}

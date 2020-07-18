@@ -24,12 +24,14 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float ProjectileHeight;
 	public float CoolDown;
 	private int DashDirection;
+    public float groundDistance = 0.4f;
+	public string groundMask = "Background";
 
 	// Boolean Elements
 	private bool CanRoam;
     private bool CanChase;
 	private bool CanTakeDamage = true;
-	public bool TouchStop;
+	public bool touchingGround;
 	private bool Freeze;
 	private bool Dead;
 	private bool CanAttack = true;
@@ -42,6 +44,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 	// Attack Objects and Elements
 	private PlayerControls Player;
+	public Transform groundCheck;
 	public GameObject BulletObject;
 	public GameObject BombObject;
 	public GameObject IceBlock;
@@ -93,7 +96,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 		// Setting elements to their proper states
 		InvokeRepeating ("Roam", 0, 1.5f);
-		TouchStop = false;
+		touchingGround = false;
 		GetComponent<SpriteRenderer>().material = DefaultMaterial;
 		MainController.EnemiesLeft++;
 		
@@ -120,12 +123,17 @@ public class BasicEnemyControls : MonoBehaviour {
 			}
 		}
 
+		/*
 		if (transform.position.y <= -1.5) {
-			TouchStop = true;
+			touchingGround = true;
 		}
 		else if (transform.position.y > -1.5) {
-			TouchStop = false;
+			touchingGround = false;
 		}
+		*/
+
+		// Checks if touching the ground
+		touchingGround = Physics2D.OverlapCircle(groundCheck.position, groundDistance, LayerMask.GetMask(groundMask));
 		
 		// Call damage for stream attacks if possible
 		if (takingFireDamage && CanTakeDamage) {
@@ -148,7 +156,7 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			// Pushes the enemy in a direction based upon which side the player is on
 			if (ToTheRight == false) {
-     			if (TouchStop && CanAttack) {
+     			if (touchingGround && CanAttack) {
 					Vector2 myVel = Rigidbody.velocity;
                 	myVel.x = -MovementSpeed;
 					Rigidbody.velocity = myVel;
@@ -156,7 +164,7 @@ public class BasicEnemyControls : MonoBehaviour {
 				}
 			}
 			else if (ToTheRight == true) {
-     			if (TouchStop && CanAttack) {
+     			if (touchingGround && CanAttack) {
 					Vector2 myVel = Rigidbody.velocity;
                 	myVel.x = MovementSpeed;
 					Rigidbody.velocity = myVel;
@@ -185,7 +193,7 @@ public class BasicEnemyControls : MonoBehaviour {
 			CanRoam = false;
 			ChaseDirection();
 			if (CanAttack) {
-				if (TouchStop && !Dead && !Freeze) {
+				if (touchingGround && !Dead && !Freeze) {
 					CanAttack = false;
 					anim.SetTrigger("Attack");
 
@@ -255,9 +263,9 @@ public class BasicEnemyControls : MonoBehaviour {
 			Vector3 toTarget = (OtherEnemies[i].transform.position - transform.position);
 			
 			if (Vector3.Dot(toTarget, transform.right) < 0) {
-				TouchStop = false;
+				touchingGround = false;
 			} else if (Vector3.Dot(toTarget, transform.right) > 0) {
-				TouchStop = true;
+				touchingGround = true;
 			}
 
 		}
@@ -627,7 +635,7 @@ public class BasicEnemyControls : MonoBehaviour {
 		if (!Dead) {
 			Freeze = true;
 			GetComponent<SpriteRenderer>().material = HotFlash;
-			if (TouchStop) {
+			if (touchingGround) {
 				Rigidbody.velocity = Vector2.zero;
 				Rigidbody.AddForce(Vector3.up * ySpeed);
 				if (Player.facingRight) {

@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 4789541752130662261}
   - component: {fileID: 984783751690467629}
   - component: {fileID: 4101581245978358726}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HayCollider
   m_TagString: Ground
   m_Icon: {fileID: 0}
