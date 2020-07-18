@@ -38,7 +38,7 @@ TagManager:
   - playerShots
   - Background
   - MiniMap
-  - 
+  - NoCollision
   - 
   - 
   - 
