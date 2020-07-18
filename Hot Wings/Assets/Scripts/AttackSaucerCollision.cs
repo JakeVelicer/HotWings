@@ -6,7 +6,6 @@ public class AttackSaucerCollision : MonoBehaviour {
 
 	private AttackUFOBehavior AttackUFOScript;
 	private EnemyDamageValues DamageValues;
-	private bool CanTakeDamage = true;
 
 	void Start() {
 

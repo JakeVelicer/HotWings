@@ -23,7 +23,6 @@ public class BasicEnemyControls : MonoBehaviour {
 	public float ProjectileSpeed;
 	public float ProjectileHeight;
 	public float CoolDown;
-	private float CoolDownTimer = 0;
 	private int DashDirection;
 
 	// Boolean Elements
@@ -217,7 +216,6 @@ public class BasicEnemyControls : MonoBehaviour {
 
 			CanChase = false;
 			CanRoam = true;
-			CoolDownTimer = 0;
             enemyAttacks.Stop();
             soundPlaying = false;
 		}

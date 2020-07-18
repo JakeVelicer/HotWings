@@ -18,13 +18,9 @@ public class AttackUFOBehavior : MonoBehaviour {
 	public float EnemyHealth;
     public int enemyValue;
     public float MovementSpeed;
-	public float ChaseRange;
 	public float FireRange;
-	public float CoolDown;
 	public float MaximumDistanceRight;
 	public float MaximumDistanceLeft;
-	private float CoolDownTimer = 0;
-	private int DashDirection;
 
 	// Boolean Elements
 	private bool CanRoam;
@@ -169,7 +165,6 @@ public class AttackUFOBehavior : MonoBehaviour {
 			CanChase = true;
 			CanRoam = false;
 			ChaseDirection();
-			CoolDownTimer = 0;
 		}
 		// Roams out of range of chasing and attacking
 		else if (!Freeze) {
@@ -181,7 +176,6 @@ public class AttackUFOBehavior : MonoBehaviour {
 			else if (transform.position.x < MaximumDistanceLeft) {
 				ChaseDirection();
 			}
-			CoolDownTimer = 0;
 		}
 	}
 
