@@ -611,7 +611,10 @@ public class BasicEnemyControls : MonoBehaviour {
 	private IEnumerator TakeIceDamage() {
 
 		CanSpawnIceBlock = false;
-		anim.Play("RolyPolyIdle");
+		if (AlienType == 1)
+		{
+			anim.Play("RolyPolyIdle");
+		}
 		StartCoroutine(HitByAttack(0, 0, 3));
 		Rigidbody.velocity = Vector2.zero;
 		transform.rotation = Quaternion.Euler (transform.rotation.x, transform.rotation.y, 0);

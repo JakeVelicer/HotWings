@@ -161,7 +161,7 @@ PlayerSettings:
     Standalone: com.SpicyHoneydew.HotWings
     iOS: com.TeamSpicyHoneydew.HotWings
   buildNumber:
-    iOS: 5
+    iOS: 6
   AndroidBundleVersionCode: 6
   AndroidMinSdkVersion: 26
   AndroidTargetSdkVersion: 0
