@@ -11,6 +11,15 @@ public class GUIControllerStart : MonoBehaviour {
 	public Button BackButtonCredits;
 	public GameObject QuitButton;
 
+	private void Awake()
+	{
+		if (Application.platform == RuntimePlatform.IPhonePlayer
+		|| Application.platform == RuntimePlatform.Android)
+		{
+			Application.targetFrameRate = 60;
+		}
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
