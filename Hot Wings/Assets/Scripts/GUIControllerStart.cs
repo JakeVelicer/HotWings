@@ -24,7 +24,8 @@ public class GUIControllerStart : MonoBehaviour {
 	void Start ()
 	{
 		if (Application.platform == RuntimePlatform.IPhonePlayer
-		|| Application.platform == RuntimePlatform.Android)
+		|| Application.platform == RuntimePlatform.Android
+		|| Application.platform == RuntimePlatform.WebGLPlayer)
 		{
 			QuitButton.SetActive(false);
 		}
